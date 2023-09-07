@@ -285,8 +285,10 @@
         </div>
     </div>
 </div>
-<?php include 'footer.php' ?>
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
 <script>
+
     $('#miniatura a').click(function () {
         $('a').removeClass('activo');
         $(this).addClass('activo');
@@ -294,64 +296,6 @@
         $('#vista').attr('src', muestra);
     });
 
-    var separator = ' - ', dateFormat = 'DD/MM/YYYY';
-    var options = {
-        autoUpdateInput: false,
-        autoApply: true,
-        locale: {
-            format: dateFormat,
-            separator: separator,
-            applyLabel: 'Confirmar',
-            // cancelLabel: '取消'
-            cancelLabel: 'Borrar fechas'
-        },
-        minDate: moment().add(1, 'days'),
-        maxDate: moment().add(359, 'days'),
-        opens: "left"
-    };
-
-
-    $('[data-datepicker=separateRange]')
-        .daterangepicker(options)
-        .on('apply.daterangepicker', function (ev, picker) {
-            var boolStart = this.name.match(/value_from_start_/g) == null ? false : true;
-            var boolEnd = this.name.match(/value_from_end_/g) == null ? false : true;
-
-            var mainName = this.name.replace('value_from_start_', '');
-            if (boolEnd) {
-                mainName = this.name.replace('value_from_end_', '');
-                $(this).closest('form').find('[name=value_from_end_' + mainName + ']').blur();
-            }
-
-            $(this).closest('form').find('[name=value_from_start_' + mainName + ']').val(picker.startDate.format(dateFormat));
-            $(this).closest('form').find('[name=value_from_end_' + mainName + ']').val(picker.endDate.format(dateFormat));
-
-            $(this).trigger('change').trigger('keyup');
-        })
-        .on('show.daterangepicker', function (ev, picker) {
-            var boolStart = this.name.match(/value_from_start_/g) == null ? false : true;
-            var boolEnd = this.name.match(/value_from_end_/g) == null ? false : true;
-            var mainName = this.name.replace('value_from_start_', '');
-            if (boolEnd) {
-                mainName = this.name.replace('value_from_end_', '');
-            }
-
-            var startDate = $(this).closest('form').find('[name=value_from_start_' + mainName + ']').val();
-            var endDate = $(this).closest('form').find('[name=value_from_end_' + mainName + ']').val();
-
-            $('[name=daterangepicker_start]').val(startDate).trigger('change').trigger('keyup');
-            $('[name=daterangepicker_end]').val(endDate).trigger('change').trigger('keyup');
-
-            if (boolEnd) {
-                $('[name=daterangepicker_end]').focus();
-            }
-        });
-
-
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
     // Botones de navegación
     var imagenes = document.querySelectorAll('.imagen');
     var anterior = document.getElementById('anterior');
@@ -394,3 +338,4 @@
     // Mostrar las primeras 5 imágenes al cargar la página
     mostrarImagenes();
 </script>
+<?php include 'footer.php' ?>

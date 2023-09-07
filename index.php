@@ -289,7 +289,7 @@
                    Cómo funciona
                </h5>
            </div>
-           <div class="col-md-4">
+           <div class="col-md-4 mb-3">
                <div class="box-new">
                    <div class="box-img">
                        <img src="img/lupa.png" alt="icono">
@@ -302,7 +302,7 @@
                    </div>
                </div>
            </div>
-           <div class="col-md-4">
+           <div class="col-md-4 mb-3">
                <div class="box-new">
                    <div class="box-img">
                        <img src="img/chat.png" alt="icono">
@@ -315,7 +315,7 @@
                    </div>
                </div>
            </div>
-           <div class="col-md-4">
+           <div class="col-md-4 mb-3">
                <div class="box-new">
                    <div class="box-img">
                        <img src="img/carita.png" alt="icono">
