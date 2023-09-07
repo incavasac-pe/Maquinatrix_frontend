@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="MDI_tune-vertical-variant" data-name="MDI / tune-vertical-variant" transform="translate(0.297 24) rotate(-90)">
+    <g id="Boundary" transform="translate(0 -0.297)" fill="#fff" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+      <rect width="24" height="24" stroke="none"/>
+      <rect x="0.5" y="0.5" width="23" height="23" fill="none"/>
+    </g>
+    <path id="Path_tune-vertical-variant" data-name="Path / tune-vertical-variant" d="M3.494,7.086V0H2.1V7.086a2.784,2.784,0,0,0,0,5.4v1.5h1.4v-1.5a2.784,2.784,0,0,0,0-5.4m-.7,1.3a1.4,1.4,0,1,1-1.4,1.4,1.4,1.4,0,0,1,1.4-1.4M10.483,0h-1.4V1.5a2.784,2.784,0,0,0,0,5.4v7.086h1.4V6.891a2.784,2.784,0,0,0,0-5.4V0m-.7,2.8a1.4,1.4,0,1,1-1.4,1.4A1.4,1.4,0,0,1,9.784,2.8Z" transform="translate(5.71 5.011)" fill="#fff"/>
+  </g>
+</svg>

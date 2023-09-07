@@ -24,7 +24,7 @@
                 <div class="tab-content">
                     <div id="arrendar" class="container tab-pane active">
                         <form action="" class="fomulario-search row">
-                            <div class="col-md-3 bg-white border-lado">
+                            <div class="col-md-3 bg-white" style="border-radius: 0 0 0 10px;">
                                 <select class="form-control font-family-Roboto-Regular" id="modelo" name="modelo">
                                     <option class="d-none" selected="">Seleccionar</option>
                                     <option>2</option>
@@ -44,7 +44,7 @@
                     </div>
                     <div id="comprar" class="container tab-pane fade">
                         <form action="" class="fomulario-search row">
-                            <div class="col-md-3 bg-white border-lado">
+                            <div class="col-md-3 bg-white" style="border-radius: 0 0 0 10px;">
                                 <select class="form-control font-family-Roboto-Regular" id="modelo-compra" name="modelo-compra">
                                     <option class="d-none" selected="">Seleccionar</option>
                                     <option>2</option>
@@ -78,10 +78,10 @@
                             <div class="row">
                                 <div class="col-md-10 m-auto">
                                     <div class="row">
-                                        <div class="col-md-3 col-12 text-center">
+                                        <div class="col-md-3">
                                             <img src="img/img-car.png" alt="img">
                                         </div>
-                                        <div class="col-md-9 col-12 box-flex">
+                                        <div class="col-md-9 d-flex align-items-center justify-content-between">
                                             <h2 class="font-family-Roboto-Medium mb-0">
                                                 Paga Ahora o al Final del arriendo en maquinaria y herramientas
                                             </h2>
@@ -97,10 +97,10 @@
                             <div class="row">
                                 <div class="col-md-10 m-auto">
                                     <div class="row">
-                                        <div class="col-md-3 col-12 text-center">
+                                        <div class="col-md-3">
                                             <img src="img/img-car.png" alt="img">
                                         </div>
-                                        <div class="col-md-9 col-12 box-flex">
+                                        <div class="col-md-9 d-flex align-items-center justify-content-between">
                                             <h2 class="font-family-Roboto-Medium mb-0">
                                                 Paga Ahora o al Final del arriendo en maquinaria y herramientas
                                             </h2>
@@ -116,20 +116,16 @@
                             <div class="row">
                                 <div class="col-md-10 m-auto">
                                     <div class="row">
-                                        <div class="col-md-10 m-auto">
-                                            <div class="row">
-                                                <div class="col-md-3 col-12 text-center">
-                                                    <img src="img/img-car.png" alt="img">
-                                                </div>
-                                                <div class="col-md-9 col-12 box-flex">
-                                                    <h2 class="font-family-Roboto-Medium mb-0">
-                                                        Paga Ahora o al Final del arriendo en maquinaria y herramientas
-                                                    </h2>
-                                                    <a href="" class="arrow">
-                                                        <i class="far fa-arrow-right"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-3">
+                                            <img src="img/img-car.png" alt="img">
+                                        </div>
+                                        <div class="col-md-9 d-flex align-items-center justify-content-between">
+                                            <h2 class="font-family-Roboto-Medium mb-0">
+                                                Paga Ahora o al Final del arriendo en maquinaria y herramientas
+                                            </h2>
+                                            <a href="" class="arrow">
+                                                <i class="far fa-arrow-right"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -280,56 +276,124 @@
         </div>
     </div>
 </section>
-
-<section class="bg-general mb-5">
+<section class="bg-general">
     <div class="container">
-       <div class="row">
-           <div class="col-md-12">
-               <h5 class="font-family-Roboto-Medium titulo">
-                   Cómo funciona
-               </h5>
-           </div>
-           <div class="col-md-4">
-               <div class="box-new">
-                   <div class="box-img">
-                       <img src="img/lupa.png" alt="icono">
-                   </div>
-                   <div class="box-text">
-                       <h2 class="font-family-Roboto-Medium">1. Encuentra</h2>
-                       <p class="font-family-Roboto-Regular">
-                           Explora para descubrir la maquinaria, repuestos o herramientas que necesitas.
-                       </p>
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-4">
-               <div class="box-new">
-                   <div class="box-img">
-                       <img src="img/chat.png" alt="icono">
-                   </div>
-                   <div class="box-text">
-                       <h2 class="font-family-Roboto-Medium">2. Contacta</h2>
-                       <p class="font-family-Roboto-Regular">
-                           Explora para descubrir la maquinaria, repuestos o herramientas que necesitas.
-                       </p>
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-4">
-               <div class="box-new">
-                   <div class="box-img">
-                       <img src="img/carita.png" alt="icono">
-                   </div>
-                   <div class="box-text">
-                       <h2 class="font-family-Roboto-Medium">3. Disfruta</h2>
-                       <p class="font-family-Roboto-Regular">
-                           Explora para descubrir la maquinaria, repuestos o herramientas que necesitas.
-                       </p>
-                   </div>
-               </div>
-           </div>
-       </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="font-family-Roboto-Medium titulo">
+                    Descubre <a href="#" class="text-blue ml-2">Ver más</a>
+                </h5>
+            </div>
+            <div class="col-md-12">
+                <div class="banner">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-12">
+                            <div class="banner-row">
+                                <span class="font-family-Roboto-Regular text-white">ARRIENDA DESDE</span>
+                                <h3 class="font-family-Roboto-Medium text-white">
+                                    Herramientas, hasta maquinarías y vehículos.
+                                </h3>
+                                <a href="#" class="font-family-Roboto-Medium">
+                                    Conoce más
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-7 col-md-7 col-sm-12">
+                            <img src="img/banner.png" alt="banner" class="w-100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+<section class="bg-general">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="font-family-Roboto-Medium titulo">
+                    Industrias Populares <a href="#" class="text-blue ml-2">Ver más</a>
+                </h5>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="box-categoria">
+                    <a href="#" class="font-family-Roboto-Medium">
+                        <span>
+                            <img src="img/1.png" alt="icono" class="mr-2">
+                            Agricultura
+                        </span>
+                        <span><i class="far fa-angle-right"></i></span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="box-categoria">
+                    <a href="#" class="font-family-Roboto-Medium">
+                        <span>
+                            <img src="img/2.png" alt="icono" class="mr-2">
+                            Construcción
+                        </span>
+                        <span><i class="far fa-angle-right"></i></span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="box-categoria">
+                    <a href="#" class="font-family-Roboto-Medium">
+                        <span>
+                            <img src="img/3.png" alt="icono" class="mr-2">
+                            Camiones y Buses
+                        </span>
+                        <span><i class="far fa-angle-right"></i></span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="box-categoria">
+                    <a href="#" class="font-family-Roboto-Medium">
+                        <span>
+                            <img src="img/4.png" alt="icono" class="mr-2">
+                            Forestal
+                        </span>
+                        <span><i class="far fa-angle-right"></i></span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="box-categoria">
+                    <a href="#" class="font-family-Roboto-Medium">
+                        <span>
+                            <img src="img/5.png" alt="icono" class="mr-2">
+                            Minería
+                        </span>
+                        <span><i class="far fa-angle-right"></i></span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="box-categoria">
+                    <a href="#" class="font-family-Roboto-Medium">
+                        <span>
+                            <img src="img/6.png" alt="icono" class="mr-2">
+                            Otros
+                        </span>
+                        <span><i class="far fa-angle-right"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="font-family-Roboto-Medium titulo">
+                    Preguntas Frecuentes <a href="#" class="text-blue ml-2">Ver más</a>
+                </h5>
+            </div>
 
+        </div>
+    </div>
+</section>
 <?php include 'footer.php' ?>
