@@ -76,7 +76,7 @@
                         </div>
                         <div class="form-group">
                             <button type="button" class="btn_blanco font-family-Inter-SemiBold w-100" data-toggle="modal" data-target="#error"
-                                    id="recuperar">Reenviar contraseña
+                                    id="reenviar">Reenviar contraseña
                             </button>
                         </div>
                     </div>

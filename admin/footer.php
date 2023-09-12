@@ -28,35 +28,14 @@
         $('#nextConfirma').click(function () {
             $("#Msg_resert").html(""); 
             var email = $('#correo').val(); 
-           
-            $.ajax({
-            type: "POST",
-            url: 'http://localhost:3500/resetPassword',
-            data:{email:email },
-            success: function(response, textStatus, xhr)
-                    {
-                        var statusCode = xhr.status; 
-                        if (statusCode === 200 && !response.error)
-                        {
-                             $('#confirma').removeClass('d-none');
-                             $('#cuadro_recuperar').addClass('d-none');
-                        }
-                        else
-                        {
-                            alert('Error');
-                        }
-                   },
-                   error: function(response,xhr, textStatus, errorThrown) {
-                       var statusCode = xhr.status;
-                       alert('Error: ' + response.responseJSON.msg);
-                       console.log("re",response.responseJSON.msg) 
-                        $("#Msg_resert").html("<div class='alert alert-danger' role='alert'>" + response.responseJSON.msg  + "</div>");
-
-                   }
-               });
-           
+            resetPassword(email);           
         })
-
+            //reenvio de contraseña
+        $('#reenviar').click(function () {
+            $("#Msg_resert").html(""); 
+            var email = $('#correo').val(); 
+            resetPassword(email);           
+        })
         $('#abrirnav').click(function () {
             $('#sidebar').css('width','250px');
             $('#sidebar').css('display','inline-block');
@@ -85,21 +64,14 @@
             success: function(response, textStatus, xhr)
             {
                 var statusCode = xhr.status; 
-                if (statusCode === 200 && !response.error)
-                {
-                  console.log("loggin sii",response)   
-                  console.log("loggin sii",response.data.email)                 
+                if (statusCode === 200 && !response.error)  {             
                   window.location.href = 'create_session.php?email=' + response.data.email+'&token='+response.data.token+'&loggin=true&username='+response.data.full_name+'&photo='+response.data.photo;
-                
-                }
-                else
-                {
-                    alert('Invalid Credentials!');
+                 } else {
+                 $("#Msg").html("<div class='alert alert-danger' role='alert'>Credenciales inválidas</div>");                  
                 }
            },
            error: function(response,xhr, textStatus, errorThrown) {
-               var statusCode = xhr.status;
-               alert('Error: ' + response.responseJSON.msg);
+               var statusCode = xhr.status; 
                console.log("re",response.responseJSON.msg) 
                 $("#Msg").html("<div class='alert alert-danger' role='alert'>" + response.responseJSON.msg  + "</div>");
 
@@ -107,6 +79,27 @@
        });
      });
     });
+    function resetPassword(email){
+     $.ajax({
+            type: "POST",
+            url: 'http://localhost:3500/resetPassword',
+            data:{email:email },
+            success: function(response, textStatus, xhr)
+                    {
+                        var statusCode = xhr.status; 
+                        if (statusCode === 200 && !response.error) {
+                             $('#confirma').removeClass('d-none');
+                             $('#cuadro_recuperar').addClass('d-none');
+                        }else {
+                            alert('Error');
+                        }
+                   },
+                   error: function(response,xhr, textStatus, errorThrown) {
+                       var statusCode = xhr.status;  
+                        $("#Msg_resert").html("<div class='alert alert-danger' role='alert'>" + response.responseJSON.msg  + "</div>");
+                         }
+               });
+     }
 </script>
 
 </body>
