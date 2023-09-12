@@ -1,8 +1,56 @@
 <?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtener los datos del formulario
+    $correo = $_POST['correo'];
+    $contrasena = $_POST['contrasena'];
+
+    // URL de la API externa para el inicio de sesión
+    $url = 'https://api.example.com/login';
+
+    // Datos a enviar en la solicitud POST
+    $data = array(
+        'correo' => $correo,
+        'contrasena' => $contrasena
+    );
+
+    // Inicializar cURL
+    $ch = curl_init($url);
+
+    // Establecer las opciones de cURL
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+    // Ejecutar la solicitud cURL
+    $response = curl_exec($ch);
+
+    // Obtener el código de respuesta HTTP
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    // Cerrar la conexión cURL
+    curl_close($ch);
+
+    // Verificar el código de respuesta HTTP
+    if ($httpCode === 200) {
+        // El inicio de sesión fue exitoso
+        echo 'Inicio de sesión exitoso';
+    } else {
+        // El inicio de sesión falló
+        echo 'Inicio de sesión fallido';
+    }
+}
+?>
+
+<?php
+/*
 if(isset($_POST['redireccionar'])) {
+    console.lgo("asdasd")
     header('Location: panel.php');
     exit;
-}
+}*/
+?><?php
+header(“Cache-Control: no-cache, must-revalidate”); // HTTP/1.1
+header(“Expires: Sat, 1 Jul 2000 05:00:00 GMT”); // Fecha en el pasado
 ?>
 <?php include 'header.php' ?>
 <section class="bg_login">
@@ -15,7 +63,7 @@ if(isset($_POST['redireccionar'])) {
                             <img src="../img/logo-black.svg" alt="logo" class="logo">
                         </div>
                         <h1 class="font-family-Inter-SemiBold">
-                            Bienvenido administrador
+                            Bienvenido administradoraa
                         </h1>
                         <p class="font-family-Inter-Regular text-gris">Ingresa los datos para continuar.</p>
                         <form action="" method="post">
