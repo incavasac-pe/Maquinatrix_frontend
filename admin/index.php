@@ -1,4 +1,4 @@
-<?php include 'header.php' ?>
+ <?php include 'header.php' ?>
 <section class="bg_login">
     <div class="container-fluid">
         <div class="row">
@@ -10,7 +10,7 @@
                         </div>
                         <span class="text-danger align-middle" id="Msg"></span>
                         <h1 class="font-family-Inter-SemiBold">
-                            Bienvenido administrador
+                            Bienvenido administradora
                         </h1>
                         <p class="font-family-Inter-Regular text-gris">Ingresa los datos para continuar.</p>
                         <form action="" id="loginform" method="POST">
