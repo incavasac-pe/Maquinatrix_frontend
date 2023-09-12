@@ -38,6 +38,7 @@
                     </div>
                     <div class="cuadro_recuperar d-none" id="cuadro_recuperar">
                         <a href="javascript:void(0);" class="cerrar"><i class="far fa-arrow-left"></i></a>
+                        <span class="text-danger align-middle" id="Msg_resert"></span>
                         <h1 class="font-family-Outfit-SemiBold">
                             Recupera tu contraseña
                         </h1>

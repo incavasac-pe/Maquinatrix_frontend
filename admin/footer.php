@@ -24,9 +24,37 @@
             $('#perfil_abs').toggle();
             $(this).find("i").toggleClass("fa-angle-down fa-angle-up");
         })
+        //envio de contraseña
         $('#nextConfirma').click(function () {
-            $('#confirma').removeClass('d-none');
-            $('#cuadro_recuperar').addClass('d-none');
+            $("#Msg_resert").html(""); 
+            var email = $('#correo').val(); 
+           
+            $.ajax({
+            type: "POST",
+            url: 'http://localhost:3500/resetPassword',
+            data:{email:email },
+            success: function(response, textStatus, xhr)
+                    {
+                        var statusCode = xhr.status; 
+                        if (statusCode === 200 && !response.error)
+                        {
+                             $('#confirma').removeClass('d-none');
+                             $('#cuadro_recuperar').addClass('d-none');
+                        }
+                        else
+                        {
+                            alert('Error');
+                        }
+                   },
+                   error: function(response,xhr, textStatus, errorThrown) {
+                       var statusCode = xhr.status;
+                       alert('Error: ' + response.responseJSON.msg);
+                       console.log("re",response.responseJSON.msg) 
+                        $("#Msg_resert").html("<div class='alert alert-danger' role='alert'>" + response.responseJSON.msg  + "</div>");
+
+                   }
+               });
+           
         })
 
         $('#abrirnav').click(function () {
@@ -45,8 +73,11 @@
             $('#filtroabs').addClass('d-none');
             $('#filtros').find("i").removeClass("fa-chevron-up").addClass('fa-chevron-down');
         })
-           $('#loginform').submit(function(e) {
+        
+        //inicio de sesion
+      $('#loginform').submit(function(e) {       
         e.preventDefault();
+        $("#Msg").html("");
         $.ajax({
             type: "POST",
             url: 'http://localhost:3500/login_account',
