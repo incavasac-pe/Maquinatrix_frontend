@@ -1,4 +1,14 @@
-<?php include 'header.php' ?>
+<?php
+session_start();
+if (isset($_SESSION['loggedIn'])) {
+    $token = $_SESSION['token'];
+    $email = $_SESSION['email'];
+    $username = $_SESSION['username'];
+    $photo = $_SESSION['photo'];
+}
+
+?>
+    <?php include 'header.php' ?>
 
 <section>
     <div class="sidebar" id="sidebar">
@@ -70,7 +80,7 @@
                 </div>
                 <div class="col-md-6 text-right">
                     <p class="mb-0 font-family-Roboto-Regular">
-                        34 Usuarios
+                     <?php print_r($_SESSION); ?>   34 Usuarios
                     </p>
                 </div>
                 <div class="col-md-12 mt-4 mb-4">

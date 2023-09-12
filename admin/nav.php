@@ -1,3 +1,15 @@
+<?php 
+if (isset($_SESSION['loggedIn'])) {
+    $token = $_SESSION['token'];
+    $email = $_SESSION['email'];
+    $username = $_SESSION['username'];
+    $photo = $_SESSION['photo'];
+}else
+{
+  header('location: index.php');
+}
+    
+?>
 <header>
     <div class="container-fluid">
         <div class="row">
@@ -13,7 +25,7 @@
                     <div class="" id="abrirperfil">
                         <img src="../img/profile.jpeg" alt="perfil">
                         <span class="font-family-Roboto-Regular">
-                            Lucas Rodrigue... <i class="fas fa-angle-down"></i>
+                           <?= $username; ?> <i class="fas fa-angle-down"></i>
                         </span>
                     </div>
                     <!-- cuadro oculto -->
@@ -23,13 +35,13 @@
                                 <img src="../img/profile.jpeg" alt="perfil">
                             </div>
                             <div class="">
-                                <span class="font-family-Inter-Bold">Lucas Rodriguez</span>
-                                <p class="font-family-Inter-Regular m-0">ejemplo@gmail.com</p>
+                                <span class="font-family-Inter-Bold">   <?= $username; ?> </span>
+                                <p class="font-family-Inter-Regular m-0">   <?= $email; ?> </p>
                                 <a href="#" class="font-family-Inter-SemiBold">Ver mi perfil</a>
                             </div>
                         </div>
                         <div class="salir">
-                            <a href="#" class="font-family-Inter-Medium">
+                            <a href="create_session.php?logout=true" class="font-family-Inter-Medium">
                                 <i class="fas fa-sign-out mr-2"></i> Cerrar Sesión
                             </a>
                         </div>
@@ -39,3 +51,4 @@
         </div>
     </div>
 </header>
+ 

@@ -1,9 +1,3 @@
-<?php
-if(isset($_POST['redireccionar'])) {
-    header('Location: panel.php');
-    exit;
-}
-?>
 <?php include 'header.php' ?>
 <section class="bg_login">
     <div class="container-fluid">
@@ -14,18 +8,19 @@ if(isset($_POST['redireccionar'])) {
                         <div class="text-center mb-3">
                             <img src="../img/logo-black.svg" alt="logo" class="logo">
                         </div>
+                        <span class="text-danger align-middle" id="Msg"></span>
                         <h1 class="font-family-Inter-SemiBold">
                             Bienvenido administrador
                         </h1>
                         <p class="font-family-Inter-Regular text-gris">Ingresa los datos para continuar.</p>
-                        <form action="" method="post">
+                        <form action="" id="loginform" method="POST">
                             <div class="form-group">
                                 <label for="correo">Correo</label>
-                                <input type="email" name="correo" id="correo" placeholder="ejemplo@gmail.com">
+                                <input type="email" name="email" id="email" placeholder="ejemplo@gmail.com">
                             </div>
                             <div class="form-group position-relative">
                                 <label for="contrasena">Contraseña:</label>
-                                <input type="password" id="contrasena" name="contrasena"
+                                <input type="password" id="password" name="password"
                                        placeholder="* * * * * * *">
                                 <button id="mostrarOcultar" type="button"><i class="fas fa-eye"></i></button>
                             </div>
@@ -97,6 +92,13 @@ if(isset($_POST['redireccionar'])) {
     </div>
 </section>
 
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
 <!-- Modal exitosa-->
 <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -118,4 +120,5 @@ if(isset($_POST['redireccionar'])) {
         </div>
     </div>
 </div>
+ 
 <?php include 'footer.php' ?>

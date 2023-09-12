@@ -1,12 +1,12 @@
 <script>
     $(document).ready(function () {
         $("#mostrarOcultar").click(function () {
-            var tipo = $("#contrasena").attr("type");
+            var tipo = $("#password").attr("type");
             if (tipo === "password") {
-                $("#contrasena").attr("type", "text");
+                $("#password").attr("type", "text");
                 $(this).html('<i class="fas fa-eye-slash"></i>');
             } else {
-                $("#contrasena").attr("type", "password");
+                $("#password").attr("type", "password");
                 $(this).html('<i class="fas fa-eye"></i>');
             }
         });
@@ -45,6 +45,36 @@
             $('#filtroabs').addClass('d-none');
             $('#filtros').find("i").removeClass("fa-chevron-up").addClass('fa-chevron-down');
         })
+           $('#loginform').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:3500/login_account',
+            data: $(this).serialize(),
+            success: function(response, textStatus, xhr)
+            {
+                var statusCode = xhr.status; 
+                if (statusCode === 200 && !response.error)
+                {
+                  console.log("loggin sii",response)   
+                  console.log("loggin sii",response.data.email)                 
+                  window.location.href = 'create_session.php?email=' + response.data.email+'&token='+response.data.token+'&loggin=true&username='+response.data.full_name+'&photo='+response.data.photo;
+                
+                }
+                else
+                {
+                    alert('Invalid Credentials!');
+                }
+           },
+           error: function(response,xhr, textStatus, errorThrown) {
+               var statusCode = xhr.status;
+               alert('Error: ' + response.responseJSON.msg);
+               console.log("re",response.responseJSON.msg) 
+                $("#Msg").html("<div class='alert alert-danger' role='alert'>" + response.responseJSON.msg  + "</div>");
+
+           }
+       });
+     });
     });
 </script>
 
