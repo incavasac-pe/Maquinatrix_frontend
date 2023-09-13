@@ -1,6 +1,18 @@
  <?php include 'header.php' ?>
 <section class="bg_login">
     <div class="container-fluid">
+              <?php
+      if (isset($_GET['logout'])) {
+        $msg = "Se ha cerrado la sesion.";
+        echo '
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>' . $msg . '</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>';
+        }
+    ?>
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 cuadro2 d-flex align-items-center justify-content-center flex-column m-auto">
                 <div class="box_login">
@@ -10,7 +22,7 @@
                         </div>
                         <span class="text-danger align-middle" id="Msg"></span>
                         <h1 class="font-family-Inter-SemiBold">
-                            Bienvenido administradora
+                            Bienvenido administrador
                         </h1>
                         <p class="font-family-Inter-Regular text-gris">Ingresa los datos para continuar.</p>
                         <form action="" id="loginform" method="POST">

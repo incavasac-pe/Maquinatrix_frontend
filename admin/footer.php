@@ -52,7 +52,7 @@
             $('#filtroabs').addClass('d-none');
             $('#filtros').find("i").removeClass("fa-chevron-up").addClass('fa-chevron-down');
         })
-        
+         
         //inicio de sesion
       $('#loginform').submit(function(e) {       
         e.preventDefault();
@@ -100,6 +100,7 @@
                          }
                });
      }
+     
 </script>
 
 </body>

@@ -11,8 +11,7 @@ if (isset($_GET['email']) && isset($_GET['token']) &&  isset($_GET['loggin']) ) 
      header('location: panel.php');
 }
 if (isset($_GET['logout']) ) {
-    session_destroy();  
- header('location: index.php');
- 
+  session_destroy();  
+  header('location: index.php?logout=true'); 
 }
 ?>

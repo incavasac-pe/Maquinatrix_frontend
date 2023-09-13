@@ -1,14 +1,14 @@
 <?php 
+session_start(); 
 if (isset($_SESSION['loggedIn'])) {
     $token = $_SESSION['token'];
     $email = $_SESSION['email'];
     $username = $_SESSION['username'];
     $photo = $_SESSION['photo'];
-}else
-{
-  header('location: index.php');
+} else{
+     header('location: index.php');
 }
-    
+  
 ?>
 <header>
     <div class="container-fluid">
