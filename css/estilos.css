@@ -437,6 +437,7 @@ footer p{
 }
 .box-tienda .box-description{
     padding: 10px 20px;
+    width: -webkit-fill-available;
 }
 .box-tienda .box-description h2{
     font-size: 18px;

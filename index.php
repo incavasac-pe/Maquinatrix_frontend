@@ -1,5 +1,46 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
+  <?php 
+  
+    $count_category = 0;
+    $url12 = 'http://localhost:3500/list_category';
+    $response = file_get_contents($url12);
+    if ($response !== false) {
+       // Decodificar la respuesta JSON
+       $data = json_decode($response, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $categories = $data['data'];
+           $count_category = $data['count'];
+       } else {
+           echo 'Error: ' . $data['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
+    
+
+     
+      $count_pub = 0;
+
+      $url='http://localhost:3500/list_publications?limit=4';
+      echo $url;
+      $response = file_get_contents($url);
+      if ($response !== false) {
+          // Decodificar la respuesta JSON
+          $data = json_decode($response, true);
+          if (!$data['error']) {
+              // Obtener la lista de publicaciones
+              $list_publications = $data['data'];
+               
+           $count_pub = $data['count'];
+          } else {
+              echo 'Error: ' . $data['msg'];
+          }
+      } else {
+          echo 'Error al realizar la solicitud a la API';
+      }      
+   ?>
 <section class="bg-slider d-flex align-items-center justify-content-start">
     <div class="container">
         <div class="row">
@@ -23,20 +64,26 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div id="arrendar" class="container tab-pane active">
-                        <form action="" class="fomulario-search row">
+                        <form action="tienda.php"  method="POST" class="fomulario-search row">
                             <div class="col-md-3 bg-white border-lado">
-                                <select class="form-control font-family-Roboto-Regular" id="modelo" name="modelo">
-                                    <option class="d-none" selected="">Seleccionar</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                </select>
+                                <?php                                            
+                                     if ($count_category > 0) {  
+                                         echo '<select class="form-control font-family-Roboto-Regular"  id="modelo_arrendar" name="modelo_arrendar">';
+                                         echo '<option value="0">Seleccionar</option>'; 
+                                         foreach ($categories as $categorie) {
+                                             $id = $categorie['id_category'];
+                                             $category = $categorie['category']; 
+                                             echo '<option value="' . $id . '">' . $category . '</option>';
+                                         }
+                                         echo '</select>';
+                                     }  
+                                 ?> 
                             </div>
                             <div class="col-md-7 bg-white">
                                 <input type="text" name="buscar" id="buscar" placeholder="¿Qué buscas?" class="font-family-Roboto-Regular">
                             </div>
                             <div class="col-md-2">
-                                <button type="button" class="btn btn-amarillo font-family-Roboto-Medium">
+                                <button type="submit" class="btn btn-amarillo font-family-Roboto-Medium">
                                     <i class="far fa-search"></i> Buscar
                                 </button>
                             </div>
@@ -44,19 +91,25 @@
                     </div>
                     <div id="comprar" class="container tab-pane fade">
                         <form action="" class="fomulario-search row">
-                            <div class="col-md-3 bg-white border-lado">
-                                <select class="form-control font-family-Roboto-Regular" id="modelo-compra" name="modelo-compra">
-                                    <option class="d-none" selected="">Seleccionar</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                </select>
+                            <div class="col-md-3 bg-white border-lado">                             
+                            <?php                                            
+                                if ($count_category > 0) {  
+                                    echo '<select class="form-control font-family-Roboto-Regular"  id="modelo_compra" name="modelo_compra">';
+                                    echo '<option value="0">Seleccionar</option>'; 
+                                    foreach ($categories as $categorie) {
+                                        $id = $categorie['id_category'];
+                                        $category = $categorie['category']; 
+                                        echo '<option value="' . $id . '">' . $category . '</option>';
+                                    }
+                                    echo '</select>';
+                                }  
+                               ?>
                             </div>
                             <div class="col-md-7 bg-white">
                                 <input type="text" name="buscar-compra" id="buscar-compra" placeholder="¿Qué buscas?" class="font-family-Roboto-Regular">
                             </div>
                             <div class="col-md-2">
-                                <button type="button" class="btn btn-amarillo font-family-Roboto-Medium">
+                                <button type="submit" class="btn btn-amarillo font-family-Roboto-Medium">
                                     <i class="far fa-search"></i> Buscar
                                 </button>
                             </div>
@@ -197,6 +250,10 @@
                     Te puede interesar <a href="tienda.php" class="text-blue ml-2">Ver más</a>
                 </h5>
             </div>
+              <?php
+                            // Recorrer la lista de publicaciones y crear las opciones del select
+        if($count_pub > 0){  
+            foreach ($list_publications as $pub) { ?>
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
                 <div class="cuadro">
                     <div class="cuadro-img">
@@ -207,76 +264,17 @@
                     </div>
                     <div class="cuadro-des">
                         <ul class="font-family-Roboto-Regular">
-                            <li><a href="#">Arriendo</a></li>
+                            <li><a href="#">  <?= $pub['type_pub']  ?></a></li>
                         </ul>
                         <p class="font-family-Roboto-Regular">
-                            Construcción Excavadora de las mejores del mundo
+                           <?= $pub['title']  ?>
                         </p>
-                        <strong class="font-family-Roboto-Medium">CLP 84.000</strong>
+                        <strong class="font-family-Roboto-Medium">CLP  <?= $pub['price']  ?></strong>
                         <span class="font-family-Roboto-Medium">(UF 2,250)</span>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
-                <div class="cuadro">
-                    <div class="cuadro-img">
-                        <img src="img/producto.png" alt="producto">
-                        <div class="abs">
-                            <span class="font-family-Roboto-Regular">LIQUIDACIÓN</span>
-                        </div>
-                    </div>
-                    <div class="cuadro-des">
-                        <ul class="font-family-Roboto-Regular">
-                            <li><a href="#">Compra</a></li>
-                        </ul>
-                        <p class="font-family-Roboto-Regular">
-                            Construcción Excavadora de las mejores del mundo
-                        </p>
-                        <strong class="font-family-Roboto-Medium">CLP 84.000</strong>
-                        <span class="font-family-Roboto-Medium">(UF 2,250)</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
-                <div class="cuadro">
-                    <div class="cuadro-img">
-                        <img src="img/producto.png" alt="producto">
-                        <div class="abs">
-                            <span class="font-family-Roboto-Regular">LIQUIDACIÓN</span>
-                        </div>
-                    </div>
-                    <div class="cuadro-des">
-                        <ul class="font-family-Roboto-Regular">
-                            <li><a href="#">Arriendo</a></li>
-                        </ul>
-                        <p class="font-family-Roboto-Regular">
-                            Construcción Excavadora de las mejores del mundo
-                        </p>
-                        <strong class="font-family-Roboto-Medium">CLP 84.000</strong>
-                        <span class="font-family-Roboto-Medium">(UF 2,250)</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
-                <div class="cuadro">
-                    <div class="cuadro-img">
-                        <img src="img/producto.png" alt="producto">
-                        <div class="abs">
-                            <span class="font-family-Roboto-Regular">LIQUIDACIÓN</span>
-                        </div>
-                    </div>
-                    <div class="cuadro-des">
-                        <ul class="font-family-Roboto-Regular">
-                            <li><a href="#">Compra</a></li>
-                        </ul>
-                        <p class="font-family-Roboto-Regular">
-                            Construcción Excavadora de las mejores del mundo
-                        </p>
-                        <strong class="font-family-Roboto-Medium">CLP 84.000</strong>
-                        <span class="font-family-Roboto-Medium">(UF 2,250)</span>
-                    </div>
-                </div>
-            </div>
+     <?php  } }  ?>
         </div>
     </div>
 </section>

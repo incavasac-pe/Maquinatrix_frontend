@@ -1,5 +1,4 @@
 <?php include 'header.php' ?>
-
 <section>
     <div class="sidebar" id="sidebar">
         <?php include 'sidebar.php' ?>
@@ -29,9 +28,28 @@
                  </div>';
             }
             ?>  
-            <?php
-               $count_pub = 0;
-                $url = 'http://localhost:3500/list_publications_panel';
+            <?php 
+              $param='';
+                if (isset($_GET['buscar'])&& $_GET['buscar']!='') {
+                   $search = $_GET['buscar'];
+                   $param = "search=".$search; 
+                }
+                 if (isset($_GET['tpublicacion'])&& $_GET['tpublicacion']!='0') {
+                   $tpublicacion = $_GET['tpublicacion'];
+                   $param = $param ."&tpublicacion=".$tpublicacion ;
+                }
+                 if (isset($_GET['category'])&& $_GET['category']!='0') {
+                   $category = $_GET['category'];
+                    $param = $param ."&category=".$category ;
+                }
+                  if (isset($_GET['fcreacion'])&& $_GET['fcreacion']!='') {
+                   $fcreacion = $_GET['fcreacion'];
+                     $param = $param ."&fcreacion=".$fcreacion ;
+                 }
+                $count_pub = 0;
+                 
+                $url='http://localhost:3500/list_publications_panel?'.$param;
+                
                 $response = file_get_contents($url);
                 if ($response !== false) {
                     // Decodificar la respuesta JSON
@@ -90,13 +108,13 @@
             <div class="row">
                 <div class="col-md-12 mt-4 mb-4"></div>
                 <div class="col-md-6">
-                    <form action="">
+                    <form action="panel.php" method="GET" id="formulariofiltro">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="buscador1">
                                     <div class="form-group position-relative">
                                         <i class="fal fa-search"></i>
-                                        <input type="text" name="buscar" id="buscar" placeholder="Buscar">
+                                        <input type="text" name="buscar" id="buscar" value="<?=isset($_GET['buscar'])? $_GET['buscar']:'' ?>"placeholder="Buscar">
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +132,7 @@
                                         </div>
 
                                         <div class="absbody">
-                                            <form action="">
+                                          
                                                 <div class="form-group">
                                                     <label for="tpublicacion" class="font-family-Inter-Regular d-block">Tipo de publicación</label>
 
@@ -138,7 +156,6 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="categoria" class="font-family-Inter-Regular d-block">Categoría</label>
-
                                                     <?php                                            
                                                         if ($count_category > 0) { 
 
@@ -160,11 +177,11 @@
                                                     <label for="fcreacion" class="font-family-Inter-Regular d-block">Fecha Creación</label>
                                                     <input type="date" id="fcreacion" name="fcreacion">
                                                 </div>
-                                            </form>
+                                          
                                         </div>
                                         <div class="absfooter">
-                                            <button type="button" class="btn-trix">Resetear</button>
-                                            <button type="button" class="btn-trix btn-blue">Aplicar</button>
+                                            <button type="button" class="btn-trix"  onclick="resetearFormulario()">Resetear</button>
+                                            <button type="submit" class="btn-trix btn-blue">Aplicar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -242,7 +259,7 @@
                                         ?>
                                     </div>
                                     <div class="modal-footer">        
-                                        <button type="submit" id="createPub"     class="btn_enviar font-family-Inter-Medium mt-3 w-50">Crear</button>
+                                        <button type="submit" id="createPub"  class="btn_enviar font-family-Inter-Medium mt-3 w-50">Crear</button>
                                     </div>
                                 </form>
                             </div>
@@ -374,7 +391,7 @@
     
     function eliminarPub(id) {   
         var token = '<?= $_SESSION["token"]; ?>';
-        console.log("token", token)
+      
         var postData = {
             "id_product": id,
             "status_id": 8        
@@ -402,5 +419,8 @@
                }
             });
         }   
+         function resetearFormulario() {
+        document.getElementById("formulariofiltro").reset();
+      }
 </script>
 <?php include 'footer.php' ?>

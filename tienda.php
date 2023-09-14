@@ -1,5 +1,71 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
+<?php 
+  
+    $count_category = 0;
+    $url12 = 'http://localhost:3500/list_category';
+    $response = file_get_contents($url12);
+    if ($response !== false) {
+       // Decodificar la respuesta JSON
+       $data = json_decode($response, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $categories = $data['data'];
+           $count_category = $data['count'];
+       } else {
+           echo 'Error: ' . $data['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
+    
+
+    $param='';
+      if (isset($_POST['buscar'])&& $_POST['buscar']!='') {
+         $search = $_POST['buscar'];
+         $param = "&search=".$search; 
+      }
+        if (isset($_POST['buscar-compra'])&& $_POST['buscar-compra']!='') {
+         $search = $_POST['buscar-compra'];
+         $param = "&search=".$search; 
+      }
+       if (isset($_POST['modelo_arrendar'])&& $_POST['modelo_arrendar']!='0') {
+         $tpublicacion = $_POST['modelo_arrendar'];         
+         $param = $param ."&tpublicacion=".$tpublicacion ;
+         $category = $_POST['modelo_arrendar'];
+         $param = $param ."&category=".$category ;
+      }
+       if (isset($_POST['modelo_comprar'])&& $_POST['modelo_comprar']!='0') {      
+         $tpublicacion = $_POST['modelo_comprar'];         
+         $param = $param ."&tpublicacion=".$tpublicacion ;
+         $category = $_POST['modelo_comprar'];
+         $param = $param ."&category=".$category ;
+      }
+        if (isset($_POST['tipo'])) {
+            $tipoSeleccionado = $_POST['tipo'];
+               $param = $param ."&category=".$tipoSeleccionado ; 
+          }  
+            
+      $count_pub = 0;
+
+      $url='http://localhost:3500/list_publications?limit=10'.$param;
+      
+      $response = file_get_contents($url);
+      if ($response !== false) {
+          // Decodificar la respuesta JSON
+          $data = json_decode($response, true);
+          if (!$data['error']) {
+              // Obtener la lista de publicaciones
+              $list_publications = $data['data'];
+              
+           $count_pub = $data['count'];
+          } else {
+              echo 'Error: ' . $data['msg'];
+          }
+      } else {
+          echo 'Error al realizar la solicitud a la API';
+      }      
+   ?>
 <section class="pt-2">
     <div class="container">
         <div class="row">
@@ -19,14 +85,15 @@
         <div class="row">
             <div class="col-md-12 mb-4">
                 <h3 class="font-family-Roboto-Medium titulo-principal">
-                    Palabra Buscada
+                    Palabra Buscada <?= isset($_POST['buscar']) ? $_POST['buscar']!='' : ''?>
                 </h3>
                 <p class="mb-0 font-family-Roboto-Regular titulo-principal-adorno">
-                    84745 resultados de búsqueda
+                    <?=$count_pub?>   resultados de búsqueda
                 </p>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-4">
                 <div class="busqueda">
+               <form action="tienda.php"  method="POST"  >
                     <div class="">
                         <h3 class="font-family-Roboto-Medium">Filtros de Búsqueda</h3>
                         <p class="font-family-Roboto-Regular">
@@ -47,30 +114,29 @@
                         <h4 class="font-family-Roboto-Medium">Condición</h4>
                     </div>
                     <div class="font-family-Roboto-Regular tipo">
-                        <div class="form-group mb-1">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="repuestos" name="tipo">
-                                <label class="custom-control-label font-family-Roboto-Regular" for="repuestos">Repuestos</label>
-                            </div>
-                        </div>
-                        <div class="form-group mb-1">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="neumaticos" name="tipo">
-                                <label class="custom-control-label font-family-Roboto-Regular" for="neumaticos">Neumaticos</label>
-                            </div>
-                        </div>
-                        <div class="form-group mb-1">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="accesorios" name="tipo">
-                                <label class="custom-control-label font-family-Roboto-Regular" for="accesorios">Productos y Accesorios</label>
-                            </div>
-                        </div>
+                          <?php                                            
+                                     if ($count_category > 0) {  
+                                        
+                                         foreach ($categories as $categorie) {
+                                              echo ' <div class="form-group mb-1">';
+                                         echo '<div class="custom-control custom-radio">'; 
+                                             $id = $categorie['id_category'];
+                                             $category = $categorie['category']; 
+                                             echo ' <input type="radio" class="custom-control-input" id="' . $category . '" name="tipo" value="' . $id . '">';
+                                           echo '<label class="custom-control-label font-family-Roboto-Regular" for="' . $category . '">' . $category . '</label>';
+                                             echo '</div> </div>';   
+                                         }
+                                        
+                                     }  
+                                 ?> 
+                         
                     </div>
-                    <div class="mt-5">
-                        <a href="#" class="btn-filtros font-family-Roboto-Medium">
-                            <img src="img/setting.svg" alt="setting"> Más filtros
-                        </a>
+                    <div class="mt-5">                        
+                   <button type="submit" class="btn-filtros font-family-Roboto-Medium">
+                     <img src="img/setting.svg" alt="setting">  Más filtros
+                   </button>                      
                     </div>
+                      </form>
                 </div>
             </div>
             <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
@@ -84,7 +150,10 @@
                     </div>
                     <div class="col-md-12 mt-3">
                         <div class="all">
-                            <a href="detalle.php">
+                      <?php   
+                      if($count_pub > 0){  
+                             foreach ($list_publications as $pub) { ?>
+                            <a href="detalle.php?id=<?= $pub['id_product'] ?>">
                                 <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
                                     <div class="box-img position-relative">
                                         <img src="img/detalle-pro.png" alt="producto">
@@ -93,15 +162,15 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <h2 class="font-family-Roboto-Regular">
-                                                    Construcción Excavadora de las mejores del mundo Construcción
+                                                    <?= $pub['title']  ?>
                                                 </h2>
                                                 <h3 class="mb-3">
-                                                    <strong class="font-family-Roboto-Bold">CLP 10.000 / hora</strong>
+                                                    <strong class="font-family-Roboto-Bold">CLP <?= $pub['price'] ?></strong>
                                                 </h3>
                                             </div>
                                             <div class="col-md-12 mini-detalles d-flex align-items-center justify-content-between">
                                                 <div class="ubicacion font-family-Roboto-Regular">
-                                                    <i class="fal fa-map-marker-alt"></i> San Isidro, Perú
+                                                    <i class="fal fa-map-marker-alt"></i>    <?= $pub['location']  ?>
                                                 </div>
                                                 <a href="" class="btn-contacto font-family-Roboto-Medium">
                                                     <i class="fab fa-whatsapp"></i> Contactar
@@ -111,33 +180,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="detalle.php">
-                                <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
-                                    <div class="box-img position-relative">
-                                        <img src="img/detalle-pro.png" alt="producto">
-                                    </div>
-                                    <div class="box-description">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h2 class="font-family-Roboto-Regular">
-                                                    Construcción Excavadora de las mejores del mundo Construcción
-                                                </h2>
-                                                <h3 class="mb-3">
-                                                    <strong class="font-family-Roboto-Bold">CLP 10.000 / hora</strong>
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-12 mini-detalles d-flex align-items-center justify-content-between">
-                                                <div class="ubicacion font-family-Roboto-Regular">
-                                                    <i class="fal fa-map-marker-alt"></i> San Isidro, Perú
-                                                </div>
-                                                <a href="" class="btn-contacto font-family-Roboto-Medium">
-                                                    <i class="fab fa-whatsapp"></i> Contactar
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                        <?php  } }  ?>                   
                         </div>
                         <div class="price-min" style="display: none;">
                             <a href="detalle.php">

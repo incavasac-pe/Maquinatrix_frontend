@@ -1,5 +1,28 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
+<?php 
+  if (isset($_GET['id'])&& $_GET['id']!='') {
+         $id = $_GET['id'];
+      
+    $count_category = 0;
+    $url12 = 'http://localhost:3500/list_publications_panel_details?id='.$id;
+    
+    $response = file_get_contents($url12);
+    if ($response !== false) {
+       // Decodificar la respuesta JSON
+       $data = json_decode($response, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $detalle = $data['data'][0];
+           $count_category = $data['count'];
+       } else {
+           echo 'Error: ' . $data['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
+      }  
+       ?>
 <section class="pt-2">
     <div class="container">
         <div class="row">
@@ -19,7 +42,7 @@
         <div class="row">
             <div class="col-md-12 mb-3">
                 <h1 class="font-family-Roboto-Medium">
-                    Construcción Excavadora de las mejores del mundo
+                    <?= $detalle['title']  ?>
                 </h1>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
@@ -87,31 +110,10 @@
                         Detalles
                     </h2>
                     <p class="font-family-Roboto-Regular">
-                        Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del
-                        texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una
-                        distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo
-                        "Contenido aquí, contenido aquí".
+                        <?= $detalle['description']  ?>
                     </p>
-                    <p class="font-family-Roboto-Regular">
-                        Estos textos hacen parecerlo un español que se puede leer.
-                        Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto por
-                        defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que
-                        usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a
-                        través de los años, algunas veces por accidente, otras veces a propósito (por ejemplo
-                        insertándole humor y cosas por el estilo). Al contrario del pensamiento popular, el texto de
-                        Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la
-                        literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de
-                        2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de
-                        Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín,
-                        "consecteur", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín,
-                        descubrió la fuente indudable
-                    </p>
-                    <p class="font-family-Roboto-Regular">
-                        Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de "de
-                        Finnibus Bonorum et Malorum" (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45
-                        antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el
-                        Renacimiento. La primera linea del Lorem Ipsum, "Lorem ipsum dolor sit amet.."
-                    </p>
+                  
+                   
                 </div>
                 <div class="linea mt-5 mb-5"></div>
                 <div class="caracteristicas">
@@ -122,19 +124,19 @@
                         <tbody>
                         <tr>
                             <td>Marca</td>
-                            <td>VOLVO</td>
+                            <td>  <?= $detalle['brand']  ?></td>
                         </tr>
                         <tr>
                             <td>Modelo</td>
-                            <td>Pc200</td>
+                            <td> <?= $detalle['model']  ?></td>
                         </tr>
                         <tr>
                             <td>Año</td>
-                            <td>2020</td>
+                            <td> <?= $detalle['year']  ?></td>
                         </tr>
                         <tr>
                             <td>Condición</td>
-                            <td>Usado</td>
+                            <td> <?= $detalle['condition']  ?></td>
                         </tr>
                         </tbody>
                     </table>
@@ -146,13 +148,13 @@
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium mb-2">
-                                CLP 1.000 <span class="font-family-Roboto-Regular">/ hora</span>
+                                CLP   <?= $detalle['price']  ?><span class="font-family-Roboto-Regular">/ hora</span>
                             </h3>
                         </div>
                         <form action="javascript: void(0);">
                             <div class="form-group">
                                 <p class="font-family-Roboto-Regular text-celeste fz-14">
-                                    <i class="fal fa-map-marker-alt"></i> San Isidro, Perú
+                                    <i class="fal fa-map-marker-alt"></i> <?= $detalle['location']  ?>
                                 </p>
                                 <p class="font-family-Roboto-Medium fz-14">
                                     Contáctate con el propietario de este anuncio para realizar la cotización del
@@ -162,7 +164,7 @@
                             <div class="form-group">
                                 <div class="box-start">
                                     <label for="mensaje" class="d-block mb-0">Mensaje</label>
-                                    <textarea name="mensaje" id="mensaje" cols="30" rows="3" class="fz-14 font-family-Roboto-Regular">¡Hola! Estoy interesado en el anuncio que vi en el "Nombre de Publicación" Maquinatrix.</textarea>
+                                    <textarea name="mensaje" id="mensaje" cols="30" rows="3" class="fz-14 font-family-Roboto-Regular">¡Hola! Estoy interesado en el anuncio que vi en el  <?= $detalle['title']  ?> Maquinatrix.</textarea>
                                 </div>
                             </div>
                             <div class="alerta d-flex align-items-start justify-content-start" style="gap: 10px">
