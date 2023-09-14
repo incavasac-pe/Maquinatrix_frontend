@@ -1,5 +1,28 @@
 <?php include 'header.php' ?>
 
+<?php
+  if (isset($_GET['id'])) {
+   $count_details = 0;
+   $id = $_GET['id'];
+    $url = 'http://localhost:3500/list_publications_panel_details?id='.$id;
+    $response = file_get_contents($url);
+    if ($response !== false) {
+        // Decodificar la respuesta JSON
+        $data = json_decode($response, true);
+        if (!$data['error']) { 
+         $details_publications = $data['data'][0];
+         
+         $count_details = $data['count'];
+            } else {
+                echo 'Error: ' . $data['msg'];
+            }
+        } else {
+            echo 'Error al realizar la solicitud a la API';
+        }
+    }else {
+        header('location: panel.php');
+    }
+    ?>   
 <section>
     <div class="sidebar" id="sidebar">
         <?php include 'sidebar.php' ?>
@@ -7,6 +30,28 @@
     <div class="main">
         <?php include 'nav.php' ?>
         <div class="container-fluid">
+             <?php
+            if (isset($_GET['success'])) {
+                $msg = "Se ha registrado existosamente.";
+                echo '
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>' . $msg . '</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            }
+            if (isset($_GET['error'])) {
+                $msg = "Ha ocurrido un error.";
+                echo '
+                 <div class="alert alert-danger alee encontraron registrosrt-dismissible fade show" role="alert">
+                     <strong>' . $msg . '</strong>
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                     </button>
+                 </div>';
+            }
+            ?> 
             <div class="row">
                 <div class="col-md-12 mt-4 mb-3"></div>
                 <div class="col-md-12">
@@ -15,16 +60,25 @@
                     </a>
                 </div>
                 <div class="col-md-12 mb-3 mt-3">
-                    <h2 class="font-family-Roboto-Medium titulo-box">Construcción Excavadora de las mejores del mundo</h2>
+                    <h2 class="font-family-Roboto-Medium titulo-box"> Publicación# <?=$details_publications['id_product'] ?></h2>
+                    
+                </div>
+                   <div class="col-md-12 text-right">                        
+                       <button id="Senddata" onclick="mostrarAlerta()" type="button" class="btn btn-primary" >
+                        Guardar cambios
+                    </button>
+                          <button type="button" onclick="eliminarPub()"  class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                        Eliminar publicación
+                    </button>
                 </div>
                 <div class="col-md-3">
                     <div class="box-white">
                         <div class="box-perfil text-center">
                             <img src="../img/profile.jpeg" alt="perfil">
                             <h3 class="font-family-Inter-Medium">
-                                Construcción Excavadora de las mejores del mundo
+                              <?=$details_publications['title'] ?>
                             </h3>
-                            <span class="font-family-Inter-Regular text-gris fz-14">Publicación#2131231</span>
+                            <span class="font-family-Inter-Regular text-gris fz-14">Publicación#  <?=$details_publications['id_product'] ?></span>
                         </div>
                         <div class="box-titulo">
                             <h3 class="font-family-Roboto-Bold">Detalles</h3>
@@ -32,25 +86,25 @@
                         <div class="box-lista">
                             <div>
                                 <p class="font-family-Inter-Regular">Publicación</p>
-                                <h4 class="font-family-Inter-Medium">Publicación#2131231</h4>
+                                <h4 class="font-family-Inter-Medium">Publicación# <?=$details_publications['id_product'] ?></h4>
                             </div>
                         </div>
                         <div class="box-lista">
                             <div>
                                 <p class="font-family-Inter-Regular">Tipo</p>
-                                <h4 class="font-family-Inter-Medium">Arriendo</h4>
+                                <h4 class="font-family-Inter-Medium"> <?=$details_publications['type_pub'] ?></h4>
                             </div>
                         </div>
                         <div class="box-lista">
                             <div>
                                 <p class="font-family-Inter-Regular">Fecha Creación</p>
-                                <h4 class="font-family-Inter-Medium">10 Nov 2023, 2:40 pm</h4>
+                                <h4 class="font-family-Inter-Medium"><?=$details_publications['create_at_formatted'] ?></h4>
                             </div>
                         </div>
                         <div class="box-lista">
                             <div>
                                 <p class="font-family-Inter-Regular">Categoría</p>
-                                <h4 class="font-family-Inter-Medium">Maquinaria</h4>
+                                <h4 class="font-family-Inter-Medium"> <?=$details_publications['category'] ?></h4>
                             </div>
                         </div>
                     </div>
@@ -71,22 +125,22 @@
                         <div class="tab-content">
                             <div id="detalles" class="tab-pane active"><br>
                                 <div class="box-white pdetalles">
-                                    <form action="" class="row">
+                                    <form action="myFormPub" class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <h4 class="font-family-Roboto-Medium">Características</h4>
                                             </div>
                                             <div class="form-group">
                                                 <label for="tpublicacion" class="font-family-Inter-Regular">Título de publicación</label>
-                                                <input type="text" name="tpublicacion" id="tpublicacion" class="font-family-Inter-Medium" placeholder="Título de publicación">
+                                                <input type="text" value="<?=$details_publications['title'] ?>" name="title" id="title" class="font-family-Inter-Medium" placeholder="Título de publicación">
                                             </div>
                                             <div class="form-group">
                                                 <label for="ubicacion" class="font-family-Inter-Regular">Ubicación</label>
-                                                <input type="text" name="ubicacion" id="ubicacion" class="font-family-Inter-Medium" placeholder="Ubicación">
+                                                <input type="text" name="location" id="location" value="<?= isset($details_publications['location']) ? $details_publications['location'] : ''?>" class="font-family-Inter-Medium" placeholder="Ubicación">
                                             </div>
                                             <div class="form-group">
                                                 <label for="dpublicacion" class="font-family-Inter-Regular">Descripción de publicación</label>
-                                                <textarea name="dpublicacion" id="dpublicacion" cols="30" rows="23" placeholder="Descripción de publicación"></textarea>
+                                                <textarea name="description" id="description"  cols="30" rows="23" placeholder="Descripción de publicación"><?= isset($details_publications['description']) ? $details_publications['description'] : ''?></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -96,54 +150,54 @@
                                                         <h4 class="font-family-Roboto-Medium">Precio</h4>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" name="precio" id="precio" class="font-family-Inter-Medium" placeholder="0.00">
+                                                        <input type="text" name="price" id="price"  value="<?= isset($details_publications['price']) ? $details_publications['price'] : ''?>" class="font-family-Inter-Medium" placeholder="0.00">
                                                     </div>
                                                     <div class="form-group">
                                                         <h4 class="font-family-Roboto-Medium">Características</h4>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="marca" class="font-family-Inter-Regular">Marca</label>
-                                                        <input type="text" name="marca" id="marca" class="font-family-Inter-Medium" placeholder="Marca">
+                                                        <input type="text" name="brand" id="brand"  value="<?= isset($details_publications['brand']) ? $details_publications['brand'] : ''?>" class="font-family-Inter-Medium" placeholder="Marca">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="modelo" class="font-family-Inter-Regular">Modelo</label>
-                                                        <input type="text" name="modelo" id="modelo" class="font-family-Inter-Medium" placeholder="Modelo">
+                                                        <input type="text" name="model" id="model"  value="<?= isset($details_publications['model']) ? $details_publications['model'] : ''?>" class="font-family-Inter-Medium" placeholder="Modelo">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="anos" class="font-family-Inter-Regular">Año</label>
-                                                        <input type="text" name="anos" id="anos" class="font-family-Inter-Medium" placeholder="Año">
+                                                        <input type="text" name="year" id="year"  value="<?= isset($details_publications['year']) ? $details_publications['year'] : ''?>" class="font-family-Inter-Medium" placeholder="Año">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="condicion" class="font-family-Inter-Regular">Condición</label>
-                                                        <input type="text" name="condicion" id="condicion" class="font-family-Inter-Medium" placeholder="Condición">
+                                                        <input type="text" name="condition" id="condition"  value="<?= isset($details_publications['condition']) ? $details_publications['condition'] : ''?>"  class="font-family-Intear-Medium" placeholder="Condición">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="kilometraje" class="font-family-Inter-Regular">Kilometraje</label>
-                                                        <input type="text" name="kilometraje" id="kilometraje" class="font-family-Inter-Medium" placeholder="Kilometraje">
+                                                        <input type="text" name="mileage" id="mileage"  value="<?= isset($details_publications['mileage']) ? $details_publications['mileage'] : ''?>" class="font-family-Inter-Medium" placeholder="Kilometraje">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="motor" class="font-family-Inter-Regular">N° de Motor</label>
-                                                        <input type="text" name="motor" id="motor" class="font-family-Inter-Medium" placeholder="N° de Motor">
+                                                        <input type="text" name="engine_number" id="engine_number"  value="<?= isset($details_publications['engine_number']) ? $details_publications['engine_number'] : ''?>" class="font-family-Inter-Medium" placeholder="N° de Motor">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="garantia" class="font-family-Inter-Regular">Garantía Maquinatrix</label>
-                                                        <input type="text" name="garantia" id="garantia" class="font-family-Inter-Medium" placeholder="Garantía Maquinatrix">
+                                                        <input type="text" name="warranty" id="warranty"  value="<?= isset($details_publications['warranty']) ? $details_publications['warranty'] : ''?>" class="font-family-Inter-Medium" placeholder="Garantía Maquinatrix">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="Tpropietario" class="font-family-Inter-Regular">Tipo de Propietario</label>
-                                                        <input type="text" name="Tpropietario" id="Tpropietario" class="font-family-Inter-Medium" placeholder="Tipo de Propietario">
+                                                        <input type="text" name="Tpropietario" id="owner" value="<?= isset($details_publications['owner']) ? $details_publications['owner'] : ''?>"  class="font-family-Inter-Medium" placeholder="Tipo de Propietario">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -152,13 +206,15 @@
                                                     </div>
                                                     <div class="form-check-inline">
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" class="custom-control-input" id="dsi" name="despacho">
+                                                            <input type="radio" class="custom-control-input" id="dsi"  value="S" name="delivery" 
+                                                                <?=$details_publications['delivery']=="S" ? 'checked':' '?> >
                                                             <label class="custom-control-label" for="dsi" style="font-size: 15px;">Si</label>
                                                         </div>
                                                     </div>
                                                     <div class="form-check-inline">
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" class="custom-control-input" id="dno" name="despacho">
+                                                            <input type="radio" class="custom-control-input" id="dno"  value="N" name="delivery" 
+                                                                   <?=$details_publications['delivery']=="N" ? 'checked':' '?> >
                                                             <label class="custom-control-label" for="dno" style="font-size: 15px;">No</label>
                                                         </div>
                                                     </div>
@@ -169,13 +225,15 @@
                                                     </div>
                                                     <div class="form-check-inline">
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" class="custom-control-input" id="psi" name="paga">
+                                                            <input type="radio" class="custom-control-input" id="psi" value="S" name="pay_now_delivery" 
+                                                                     <?=$details_publications['pay_now_delivery']=="S" ? 'checked':' '?> >
                                                             <label class="custom-control-label" for="psi" style="font-size: 15px;">Si</label>
                                                         </div>
                                                     </div>
                                                     <div class="form-check-inline">
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" class="custom-control-input" id="pno" name="paga">
+                                                            <input type="radio" class="custom-control-input" id="pno" value="N" name="pay_now_delivery" 
+                                                                  <?=$details_publications['pay_now_delivery']=="N" ? 'checked':' '?> >
                                                             <label class="custom-control-label" for="pno" style="font-size: 15px;">No</label>
                                                         </div>
                                                     </div>
@@ -265,16 +323,133 @@
             });
         });
 
-        $('body').on('click', ".upload__img-close", function (e) {
-            var file = $(this).parent().data("file");
-            for (var i = 0; i < imgArray.length; i++) {
-                if (imgArray[i].name === file) {
-                    imgArray.splice(i, 1);
-                    break;
+    $('body').on('click', ".upload__img-close", function (e) {
+        var file = $(this).parent().data("file");
+        for (var i = 0; i < imgArray.length; i++) {
+            if (imgArray[i].name === file) {
+                imgArray.splice(i, 1);
+                break;
+            }
+        }
+        $(this).parent().parent().remove();
+    });
+    }
+
+       
+    function mostrarAlerta() { 
+        var campo1 = $('#location').val();
+        var campo2 = $('#description').val(); 
+        if (campo1 === '' || campo2 === '') {
+            return false;
+        } else {
+
+        var token = '<?= $_SESSION["token"]; ?>';
+        console.log("token", token)
+        var postData = {
+            "id_product": '<?= $id ?>',
+            "title": $('#title').val(),
+            "location": $('#location').val(),
+            "description": $('#description').val()               
+         };
+        $.ajax({
+            type: "PUT",
+            url: 'http://localhost:3500/update_publication_basic',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            data: postData,
+            success: function (response, textStatus, xhr)
+            {
+                var statusCode = xhr.status;
+                if (statusCode === 200 && !response.error) {
+                    registrarDetalle();
+                } else {
+                    window.location.href = 'detalle-publicaciones.php?error=true';
+                }
+            },
+            error: function (response) { 
+                if (response.status === 401 || response.status === 403) {
+                    window.location.href = 'create_session.php?logout=true';
+                 }
+               }
+            });
+        }      
+      }
+  
+    function registrarDetalle() {
+        var token = '<?php echo $_SESSION["token"]; ?>';
+        console.log("token", token)
+        var postData = {
+            "id_product": '<?= $id ?>',
+            "price": $('#price').val(),
+            "brand": $('#brand').val(),
+            "model": $('#model').val(),
+            "year": $('#year').val(),
+            "condition": $('#condition').val(),
+            "mileage": $('#mileage').val(),
+            "engine_number": $('#engine_number').val(),
+            "warranty": $('#warranty').val(),
+            "owner":$('#owner').val(),
+            "delivery":  document.querySelector('input[name="delivery"]:checked').value,
+            "pay_now_delivery":   document.querySelector('input[name="pay_now_delivery"]:checked').value
+        };
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:3500/register_product_details',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            data: postData,
+            success: function (response, textStatus, xhr)
+            {
+                var statusCode = xhr.status;
+                if (statusCode === 200 && !response.error) {
+
+                    window.location.href = 'detalle-publicaciones.php?success=true';
+                } else {
+                    window.location.href = 'detalle-publicaciones.php?error=true';
+                }
+            },
+            error: function (response) { 
+
+                if (response.status === 401 || response.status === 403) {
+                    window.location.href = 'create_session.php?logout=true';
                 }
             }
-            $(this).parent().parent().remove();
         });
-    }
+    }    
+    
+    function eliminarPub() {  
+
+        var token = '<?= $_SESSION["token"]; ?>';
+        console.log("token", token)
+        var postData = {
+            "id_product": '<?= $id ?>',
+            "status_id": 8        
+         };
+        $.ajax({
+            type: "PUT",
+            url: 'http://localhost:3500/update_publication_status',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            data: postData,
+            success: function (response, textStatus, xhr)
+            {
+                var statusCode = xhr.status;
+                if (statusCode === 200 && !response.error) {
+                   window.location.href = 'panel.php';
+                } else {
+                    window.location.href = 'detalle-publicaciones.php?error=true';
+                }
+            },
+            error: function (response) { 
+                if (response.status === 401 || response.status === 403) {
+                    window.location.href = 'create_session.php?logout=true';
+                 }
+               }
+            });
+        }      
+      
 </script>
 <?php include 'footer.php' ?>
