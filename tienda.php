@@ -81,7 +81,7 @@
             <div class="col-md-12">
                 <ul class="nav-migas">
                     <li>
-                        <a href="#" class="font-family-Roboto-Regular">Inicio</a>
+                        <a href="index.php" class="font-family-Roboto-Regular">Inicio</a>
                     </li>
                     <li class="font-family-Roboto-Regular"> / Comprar</li>
                 </ul>
@@ -152,8 +152,8 @@
                     <div class="col-md-12">
                         <p class="titulo-tienda text-right" id="">
                             <span class="mr-3">Ordenar por:</span>
-                            <a href="tienda.php?price-min=1" id="price-min" class="font-family-Roboto-Medium mb-3">Precio más bajo primero</a>
-                            <a href="tienda.php?price-max=1" id="price-max" class="font-family-Roboto-Medium mb-3">Precio más alto primero</a>
+                            <a href="tienda.php?price-min=1" id="price-min" class="font-family-Roboto-Medium mb-3 <?php isset($_GET['price-min'])  ? 'activo':'' ?>">Precio más bajo primero</a>
+                            <a href="tienda.php?price-max=1" id="price-max" class="font-family-Roboto-Medium mb-3 <?php isset($_GET['price-max']) && $_GET['price-max'] =='1' ?  'activo':'' ?>">Precio más alto primero</a>
                         </p>
                     </div>
                     <div class="col-md-12 mt-3">

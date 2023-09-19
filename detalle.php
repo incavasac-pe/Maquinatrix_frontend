@@ -161,7 +161,7 @@
                             <div class="form-group">
                                 <div class="box-start">
                                     <label for="mensaje" class="d-block mb-0">Mensaje</label>
-                                    <textarea name="mensaje" id="mensaje" cols="30" rows="3" class="fz-14 font-family-Roboto-Regular">¡Hola! Estoy interesado en el anuncio # <?= $detalle['$id']?>  que vi en el  <?= $detalle['title']  ?> Maquinatrix.</textarea>
+                                    <textarea name="mensaje" id="mensaje" cols="30" rows="3" class="fz-14 font-family-Roboto-Regular">¡Hola! Estoy interesado en el anuncio # <?=$id?>  que vi en el  <?= $detalle['title']  ?> Maquinatrix.</textarea>
                                 </div>
                             </div>
                             <div class="alerta d-flex align-items-start justify-content-start" style="gap: 10px">
@@ -173,7 +173,7 @@
                             </div>
                             <div class="form-group">
                                 
-                                     <a type="button" class="btn btn-contacto font-family-Roboto-Medium w-100 text-white" href="https://api.whatsapp.com/send?phone=51926210524&text=¡Hola! Estoy interesado en el anuncio# <?= $detalle['$id']?> que vi en el  <?= $detalle['title']  ?> Maquinatrix." class="btn-contacto font-family-Roboto-Medium">
+                                     <a type="button" class="btn btn-contacto font-family-Roboto-Medium w-100 text-white" href="https://api.whatsapp.com/send?phone=51926210524&text=¡Hola! Estoy interesado en el anuncio# <?= $id ?> que vi en el  <?= $detalle['title']  ?> Maquinatrix." class="btn-contacto font-family-Roboto-Medium">
                                     <i class="fab fa-whatsapp"></i> Contactar
                                 </a>
                             </div>

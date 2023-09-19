@@ -24,7 +24,7 @@
       $count_pub = 0;
 
       $url='http://localhost:3500/list_publications?limit=4';
-      echo $url;
+    
       $response = file_get_contents($url);
       if ($response !== false) {
           // Decodificar la respuesta JSON
