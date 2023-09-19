@@ -180,7 +180,7 @@
                                                 <div class="ubicacion font-family-Roboto-Regular">
                                                     <i class="fal fa-map-marker-alt"></i>    <?= $pub['location']  ?>
                                                 </div>
-                                                <a href="" class="btn-contacto font-family-Roboto-Medium">
+                                                <a href="https://api.whatsapp.com/send?phone=51926210524&text=¡Hola! Estoy interesado en el anuncio# <?= $pub['id_product']?> que vi en el  <?= $pub['title']  ?> Maquinatrix."class="btn-contacto font-family-Roboto-Medium">
                                                     <i class="fab fa-whatsapp"></i> Contactar
                                                 </a>
                                             </div>
@@ -210,7 +210,7 @@
                                                 <div class="ubicacion font-family-Roboto-Regular">
                                                     <i class="fal fa-map-marker-alt"></i> San Isidro, Perú
                                                 </div>
-                                                <a href="" class="btn-contacto font-family-Roboto-Medium">
+                                                <a href="https://api.whatsapp.com/send?phone=51926210524&text=¡Hola! Estoy interesado en el anuncio# <?= $detalle['$id']?> que vi en el  <?= $detalle['title']  ?> Maquinatrix." class="btn-contacto font-family-Roboto-Medium">
                                                     <i class="fab fa-whatsapp"></i> Contactar
                                                 </a>
                                             </div>
