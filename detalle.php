@@ -21,6 +21,24 @@
     } else {
         echo 'Error al realizar la solicitud a la API';
     }
+    
+    $count_imagen = 0;
+    $url  = 'http://localhost:3500/list_publications_imagen?id='.$id;
+    
+    $responseimg = file_get_contents($url);
+    if ($responseimg !== false) {
+       // Decodificar la respuesta JSON
+       $dataimg = json_decode($responseimg, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $detalle_img = $dataimg['data'] ;
+           $count_imagen = $dataimg['count'];
+       } else {
+           echo 'Error: ' . $dataimg['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
       }  
        ?>
 <section class="pt-2">
@@ -52,48 +70,24 @@
             <div class="col-md-12 mt-4"></div>
             <div class="col-md-8">
                 <div class="galeria">
+                    <?php                                            
+                            if ($count_imagen > 0) {  ?>
                     <div class="galeria1 miniatura" id="miniatura">
                         <div class="text-center boton-navegacion">
                             <button class="btn btn-galeria" id="anterior">
                                 <i class="fas fa-chevron-circle-up"></i>
                             </button>
                         </div>
-                        <!-- Imágenes de la galería -->
-                        <div class="imagen">
-                            <a href="javascript:void(0);" class="activo">
-                                <img src="img/galeria.png" alt="min galeria">
-                            </a>
-                        </div>
-                        <div class="imagen">
-                            <a href="javascript:void(0);">
-                                <img src="img/repuestos.png" alt="min galeria">
-                            </a>
-                        </div>
-                        <div class="imagen">
-                            <a href="javascript:void(0);">
-                                <img src="img/retroexcavadora.png" alt="min galeria">
-                            </a>
-                        </div>
-                        <div class="imagen">
-                            <a href="javascript:void(0);">
-                                <img src="img/galeria1.png" alt="min galeria">
-                            </a>
-                        </div>
-                        <div class="imagen">
-                            <a href="javascript:void(0);">
-                                <img src="img/repuestos.png" alt="min galeria">
-                            </a>
-                        </div>
-                        <div class="imagen">
-                            <a href="javascript:void(0);">
-                                <img src="img/retroexcavadora.png" alt="min galeria">
-                            </a>
-                        </div>
-                        <div class="imagen">
-                            <a href="javascript:void(0);">
-                                <img src="img/galeria1.png" alt="min galeria">
-                            </a>
-                        </div>
+                         
+                             <?php       foreach ($detalle_img as $img) { ?>
+                                   <div class="imagen">
+                                    <a href="javascript:void(0);" class="activo">
+                                         <img src=" http://localhost:3500/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" alt="min galeria">
+                                     </a>
+                                </div>
+                                 <?php  
+                                 }    ?>     
+                      
                         <!-- Agrega más imágenes aquí -->
                         <div class="text-center boton-navegacion">
                             <button class="btn btn-galeria" id="siguiente">
@@ -101,9 +95,14 @@
                             </button>
                         </div>
                     </div>
-                    <div class="presentacion">
-                        <img src="img/galeria.png" alt="galeria" class="w-100" id="vista">
+                       <?php      }  
+                          ?> 
+                      <?php                                            
+                    if ($count_imagen > 0) {  ?>
+                    <div class="presentacion">                      
+                        <img src="http://localhost:3500/see_image?image=<?= $detalle_img[0]["image_name"]!=null ? $detalle_img[0]["image_name"]: 'sin_producto.jpg'?>"  alt="galeria" class="w-100" id="vista">
                     </div>
+                     <?php  }  ?> 
                 </div>
                 <div class="detalles" style="border-top: 1px solid #E4E5E7;margin-top: 20px;padding-top: 20px;">
                     <h2 class="font-family-Roboto-Medium">
@@ -112,8 +111,6 @@
                     <p class="font-family-Roboto-Regular">
                         <?= $detalle['description']  ?>
                     </p>
-                  
-                   
                 </div>
                 <div class="linea mt-5 mb-5"></div>
                 <div class="caracteristicas">

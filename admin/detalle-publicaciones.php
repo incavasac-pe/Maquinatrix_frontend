@@ -256,11 +256,11 @@
                                                         Sube hasta 10 imágenes
                                                     </span>
                                                 </p>
-                                                <input type="file" multiple="" data-max_length="20" class="upload__inputfile">
+                                                <input name="uploadd" id="uploadd" type="file" multiple="" data-max_length="20" class="upload__inputfile" accept=".jpg, .jpeg, .png">
                                             </label>
                                         </div>
                                         <div class="upload__img-wrap"></div>
-                                    </div>
+                                      </div>
                                     <p class="font-family-Roboto-Regular text-gris fz-12 mb-0 mt-3">
                                         Suba las imágenes necesarias para registrar la cita en el historial del paciente.
                                     </p>
@@ -403,9 +403,9 @@
             success: function (response, textStatus, xhr)
             {
                 var statusCode = xhr.status;
-                if (statusCode === 200 && !response.error) {
-
-                    window.location.href = 'detalle-publicaciones.php?success=true';
+                alert("asdads"+statusCode)
+                if (statusCode === 201 && !response.error) {
+                 uploadImgen(); 
                 } else {
                     window.location.href = 'detalle-publicaciones.php?error=true';
                 }
@@ -450,6 +450,55 @@
                }
             });
         }      
+      $(".tab-list").on("click", ".tab", function(event) {
+            event.preventDefault();
+
+            $(".tab").removeClass("active");
+            $(".tab-content").removeClass("show");
+
+            $(this).addClass("active");
+            $($(this).attr('href')).addClass("show");	
+          });$(".tab-list").on("click", ".tab", function(event) {
+            event.preventDefault();
+
+            $(".tab").removeClass("active");
+            $(".tab-content").removeClass("show");
+
+            $(this).addClass("active");
+            $($(this).attr('href')).addClass("show");	
+          }); 
+          
+        function uploadImgen() { 
+    
+         var input = document.getElementById('uploadd');
       
+      if(input){
+
+        var files = input.files;
+ 
+       for (var i = 0; i < files.length; i++) {
+           var formData = new FormData();
+           formData.append('file', files[i]); 
+  
+        var token = '<?= $_SESSION["token"]; ?>'; 
+       
+        $.ajax({
+            type: "POST",
+            processData: false,  // tell jQuery not to process the data
+            contentType: false ,  // tell jQuery not to set contentType
+            url: 'http://localhost:3500/upload_image?id_product=<?= $id ?>',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            data: formData, 
+            error: function (response) { 
+                if (response.status === 401 || response.status === 403) {
+                    window.location.href = 'create_session.php?logout=true';
+                 }
+               }
+            });
+            } 
+        }    
+      }
 </script>
 <?php include 'footer.php' ?>

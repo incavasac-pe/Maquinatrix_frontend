@@ -20,14 +20,15 @@
     }
     
 
-    $param='';
+     $param='';
+     $search='';
       if (isset($_POST['buscar'])&& $_POST['buscar']!='') {
          $search = $_POST['buscar'];
          $param = "&search=".$search; 
       }
         if (isset($_POST['buscar-compra'])&& $_POST['buscar-compra']!='') {
-         $search = $_POST['buscar-compra'];
-         $param = "&search=".$search; 
+         $search1 = $_POST['buscar-compra'];
+         $param = "&search=".$search1; 
       }
        if (isset($_POST['modelo_arrendar'])&& $_POST['modelo_arrendar']!='0') {
          $tpublicacion = $_POST['modelo_arrendar'];         
@@ -40,14 +41,22 @@
          $param = $param ."&tpublicacion=".$tpublicacion ;
          $category = $_POST['modelo_comprar'];
          $param = $param ."&category=".$category ;
-      }
+       }
         if (isset($_POST['tipo'])) {
             $tipoSeleccionado = $_POST['tipo'];
-               $param = $param ."&category=".$tipoSeleccionado ; 
-          }  
-            
+            $param = $param ."&category=".$tipoSeleccionado ; 
+         }  
+         
+       if (isset($_GET['price-min'])) {
+            $price  = $_GET['price-min'];
+            $param = $param ."&price_min=".$price ; 
+         } 
+        if (isset($_GET['price-max'])) {
+            $price  = $_GET['price-max'];
+            $param = $param ."&price_max=".$price ; 
+         } 
+  
       $count_pub = 0;
-
       $url='http://localhost:3500/list_publications?limit=10'.$param;
       
       $response = file_get_contents($url);
@@ -85,7 +94,7 @@
         <div class="row">
             <div class="col-md-12 mb-4">
                 <h3 class="font-family-Roboto-Medium titulo-principal">
-                    Palabra Buscada <?= isset($_POST['buscar']) ? $_POST['buscar']!='' : ''?>
+                    Palabra Buscada <?=$search?>
                 </h3>
                 <p class="mb-0 font-family-Roboto-Regular titulo-principal-adorno">
                     <?=$count_pub?>   resultados de búsqueda
@@ -93,7 +102,7 @@
             </div>
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-4">
                 <div class="busqueda">
-               <form action="tienda.php"  method="POST"  >
+               <form action="tienda.php"  method="POST" >
                     <div class="">
                         <h3 class="font-family-Roboto-Medium">Filtros de Búsqueda</h3>
                         <p class="font-family-Roboto-Regular">
@@ -101,12 +110,12 @@
                         </p>
                     </div>
                     <p class="titulo-tienda">
-                        <a href="javascript:void('0');" class="font-family-Roboto-Medium activo mb-3">Arrendar</a>
+                        <a href="javascript:void('0');" class="font-family-Roboto-Medium mb-3">Arrendar</a>
                         <a href="javascript:void('0');" class="font-family-Roboto-Medium mb-3">Comprar</a>
                     </p>
                     <div class="formulario-busqueda">
                         <div class="form-group">
-                            <input type="text" name="buscar" id="buscar" placeholder="¿Qué buscas?">
+                            <input type="text" name="buscar" id="buscar" value="<?=$search?>" placeholder="¿Qué buscas?">
                         </div>
                     </div>
 
@@ -118,24 +127,23 @@
                                      if ($count_category > 0) {  
                                         
                                          foreach ($categories as $categorie) {
-                                              echo ' <div class="form-group mb-1">';
-                                         echo '<div class="custom-control custom-radio">'; 
+                                             echo ' <div class="form-group mb-1">';
+                                             echo '<div class="custom-control custom-radio">'; 
                                              $id = $categorie['id_category'];
                                              $category = $categorie['category']; 
                                              echo ' <input type="radio" class="custom-control-input" id="' . $category . '" name="tipo" value="' . $id . '">';
-                                           echo '<label class="custom-control-label font-family-Roboto-Regular" for="' . $category . '">' . $category . '</label>';
+                                             echo '<label class="custom-control-label font-family-Roboto-Regular" for="' . $category . '">' . $category . '</label>';
                                              echo '</div> </div>';   
-                                         }
-                                        
+                                         }                                        
                                      }  
                                  ?> 
                          
-                    </div>
-                    <div class="mt-5">                        
-                   <button type="submit" class="btn-filtros font-family-Roboto-Medium">
-                     <img src="img/setting.svg" alt="setting">  Más filtros
-                   </button>                      
-                    </div>
+                              </div>
+                            <div class="mt-5">                        
+                           <button type="submit" class="btn-filtros font-family-Roboto-Medium">
+                             <img src="img/setting.svg" alt="setting">  Más filtros
+                           </button>                      
+                        </div>
                       </form>
                 </div>
             </div>
@@ -144,8 +152,8 @@
                     <div class="col-md-12">
                         <p class="titulo-tienda text-right" id="">
                             <span class="mr-3">Ordenar por:</span>
-                            <a href="javascript:void('0');" id="all" class="font-family-Roboto-Medium activo mb-3">Relevancia</a>
-                            <a href="javascript:void('0');" id="price-min" class="font-family-Roboto-Medium mb-3">Precio más bajo primero</a>
+                            <a href="tienda.php?price-min=1" id="price-min" class="font-family-Roboto-Medium mb-3">Precio más bajo primero</a>
+                            <a href="tienda.php?price-max=1" id="price-max" class="font-family-Roboto-Medium mb-3">Precio más alto primero</a>
                         </p>
                     </div>
                     <div class="col-md-12 mt-3">
@@ -156,7 +164,7 @@
                             <a href="detalle.php?id=<?= $pub['id_product'] ?>">
                                 <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
                                     <div class="box-img position-relative">
-                                        <img src="img/detalle-pro.png" alt="producto">
+                                     <img src=" http://localhost:3500/see_image?image=<?= $pub["image_name"]!=null ? $pub["image_name"]: 'sin_producto.jpg'?>" alt="producto">
                                     </div>
                                     <div class="box-description">
                                         <div class="row">
@@ -182,7 +190,7 @@
                             </a>
                         <?php  } }  ?>                   
                         </div>
-                        <div class="price-min" style="display: none;">
+                        <div class="price-minaaa" style="display: none;">
                             <a href="detalle.php">
                                 <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
                                     <div class="box-img position-relative">

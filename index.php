@@ -67,16 +67,16 @@
                         <form action="tienda.php"  method="POST" class="fomulario-search row">
                             <div class="col-md-3 bg-white border-lado">
                                 <?php                                            
-                                     if ($count_category > 0) {  
-                                         echo '<select class="form-control font-family-Roboto-Regular"  id="modelo_arrendar" name="modelo_arrendar">';
-                                         echo '<option value="0">Seleccionar</option>'; 
-                                         foreach ($categories as $categorie) {
-                                             $id = $categorie['id_category'];
-                                             $category = $categorie['category']; 
-                                             echo '<option value="' . $id . '">' . $category . '</option>';
-                                         }
-                                         echo '</select>';
-                                     }  
+                                    if ($count_category > 0) {  
+                                        echo '<select class="form-control font-family-Roboto-Regular"  id="modelo_arrendar" name="modelo_arrendar">';
+                                        echo '<option value="0">Seleccionar</option>'; 
+                                        foreach ($categories as $categorie) {
+                                            $id = $categorie['id_category'];
+                                            $category = $categorie['category']; 
+                                            echo '<option value="' . $id . '">' . $category . '</option>';
+                                        }
+                                        echo '</select>';
+                                    }  
                                  ?> 
                             </div>
                             <div class="col-md-7 bg-white">
@@ -257,7 +257,7 @@
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
                 <div class="cuadro">
                     <div class="cuadro-img">
-                        <img src="img/producto.png" alt="producto">
+                        <img src=" http://localhost:3500/see_image?image=<?= $pub["image_name"]!=null ? $pub["image_name"]: 'sin_producto.jpg'?>" alt="producto">
                         <div class="abs">
                             <span class="font-family-Roboto-Regular">LIQUIDACIÓN</span>
                         </div>
