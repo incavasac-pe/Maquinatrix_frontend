@@ -29,6 +29,8 @@
             }
             ?>  
             <?php 
+            
+              $baseUrl = getenv('URL_API');
               $param='';
                 if (isset($_GET['buscar'])&& $_GET['buscar']!='') {
                    $search = $_GET['buscar'];
@@ -48,7 +50,7 @@
                  }
                 $count_pub = 0;
                  
-                $url='http://localhost:3500/list_publications_panel?'.$param;
+                $url = $baseUrl.'/list_publications_panel?'.$param;
                 
                 $response = file_get_contents($url);
                 if ($response !== false) {
@@ -64,16 +66,13 @@
                 } else {
                     echo 'Error al realizar la solicitud a la API';
                 }
-                
-                
-                ////
-                
+                 
                 $count_tipo = 0;
-                $url1 = 'http://localhost:3500/list_tipo_pub';
-                $response = file_get_contents($url1);
-                if ($response !== false) {
+                $url1 = $baseUrl.'/list_tipo_pub';
+                $response1 = file_get_contents($url1);
+                if ($response1 !== false) {
                     // Decodificar la respuesta JSON
-                    $data = json_decode($response, true);
+                    $data = json_decode($response1, true);
                     if (!$data['error']) {
                         // Obtener la lista de publicaciones
                         $publications = $data['data'];
@@ -88,7 +87,7 @@
                 ///
                 
                  $count_category = 0;
-                $url12 = 'http://localhost:3500/list_category';
+                $url12 = $baseUrl.'/list_category';
                 $response = file_get_contents($url12);
                 if ($response !== false) {
                     // Decodificar la respuesta JSON
@@ -363,7 +362,7 @@
             };
             $.ajax({
                 type: "POST",
-                url: 'http://localhost:3500/register_publication',
+                url: '<?= $baseUrl ?>/register_publication',
                 headers: {
                     'Authorization': 'Bearer ' + token
                 },
@@ -398,7 +397,7 @@
          };
         $.ajax({
             type: "PUT",
-            url: 'http://localhost:3500/update_publication_status',
+            url: '<?= $baseUrl ?>/update_publication_status',
             headers: {
                 'Authorization': 'Bearer ' + token
             },

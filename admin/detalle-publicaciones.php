@@ -1,10 +1,13 @@
 <?php include 'header.php' ?>
 
 <?php
+
+$baseUrl = getenv('URL_API');
+
   if (isset($_GET['id'])) {
    $count_details = 0;
    $id = $_GET['id'];
-    $url = 'http://localhost:3500/list_publications_panel_details?id='.$id;
+    $url = $baseUrl.'/list_publications_panel_details?id='.$id;
     $response = file_get_contents($url);
     if ($response !== false) {
         // Decodificar la respuesta JSON
@@ -353,7 +356,7 @@
          };
         $.ajax({
             type: "PUT",
-            url: 'http://localhost:3500/update_publication_basic',
+            url: '<?= $baseUrl ?>/update_publication_basic',
             headers: {
                 'Authorization': 'Bearer ' + token
             },
@@ -377,8 +380,7 @@
       }
   
     function registrarDetalle() {
-        var token = '<?php echo $_SESSION["token"]; ?>';
-        console.log("token", token)
+        var token = '<?php echo $_SESSION["token"]; ?>'; 
         var postData = {
             "id_product": '<?= $id ?>',
             "price": $('#price').val(),
@@ -395,7 +397,7 @@
         };
         $.ajax({
             type: "POST",
-            url: 'http://localhost:3500/register_product_details',
+            url: '<?= $baseUrl ?>/register_product_details',
             headers: {
                 'Authorization': 'Bearer ' + token
             },
@@ -421,15 +423,14 @@
     
     function eliminarPub() {  
 
-        var token = '<?= $_SESSION["token"]; ?>';
-        console.log("token", token)
+        var token = '<?= $_SESSION["token"]; ?>'; 
         var postData = {
             "id_product": '<?= $id ?>',
             "status_id": 8        
          };
         $.ajax({
             type: "PUT",
-            url: 'http://localhost:3500/update_publication_status',
+            url: '<?= $baseUrl ?>/update_publication_status',
             headers: {
                 'Authorization': 'Bearer ' + token
             },
@@ -486,7 +487,7 @@
             type: "POST",
             processData: false,  // tell jQuery not to process the data
             contentType: false ,  // tell jQuery not to set contentType
-            url: 'http://localhost:3500/upload_image?id_product=<?= $id ?>',
+            url: '<?= $baseUrl ?>/upload_image?id_product=<?= $id ?>',
             headers: {
                 'Authorization': 'Bearer ' + token
             },

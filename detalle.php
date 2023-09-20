@@ -1,11 +1,13 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
 <?php 
+
+    $baseUrl = getenv('URL_API');
   if (isset($_GET['id'])&& $_GET['id']!='') {
          $id = $_GET['id'];
-      
+  
     $count_category = 0;
-    $url12 = 'http://localhost:3500/list_publications_panel_details?id='.$id;
+    $url12 = $baseUrl.'/list_publications_panel_details?id='.$id;
     
     $response = file_get_contents($url12);
     if ($response !== false) {
@@ -23,7 +25,7 @@
     }
     
     $count_imagen = 0;
-    $url  = 'http://localhost:3500/list_publications_imagen?id='.$id;
+    $url  = $baseUrl.'/list_publications_imagen?id='.$id;
     
     $responseimg = file_get_contents($url);
     if ($responseimg !== false) {
@@ -82,7 +84,7 @@
                              <?php       foreach ($detalle_img as $img) { ?>
                                    <div class="imagen">
                                     <a href="javascript:void(0);" class="activo">
-                                         <img src=" http://localhost:3500/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" alt="min galeria">
+                                         <img src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" alt="min galeria">
                                      </a>
                                 </div>
                                  <?php  
@@ -100,7 +102,7 @@
                       <?php                                            
                     if ($count_imagen > 0) {  ?>
                     <div class="presentacion">                      
-                        <img src="http://localhost:3500/see_image?image=<?= $detalle_img[0]["image_name"]!=null ? $detalle_img[0]["image_name"]: 'sin_producto.jpg'?>"  alt="galeria" class="w-100" id="vista">
+                        <img src="<?= $baseUrl ?>/see_image?image=<?= $detalle_img[0]["image_name"]!=null ? $detalle_img[0]["image_name"]: 'sin_producto.jpg'?>"  alt="galeria" class="w-100" id="vista">
                     </div>
                      <?php  }  ?> 
                 </div>

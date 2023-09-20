@@ -2,12 +2,15 @@
 <?php include 'menu.php' ?>
 <?php 
   
+$baseUrl = getenv('URL_API'); 
+$contact = getenv('WHATSAPP');
+
     $count_category = 0;
-    $url12 = 'http://localhost:3500/list_category';
-    $response = file_get_contents($url12);
-    if ($response !== false) {
+    $url12 = $baseUrl.'/list_category'; 
+    $response1= file_get_contents($url12);
+    if ($response1 !== false) {
        // Decodificar la respuesta JSON
-       $data = json_decode($response, true);
+       $data = json_decode($response1, true);
        if (!$data['error']) {
            // Obtener la lista de $categories
            $categories = $data['data'];
@@ -57,7 +60,7 @@
          } 
   
       $count_pub = 0;
-      $url='http://localhost:3500/list_publications?limit=10'.$param;
+      $url = $baseUrl.'/list_publications?limit=10'.$param;
       
       $response = file_get_contents($url);
       if ($response !== false) {
@@ -164,7 +167,7 @@
                             <a href="detalle.php?id=<?= $pub['id_product'] ?>">
                                 <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
                                     <div class="box-img position-relative">
-                                     <img src=" http://localhost:3500/see_image?image=<?= $pub["image_name"]!=null ? $pub["image_name"]: 'sin_producto.jpg'?>" alt="producto">
+                                     <img src="<?=$baseUrl?>/see_image?image=<?= $pub["image_name"]!=null ? $pub["image_name"]: 'sin_producto.jpg'?>" alt="producto">
                                     </div>
                                     <div class="box-description">
                                         <div class="row">
@@ -180,7 +183,7 @@
                                                 <div class="ubicacion font-family-Roboto-Regular">
                                                     <i class="fal fa-map-marker-alt"></i>    <?= $pub['location']  ?>
                                                 </div>
-                                                <a href="https://api.whatsapp.com/send?phone=51926210524&text=¡Hola! Estoy interesado en el anuncio# <?= $pub['id_product']?> que vi en el  <?= $pub['title']  ?> Maquinatrix."class="btn-contacto font-family-Roboto-Medium">
+                                                <a href="https://api.whatsapp.com/send?phone=<?=$contact?>&text=¡Hola! Estoy interesado en el anuncio# <?= $pub['id_product']?> que vi en el  <?= $pub['title']  ?> Maquinatrix."class="btn-contacto font-family-Roboto-Medium">
                                                     <i class="fab fa-whatsapp"></i> Contactar
                                                 </a>
                                             </div>
@@ -210,7 +213,7 @@
                                                 <div class="ubicacion font-family-Roboto-Regular">
                                                     <i class="fal fa-map-marker-alt"></i> San Isidro, Perú
                                                 </div>
-                                                <a href="https://api.whatsapp.com/send?phone=51926210524&text=¡Hola! Estoy interesado en el anuncio# <?= $detalle['$id']?> que vi en el  <?= $detalle['title']  ?> Maquinatrix." class="btn-contacto font-family-Roboto-Medium">
+                                                <a href="https://api.whatsapp.com/send?phone=<?=$contact?>&text=¡Hola! Estoy interesado en el anuncio# <?= $detalle['$id']?> que vi en el  <?= $detalle['title']  ?> Maquinatrix." class="btn-contacto font-family-Roboto-Medium">
                                                     <i class="fab fa-whatsapp"></i> Contactar
                                                 </a>
                                             </div>

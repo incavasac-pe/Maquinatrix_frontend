@@ -1,9 +1,10 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
-  <?php 
-  
+<?php  
+$baseUrl = getenv('URL_API');
+ 
     $count_category = 0;
-    $url12 = 'http://localhost:3500/list_category';
+    $url12 = $baseUrl.'/list_category';
     $response = file_get_contents($url12);
     if ($response !== false) {
        // Decodificar la respuesta JSON
@@ -22,13 +23,12 @@
 
      
       $count_pub = 0;
-
-      $url='http://localhost:3500/list_publications?limit=4';
+      $url = $baseUrl.'/list_publications?limit=4'; 
     
-      $response = file_get_contents($url);
-      if ($response !== false) {
+      $response1 = file_get_contents($url);
+      if ($response1 !== false) {
           // Decodificar la respuesta JSON
-          $data = json_decode($response, true);
+          $data = json_decode($response1, true);
           if (!$data['error']) {
               // Obtener la lista de publicaciones
               $list_publications = $data['data'];
@@ -257,7 +257,7 @@
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
                 <div class="cuadro">
                     <div class="cuadro-img">
-                        <img src=" http://localhost:3500/see_image?image=<?= $pub["image_name"]!=null ? $pub["image_name"]: 'sin_producto.jpg'?>" alt="producto">
+                        <img src="<?=$baseUrl?>/see_image?image=<?= $pub["image_name"]!=null ? $pub["image_name"]: 'sin_producto.jpg'?>" alt="producto">
                         <div class="abs">
                             <span class="font-family-Roboto-Regular">LIQUIDACIÓN</span>
                         </div>
