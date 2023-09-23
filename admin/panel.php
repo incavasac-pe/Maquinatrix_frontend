@@ -60,9 +60,7 @@
                         // Obtener la lista de publicaciones
                         $list_publications = $data['data'];
                      $count_pub = $data['count'];
-                    } else {
-                        echo 'Error: ' . $data['msg'];
-                    }
+                    } 
                 } else {
                     echo 'Error al realizar la solicitud a la API';
                 }
@@ -290,8 +288,8 @@
                                         echo '<td>Publicación#' . $id . '</td>';
                                         echo '<td>' . $pub['title'] . '</td>';
                                         echo '<td>' . $pub['create_at_formatted'] . '</td>';
-                                        echo '<td><span class="category"> ' . $pub['category'] . '</span></td>';
-                                        echo '<td> ' . $pub['type_pub'] . '</td>';
+                                        echo '<td><span class="category"> ' . $pub['Category']['category'] . '</span></td>';
+                                        echo '<td> ' . $pub['PublicationType']['type_pub'] . '</td>';
 
                                         echo '<td>
                                                 <div class="dropdown d-inline-block">

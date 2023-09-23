@@ -13,8 +13,7 @@ $baseUrl = getenv('URL_API');
         // Decodificar la respuesta JSON
         $data = json_decode($response, true);
         if (!$data['error']) { 
-         $details_publications = $data['data'][0];
-         
+         $details_publications = $data['data'][0];         
          $count_details = $data['count'];
             } else {
                 echo 'Error: ' . $data['msg'];
@@ -64,7 +63,7 @@ $baseUrl = getenv('URL_API');
                 </div>
                 <div class="col-md-12 mb-3 mt-3">
                     <h2 class="font-family-Roboto-Medium titulo-box"> Publicación# <?=$details_publications['id_product'] ?></h2>
-                    
+                       <span class="text-success align-middle" id="Msg"></span>
                 </div>
                    <div class="col-md-12 text-right">                        
                        <button id="Senddata" onclick="mostrarAlerta()" type="button" class="btn btn-primary" >
@@ -95,7 +94,7 @@ $baseUrl = getenv('URL_API');
                         <div class="box-lista">
                             <div>
                                 <p class="font-family-Inter-Regular">Tipo</p>
-                                <h4 class="font-family-Inter-Medium"> <?=$details_publications['type_pub'] ?></h4>
+                                <h4 class="font-family-Inter-Medium"> <?=$details_publications['publication_type']['type_pub'] ?></h4>
                             </div>
                         </div>
                         <div class="box-lista">
@@ -107,7 +106,7 @@ $baseUrl = getenv('URL_API');
                         <div class="box-lista">
                             <div>
                                 <p class="font-family-Inter-Regular">Categoría</p>
-                                <h4 class="font-family-Inter-Medium"> <?=$details_publications['category'] ?></h4>
+                                <h4 class="font-family-Inter-Medium"> <?=$details_publications['mainCategory']['category'] ?></h4>
                             </div>
                         </div>
                     </div>
@@ -153,54 +152,54 @@ $baseUrl = getenv('URL_API');
                                                         <h4 class="font-family-Roboto-Medium">Precio</h4>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" name="price" id="price"  value="<?= isset($details_publications['price']) ? $details_publications['price'] : ''?>" class="font-family-Inter-Medium" placeholder="0.00">
+                                                        <input type="text" name="price" id="price"  value="<?= isset($details_publications['product_details']['price']) ? $details_publications['product_details']['price'] : ''?>" class="font-family-Inter-Medium" placeholder="0.00">
                                                     </div>
                                                     <div class="form-group">
                                                         <h4 class="font-family-Roboto-Medium">Características</h4>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="marca" class="font-family-Inter-Regular">Marca</label>
-                                                        <input type="text" name="brand" id="brand"  value="<?= isset($details_publications['brand']) ? $details_publications['brand'] : ''?>" class="font-family-Inter-Medium" placeholder="Marca">
+                                                        <input type="text" name="brand" id="brand"  value="<?= isset($details_publications  ['product_details']['brand']) ? $details_publications ['product_details']['brand'] : ''?>" class="font-family-Inter-Medium" placeholder="Marca">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="modelo" class="font-family-Inter-Regular">Modelo</label>
-                                                        <input type="text" name="model" id="model"  value="<?= isset($details_publications['model']) ? $details_publications['model'] : ''?>" class="font-family-Inter-Medium" placeholder="Modelo">
+                                                        <input type="text" name="model" id="model"  value="<?= isset($details_publications['product_details']['model']) ? $details_publications['product_details']['model'] : ''?>" class="font-family-Inter-Medium" placeholder="Modelo">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="anos" class="font-family-Inter-Regular">Año</label>
-                                                        <input type="text" name="year" id="year"  value="<?= isset($details_publications['year']) ? $details_publications['year'] : ''?>" class="font-family-Inter-Medium" placeholder="Año">
+                                                        <input type="text" name="year" id="year"  value="<?= isset($details_publications['product_details']['year']) ? $details_publications['product_details']['year'] : ''?>" class="font-family-Inter-Medium" placeholder="Año">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="condicion" class="font-family-Inter-Regular">Condición</label>
-                                                        <input type="text" name="condition" id="condition"  value="<?= isset($details_publications['condition']) ? $details_publications['condition'] : ''?>"  class="font-family-Intear-Medium" placeholder="Condición">
+                                                        <input type="text" name="condition" id="condition"  value="<?= isset($details_publications['product_details']['condition']) ? $details_publications ['product_details']['condition'] : ''?>"  class="font-family-Intear-Medium" placeholder="Condición">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="kilometraje" class="font-family-Inter-Regular">Kilometraje</label>
-                                                        <input type="text" name="mileage" id="mileage"  value="<?= isset($details_publications['mileage']) ? $details_publications['mileage'] : ''?>" class="font-family-Inter-Medium" placeholder="Kilometraje">
+                                                        <input type="text" name="mileage" id="mileage"  value="<?= isset($details_publications['product_details']['mileage']) ? $details_publications['product_details']['mileage'] : ''?>" class="font-family-Inter-Medium" placeholder="Kilometraje">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="motor" class="font-family-Inter-Regular">N° de Motor</label>
-                                                        <input type="text" name="engine_number" id="engine_number"  value="<?= isset($details_publications['engine_number']) ? $details_publications['engine_number'] : ''?>" class="font-family-Inter-Medium" placeholder="N° de Motor">
+                                                        <input type="text" name="engine_number" id="engine_number"  value="<?= isset($details_publications['product_details']['engine_number']) ? $details_publications['product_details']['engine_number']: ''?>" class="font-family-Inter-Medium" placeholder="N° de Motor">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="garantia" class="font-family-Inter-Regular">Garantía Maquinatrix</label>
-                                                        <input type="text" name="warranty" id="warranty"  value="<?= isset($details_publications['warranty']) ? $details_publications['warranty'] : ''?>" class="font-family-Inter-Medium" placeholder="Garantía Maquinatrix">
+                                                        <input type="text" name="warranty" id="warranty"  value="<?= isset($details_publications['product_details']['warranty']) ? $details_publications['product_details']['warranty'] : ''?>" class="font-family-Inter-Medium" placeholder="Garantía Maquinatrix">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="Tpropietario" class="font-family-Inter-Regular">Tipo de Propietario</label>
-                                                        <input type="text" name="Tpropietario" id="owner" value="<?= isset($details_publications['owner']) ? $details_publications['owner'] : ''?>"  class="font-family-Inter-Medium" placeholder="Tipo de Propietario">
+                                                        <input type="text" name="Tpropietario" id="owner" value="<?= isset($details_publications['product_details']['owner'] ) ? $details_publications['product_details']['owner'] : ''?>"  class="font-family-Inter-Medium" placeholder="Tipo de Propietario">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -210,14 +209,15 @@ $baseUrl = getenv('URL_API');
                                                     <div class="form-check-inline">
                                                         <div class="custom-control custom-radio">
                                                             <input type="radio" class="custom-control-input" id="dsi"  value="S" name="delivery" 
-                                                                <?=$details_publications['delivery']=="S" ? 'checked':' '?> >
+                                                                   <?= isset($details_publications['product_details']['delivery'] ) && $details_publications['product_details']['delivery']=="S" ? 'checked': ''?>
+                                                               >
                                                             <label class="custom-control-label" for="dsi" style="font-size: 15px;">Si</label>
                                                         </div>
                                                     </div>
                                                     <div class="form-check-inline">
                                                         <div class="custom-control custom-radio">
                                                             <input type="radio" class="custom-control-input" id="dno"  value="N" name="delivery" 
-                                                                   <?=$details_publications['delivery']=="N" ? 'checked':' '?> >
+                                                                  <?= isset($details_publications['product_details']['delivery'] ) && $details_publications['product_details']['delivery']=="N" ? 'checked': ''?>>
                                                             <label class="custom-control-label" for="dno" style="font-size: 15px;">No</label>
                                                         </div>
                                                     </div>
@@ -228,15 +228,15 @@ $baseUrl = getenv('URL_API');
                                                     </div>
                                                     <div class="form-check-inline">
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" class="custom-control-input" id="psi" value="S" name="pay_now_delivery" 
-                                                                     <?=$details_publications['pay_now_delivery']=="S" ? 'checked':' '?> >
+                                                            <input type="radio" class="custom-control-input" id="psi" value="S" name="pay_now_delivery"  
+                                                    <?= isset($details_publications['product_details']['pay_now_delivery'] ) && $details_publications['product_details']['pay_now_delivery']=="S" ? 'checked': ''?>>
                                                             <label class="custom-control-label" for="psi" style="font-size: 15px;">Si</label>
                                                         </div>
                                                     </div>
                                                     <div class="form-check-inline">
                                                         <div class="custom-control custom-radio">
                                                             <input type="radio" class="custom-control-input" id="pno" value="N" name="pay_now_delivery" 
-                                                                  <?=$details_publications['pay_now_delivery']=="N" ? 'checked':' '?> >
+                                                               <?= isset($details_publications['product_details']['pay_now_delivery'] ) && $details_publications['product_details']['pay_now_delivery']=="N" ? 'checked': ''?>>
                                                             <label class="custom-control-label" for="pno" style="font-size: 15px;">No</label>
                                                         </div>
                                                     </div>
@@ -347,7 +347,6 @@ $baseUrl = getenv('URL_API');
         } else {
 
         var token = '<?= $_SESSION["token"]; ?>';
-        console.log("token", token)
         var postData = {
             "id_product": '<?= $id ?>',
             "title": $('#title').val(),
@@ -405,8 +404,9 @@ $baseUrl = getenv('URL_API');
             success: function (response, textStatus, xhr)
             {
                 var statusCode = xhr.status;
-                alert("asdads"+statusCode)
+                
                 if (statusCode === 201 && !response.error) {
+                      $("#Msg").html("<div class='alert alert-success' role='alert'>Registro Exitoso.</div>");           
                  uploadImgen(); 
                 } else {
                     window.location.href = 'detalle-publicaciones.php?error=true';
@@ -481,8 +481,7 @@ $baseUrl = getenv('URL_API');
            var formData = new FormData();
            formData.append('file', files[i]); 
   
-        var token = '<?= $_SESSION["token"]; ?>'; 
-       
+        var token = '<?= $_SESSION["token"]; ?>';        
         $.ajax({
             type: "POST",
             processData: false,  // tell jQuery not to process the data
