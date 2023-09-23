@@ -167,7 +167,7 @@ $contact = getenv('WHATSAPP');
                             <a href="detalle.php?id=<?= $pub['id_product'] ?>">
                                 <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
                                     <div class="box-img position-relative">
-                                     <img src="<?=$baseUrl?>/see_image?image=<?= $pub["image_name"]!=null ? $pub["image_name"]: 'sin_producto.jpg'?>" alt="producto">
+                                     <img src="<?=$baseUrl?>/see_image?image=<?= isset($pub["product_images"][0]["image_name"])  ? $pub["product_images"][0]["image_name"]: 'sin_producto.jpg'?>" alt="producto">
                                     </div>
                                     <div class="box-description">
                                         <div class="row">
@@ -176,7 +176,7 @@ $contact = getenv('WHATSAPP');
                                                     <?= $pub['title']  ?>
                                                 </h2>
                                                 <h3 class="mb-3">
-                                                    <strong class="font-family-Roboto-Bold">CLP <?= $pub['price'] ?></strong>
+                                                    <strong class="font-family-Roboto-Bold">CLP <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
                                                 </h3>
                                             </div>
                                             <div class="col-md-12 mini-detalles d-flex align-items-center justify-content-between">

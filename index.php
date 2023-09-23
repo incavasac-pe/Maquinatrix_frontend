@@ -257,19 +257,19 @@ $baseUrl = getenv('URL_API');
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
                 <div class="cuadro">
                     <div class="cuadro-img">
-                        <img src="<?=$baseUrl?>/see_image?image=<?= $pub["image_name"]!=null ? $pub["image_name"]: 'sin_producto.jpg'?>" alt="producto">
+                        <img src="<?=$baseUrl?>/see_image?image=<?= isset($pub["product_images"][0]["image_name"])  ? $pub["product_images"][0]["image_name"]: 'sin_producto.jpg'?>" alt="producto">
                         <div class="abs">
                             <span class="font-family-Roboto-Regular">LIQUIDACIÓN</span>
                         </div>
                     </div>
                     <div class="cuadro-des">
                         <ul class="font-family-Roboto-Regular">
-                            <li><a href="#">  <?= $pub['type_pub']  ?></a></li>
+                            <li><a href="#">  <?= $pub['PublicationType']['type_pub']  ?></a></li>
                         </ul>
                         <p class="font-family-Roboto-Regular">
                            <?= $pub['title']  ?>
                         </p>
-                        <strong class="font-family-Roboto-Medium">CLP  <?= $pub['price']  ?></strong>
+                        <strong class="font-family-Roboto-Medium">CLP  <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
                         <span class="font-family-Roboto-Medium">(UF 2,250)</span>
                     </div>
                 </div>
