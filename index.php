@@ -208,8 +208,8 @@ $baseUrl = getenv('URL_API');
                             Maquinaria y Equipos
                         </h5>
                     </div>
-                    <div>
-                        <a href="#" class="font-family-Roboto-Medium">Conoce más</a>
+                    <div> 
+                        <a href="tienda.php?modelo_arrendar=1" class="font-family-Roboto-Medium">Conoce más</a>
                     </div>
                 </div>
             </div>
@@ -222,7 +222,7 @@ $baseUrl = getenv('URL_API');
                         </h5>
                     </div>
                     <div>
-                        <a href="#" class="font-family-Roboto-Medium">Conoce más</a>
+                    <a href="tienda.php?modelo_arrendar=2" class="font-family-Roboto-Medium">Conoce más</a>
                     </div>
                 </div>
             </div>
@@ -235,7 +235,7 @@ $baseUrl = getenv('URL_API');
                         </h5>
                     </div>
                     <div>
-                        <a href="#" class="font-family-Roboto-Medium">Conoce más</a>
+                    <a href="tienda.php?modelo_arrendar=3" class="font-family-Roboto-Medium">Conoce más</a>
                     </div>
                 </div>
             </div>
@@ -269,7 +269,7 @@ $baseUrl = getenv('URL_API');
                         <p class="font-family-Roboto-Regular">
                            <?= $pub['title']  ?>
                         </p>
-                        <strong class="font-family-Roboto-Medium">CLP  <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
+                        <strong class="font-family-Roboto-Medium"> <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
                         <span class="font-family-Roboto-Medium">(UF 2,250)</span>
                     </div>
                 </div>

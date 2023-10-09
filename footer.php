@@ -6,7 +6,7 @@
             </div>
            <div class="col-md-12">
                <div class="row justify-content-between">
-                   <div class="col-md-3 mb-3">
+                   <div class="col-md-4 mb-4">
                        <h3 class="font-family-Roboto-Medium">CONTENIDO</h3>
                        <ul class="font-family-Roboto-Regular">
                            <li>
@@ -20,7 +20,7 @@
                            </li>
                        </ul>
                    </div>
-                   <div class="col-md-3 mb-3">
+                   <div class="col-md-4 mb-4">
                        <h3 class="font-family-Roboto-Medium">SERVICIOS</h3>
                        <ul class="font-family-Roboto-Regular">
                            <li>
@@ -31,7 +31,7 @@
                            </li>
                        </ul>
                    </div>
-                   <div class="col-md-3 mb-3">
+                  <!--  <div class="col-md-3 mb-3">
                        <h3 class="font-family-Roboto-Medium">ENLACES ÚTILES</h3>
                        <ul class="font-family-Roboto-Regular">
                            <li>
@@ -44,7 +44,7 @@
                                <a href="#">Política de Cookies</a>
                            </li>
                        </ul>
-                   </div>
+                   </div> -->
                    <div class="col-md-3 mb-3">
                        <h3 class="font-family-Roboto-Medium">CONTACTO</h3>
                        <ul class="font-family-Roboto-Regular">

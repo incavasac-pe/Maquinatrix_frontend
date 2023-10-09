@@ -33,10 +33,10 @@ $contact = getenv('WHATSAPP');
          $search1 = $_POST['buscar-compra'];
          $param = "&search=".$search1; 
       }
-       if (isset($_POST['modelo_arrendar'])&& $_POST['modelo_arrendar']!='0') {
-         $tpublicacion = $_POST['modelo_arrendar'];         
+       if (isset($_POST['modelo_arrendar']) && $_POST['modelo_arrendar']!='0' || isset($_GET['modelo_arrendar'])   && $_GET['modelo_arrendar']!='0')  {
+         $tpublicacion = $_POST['modelo_arrendar'] ??  $_GET['modelo_arrendar'] ;         
          $param = $param ."&tpublicacion=".$tpublicacion ;
-         $category = $_POST['modelo_arrendar'];
+         $category = $_POST['modelo_arrendar']  ??  $_GET['modelo_arrendar'];
          $param = $param ."&category=".$category ;
       }
        if (isset($_POST['modelo_comprar'])&& $_POST['modelo_comprar']!='0') {      
@@ -144,7 +144,7 @@ $contact = getenv('WHATSAPP');
                               </div>
                             <div class="mt-5">                        
                            <button type="submit" class="btn-filtros font-family-Roboto-Medium">
-                             <img src="img/setting.svg" alt="setting">  Más filtros
+                             <img src="img/setting.svg" alt="setting">  Buscar
                            </button>                      
                         </div>
                       </form>
@@ -155,8 +155,10 @@ $contact = getenv('WHATSAPP');
                     <div class="col-md-12">
                         <p class="titulo-tienda text-right" id="">
                             <span class="mr-3">Ordenar por:</span>
+                            <a href="tienda.php?region=1" id="region" class="font-family-Roboto-Medium mb-3 <?php isset($_GET['region']) && $_GET['region'] =='1' ?  'activo':'' ?>">Región</a>
                             <a href="tienda.php?price-min=1" id="price-min" class="font-family-Roboto-Medium mb-3 <?php isset($_GET['price-min'])  ? 'activo':'' ?>">Precio más bajo primero</a>
                             <a href="tienda.php?price-max=1" id="price-max" class="font-family-Roboto-Medium mb-3 <?php isset($_GET['price-max']) && $_GET['price-max'] =='1' ?  'activo':'' ?>">Precio más alto primero</a>
+
                         </p>
                     </div>
                     <div class="col-md-12 mt-3">
@@ -176,7 +178,7 @@ $contact = getenv('WHATSAPP');
                                                     <?= $pub['title']  ?>
                                                 </h2>
                                                 <h3 class="mb-3">
-                                                    <strong class="font-family-Roboto-Bold">CLP <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
+                                                    <strong class="font-family-Roboto-Bold"> <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
                                                 </h3>
                                             </div>
                                             <div class="col-md-12 mini-detalles d-flex align-items-center justify-content-between">
