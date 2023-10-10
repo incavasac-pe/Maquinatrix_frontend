@@ -17,9 +17,7 @@
            // Obtener la lista de $categories
            $detalle = $data['data'][0];
            $count_category = $data['count'];
-       } else {
-           echo 'Error: ' . $data['msg'];
-       }
+       }  
     } else {
         echo 'Error al realizar la solicitud a la API';
     }
@@ -35,9 +33,7 @@
            // Obtener la lista de $categories
            $detalle_img = $dataimg['data'] ;
            $count_imagen = $dataimg['count'];
-       } else {
-           echo 'Error: ' . $dataimg['msg'];
-       }
+       }  
     } else {
         echo 'Error al realizar la solicitud a la API';
     }
@@ -49,7 +45,7 @@
             <div class="col-md-12">
                 <ul class="nav-migas">
                     <li>
-                        <a href="#" class="font-family-Roboto-Regular">Inicio</a>
+                        <a href="tienda.php" class="font-family-Roboto-Regular">Inicio</a>
                     </li>
                     <li class="font-family-Roboto-Regular"> / Comprar</li>
                 </ul>
@@ -72,8 +68,7 @@
             <div class="col-md-12 mt-4"></div>
             <div class="col-md-8">
                 <div class="galeria">
-                    <?php                                            
-                            if ($count_imagen > 0) {  ?>
+                    <?php    if ($count_imagen > 0) {  ?>
                     <div class="galeria1 miniatura" id="miniatura">
                         <div class="text-center boton-navegacion">
                             <button class="btn btn-galeria" id="anterior">
@@ -81,7 +76,7 @@
                             </button>
                         </div>
                          
-                             <?php       foreach ($detalle_img as $img) { ?>
+                             <?php   foreach ($detalle_img as $img) { ?>
                                    <div class="imagen">
                                     <a href="javascript:void(0);" class="activo">
                                          <img src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" alt="min galeria">
@@ -123,19 +118,19 @@
                         <tbody>
                         <tr>
                             <td>Marca</td>
-                            <td>  <?= $detalle['brand']  ?></td>
+                            <td>  <?= $detalle['product_details']['brand']  ?></td>
                         </tr>
                         <tr>
                             <td>Modelo</td>
-                            <td> <?= $detalle['model']  ?></td>
+                            <td> <?= $detalle['product_details']['model']  ?></td>
                         </tr>
                         <tr>
                             <td>Año</td>
-                            <td> <?= $detalle['year']  ?></td>
+                            <td> <?= $detalle['product_details']['year']  ?></td>
                         </tr>
                         <tr>
                             <td>Condición</td>
-                            <td> <?= $detalle['condition']  ?></td>
+                            <td> <?= $detalle['product_details']['condition']  ?></td>
                         </tr>
                         </tbody>
                     </table>
@@ -147,7 +142,7 @@
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium mb-2">
-                                CLP   <?= $detalle['price']  ?><span class="font-family-Roboto-Regular">/ hora</span>
+                                CLP    <?= isset($detalle['product_details']["price"])? $detalle['product_details']["price"]:'0' ?>  <span class="font-family-Roboto-Regular">/ hora</span>
                             </h3>
                         </div>
                         <form action="javascript: void(0);">

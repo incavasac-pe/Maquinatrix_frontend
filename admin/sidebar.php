@@ -6,9 +6,9 @@
 </div>
 <ul class="font-family-Roboto-Regular">
     <li>
-        <a href="javascript:void(0)" class="activo"><i class="far fa-image"></i> Publicaciones</a>
+        <a href="panel.php" class="activo"><i class="far fa-image"></i> Publicaciones</a>
     </li>
-    <li>
+  <!--   <li>
         <a href="javascript:void(0)"><i class="fas fa-user"></i> Métricas</a>
     </li>
     <li>
@@ -22,5 +22,5 @@
     </li>
     <li>
         <a href="javascript:void(0)"><i class="fas fa-crown"></i> Roles</a>
-    </li>
+    </li> -->
 </ul>
