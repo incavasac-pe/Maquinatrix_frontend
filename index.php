@@ -2,8 +2,8 @@
 <?php include 'menu.php' ?>
 <?php  
 $baseUrl = getenv('URL_API');
- 
-    $count_category = 0;
+ $count_category = 0;
+   
     $url12 = $baseUrl.'/list_category';
     $response = file_get_contents($url12);
     if ($response !== false) {
@@ -39,7 +39,8 @@ $baseUrl = getenv('URL_API');
           }
       } else {
           echo 'Error al realizar la solicitud a la API';
-      }      
+      }  
+      
    ?>
 <section class="bg-slider d-flex align-items-center justify-content-start">
     <div class="container">
@@ -50,12 +51,12 @@ $baseUrl = getenv('URL_API');
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active font-family-Roboto-Bold" data-toggle="tab" href="#arrendar" style="border-radius: 10px 0 0 0;">
+                        <a class="nav-link active font-family-Roboto-Bold" data-toggle="tab" href="#arrendar"  style="border-radius: 10px 0 0 0;">
                             Arrendar
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link font-family-Roboto-Bold" data-toggle="tab" href="#comprar" style="border-radius: 0 10px 0 0">
+                        <a class="nav-link font-family-Roboto-Bold" data-toggle="tab" href="#comprar"   style="border-radius: 0 10px 0 0">
                             Comprar
                         </a>
                     </li>
@@ -64,12 +65,12 @@ $baseUrl = getenv('URL_API');
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div id="arrendar" class="container tab-pane active">
-                        <form action="tienda.php"  method="POST" class="fomulario-search row">
+                        <form  class="fomulario-search row">
                             <div class="col-md-3 bg-white border-lado">
                                 <?php                                            
                                     if ($count_category > 0) {  
-                                        echo '<select class="form-control font-family-Roboto-Regular"  id="modelo_arrendar" name="modelo_arrendar">';
-                                        echo '<option value="0">Seleccionar</option>'; 
+                                        echo '<select class="form-control font-family-Roboto-Regular"  id="category" name="category">';
+                                        echo '<option value="">Seleccionar</option>'; 
                                         foreach ($categories as $categorie) {
                                             $id = $categorie['id_category'];
                                             $category = $categorie['category']; 
@@ -83,19 +84,19 @@ $baseUrl = getenv('URL_API');
                                 <input type="text" name="buscar" id="buscar" placeholder="¿Qué buscas?" class="font-family-Roboto-Regular">
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-amarillo font-family-Roboto-Medium">
+                                <button type="button" onclick="buscarInicial('1')"  class="btn btn-amarillo font-family-Roboto-Medium">
                                     <i class="far fa-search"></i> Buscar
                                 </button>
                             </div>
                         </form>
                     </div>
                     <div id="comprar" class="container tab-pane fade">
-                        <form action="" class="fomulario-search row">
+                        <form   class="fomulario-search row"  >
                             <div class="col-md-3 bg-white border-lado">                             
                             <?php                                            
                                 if ($count_category > 0) {  
-                                    echo '<select class="form-control font-family-Roboto-Regular"  id="modelo_compra" name="modelo_compra">';
-                                    echo '<option value="0">Seleccionar</option>'; 
+                                    echo '<select class="form-control font-family-Roboto-Regular"  id="category_compra" name="category_compra">';
+                                    echo '<option value="">Seleccionar</option>'; 
                                     foreach ($categories as $categorie) {
                                         $id = $categorie['id_category'];
                                         $category = $categorie['category']; 
@@ -109,7 +110,7 @@ $baseUrl = getenv('URL_API');
                                 <input type="text" name="buscar-compra" id="buscar-compra" placeholder="¿Qué buscas?" class="font-family-Roboto-Regular">
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-amarillo font-family-Roboto-Medium">
+                                <button type="button" onclick="buscarInicial('2');" class="btn btn-amarillo font-family-Roboto-Medium">
                                     <i class="far fa-search"></i> Buscar
                                 </button>
                             </div>
@@ -196,7 +197,7 @@ $baseUrl = getenv('URL_API');
                         </h5>
                     </div>
                     <div> 
-                        <a href="tienda.php?modelo_arrendar=1" class="font-family-Roboto-Medium">Conoce más</a>
+                        <a href="#"  onclick="conocemas('1')" class="font-family-Roboto-Medium">Conoce más</a>
                     </div>
                 </div>
             </div>
@@ -209,7 +210,7 @@ $baseUrl = getenv('URL_API');
                         </h5>
                     </div>
                     <div>
-                    <a href="tienda.php?modelo_arrendar=2" class="font-family-Roboto-Medium">Conoce más</a>
+                    <a href="#" onclick="conocemas('2')" class="font-family-Roboto-Medium">Conoce más</a>
                     </div>
                 </div>
             </div>
@@ -222,7 +223,7 @@ $baseUrl = getenv('URL_API');
                         </h5>
                     </div>
                     <div>
-                    <a href="tienda.php?modelo_arrendar=3" class="font-family-Roboto-Medium">Conoce más</a>
+                    <a href="#" onclick="conocemas('3')" class="font-family-Roboto-Medium">Conoce más</a>
                     </div>
                 </div>
             </div>
@@ -257,7 +258,7 @@ $baseUrl = getenv('URL_API');
                            <?= $pub['title']  ?>
                         </p>
                         <strong class="font-family-Roboto-Medium"> <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
-                        <span class="font-family-Roboto-Medium">(UF 2,250)</span>
+                 
                     </div>
                 </div>
             </div>
