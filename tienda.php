@@ -77,8 +77,7 @@ $url_publi = $protocol . '://' . $host;
   
       $count_pub = 0;
       $url = $baseUrl.'/list_publications?limit=10'.$param;
-      echo "hola". $url;
-      
+    
       $response = file_get_contents($url);
       if ($response !== false) {
           // Decodificar la respuesta JSON
