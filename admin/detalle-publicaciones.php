@@ -66,7 +66,7 @@ $baseUrl = getenv('URL_API');
                        <span class="text-success align-middle" id="Msg"></span>
                 </div>
                    <div class="col-md-12 text-right">                        
-                       <button id="Senddata" onclick="mostrarAlerta()" type="button" class="btn btn-primary" >
+                       <button id="Senddata" onclick="GuardarBasico()" type="button" class="btn btn-primary" >
                         Guardar cambios
                     </button>
                           <button type="button" onclick="eliminarPub()"  class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
@@ -193,19 +193,50 @@ $baseUrl = getenv('URL_API');
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="garantia" class="font-family-Inter-Regular">Garantía Maquinatrix</label>
-                                                        <input type="text" name="warranty" id="warranty"  value="<?= isset($details_publications['product_details']['warranty']) ? $details_publications['product_details']['warranty'] : ''?>" class="font-family-Inter-Medium" placeholder="Garantía Maquinatrix">
+                                                        <div class="form-check-inline">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="radio" class="custom-control-input" id="warrantys"  value="S" name="warranty" 
+                                                                    <?= isset($details_publications['product_details']['warranty'] ) && $details_publications['product_details']['warranty']=="S" ? 'checked': ''?>
+                                                                >
+                                                                <label class="custom-control-label" for="warrantys" style="font-size: 15px;">Si</label>
+                                                            </div>
+                                                      </div>
+                                                      <div class="form-check-inline">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" class="custom-control-input" id="warrantyn"  value="N" name="warranty" 
+                                                                   <?= isset($details_publications['product_details']['warranty'] ) && $details_publications['product_details']['warranty']=="N" ? 'checked': ''?>
+                                                               >
+                                                            <label class="custom-control-label" for="warrantyn" style="font-size: 15px;">No</label>
+                                                        </div>
                                                     </div>
+                                                      </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="Tpropietario" class="font-family-Inter-Regular">Tipo de Propietario</label>
-                                                        <input type="text" name="Tpropietario" id="owner" value="<?= isset($details_publications['product_details']['owner'] ) ? $details_publications['product_details']['owner'] : ''?>"  class="font-family-Inter-Medium" placeholder="Tipo de Propietario">
+                                                        <label for="owner" class="font-family-Inter-Regular">Tipo de Propietario</label>
+                                                        <div class="form-check-inline">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" class="custom-control-input" id="ownerP"  value="Persona" name="owner" 
+                                                                   <?= isset($details_publications['product_details']['owner'] ) && $details_publications['product_details']['owner']=="Persona" ? 'checked': ''?>
+                                                               >
+                                                            <label class="custom-control-label" for="ownerP" style="font-size: 15px;">Persona</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-check-inline">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" class="custom-control-input" id="ownerE"  value="Empresa" name="owner" 
+                                                                   <?= isset($details_publications['product_details']['owner'] ) && $details_publications['product_details']['owner']=="Empresa" ? 'checked': ''?>
+                                                               >
+                                                            <label class="custom-control-label" for="ownerE" style="font-size: 15px;">Empresa</label>
+                                                        </div>
+                                                    </div>
+                                                        
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <h4 class="font-family-Roboto-Medium">Despacho</h4>
-                                                    </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group"> 
+                                                        <label for="owner" class="font-family-Inter-Regular">Despacho</label>
+                                                   
                                                     <div class="form-check-inline">
                                                         <div class="custom-control custom-radio">
                                                             <input type="radio" class="custom-control-input" id="dsi"  value="S" name="delivery" 
@@ -221,11 +252,12 @@ $baseUrl = getenv('URL_API');
                                                             <label class="custom-control-label" for="dno" style="font-size: 15px;">No</label>
                                                         </div>
                                                     </div>
+                                                      </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <h4 class="font-family-Roboto-Medium">Paga Ahora o Después</h4>
-                                                    </div>
+                                                    <div class="form-group"> 
+                                                        <label for="owner" class="font-family-Inter-Regular">Paga Ahora o Después</label>
+                                                
                                                     <div class="form-check-inline">
                                                         <div class="custom-control custom-radio">
                                                             <input type="radio" class="custom-control-input" id="psi" value="S" name="pay_now_delivery"  
@@ -239,6 +271,35 @@ $baseUrl = getenv('URL_API');
                                                                <?= isset($details_publications['product_details']['pay_now_delivery'] ) && $details_publications['product_details']['pay_now_delivery']=="N" ? 'checked': ''?>>
                                                             <label class="custom-control-label" for="pno" style="font-size: 15px;">No</label>
                                                         </div>
+                                                    </div>
+                                                 </div>
+                                                </div>
+                                            
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="owner" class="font-family-Inter-Regular">Facilidades de Pago</label>
+                                                        <div class="form-check-inline">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" class="custom-control-input" id="facipays"  value="S" name="facipay" 
+                                                                   <?= isset($details_publications['product_details']['facipay'] ) && $details_publications['product_details']['facipay']=="S" ? 'checked': ''?>
+                                                               >
+                                                            <label class="custom-control-label" for="facipays" style="font-size: 15px;">Si</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-check-inline">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" class="custom-control-input" id="facipayn"  value="N" name="facipay" 
+                                                                   <?= isset($details_publications['product_details']['facipay'] ) && $details_publications['product_details']['facipay']=="N" ? 'checked': ''?>
+                                                               >
+                                                            <label class="custom-control-label" for="facipayn" style="font-size: 15px;">No</label>
+                                                        </div>
+                                                    </div> 
+                                                    </div>
+                                                </div>
+                                                 <div class="col-md-12"> 
+                                                        <div class="form-group">
+                                                            <label for="contact_me" class="font-family-Inter-Regular">Datos de contacto </label>
+                                                            <textarea name="contact_me" id="contact_me"  cols="10" rows="10" placeholder="Ej: Pedro Perez, TLF: 895-568-9898, email: pedroperez@gmail.com, fax:9234,instragram: pperez123"><?= isset($details_publications['product_details']['contact_me']) ? $details_publications['product_details']['contact_me'] : ''?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -259,13 +320,13 @@ $baseUrl = getenv('URL_API');
                                                         Sube hasta 10 imágenes
                                                     </span>
                                                 </p>
-                                                <input name="uploadd" id="uploadd" type="file" multiple="" data-max_length="20" class="upload__inputfile" accept=".jpg, .jpeg, .png">
+                                                <input name="uploadd" id="uploadd" type="file" multiple="" data-max_length="20" class="upload__inputfile" accept=".jpg, .jpeg, .png .webp">
                                             </label>
                                         </div>
                                         <div class="upload__img-wrap"></div>
                                       </div>
                                     <p class="font-family-Roboto-Regular text-gris fz-12 mb-0 mt-3">
-                                        Suba las imágenes necesarias para registrar la cita en el historial del paciente.
+                                        Suba las imágenes necesarias para la publicación.
                                     </p>
                                 </div>
                             </div>
@@ -339,7 +400,7 @@ $baseUrl = getenv('URL_API');
     }
 
        
-    function mostrarAlerta() { 
+    function GuardarBasico() { 
         var campo1 = $('#location').val();
         var campo2 = $('#description').val(); 
         if (campo1 === '' || campo2 === '') {
@@ -378,8 +439,13 @@ $baseUrl = getenv('URL_API');
         }      
       }
   
-    function registrarDetalle() {
+    function registrarDetalle() { 
         var token = '<?php echo $_SESSION["token"]; ?>'; 
+        var deliveryElement = document.querySelector('input[name="delivery"]:checked');
+        var payNowDeliveryElement = document.querySelector('input[name="pay_now_delivery"]:checked');
+        var warrantyElement = document.querySelector('input[name="warranty"]:checked');
+        var ownerElement = document.querySelector('input[name="owner"]:checked');
+        var facipayElement = document.querySelector('input[name="facipay"]:checked');
         var postData = {
             "id_product": '<?= $id ?>',
             "price": $('#price').val(),
@@ -389,10 +455,12 @@ $baseUrl = getenv('URL_API');
             "condition": $('#condition').val(),
             "mileage": $('#mileage').val(),
             "engine_number": $('#engine_number').val(),
-            "warranty": $('#warranty').val(),
-            "owner":$('#owner').val(),
-            "delivery":  document.querySelector('input[name="delivery"]:checked').value,
-            "pay_now_delivery":   document.querySelector('input[name="pay_now_delivery"]:checked').value
+            "warranty": warrantyElement ? warrantyElement.value : null,
+            "owner": ownerElement ? ownerElement.value : null,
+            "delivery": deliveryElement ? deliveryElement.value : null,
+            "pay_now_delivery": payNowDeliveryElement ? payNowDeliveryElement.value : null,
+            "facipay": facipayElement ? facipayElement.value : null,
+            "contact_me":  $('#contact_me').val()
         };
         $.ajax({
             type: "POST",
