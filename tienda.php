@@ -166,7 +166,7 @@ $url_publi = $protocol . '://' . $host;
                               </div>
                             <div class="mt-5">                        
                            <button type="button"  onclick="buscarTienda('<?=$tpublicacion?>');" class="btn-filtros font-family-Roboto-Medium">
-                             <img src="img/setting.svg" alt="setting">  Buscar
+                               <i class="far fa-search"></i> Buscar
                            </button>                      
                         </div>
                       </form>

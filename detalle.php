@@ -3,13 +3,11 @@
 <?php 
 
     $baseUrl = getenv('URL_API');
-$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
-$host = $_SERVER['HTTP_HOST']; 
-$uri = $_SERVER['REQUEST_URI']; 
-$url_publi = $protocol . '://' . $host;
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
+    $host = $_SERVER['HTTP_HOST']; 
+    $uri = $_SERVER['REQUEST_URI']; 
+    $url_publi = $protocol . '://' . $host;
  
-
-echo  $url_publi;
     if (isset($_GET['id'])&& $_GET['id']!='') {
     $id = $_GET['id'];
     if (isset($_GET['typep'])&& $_GET['typep']!='') {
