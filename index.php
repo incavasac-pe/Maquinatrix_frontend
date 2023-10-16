@@ -252,7 +252,7 @@ $baseUrl = getenv('URL_API');
                     </div>
                     <div class="cuadro-des">
                         <ul class="font-family-Roboto-Regular">
-                            <li><a href="#">  <?= $pub['PublicationType']['type_pub']  ?></a></li>
+                            <li><a href="detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>">  <?= $pub['PublicationType']['type_pub']  ?></a></li>
                         </ul>
                         <p class="font-family-Roboto-Regular">
                            <?= $pub['title']  ?>
