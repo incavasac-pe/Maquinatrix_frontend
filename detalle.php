@@ -3,8 +3,17 @@
 <?php 
 
     $baseUrl = getenv('URL_API');
-  if (isset($_GET['id'])&& $_GET['id']!='') {
-         $id = $_GET['id'];
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
+    $host = $_SERVER['HTTP_HOST']; 
+    $uri = $_SERVER['REQUEST_URI']; 
+    $url_publi = $protocol . '://' . $host;
+ 
+    if (isset($_GET['id'])&& $_GET['id']!='') {
+    $id = $_GET['id'];
+    if (isset($_GET['typep'])&& $_GET['typep']!='') {
+      $tpublicacion =  $_GET['typep'];
+      $mov = ($tpublicacion == '2') ? 'comprar' :' arrendar';
+    }
   
     $count_category = 0;
     $url12 = $baseUrl.'/list_publications_panel_details?id='.$id;
@@ -17,9 +26,7 @@
            // Obtener la lista de $categories
            $detalle = $data['data'][0];
            $count_category = $data['count'];
-       } else {
-           echo 'Error: ' . $data['msg'];
-       }
+       }  
     } else {
         echo 'Error al realizar la solicitud a la API';
     }
@@ -35,9 +42,7 @@
            // Obtener la lista de $categories
            $detalle_img = $dataimg['data'] ;
            $count_imagen = $dataimg['count'];
-       } else {
-           echo 'Error: ' . $dataimg['msg'];
-       }
+       }  
     } else {
         echo 'Error al realizar la solicitud a la API';
     }
@@ -49,9 +54,10 @@
             <div class="col-md-12">
                 <ul class="nav-migas">
                     <li>
-                        <a href="#" class="font-family-Roboto-Regular">Inicio</a>
+                        <a href="index.php" class="font-family-Roboto-Regular">Inicio</a>
                     </li>
-                    <li class="font-family-Roboto-Regular"> / Comprar</li>
+                     <li class="font-family-Roboto-Regular"> / <a href="tienda.php?typep=<?=$tpublicacion?>&<?=$mov?>" class="font-family-Roboto-Regular"><?= ($tpublicacion == '2') ? 'Comprar' :' Arrendar'; ?></a></li>
+                    <li class="font-family-Roboto-Regular"> / <?= $detalle['title']  ?> </li>
                 </ul>
             </div>
         </div>
@@ -66,14 +72,13 @@
                 </h1>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migas1">&middot; Arriendo</a>
-                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas">Maquinaria y vehículos</a>
+                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migas1">&middot;  <?= $detalle['publication_type']['type_pub'] ?> </a>
+                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas"> <?=$detalle['mainCategory']['category'] ?></a>
             </div>
             <div class="col-md-12 mt-4"></div>
             <div class="col-md-8">
                 <div class="galeria">
-                    <?php                                            
-                            if ($count_imagen > 0) {  ?>
+                    <?php    if ($count_imagen > 0) {  ?>
                     <div class="galeria1 miniatura" id="miniatura">
                         <div class="text-center boton-navegacion">
                             <button class="btn btn-galeria" id="anterior">
@@ -81,7 +86,7 @@
                             </button>
                         </div>
                          
-                             <?php       foreach ($detalle_img as $img) { ?>
+                             <?php   foreach ($detalle_img as $img) { ?>
                                    <div class="imagen">
                                     <a href="javascript:void(0);" class="activo">
                                          <img src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" alt="min galeria">
@@ -123,19 +128,19 @@
                         <tbody>
                         <tr>
                             <td>Marca</td>
-                            <td>  <?= $detalle['brand']  ?></td>
+                            <td>  <?= $detalle['product_details']['brand']  ?></td>
                         </tr>
                         <tr>
                             <td>Modelo</td>
-                            <td> <?= $detalle['model']  ?></td>
+                            <td> <?= $detalle['product_details']['model']  ?></td>
                         </tr>
                         <tr>
                             <td>Año</td>
-                            <td> <?= $detalle['year']  ?></td>
+                            <td> <?= $detalle['product_details']['year']  ?></td>
                         </tr>
                         <tr>
                             <td>Condición</td>
-                            <td> <?= $detalle['condition']  ?></td>
+                            <td> <?= $detalle['product_details']['condition']  ?></td>
                         </tr>
                         </tbody>
                     </table>
@@ -147,7 +152,7 @@
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium mb-2">
-                                CLP   <?= $detalle['price']  ?><span class="font-family-Roboto-Regular">/ hora</span>
+                               <?= isset($detalle['product_details']["price"])? $detalle['product_details']["price"]:'0' ?>  <span class="font-family-Roboto-Regular"></span>
                             </h3>
                         </div>
                         <form action="javascript: void(0);">
@@ -163,7 +168,7 @@
                             <div class="form-group">
                                 <div class="box-start">
                                     <label for="mensaje" class="d-block mb-0">Mensaje</label>
-                                    <textarea name="mensaje" id="mensaje" cols="30" rows="3" class="fz-14 font-family-Roboto-Regular">¡Hola! Estoy interesado en el anuncio # <?=$id?>  que vi en el  <?= $detalle['title']  ?> Maquinatrix.</textarea>
+                                    <textarea name="mensaje" id="mensaje" cols="30" rows="3" class="fz-14 font-family-Roboto-Regular">¡Hola! Estoy interesado en el anuncio que vi en  Maquinatrix.</textarea>
                                 </div>
                             </div>
                             <div class="alerta d-flex align-items-start justify-content-start" style="gap: 10px">
@@ -175,7 +180,9 @@
                             </div>
                             <div class="form-group">
                                 
-                                     <a type="button" class="btn btn-contacto font-family-Roboto-Medium w-100 text-white" href="https://api.whatsapp.com/send?phone=51926210524&text=¡Hola! Estoy interesado en el anuncio# <?= $id ?> que vi en el  <?= $detalle['title']  ?> Maquinatrix." class="btn-contacto font-family-Roboto-Medium">
+                                     <a type="button" class="btn btn-contacto font-family-Roboto-Medium w-100 text-white"
+                                         onclick="whats('<?=$tpublicacion?>','<?=$id?>','<?=$detalle['title'] ?>','<?=$url_publi?>')" 
+                                         href="#" class="btn-contacto font-family-Roboto-Medium">
                                     <i class="fab fa-whatsapp"></i> Contactar
                                 </a>
                             </div>
@@ -187,7 +194,7 @@
                                     <p class="mb-0">
                                         No se cobra ningún monto por Solicitar Arriendo hasta que el Propietario se contacte
                                         con
-                                        Utd.
+                                        Ud.
                                     </p>
                                 </div>
                             </div>

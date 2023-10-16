@@ -25,7 +25,7 @@
     font-family: 'Roboto-Bold', arial, sans-serif;
 }
 .font-family-Roboto-Regular{
-     font-family: 'Roboto-Regular', arial, sans-serif;
+    font-family: 'Roboto-Regular', arial, sans-serif;
 }
 
 
@@ -437,7 +437,6 @@ footer p{
 }
 .box-tienda .box-description{
     padding: 10px 20px;
-    width: -webkit-fill-available;
 }
 .box-tienda .box-description h2{
     font-size: 18px;
@@ -781,10 +780,10 @@ footer p{
 }
 .bg-carrucel{
     background-color: #FFD140;
-    padding: 10px 0 0 0;
+    /*padding: 10px 0 0 0;*/
 }
 .carrucel img{
-    width: 188px;
+    width: 216px;
 }
 .carrucel h2{
     font-size: 19px;
@@ -818,7 +817,7 @@ footer p{
 }
 .carrucel .swiper-button-prev,
 .carrucel .swiper-button-next{
-    background-color: rgb(255,255,255,0.35);
+    background-color: rgba(255,255,255,0.35);
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -965,6 +964,19 @@ footer p{
     padding: 8px 17px;
     display: inline-block;
 }
+
+.slider-1 {
+    background-color: #FFD140;
+}
+
+.slider-2 {
+    background-color: #1D8EFF;
+}
+
+.slider-3 {
+    background-color: #552E88;
+}
+
 @media (max-width: 767px){
     .carrucel h2 {
         font-size: 16px;
