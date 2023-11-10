@@ -59,7 +59,7 @@
         $("#Msg").html("");
         $.ajax({
             type: "POST",
-            url: '<?= getenv('URL_API') ?>/login_account',
+            url: '<?= getenv('URL_API_DEV') ?>/login_account',
             data: $(this).serialize(),
             success: function(response, textStatus, xhr)
             {
@@ -82,7 +82,7 @@
     function resetPassword(email){
      $.ajax({
             type: "POST",
-            url: '<?= getenv('URL_API') ?>/resetPassword',
+            url: '<?= getenv('URL_API_DEV') ?>/resetPassword',
             data:{email:email },
             success: function(response, textStatus, xhr)
                     {

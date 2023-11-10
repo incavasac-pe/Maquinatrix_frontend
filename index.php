@@ -1,7 +1,7 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
 <?php  
-$baseUrl = getenv('URL_API');
+$baseUrl = getenv('URL_API_DEV');
  
     $count_category = 0;
     $url12 = $baseUrl.'/list_category';

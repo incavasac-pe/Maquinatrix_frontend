@@ -2,7 +2,7 @@
 <?php include 'menu.php' ?>
 <?php 
 
-    $baseUrl = getenv('URL_API');
+    $baseUrl = getenv('URL_API_DEV');
   if (isset($_GET['id'])&& $_GET['id']!='') {
          $id = $_GET['id'];
   

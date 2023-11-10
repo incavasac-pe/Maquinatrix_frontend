@@ -2,7 +2,7 @@
 <?php include 'menu.php' ?>
 <?php 
   
-$baseUrl = getenv('URL_API'); 
+$baseUrl = getenv('URL_API_DEV'); 
 $contact = getenv('WHATSAPP');
 
     $count_category = 0;
