@@ -39,7 +39,8 @@ $baseUrl = getenv('URL_API_DEV');
           }
       } else {
           echo 'Error al realizar la solicitud a la API';
-      }      
+      }  
+      
    ?>
 <section class="bg-slider d-flex align-items-center justify-content-start">
     <div class="container">
@@ -50,12 +51,12 @@ $baseUrl = getenv('URL_API_DEV');
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active font-family-Roboto-Bold" data-toggle="tab" href="#arrendar" style="border-radius: 10px 0 0 0;">
+                        <a class="nav-link active font-family-Roboto-Bold" data-toggle="tab" href="#arrendar"  style="border-radius: 10px 0 0 0;">
                             Arrendar
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link font-family-Roboto-Bold" data-toggle="tab" href="#comprar" style="border-radius: 0 10px 0 0">
+                        <a class="nav-link font-family-Roboto-Bold" data-toggle="tab" href="#comprar"   style="border-radius: 0 10px 0 0">
                             Comprar
                         </a>
                     </li>
@@ -64,12 +65,12 @@ $baseUrl = getenv('URL_API_DEV');
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div id="arrendar" class="container tab-pane active">
-                        <form action="tienda.php"  method="POST" class="fomulario-search row">
+                        <form  class="fomulario-search row">
                             <div class="col-md-3 bg-white border-lado">
                                 <?php                                            
                                     if ($count_category > 0) {  
-                                        echo '<select class="form-control font-family-Roboto-Regular"  id="modelo_arrendar" name="modelo_arrendar">';
-                                        echo '<option value="0">Seleccionar</option>'; 
+                                        echo '<select class="form-control font-family-Roboto-Regular"  id="category" name="category">';
+                                        echo '<option value="">Seleccionar</option>'; 
                                         foreach ($categories as $categorie) {
                                             $id = $categorie['id_category'];
                                             $category = $categorie['category']; 
@@ -83,19 +84,19 @@ $baseUrl = getenv('URL_API_DEV');
                                 <input type="text" name="buscar" id="buscar" placeholder="¿Qué buscas?" class="font-family-Roboto-Regular">
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-amarillo font-family-Roboto-Medium">
+                                <button type="button" onclick="buscarInicial('1')"  class="btn btn-amarillo font-family-Roboto-Medium">
                                     <i class="far fa-search"></i> Buscar
                                 </button>
                             </div>
                         </form>
                     </div>
                     <div id="comprar" class="container tab-pane fade">
-                        <form action="" class="fomulario-search row">
+                        <form   class="fomulario-search row"  >
                             <div class="col-md-3 bg-white border-lado">                             
                             <?php                                            
                                 if ($count_category > 0) {  
-                                    echo '<select class="form-control font-family-Roboto-Regular"  id="modelo_compra" name="modelo_compra">';
-                                    echo '<option value="0">Seleccionar</option>'; 
+                                    echo '<select class="form-control font-family-Roboto-Regular"  id="category_compra" name="category_compra">';
+                                    echo '<option value="">Seleccionar</option>'; 
                                     foreach ($categories as $categorie) {
                                         $id = $categorie['id_category'];
                                         $category = $categorie['category']; 
@@ -109,7 +110,7 @@ $baseUrl = getenv('URL_API_DEV');
                                 <input type="text" name="buscar-compra" id="buscar-compra" placeholder="¿Qué buscas?" class="font-family-Roboto-Regular">
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-amarillo font-family-Roboto-Medium">
+                                <button type="button" onclick="buscarInicial('2');" class="btn btn-amarillo font-family-Roboto-Medium">
                                     <i class="far fa-search"></i> Buscar
                                 </button>
                             </div>
@@ -127,62 +128,49 @@ $baseUrl = getenv('URL_API_DEV');
                 <!-- Swiper -->
                 <div class="swiper carrucel">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
+                        <div class="swiper-slide slider-item slider-1">
                             <div class="row">
                                 <div class="col-md-10 m-auto">
                                     <div class="row">
-                                        <div class="col-md-3 col-12 text-center">
-                                            <img src="img/img-car.png" alt="img">
-                                        </div>
                                         <div class="col-md-9 col-12 box-flex">
                                             <h2 class="font-family-Roboto-Medium mb-0">
                                                 Paga Ahora o al Final del arriendo en maquinaria y herramientas
                                             </h2>
-                                            <a href="" class="arrow">
-                                                <i class="far fa-arrow-right"></i>
-                                            </a>
+                                        </div>
+                                        <div class="col-md-3 col-12 text-center">
+                                            <img src="img/slider1.png" alt="img">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="swiper-slide">
+                        <div class="swiper-slide slider-item slider-2">
                             <div class="row">
                                 <div class="col-md-10 m-auto">
                                     <div class="row">
-                                        <div class="col-md-3 col-12 text-center">
-                                            <img src="img/img-car.png" alt="img">
-                                        </div>
                                         <div class="col-md-9 col-12 box-flex">
-                                            <h2 class="font-family-Roboto-Medium mb-0">
-                                                Paga Ahora o al Final del arriendo en maquinaria y herramientas
+                                            <h2 class="font-family-Roboto-Medium mb-0 text-white">
+                                                Facilidades de Pago para tus Compras
                                             </h2>
-                                            <a href="" class="arrow">
-                                                <i class="far fa-arrow-right"></i>
-                                            </a>
+                                        </div>
+                                        <div class="col-md-3 col-12 text-center">
+                                            <img src="img/slider2.png" alt="img">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="swiper-slide">
+                        <div class="swiper-slide slider-item slider-3">
                             <div class="row">
                                 <div class="col-md-10 m-auto">
                                     <div class="row">
-                                        <div class="col-md-10 m-auto">
-                                            <div class="row">
-                                                <div class="col-md-3 col-12 text-center">
-                                                    <img src="img/img-car.png" alt="img">
-                                                </div>
-                                                <div class="col-md-9 col-12 box-flex">
-                                                    <h2 class="font-family-Roboto-Medium mb-0">
-                                                        Paga Ahora o al Final del arriendo en maquinaria y herramientas
-                                                    </h2>
-                                                    <a href="" class="arrow">
-                                                        <i class="far fa-arrow-right"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-9 col-12 box-flex text-white">
+                                            <h2 class="font-family-Roboto-Medium mb-0">
+                                                Garantía Maquinatrix para tus arriendos
+                                            </h2>
+                                        </div>
+                                        <div class="col-md-3 col-12 text-center">
+                                            <img src="img/slider3.png" alt="img">
                                         </div>
                                     </div>
                                 </div>
@@ -208,8 +196,8 @@ $baseUrl = getenv('URL_API_DEV');
                             Maquinaria y Equipos
                         </h5>
                     </div>
-                    <div>
-                        <a href="#" class="font-family-Roboto-Medium">Conoce más</a>
+                    <div> 
+                        <a href="#"  onclick="conocemas('1')" class="font-family-Roboto-Medium">Conoce más</a>
                     </div>
                 </div>
             </div>
@@ -222,7 +210,7 @@ $baseUrl = getenv('URL_API_DEV');
                         </h5>
                     </div>
                     <div>
-                        <a href="#" class="font-family-Roboto-Medium">Conoce más</a>
+                    <a href="#" onclick="conocemas('2')" class="font-family-Roboto-Medium">Conoce más</a>
                     </div>
                 </div>
             </div>
@@ -235,7 +223,7 @@ $baseUrl = getenv('URL_API_DEV');
                         </h5>
                     </div>
                     <div>
-                        <a href="#" class="font-family-Roboto-Medium">Conoce más</a>
+                    <a href="#" onclick="conocemas('3')" class="font-family-Roboto-Medium">Conoce más</a>
                     </div>
                 </div>
             </div>
@@ -245,7 +233,7 @@ $baseUrl = getenv('URL_API_DEV');
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 d-none">
                 <h5 class="font-family-Roboto-Medium titulo">
                     Te puede interesar <a href="tienda.php" class="text-blue ml-2">Ver más</a>
                 </h5>
@@ -264,13 +252,13 @@ $baseUrl = getenv('URL_API_DEV');
                     </div>
                     <div class="cuadro-des">
                         <ul class="font-family-Roboto-Regular">
-                            <li><a href="#">  <?= $pub['PublicationType']['type_pub']  ?></a></li>
+                            <li><a href="detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>">  <?= $pub['PublicationType']['type_pub']  ?></a></li>
                         </ul>
                         <p class="font-family-Roboto-Regular">
                            <?= $pub['title']  ?>
                         </p>
-                        <strong class="font-family-Roboto-Medium">CLP  <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
-                        <span class="font-family-Roboto-Medium">(UF 2,250)</span>
+                        <strong class="font-family-Roboto-Medium"> <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
+                 
                     </div>
                 </div>
             </div>
@@ -281,52 +269,52 @@ $baseUrl = getenv('URL_API_DEV');
 
 <section class="bg-general mb-5">
     <div class="container">
-       <div class="row">
-           <div class="col-md-12">
-               <h5 class="font-family-Roboto-Medium titulo">
-                   Cómo funciona
-               </h5>
-           </div>
-           <div class="col-md-4 mb-3">
-               <div class="box-new">
-                   <div class="box-img">
-                       <img src="img/lupa.png" alt="icono">
-                   </div>
-                   <div class="box-text">
-                       <h2 class="font-family-Roboto-Medium">1. Encuentra</h2>
-                       <p class="font-family-Roboto-Regular">
-                           Explora para descubrir la maquinaria, repuestos o herramientas que necesitas.
-                       </p>
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-4 mb-3">
-               <div class="box-new">
-                   <div class="box-img">
-                       <img src="img/chat.png" alt="icono">
-                   </div>
-                   <div class="box-text">
-                       <h2 class="font-family-Roboto-Medium">2. Contacta</h2>
-                       <p class="font-family-Roboto-Regular">
-                           Explora para descubrir la maquinaria, repuestos o herramientas que necesitas.
-                       </p>
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-4 mb-3">
-               <div class="box-new">
-                   <div class="box-img">
-                       <img src="img/carita.png" alt="icono">
-                   </div>
-                   <div class="box-text">
-                       <h2 class="font-family-Roboto-Medium">3. Disfruta</h2>
-                       <p class="font-family-Roboto-Regular">
-                           Explora para descubrir la maquinaria, repuestos o herramientas que necesitas.
-                       </p>
-                   </div>
-               </div>
-           </div>
-       </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="font-family-Roboto-Medium titulo">
+                    Cómo funciona
+                </h5>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="box-new">
+                    <div class="box-img">
+                        <img src="img/lupa.png" alt="icono">
+                    </div>
+                    <div class="box-text">
+                        <h2 class="font-family-Roboto-Medium">1. Encuentra</h2>
+                        <p class="font-family-Roboto-Regular">
+                            Explora para descubrir la maquinaria, repuestos o herramientas <br> que necesitas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="box-new">
+                    <div class="box-img">
+                        <img src="img/chat.png" alt="icono">
+                    </div>
+                    <div class="box-text">
+                        <h2 class="font-family-Roboto-Medium">2. Contacta</h2>
+                        <p class="font-family-Roboto-Regular">
+                            Comunica directamente con el propietario para acordar los detalles sin intermediarios.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="box-new">
+                    <div class="box-img">
+                        <img src="img/carita.png" alt="icono">
+                    </div>
+                    <div class="box-text">
+                        <h2 class="font-family-Roboto-Medium">3. Disfruta</h2>
+                        <p class="font-family-Roboto-Regular">
+                            Ya sea un arriendo o una compra, disfruta que todo el proceso sea fácil y seguro.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
