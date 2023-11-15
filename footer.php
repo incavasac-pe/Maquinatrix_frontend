@@ -157,18 +157,19 @@ function conocemas(category){
        }
     });
  } 
-   function whats(type,id,name,url) {  
+   function whats(type,id,name,url) {   
+    <?php  $contact = getenv('WHATSAPP');   ?>
      
-      var url1 = url+"/Maquinatrix_frontend/detalle.php?typep="+type+"&id=" + encodeURIComponent(id) + "&" + encodeURIComponent(name); 
-      var text = document.getElementById("mensaje").value; 
+      var url1 = url+"/detalle.php?typep="+type+"&id=" + encodeURIComponent(id) + "&" + encodeURIComponent(name); 
+      var text = document.getElementById("mensaje")?.value; 
       var text_ini = '¡Hola! Estoy interesado en el anuncio que vi en  Maquinatrix.';
-      if(text!==''){
+      
+      if(text!=='' && text){
           text_ini= text;
       }
-     
-      var redir= 'https://api.whatsapp.com/send?phone=51926210524&text='+encodeURIComponent(text_ini)+' '+id+' '+encodeURIComponent(name)+
-              '%20aquí:%20'+ encodeURIComponent(url1)
-      window.location.href = redir;
+      var redir = 'https://api.whatsapp.com/send?phone=<?=$contact?>&text=' + encodeURIComponent(text_ini) + ' ' + id + ' ' + encodeURIComponent(name) +
+        '%20aquí:%20' + encodeURIComponent(url1);
+        window.open(redir, '_blank');
 }
 
 
