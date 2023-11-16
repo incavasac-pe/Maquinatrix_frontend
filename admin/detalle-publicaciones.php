@@ -24,6 +24,23 @@ $baseUrl = getenv('URL_API');
     }else {
         header('location: panel.php');
     }
+    
+    $count_regiones= 0;
+    $url13 = $baseUrl.'/list_regiones';
+    $response = file_get_contents($url13);
+    if ($response !== false) {
+        // Decodificar la respuesta JSON
+        $dataRegion = json_decode($response, true);
+        if (!$dataRegion['error']) {
+            // Obtener la lista de $categories
+            $regiones = $dataRegion['data'];
+            $count_regiones = $dataRegion['count'];
+        } else {
+            echo 'Error: ' . $dataRegion['msg'];
+        }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
     ?>   
 <section>
     <div class="sidebar" id="sidebar">
@@ -137,9 +154,26 @@ $baseUrl = getenv('URL_API');
                                                 <input type="text" value="<?=$details_publications['title'] ?>" name="title" id="title" class="font-family-Inter-Medium" placeholder="Título de publicación">
                                             </div>
                                             <div class="form-group">
-                                                <label for="ubicacion" class="font-family-Inter-Regular">Ubicación</label>
-                                                <input type="text" name="location" id="location" value="<?= isset($details_publications['location']) ? $details_publications['location'] : ''?>" class="font-family-Inter-Medium" placeholder="Ubicación">
-                                            </div>
+                                            <label for="ubicacion" class="font-family-Inter-Regular">Ubicación</label>
+                                            <?php                                            
+                                                        if ($count_regiones > 0) {
+
+                                                            // Crear el elemento select
+                                                            echo '<select class="form-control font-family-Inter-Medium"  id="location" name="location">';
+                                                            echo '<option value="0">Seleccionar</option>';
+                                                            // Recorrer la lista de publicaciones y crear las opciones del select
+                                                            foreach ($regiones as $reg) { 
+                                                                echo '<option value="' . $reg . '"';
+                                                                // Verificar si location coincide con la opción actual
+                                                                if (isset($details_publications['location']) && $details_publications['location'] == $reg) {
+                                                                    echo ' selected';
+                                                                }
+                                                                echo '>' . $reg. '</option>';
+                                                            }
+                                                            echo '</select>';
+                                                        }  
+                                                    ?>
+                                               </div>
                                             <div class="form-group">
                                                 <label for="dpublicacion" class="font-family-Inter-Regular">Descripción de publicación</label>
                                                 <textarea name="description" id="description"  cols="30" rows="23" placeholder="Descripción de publicación"><?= isset($details_publications['description']) ? $details_publications['description'] : ''?></textarea>
