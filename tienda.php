@@ -16,8 +16,7 @@ $url_publi = $protocol . '://' . $host;
     $categoria = '';
     $tpublicacion = '';
     $price_min = '';
-    $price_max = '';
-    $region = '';
+    $price_max = ''; 
     
     $count_category = 0;
     $url12 = $baseUrl.'/list_category'; 
@@ -35,10 +34,26 @@ $url_publi = $protocol . '://' . $host;
     } else {
         echo 'Error al realizar la solicitud a la API';
     }
+
+    $count_regiones= 0;
+    $url13 = $baseUrl.'/list_regiones';
+    $response = file_get_contents($url13);
+    if ($response !== false) {
+        // Decodificar la respuesta JSON
+        $dataRegion = json_decode($response, true);
+        if (!$dataRegion['error']) {
+            // Obtener la lista de $categories
+            $regiones = $dataRegion['data'];
+            $count_regiones = $dataRegion['count'];
+        } else {
+            echo 'Error: ' . $dataRegion['msg'];
+        }
+    } 
     
 
      $param='';
      $search='';
+ 
       if (isset($_GET['buscar'])&& $_GET['buscar']!='') {
          $search = $_GET['buscar'];
          $param = "&search=".$search; 
@@ -59,8 +74,7 @@ $url_publi = $protocol . '://' . $host;
          if (isset($_GET['typep'])) { //tipo publicacion arredar o comprar
           $tpublicacion = $_GET['typep'];
           $param = $param ."&tpublicacion=".$tpublicacion ; 
-       }  
-       
+       }   
          
         if (isset($_GET['price-min'])) {
              $price_min  = $_GET['price-min'];
@@ -70,11 +84,11 @@ $url_publi = $protocol . '://' . $host;
             $price_max  = $_GET['price-max'];
             $param = $param ."&price_max=".$price_max ; 
          } 
-        if (isset($_GET['region'])) {
+         if (isset($_GET['region'])) {
             $region  = $_GET['region'];
-            $param = $param ."&region=".$region ; 
+            $param = $param ."&region=".urlencode($region);
          } 
-  
+ 
       $count_pub = 0;
       $url = $baseUrl.'/list_publications?limit=10'.$param;
     
@@ -136,6 +150,23 @@ $url_publi = $protocol . '://' . $host;
                         <div class="form-group">
                             <input type="text" name="buscar" id="buscar" value="<?=$search?>" placeholder="¿Qué buscas?">
                         </div>
+                        <div class="form-group">
+                        <?php                                            
+                                if ($count_regiones > 0) {
+ 
+                                    echo '<select class="form-control font-family-Inter-Medium"  id="region" name="region">';
+                                    echo '<option value="0">¿En qué región?</option>'; 
+                                    foreach ($regiones as $reg) { 
+                                        echo '<option value="' . $reg . '"'; 
+                                        if (isset($region) && $region == $reg) {
+                                            echo ' selected';
+                                        }  
+                                        echo '>' . $reg. '</option>';
+                                    }
+                                    echo '</select>';
+                                }  
+                            ?>
+                         </div>
                     </div>
 
                     <div class="mt-4">

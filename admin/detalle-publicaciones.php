@@ -24,6 +24,23 @@ $baseUrl = getenv('URL_API');
     }else {
         header('location: panel.php');
     }
+    
+    $count_regiones= 0;
+    $url13 = $baseUrl.'/list_regiones';
+    $response = file_get_contents($url13);
+    if ($response !== false) {
+        // Decodificar la respuesta JSON
+        $dataRegion = json_decode($response, true);
+        if (!$dataRegion['error']) {
+            // Obtener la lista de $categories
+            $regiones = $dataRegion['data'];
+            $count_regiones = $dataRegion['count'];
+        } else {
+            echo 'Error: ' . $dataRegion['msg'];
+        }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
     ?>   
 <section>
     <div class="sidebar" id="sidebar">
@@ -137,9 +154,26 @@ $baseUrl = getenv('URL_API');
                                                 <input type="text" value="<?=$details_publications['title'] ?>" name="title" id="title" class="font-family-Inter-Medium" placeholder="Título de publicación">
                                             </div>
                                             <div class="form-group">
-                                                <label for="ubicacion" class="font-family-Inter-Regular">Ubicación</label>
-                                                <input type="text" name="location" id="location" value="<?= isset($details_publications['location']) ? $details_publications['location'] : ''?>" class="font-family-Inter-Medium" placeholder="Ubicación">
-                                            </div>
+                                            <label for="ubicacion" class="font-family-Inter-Regular">Región</label>
+                                            <?php                                            
+                                                        if ($count_regiones > 0) {
+
+                                                            // Crear el elemento select
+                                                            echo '<select class="form-control font-family-Inter-Medium"  id="location" name="location">';
+                                                            echo '<option value="0">Seleccionar región</option>';
+                                                            // Recorrer la lista de publicaciones y crear las opciones del select
+                                                            foreach ($regiones as $reg) { 
+                                                                echo '<option value="' . $reg . '"';
+                                                                // Verificar si location coincide con la opción actual
+                                                                if (isset($details_publications['location']) && $details_publications['location'] == $reg) {
+                                                                    echo ' selected';
+                                                                }
+                                                                echo '>' . $reg. '</option>';
+                                                            }
+                                                            echo '</select>';
+                                                        }  
+                                                    ?>
+                                               </div>
                                             <div class="form-group">
                                                 <label for="dpublicacion" class="font-family-Inter-Regular">Descripción de publicación</label>
                                                 <textarea name="description" id="description"  cols="30" rows="23" placeholder="Descripción de publicación"><?= isset($details_publications['description']) ? $details_publications['description'] : ''?></textarea>
@@ -319,7 +353,7 @@ $baseUrl = getenv('URL_API');
                                                         <strong class="d-block font-family-Roboto-Medium">Haga clic aquí para cargar las imágenes.</strong>
                                                         Sube hasta 10 imágenes
                                                     </span>
-                                                </p>
+                                                </p>                                             
                                                 <input name="uploadd" id="uploadd" type="file" multiple="" data-max_length="20" class="upload__inputfile" accept=".jpg, .jpeg, .png .webp">
                                             </label>
                                         </div>
@@ -341,10 +375,10 @@ $baseUrl = getenv('URL_API');
     jQuery(document).ready(function () {
         ImgUpload();
     });
-
+    var imgArray = [];
     function ImgUpload() {
         var imgWrap = "";
-        var imgArray = [];
+       // var imgArray = [];
 
         $('.upload__inputfile').each(function () {
             $(this).on('change', function (e) {
@@ -364,7 +398,7 @@ $baseUrl = getenv('URL_API');
                         return false
                     } else {
                         var len = 0;
-                        for (var i = 0; i < imgArray.length; i++) {
+                        for (var i = 0; i <= imgArray.length; i++) {
                             if (imgArray[i] !== undefined) {
                                 len++;
                             }
@@ -373,7 +407,6 @@ $baseUrl = getenv('URL_API');
                             return false;
                         } else {
                             imgArray.push(f);
-
                             var reader = new FileReader();
                             reader.onload = function (e) {
                                 var html = "<div class='upload__img-box'><div style='background-image: url(" + e.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + f.name + "' class='img-bg'><div class='upload__img-close'><i class='fas fa-trash-alt'></i></div></div></div>";
@@ -390,8 +423,10 @@ $baseUrl = getenv('URL_API');
     $('body').on('click', ".upload__img-close", function (e) {
         var file = $(this).parent().data("file");
         for (var i = 0; i < imgArray.length; i++) {
-            if (imgArray[i].name === file) {
-                imgArray.splice(i, 1);
+            console.log("se eliminaaaaaaaa",imgArray)
+            if (imgArray[i].name === file) {  
+                imgArray.splice(i, 1); 
+                deleteImagen(file);
                 break;
             }
         }
@@ -439,7 +474,8 @@ $baseUrl = getenv('URL_API');
         }      
       }
   
-    function registrarDetalle() { 
+    function registrarDetalle() {  
+
         var token = '<?php echo $_SESSION["token"]; ?>'; 
         var deliveryElement = document.querySelector('input[name="delivery"]:checked');
         var payNowDeliveryElement = document.querySelector('input[name="pay_now_delivery"]:checked');
@@ -474,14 +510,14 @@ $baseUrl = getenv('URL_API');
                 var statusCode = xhr.status;
                 
                 if (statusCode === 201 && !response.error) {
-                      $("#Msg").html("<div class='alert alert-success' role='alert'>Registro Exitoso.</div>");           
-                 uploadImgen(); 
+                      $("#Msg").html("<div class='alert alert-success' role='alert'>Registro Exitoso.</div>");      
+                 
+              uploadImgen();                 
                 } else {
                     window.location.href = 'detalle-publicaciones.php?error=true';
                 }
             },
             error: function (response) { 
-
                 if (response.status === 401 || response.status === 403) {
                     window.location.href = 'create_session.php?logout=true';
                 }
@@ -537,36 +573,60 @@ $baseUrl = getenv('URL_API');
             $($(this).attr('href')).addClass("show");	
           }); 
           
+          function deleteImagen(name) {   
+            var token = '<?= $_SESSION["token"]; ?>';        
+                $.ajax({
+                    type: "DELETE", 
+                    url: '<?= $baseUrl ?>/delete_imagen?id_product=<?= $id ?>&name='+name,
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function (response, textStatus, xhr)
+                        {
+                            var statusCode = xhr.status;
+                            if (statusCode === 200 && !response.error) {
+                                $("#Msg").html("<div class='alert alert-success' role='alert'>Se elimino la imagen.</div>");  
+                            } else {
+                                window.location.href = 'detalle-publicaciones.php?error=true';
+                            }
+                        },
+                    error: function (response) { 
+                        if (response.status === 401 || response.status === 403) {
+                            window.location.href = 'create_session.php?logout=true';
+                            }
+                        }
+                    });
+                    } 
+                
+             
         function uploadImgen() { 
-    
-         var input = document.getElementById('uploadd');
-      
-      if(input){
+            
+            var input = document.getElementById('uploadd'); 
+            if(imgArray.length > 0){
 
-        var files = input.files;
- 
-       for (var i = 0; i < files.length; i++) {
-           var formData = new FormData();
-           formData.append('file', files[i]); 
-  
-        var token = '<?= $_SESSION["token"]; ?>';        
-        $.ajax({
-            type: "POST",
-            processData: false,  // tell jQuery not to process the data
-            contentType: false ,  // tell jQuery not to set contentType
-            url: '<?= $baseUrl ?>/upload_image?id_product=<?= $id ?>',
-            headers: {
-                'Authorization': 'Bearer ' + token
-            },
-            data: formData, 
-            error: function (response) { 
-                if (response.status === 401 || response.status === 403) {
-                    window.location.href = 'create_session.php?logout=true';
-                 }
-               }
-            });
-            } 
-        }    
+                var files = input.files; 
+            for (var i = 0; i < imgArray.length; i++) {
+                var formData = new FormData();
+                formData.append('file', imgArray[i]); 
+        
+                var token = '<?= $_SESSION["token"]; ?>';        
+                $.ajax({
+                    type: "POST",
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false ,  // tell jQuery not to set contentType
+                    url: '<?= $baseUrl ?>/upload_image?id_product=<?= $id ?>',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    data: formData, 
+                    error: function (response) { 
+                        if (response.status === 401 || response.status === 403) {
+                            window.location.href = 'create_session.php?logout=true';
+                        }
+                    }
+                    });
+                    } 
+                }    
       }
 </script>
 <?php include 'footer.php' ?>

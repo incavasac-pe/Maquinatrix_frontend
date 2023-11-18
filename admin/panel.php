@@ -28,29 +28,39 @@
                  </div>';
             }
             ?>  
-            <?php 
-            
-              $baseUrl = getenv('URL_API');
-              $param='';
-                if (isset($_GET['buscar'])&& $_GET['buscar']!='') {
-                   $search = $_GET['buscar'];
-                   $param = "search=".$search; 
-                }
-                 if (isset($_GET['tpublicacion'])&& $_GET['tpublicacion']!='0') {
-                   $tpublicacion = $_GET['tpublicacion'];
-                   $param = $param ."&tpublicacion=".$tpublicacion ;
-                }
-                 if (isset($_GET['category'])&& $_GET['category']!='0') {
-                   $category = $_GET['category'];
-                    $param = $param ."&category=".$category ;
-                }
-                  if (isset($_GET['fcreacion'])&& $_GET['fcreacion']!='') {
-                   $fcreacion = $_GET['fcreacion'];
-                     $param = $param ."&fcreacion=".$fcreacion ;
-                 }
-                $count_pub = 0;
-                 
-                $url = $baseUrl.'/list_publications_panel?'.$param;
+            <?php  
+
+                $baseUrl = getenv('URL_API');
+                    $params = [];
+
+                    if (isset($_GET['buscar']) && $_GET['buscar'] != '') {
+                        $search = $_GET['buscar'];
+                        $params[] = "search=" . $search;
+                    }
+
+                    if (isset($_GET['tpublicacion']) && $_GET['tpublicacion'] != '0') {
+                        $tpublicacion = $_GET['tpublicacion'];
+                        $params[] = "tpublicacion=" . $tpublicacion;
+                    }
+
+                    if (isset($_GET['category']) && $_GET['category'] != '0') {
+                        $category = $_GET['category'];
+                        $params[] = "category=" . $category;
+                    }
+
+                    if (isset($_GET['fcreacion']) && $_GET['fcreacion'] != '') {
+                        $fcreacion = $_GET['fcreacion'];
+                        $params[] = "fcreacion=" . $fcreacion;
+                    }
+
+                    if (isset($_GET['region']) && $_GET['region'] != '0') {
+                        $region = $_GET['region'];
+                        $params[] = "region=" . urlencode($region);
+                    }
+
+                    $count_pub = 0;
+
+                    $url = $baseUrl . '/list_publications_panel?' . implode('&', $params);
                 
                 $response = file_get_contents($url);
                 if ($response !== false) {
@@ -96,6 +106,23 @@
                         $count_category = $data['count'];
                     } else {
                         echo 'Error: ' . $data['msg'];
+                    }
+                } else {
+                    echo 'Error al realizar la solicitud a la API';
+                }
+
+                $count_regiones= 0;
+                $url13 = $baseUrl.'/list_regiones';
+                $response = file_get_contents($url13);
+                if ($response !== false) {
+                    // Decodificar la respuesta JSON
+                    $dataRegion = json_decode($response, true);
+                    if (!$dataRegion['error']) {
+                        // Obtener la lista de $categories
+                        $regiones = $dataRegion['data'];
+                        $count_regiones = $dataRegion['count'];
+                    } else {
+                        echo 'Error: ' . $dataRegion['msg'];
                     }
                 } else {
                     echo 'Error al realizar la solicitud a la API';
@@ -165,6 +192,23 @@
                                                                 $category = $categorie['category'];
 
                                                                 echo '<option value="' . $id . '">' . $category . '</option>';
+                                                            }
+                                                            echo '</select>';
+                                                        }  
+                                                    ?>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="categoria" class="font-family-Inter-Regular d-block">Región</label>
+                                                    <?php                                            
+                                                        if ($count_regiones > 0) {
+
+                                                            // Crear el elemento select
+                                                            echo '<select class="form-control font-family-Inter-Medium"  id="region" name="region">';
+                                                            echo '<option value="0">Seleccionar</option>';
+                                                            // Recorrer la lista de publicaciones y crear las opciones del select
+                                                            foreach ($regiones as $reg) { 
+
+                                                                echo '<option value="' . $reg . '">' . $reg. '</option>';
                                                             }
                                                             echo '</select>';
                                                         }  
