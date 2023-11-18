@@ -122,7 +122,11 @@
     var category = obtenerValorRadio();
     var mov =  type === "2" ? 'comprar':'arrendar';
     var buscar = document.getElementById("buscar").value; 
-    var url = "tienda.php?typep="+type+"&category=" + encodeURIComponent(category) + "&buscar=" + encodeURIComponent(buscar)+"&"+mov;   
+    
+    var selectElement = document.getElementById('region');
+    var region = selectElement.value;
+    console.log("region",region);
+    var url = "tienda.php?typep="+type+"&category=" + encodeURIComponent(category) + "&buscar=" + encodeURIComponent(buscar)+"&"+mov+"&region=" + encodeURIComponent(region);   
     window.location.href = url;
 }
     
@@ -132,6 +136,7 @@
     var url = "tienda.php?typep="+type+"&"+mov; 
     window.location.href = url;
 }
+
   function filtrotienda(type,categoria,otros,buscar) {  
     var url = "tienda.php?typep="+type+"&category=" + encodeURIComponent(categoria) + "&buscar=" + encodeURIComponent(buscar)+"&"+ otros; 
       window.location.href = url;
@@ -146,8 +151,7 @@ function conocemas(category){
       // Verificar si la pestaña está activa
       if (tab.classList.contains('active')) {
         // Obtener el ID del panel activo
-        const activeTab = tab.getAttribute('href');
-        console.log('La pestaña activa es:', activeTab);
+        const activeTab = tab.getAttribute('href'); 
         if(activeTab === '#comprar'){
             typep ='2';
             mov = 'comprar';

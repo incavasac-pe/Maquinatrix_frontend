@@ -28,34 +28,7 @@
                  </div>';
             }
             ?>  
-            <?php 
-            
-           /*   $baseUrl = getenv('URL_API');
-              $param='';
-                if (isset($_GET['buscar'])&& $_GET['buscar']!='') {
-                   $search = $_GET['buscar'];
-                   $param = "search=".$search; 
-                }
-                 if (isset($_GET['tpublicacion'])&& $_GET['tpublicacion']!='0') {
-                   $tpublicacion = $_GET['tpublicacion'];
-                   $param = $param ."&tpublicacion=".$tpublicacion ;
-                }
-                 if (isset($_GET['category'])&& $_GET['category']!='0') {
-                   $category = $_GET['category'];
-                    $param = $param ."&category=".$category ;
-                }
-                  if (isset($_GET['fcreacion'])&& $_GET['fcreacion']!='') {
-                   $fcreacion = $_GET['fcreacion'];
-                     $param = $param ."&fcreacion=".$fcreacion ;
-                 }
-                 if (isset($_GET['region']) && $_GET['region']!='0') {
-                    $region = $_GET['region'];
-                        $param = $param ."&region=".$region ;                    
-                 }
-                $count_pub = 0;
-                 
-                $url = $baseUrl.'/list_publications_panel?'.$param;*/
-
+            <?php  
 
                 $baseUrl = getenv('URL_API');
                     $params = [];
@@ -225,7 +198,7 @@
                                                     ?>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="categoria" class="font-family-Inter-Regular d-block">Regiones</label>
+                                                    <label for="categoria" class="font-family-Inter-Regular d-block">Región</label>
                                                     <?php                                            
                                                         if ($count_regiones > 0) {
 

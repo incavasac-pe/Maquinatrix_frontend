@@ -116,7 +116,9 @@
                         Detalles
                     </h2>
                     <p class="font-family-Roboto-Regular">
-                        <?= $detalle['description']  ?>
+                        <?php  
+                       echo  $dato_con_saltos_de_linea = nl2br($detalle['description']); 
+                       ?>
                     </p>
                 </div>
                 <div class="linea mt-5 mb-5"></div>
