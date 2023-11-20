@@ -246,10 +246,7 @@ $baseUrl = getenv('URL_API');
                 <div class="cuadro">
                     <div class="cuadro-img">
                         <img src="<?=$baseUrl?>/see_image?image=<?= isset($pub["product_images"][0]["image_name"])  ? $pub["product_images"][0]["image_name"]: 'sin_producto.jpg'?>" alt="producto">
-                        <div class="abs">
-                            <span class="font-family-Roboto-Regular">LIQUIDACIÓN</span>
-                        </div>
-                    </div>
+                     </div>
                     <div class="cuadro-des">
                         <ul class="font-family-Roboto-Regular">
                             <li><a href="detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>">  <?= $pub['PublicationType']['type_pub']  ?></a></li>
