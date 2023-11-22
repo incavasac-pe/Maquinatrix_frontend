@@ -21,6 +21,22 @@ $baseUrl = getenv('URL_API');
         } else {
             echo 'Error al realizar la solicitud a la API';
         }
+        //se obtienen las imagenes de la publicacion
+        $count_imagen = 0;
+        $url  = $baseUrl.'/list_publications_imagen?id='.$id;
+        
+        $responseimg = file_get_contents($url);
+        if ($responseimg !== false) {
+           // Decodificar la respuesta JSON
+           $dataimg = json_decode($responseimg, true);
+           if (!$data['error']) {
+               // Obtener la lista de $categories
+               $detalle_img = $dataimg['data'] ;
+               $count_imagen = $dataimg['count'];
+           }  
+        } 
+         
+
     }else {
         header('location: panel.php');
     }
@@ -372,13 +388,13 @@ $baseUrl = getenv('URL_API');
     </div>
 </section>
 <script>
-    jQuery(document).ready(function () {
+    jQuery(document).ready(function () { 
         ImgUpload();
+        LoadImagesFromServer();
     });
     var imgArray = [];
     function ImgUpload() {
-        var imgWrap = "";
-       // var imgArray = [];
+        var imgWrap = ""; 
 
         $('.upload__inputfile').each(function () {
             $(this).on('change', function (e) {
@@ -422,8 +438,8 @@ $baseUrl = getenv('URL_API');
 
     $('body').on('click', ".upload__img-close", function (e) {
         var file = $(this).parent().data("file");
-        for (var i = 0; i < imgArray.length; i++) {
-            console.log("se eliminaaaaaaaa",imgArray)
+       
+        for (var i = 0; i < imgArray.length; i++) { 
             if (imgArray[i].name === file) {  
                 imgArray.splice(i, 1); 
                 deleteImagen(file);
@@ -433,8 +449,40 @@ $baseUrl = getenv('URL_API');
         $(this).parent().parent().remove();
     });
     }
-
        
+     
+function LoadImagesFromServer() {
+    // Hacer una petición AJAX al servidor para obtener las imágenes
+    // Aquí asumimos que el servidor devuelve un arreglo de URLs de imágenes en formato JSON
+    let urlGetImagen = '<?php echo $baseUrl ?>/list_publications_imagen?id=<?=$id?>';
+    $.ajax({
+        url:urlGetImagen,
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+              response.data.forEach(function (imageData) {
+              var imageName = imageData.image_name;
+                var imgOr = '<?= $baseUrl ?>/see_image?image='+ encodeURIComponent(imageName); 
+
+                // Obtener los datos de la imagen usando fetch()
+                fetch(imgOr)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        // Crear una URL temporal para el Blob 
+                      
+                        var file = new File([blob], imageName);
+                        imgArray.push(file); 
+
+                        var html = "<div class='upload__img-box'><div style='background-image: url(" +imgOr+ ")' data-number='" + $(".upload__img-close").length + "' data-file='" + imageName + "' class='img-bg'><div class='upload__img-close'><i class='fas fa-trash-alt'></i></div></div></div>";
+                          $('.upload__img-wrap').append(html);   
+                    }) 
+            });
+        }, 
+        error: function (error) {
+            console.log('Error al obtener las imágenes del servidor:', error);
+        }
+    });
+}
     function GuardarBasico() { 
         var campo1 = $('#location').val();
         var campo2 = $('#description').val(); 
@@ -475,7 +523,6 @@ $baseUrl = getenv('URL_API');
       }
   
     function registrarDetalle() {  
-
         var token = '<?php echo $_SESSION["token"]; ?>'; 
         var deliveryElement = document.querySelector('input[name="delivery"]:checked');
         var payNowDeliveryElement = document.querySelector('input[name="pay_now_delivery"]:checked');

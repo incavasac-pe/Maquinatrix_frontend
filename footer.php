@@ -124,8 +124,7 @@
     var buscar = document.getElementById("buscar").value; 
     
     var selectElement = document.getElementById('region');
-    var region = selectElement.value;
-    console.log("region",region);
+    var region = selectElement.value; 
     var url = "tienda.php?typep="+type+"&category=" + encodeURIComponent(category) + "&buscar=" + encodeURIComponent(buscar)+"&"+mov+"&region=" + encodeURIComponent(region);   
     window.location.href = url;
 }
@@ -142,6 +141,15 @@
       window.location.href = url;
 }
  
+
+function rediDestacado(url) {  
+   //var url = "tienda.php?typep="+type+"&category=" + encodeURIComponent(categoria) + "&buscar=" + encodeURIComponent(buscar)+"&"+ otros; 
+      window.location.href = url;
+}
+
+
+
+
 function conocemas(category){
     const tabList = document.querySelectorAll('.nav-link');
     var typep = '1';

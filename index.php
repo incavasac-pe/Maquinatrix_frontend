@@ -243,9 +243,9 @@ $baseUrl = getenv('URL_API');
         if($count_pub > 0){  
             foreach ($list_publications as $pub) { ?>
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
-                <div class="cuadro">
-                    <div class="cuadro-img">
-                        <img src="<?=$baseUrl?>/see_image?image=<?= isset($pub["product_images"][0]["image_name"])  ? $pub["product_images"][0]["image_name"]: 'sin_producto.jpg'?>" alt="producto">
+                <div class="cuadro"  onclick="rediDestacado('detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>' )">
+                    <div class="cuadro-img"  >
+                        <img  src="<?=$baseUrl?>/see_image?image=<?= isset($pub["product_images"][0]["image_name"])  ? $pub["product_images"][0]["image_name"]: 'sin_producto.jpg'?>" alt="producto">
                      </div>
                     <div class="cuadro-des">
                         <ul class="font-family-Roboto-Regular">
