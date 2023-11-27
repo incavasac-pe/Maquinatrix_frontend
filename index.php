@@ -313,6 +313,5 @@ $baseUrl = getenv('URL_API');
             </div>
         </div>
     </div>
-</section>
-
+</section> 
 <?php include 'footer.php' ?>

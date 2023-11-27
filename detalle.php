@@ -48,6 +48,70 @@
     }
       }  
        ?>
+       <section class="bg-carrucel mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Swiper -->
+                <div class="swiper carrucel">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide slider-item slider-1">
+                            <div class="row">
+                                <div class="col-md-10 m-auto">
+                                    <div class="row">
+                                        <div class="col-md-9 col-12 box-flex">
+                                            <h2 class="font-family-Roboto-Medium mb-0">
+                                                Paga Ahora o al Final del arriendo en maquinaria y herramientas
+                                            </h2>
+                                        </div>
+                                        <div class="col-md-3 col-12 text-center">
+                                            <img src="img/slider1.png" alt="img">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide slider-item slider-2">
+                            <div class="row">
+                                <div class="col-md-10 m-auto">
+                                    <div class="row">
+                                        <div class="col-md-9 col-12 box-flex">
+                                            <h2 class="font-family-Roboto-Medium mb-0 text-white">
+                                                Facilidades de Pago para tus Compras
+                                            </h2>
+                                        </div>
+                                        <div class="col-md-3 col-12 text-center">
+                                            <img src="img/slider2.png" alt="img">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide slider-item slider-3">
+                            <div class="row">
+                                <div class="col-md-10 m-auto">
+                                    <div class="row">
+                                        <div class="col-md-9 col-12 box-flex text-white">
+                                            <h2 class="font-family-Roboto-Medium mb-0">
+                                                Garantía Maquinatrix para tus arriendos
+                                            </h2>
+                                        </div>
+                                        <div class="col-md-3 col-12 text-center">
+                                            <img src="img/slider3.png" alt="img">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <section class="pt-2">
     <div class="container">
         <div class="row">
