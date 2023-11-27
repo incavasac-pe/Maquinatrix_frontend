@@ -35,7 +35,10 @@
                         <h3 class="font-family-Roboto-Medium">CONTACTO</h3>
                         <ul class="font-family-Roboto-Regular">
                             <li>
-                                <a href="#">contacto@maquinatrix.cl</a>
+                                <a href="#">info@maquinatrix.com</a>
+                            </li>
+                            <li>
+                                <a href="#">ventas@maquinatrix.com</a>
                             </li>
                             <li>
                                 <a href="#">8877 6655 44</a>
