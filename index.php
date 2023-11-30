@@ -31,8 +31,7 @@ $baseUrl = getenv('URL_API');
           $data = json_decode($response1, true);
           if (!$data['error']) {
               // Obtener la lista de publicaciones
-              $list_publications = $data['data'];
-               print_r( $list_publications);
+              $list_publications = $data['data']; 
            $count_pub = $data['count'];
           } else {
               echo 'Error: ' . $data['msg'];
