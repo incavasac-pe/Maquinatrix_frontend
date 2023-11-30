@@ -1014,4 +1014,24 @@ footer p{
     }
 
 }
+.image-container {
+    width: 157px; /* Ancho deseado */
+    height: 157px; /* Alto deseado */
+  }
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
+.image-container2 {
+    width: 208px; /* Ancho deseado */ 
+    height: 208px; /* Alto deseado */
+  }
+.image-container2 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+ 

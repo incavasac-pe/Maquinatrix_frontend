@@ -286,7 +286,7 @@ $url_publi = $protocol . '://' . $host;
                              foreach ($list_publications as $pub) {  ?>
                             <a href="detalle.php?typep=<?=$tpublicacion ?>&id=<?= $pub['id_product'] ?>&<?= ($tpublicacion == '2') ? 'comprar' :' arrendar'; ?>">
                                 <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
-                                    <div class="box-img position-relative">
+                                    <div class="box-img position-relative image-container">
                                      <img src="<?=$baseUrl?>/see_image?image=<?= isset($pub["product_images"][0]["image_name"])  ? $pub["product_images"][0]["image_name"]: 'sin_producto.jpg'?>" alt="producto">
                                     </div>
                                     <div class="box-description">
