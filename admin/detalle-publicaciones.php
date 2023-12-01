@@ -462,7 +462,7 @@ function LoadImagesFromServer() {
         success: function (response) {
               response.data.forEach(function (imageData) {
               var imageName = imageData.image_name;
-                var imgOr = '<?= $baseUrl ?>/see_image?image='+ encodeURIComponent(imageName); 
+                var imgOr = '<?= $baseUrl ?>/see_image?image='+ imageName; 
 
                 // Obtener los datos de la imagen usando fetch()
                 fetch(imgOr)
@@ -644,24 +644,44 @@ function LoadImagesFromServer() {
                         }
                     });
                     } 
-                
+  function deleteImagenAll() {   
+            var token = '<?= $_SESSION["token"]; ?>';        
+                $.ajax({
+                    type: "DELETE", 
+                    url: '<?= $baseUrl ?>/delete_all?id_product=<?= $id ?>',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function (response, textStatus, xhr)
+                        {
+                         
+                        },
+                    error: function (response) { 
+                        if (response.status === 401 || response.status === 403) {
+                            window.location.href = 'create_session.php?logout=true';
+                            }
+                        }
+                    });
+                    }         
              
         function uploadImgen() { 
             
             var input = document.getElementById('uploadd'); 
             if(imgArray.length > 0){
-
-                var files = input.files; 
+            deleteImagenAll();
+       
+            setTimeout(function() {
+           var files = input.files; 
             for (var i = 0; i < imgArray.length; i++) {
                 var formData = new FormData();
                 formData.append('file', imgArray[i]); 
-        
+                var title =  $('#title').val();
                 var token = '<?= $_SESSION["token"]; ?>';        
                 $.ajax({
                     type: "POST",
                     processData: false,  // tell jQuery not to process the data
                     contentType: false ,  // tell jQuery not to set contentType
-                    url: '<?= $baseUrl ?>/upload_image?id_product=<?= $id ?>',
+                    url: '<?= $baseUrl ?>/upload_image?id_product=<?= $id ?>&orden='+i,
                     headers: {
                         'Authorization': 'Bearer ' + token
                     },
@@ -673,7 +693,9 @@ function LoadImagesFromServer() {
                     }
                     });
                     } 
+                }, 1000); // 3000 milisegundos = 3 segundos
                 }    
+        
       }
 </script>
 <?php include 'footer.php' ?>
