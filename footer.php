@@ -24,10 +24,10 @@
                         <h3 class="font-family-Roboto-Medium">SERVICIOS</h3>
                         <ul class="font-family-Roboto-Regular">
                             <li>
-                                <a href="#" onclick="filtroFooter('1')">Arriendo</a>
+                                <a href="https://empresa.maquinatrix.com/servicios" onclick="filtroFooter('1')">Arriendo</a>
                             </li>
                             <li>
-                                <a href="#" onclick="filtroFooter('2')">Compra</a>
+                                <a href="https://empresa.maquinatrix.com/servicios" onclick="filtroFooter('2')">Compra</a>
                             </li>
                         </ul>
                     </div>
@@ -41,7 +41,7 @@
                                 <a href="#">ventas@maquinatrix.com</a>
                             </li>
                             <li>
-                                <a href="#">8877 6655 44</a>
+                                <a href="#">+56 9 3370 1381</a>
                             </li>
                         </ul>
                     </div>

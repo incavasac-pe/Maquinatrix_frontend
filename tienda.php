@@ -84,7 +84,7 @@ $url_publi = $protocol . '://' . $host;
             $price_max  = $_GET['price-max'];
             $param = $param ."&price_max=".$price_max ; 
          } 
-         if (isset($_GET['region'])) {
+         if (isset($_GET['region']) && $_GET['region']!='') {
             $region  = $_GET['region'];
             $param = $param ."&region=".urlencode($region);
          } 
@@ -219,7 +219,7 @@ $url_publi = $protocol . '://' . $host;
                                 if ($count_regiones > 0) {
  
                                     echo '<select class="form-control font-family-Inter-Medium"  id="region" name="region">';
-                                    echo '<option value="0">¿En qué región?</option>'; 
+                                    echo '<option value="">¿En qué región?</option>'; 
                                     foreach ($regiones as $reg) { 
                                         echo '<option value="' . $reg . '"'; 
                                         if (isset($region) && $region == $reg) {
