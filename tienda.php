@@ -225,7 +225,7 @@ $url_publi = $protocol . '://' . $host;
                                     <div class="box-img position-relative">
                                      <img src="<?=$baseUrl?>/see_image?image=<?= isset($pub["product_images"][0]["image_name"])  ? $pub["product_images"][0]["image_name"]: 'sin_producto.jpg'?>" alt="producto">
                                     </div>
-                                    <div class="box-description">
+                                    <div class="box-description w-100">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <h2 class="font-family-Roboto-Regular">
@@ -278,6 +278,15 @@ $url_publi = $protocol . '://' . $host;
                                 </div>
                             </a>
                         </div>
+                    </div>
+                    <div class="col-md-12 mt-5">
+                        <ul class="align-items-center font-family-Inter-Regular justify-content-end m-auto pagination">
+                            <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
