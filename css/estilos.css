@@ -437,6 +437,7 @@ footer p{
 }
 .box-tienda .box-description{
     padding: 10px 20px;
+    width: 100%;
 }
 .box-tienda .box-description h2{
     font-size: 18px;
@@ -977,6 +978,24 @@ footer p{
     background-color: #552E88;
 }
 
+.page-item.active .page-link{
+    background-color: #001343;
+    border-color: #001343;
+}
+.page-link:focus {
+    box-shadow: none;
+}
+.page-link:hover{
+    color: #001343;
+}
+.page-item:first-child .page-link {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+.page-item:last-child .page-link {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
 @media (max-width: 767px){
     .carrucel h2 {
         font-size: 16px;
