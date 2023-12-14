@@ -6,8 +6,7 @@
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
 $host = $_SERVER['HTTP_HOST']; 
 $uri = $_SERVER['REQUEST_URI']; 
-$url_publi = $protocol . '://' . $host;
- 
+$url_publi = $protocol . '://' . $host; 
   
     $baseUrl = getenv('URL_API'); 
     $contact = getenv('WHATSAPP');
@@ -17,6 +16,8 @@ $url_publi = $protocol . '://' . $host;
     $tpublicacion = '';
     $price_min = '';
     $price_max = ''; 
+    $page = '';
+    $currentRows = '';
     
     $count_category = 0;
     $url12 = $baseUrl.'/list_category'; 
@@ -48,20 +49,19 @@ $url_publi = $protocol . '://' . $host;
         } else {
             echo 'Error: ' . $dataRegion['msg'];
         }
-    } 
-    
+    }  
 
      $param='';
      $search='';
  
       if (isset($_GET['buscar'])&& $_GET['buscar']!='') {
          $search = $_GET['buscar'];
-         $param = "&search=".$search; 
+         $param = "&search=".urlencode($search); 
       }
         if (isset($_GET['buscar-compra'])&& $_GET['buscar-compra']!='') {
          $search1 = $_GET['buscar-compra'];
-         $param = "&search=".$search1; 
-      }
+         $param = "&search=".urlencode($search1); 
+         }
    
         if (isset($_POST['tipo'])) {
             $tipoSeleccionado = $_POST['tipo'];
@@ -88,25 +88,36 @@ $url_publi = $protocol . '://' . $host;
             $region  = $_GET['region'];
             $param = $param ."&region=".urlencode($region);
          } 
- 
+         if (isset($_GET['page']) && $_GET['page']!='') {
+            $currentPage  = $_GET['page'];      
+         } 
       $count_pub = 0;
-      $url = $baseUrl.'/list_publications?limit=10'.$param;
-    
-      $response = file_get_contents($url);
+      $url = $baseUrl.'/list_publications?limit=1000'.$param;
+ 
+       $response = file_get_contents($url);
       if ($response !== false) {
           // Decodificar la respuesta JSON
           $data = json_decode($response, true);
           if (!$data['error']) {
               // Obtener la lista de publicaciones
-              $list_publications = $data['data'];
-              
-           $count_pub = $data['count'];
+              $list_publications = $data['data']; 
+    
+            $count_pub = $data['count'];
+            $rowsPerPage = 10;
+            
+            // Paginar los datos
+            $indexOfLastRow = $currentPage * $rowsPerPage;
+            $indexOfFirstRow = $indexOfLastRow - $rowsPerPage;
+            $currentRows = array_slice($list_publications, $indexOfFirstRow, $indexOfLastRow);
+            $totalPages = ceil(count($list_publications) / $rowsPerPage);
+
           } else {              
               $msg_list_public =  $data['msg'];
           }
       } else {
           echo 'Error al realizar la solicitud a la API';
-      }      
+      }    
+ 
    ?>
    <section class="bg-carrucel mb-5">
     <div class="container">
@@ -283,7 +294,7 @@ $url_publi = $protocol . '://' . $host;
                         <div class="all">
                       <?php   
                       if($count_pub > 0){  
-                             foreach ($list_publications as $pub) {  ?>
+                             foreach ($currentRows as $pub) {  ?>
                             <a href="detalle.php?typep=<?=$tpublicacion ?>&id=<?= $pub['id_product'] ?>&<?= ($tpublicacion == '2') ? 'comprar' :' arrendar'; ?>">
                                 <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
                                     <div class="box-img position-relative image-container">
@@ -342,16 +353,21 @@ $url_publi = $protocol . '://' . $host;
                                 </div>
                             </a>
                         </div>
-                    </div>
+                    </div> 
+                    <?php   
+                      if($count_pub > 0){   ?>    
                     <div class="col-md-12 mt-5">
                         <ul class="align-items-center font-family-Inter-Regular justify-content-end m-auto pagination">
-                            <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                            <li class="page-item"><a class="page-link" href="tienda.php?page=<?= $currentPage - 1 ?>"<?= $param?>>Anterior</a></li>
+                            <?php
+                                    for ($page = 1; $page <= $totalPages; $page++) {
+                                        echo '<li class="page-item' . ($page == $currentPage ? ' active' : '') . '"><a class="page-link" href="tienda.php?page=' . $page . ''.$param.'">' . $page . '</a></li>';
+                                    }
+                            ?>
+                            <li class="page-item"><a class="page-link" href="tienda.php?page=<?= $currentPage + 1 ?><?= $param?>">Siguiente</a></li>
                         </ul>
                     </div>
+                    <?php    }  ?>    
                 </div>
             </div>
         </div>
@@ -370,4 +386,5 @@ $url_publi = $protocol . '://' . $host;
         $('.recent').css('display','none');
         $('.price-min').css('display','block');
     })
+ 
 </script>

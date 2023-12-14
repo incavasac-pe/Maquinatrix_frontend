@@ -190,7 +190,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h5 class="font-family-Roboto-Medium titulo">
-                    Te puede interesar <a href="tienda.php" class="text-blue ml-2">Ver más</a>
+                    Te puede interesar <a href="tienda.php?page=1" class="text-blue ml-2">Ver más</a>
                 </h5>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
