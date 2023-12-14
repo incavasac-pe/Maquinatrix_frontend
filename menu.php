@@ -22,7 +22,7 @@
 <script>
     
   function redireccionarMenu(type,mov) {  
-    var url = "tienda.php?typep="+type+"&"+mov;  
+    var url = "tienda.php?page=1&typep="+type+"&"+mov;  
     window.location.href = url;
 } 
 </script>

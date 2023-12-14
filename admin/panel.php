@@ -31,11 +31,14 @@
             <?php  
 
                 $baseUrl = getenv('URL_API');
+                $page = '';
+                $currentRows = '';
+                $currentPage = 1;
                     $params = [];
 
                     if (isset($_GET['buscar']) && $_GET['buscar'] != '') {
                         $search = $_GET['buscar'];
-                        $params[] = "search=" . $search;
+                        $params[] = "search=" .urlencode($search); 
                     }
 
                     if (isset($_GET['tpublicacion']) && $_GET['tpublicacion'] != '0') {
@@ -58,9 +61,12 @@
                         $params[] = "region=" . urlencode($region);
                     }
 
+                    if (isset($_GET['page']) && $_GET['page']!='') {
+                        $currentPage  = $_GET['page'];      
+                     } 
                     $count_pub = 0;
 
-                    $url = $baseUrl . '/list_publications_panel?' . implode('&', $params);
+                $url = $baseUrl . '/list_publications_panel?' . implode('&', $params);
                 
                 $response = file_get_contents($url);
                 if ($response !== false) {
@@ -69,7 +75,14 @@
                     if (!$data['error']) {
                         // Obtener la lista de publicaciones
                         $list_publications = $data['data'];
-                     $count_pub = $data['count'];
+                        $count_pub = $data['count'];
+
+                        $rowsPerPage = 10; 
+                        $indexOfLastRow = $currentPage * $rowsPerPage;
+                        $indexOfFirstRow = $indexOfLastRow - $rowsPerPage;
+                        $currentRows = array_slice($list_publications, $indexOfFirstRow, $indexOfLastRow);
+                        $totalPages = ceil(count($list_publications) / $rowsPerPage); 
+
                     } 
                 } else {
                     echo 'Error al realizar la solicitud a la API';
@@ -325,7 +338,7 @@
                             <?php
                             // Recorrer la lista de publicaciones y crear las opciones del select
                             if($count_pub > 0){ 
-                                    foreach ($list_publications as $pub) {
+                                    foreach ($currentRows as $pub) {
                                         $id = $pub['id_product'];
 
                                         echo '<tr>';
@@ -358,13 +371,18 @@
 
                         </tbody>
                     </table>
-                    <ul class="pagination justify-content-end">
-                        <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-left"></i></a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
-                    </ul>
+                    <?php   if($count_pub > 0){ ?> 
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item"><a class="page-link" href="panel.php?page=<?= $currentPage - 1 ?>&"<?= implode('&', $params)?>><i class="fas fa-angle-left"></i></a></li>
+                            <?php
+                                for ($page = 1; $page <= $totalPages; $page++) {
+                                    echo '<li class="page-item' . ($page == $currentPage ? ' active' : '') . '"><a class="page-link" href="panel.php?page=' . $page . '&'.implode('&', $params).'">' . $page . '</a></li>';
+                                }
+                            ?>
+                            <li class="page-item"><a class="page-link" href="panel.php?page=<?= $currentPage + 1 ?>&<?= implode('&', $params)?>"><i class="fas fa-angle-right"></i></a></li>
+                             
+                        </ul>
+                    <?php    }  ?>    
                 </div>
             </div>
         </div>

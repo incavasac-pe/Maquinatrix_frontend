@@ -10,13 +10,13 @@
                         <h3 class="font-family-Roboto-Medium">CONTENIDO</h3>
                         <ul class="font-family-Roboto-Regular">
                             <li>
-                                <a href="tienda.php?category=2">Repuestos</a>
+                                <a href="tienda.php?category=2&page=1">Repuestos</a>
                             </li>
                             <li>
-                                <a href="tienda.php?category=3">Neumaticos</a>
+                                <a href="tienda.php?category=3&page=1">Neumaticos</a>
                             </li>
                             <li>
-                                <a href="tienda.php?category=4">Productos y Accesorios</a>
+                                <a href="tienda.php?category=4&page=1">Productos y Accesorios</a>
                             </li>
                         </ul>
                     </div>
@@ -117,7 +117,7 @@
     var category = type === "2" ? document.getElementById("category_compra").value: document.getElementById("category").value;
     var mov =  type === "2" ? 'comprar':'arrendar';
     var buscar = type === "2" ? document.getElementById("buscar-compra").value : document.getElementById("buscar").value; 
-    var url = "tienda.php?typep="+type+"&category=" + encodeURIComponent(category) + "&buscar=" + encodeURIComponent(buscar)+"&"+mov;   
+    var url = "tienda.php?page=1&typep="+type+"&category=" + encodeURIComponent(category) + "&buscar=" + encodeURIComponent(buscar)+"&"+mov;   
     window.location.href = url;
 }
       
@@ -128,25 +128,25 @@
     
     var selectElement = document.getElementById('region');
     var region = selectElement.value; 
-    var url = "tienda.php?typep="+type+"&category=" + encodeURIComponent(category) + "&buscar=" + encodeURIComponent(buscar)+"&"+mov+"&region=" + encodeURIComponent(region);   
+    var url = "tienda.php?page=1&typep="+type+"&category=" + encodeURIComponent(category) + "&buscar=" + encodeURIComponent(buscar)+"&"+mov+"&region=" + encodeURIComponent(region);   
     window.location.href = url;
 }
     
  
   function filtroFooter(type) { 
     var mov =  type === "2" ? 'comprar':'arrendar';
-    var url = "tienda.php?typep="+type+"&"+mov; 
+    var url = "tienda.php?page=1&typep="+type+"&"+mov; 
     window.location.href = url;
 }
 
   function filtrotienda(type,categoria,otros,buscar) {  
-    var url = "tienda.php?typep="+type+"&category=" + encodeURIComponent(categoria) + "&buscar=" + encodeURIComponent(buscar)+"&"+ otros; 
+    var url = "tienda.php?page=1&typep="+type+"&category=" + encodeURIComponent(categoria) + "&buscar=" + encodeURIComponent(buscar)+"&"+ otros; 
       window.location.href = url;
 }
  
 
 function rediDestacado(url) {  
-   //var url = "tienda.php?typep="+type+"&category=" + encodeURIComponent(categoria) + "&buscar=" + encodeURIComponent(buscar)+"&"+ otros; 
+   //var url = "tienda.php?page=1&typep="+type+"&category=" + encodeURIComponent(categoria) + "&buscar=" + encodeURIComponent(buscar)+"&"+ otros; 
       window.location.href = url;
 }
 
@@ -167,7 +167,7 @@ function conocemas(category){
             typep ='2';
             mov = 'comprar';
          } 
-        var url = "tienda.php?category="+category+"&typep="+typep+"&"+mov;  
+        var url = "tienda.php?page=1&category="+category+"&typep="+typep+"&"+mov;  
         window.location.href = url;
        }
     });
