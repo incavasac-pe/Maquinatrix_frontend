@@ -171,7 +171,7 @@
                       <?php                                            
                     if ($count_imagen > 0) {  ?>
                     <div class="presentacion">                      
-                        <img src="<?= $baseUrl ?>/see_image?image=<?= $detalle_img[0]["image_name"]!=null ? $detalle_img[0]["image_name"]: 'sin_producto.jpg'?>"  alt="galeria" class="w-100" id="vista">
+                        <img  src="<?= $baseUrl ?>/see_image?image=<?= $detalle_img[0]["image_name"]!=null ? $detalle_img[0]["image_name"]: 'sin_producto.jpg'?>"  alt="galeria" class="w-100 presentacion_img" id="vista">
                     </div>
                      <?php  }  ?> 
                 </div>
