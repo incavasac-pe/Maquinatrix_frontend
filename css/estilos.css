@@ -997,6 +997,10 @@ footer p{
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
+
+.icono_mobile{
+    font-weight: normal !important;
+  }
 @media (max-width: 767px){
     .carrucel h2 {
         font-size: 16px;
@@ -1040,6 +1044,9 @@ footer p{
         width: 100%;
         object-fit: contain; 
         height: 100%;
+      }
+      .icono_mobile{
+        display:none; 
       }
 
 }

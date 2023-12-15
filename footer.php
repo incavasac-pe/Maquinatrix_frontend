@@ -23,11 +23,15 @@
                     <div class="col-md-3 mb-3">
                         <h3 class="font-family-Roboto-Medium">SERVICIOS</h3>
                         <ul class="font-family-Roboto-Regular">
-                            <li>
-                                <a href="https://empresa.maquinatrix.com/servicios" onclick="filtroFooter('1')">Arriendo</a>
+                        
+                        <li>
+                                <a target="_blank" href="https://empresa.maquinatrix.com/servicios/" >Conócelos</a>
                             </li>
                             <li>
-                                <a href="https://empresa.maquinatrix.com/servicios" onclick="filtroFooter('2')">Compra</a>
+                                <a target="_blank" href="https://maquinatrix.com/tienda.php?page=1&typep=1&arrendar" >Arriendo</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://maquinatrix.com/tienda.php?page=1&typep=2&comprar" >Compra</a>
                             </li>
                         </ul>
                     </div>

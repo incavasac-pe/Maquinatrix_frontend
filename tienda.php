@@ -315,7 +315,7 @@ $url_publi = $protocol . '://' . $host;
                                                     <i class="fal fa-map-marker-alt"></i>   <?= $pub['location']  ?>
                                                 </div> 
                                                 <a onclick="whats('<?=$tpublicacion?>','<?=$pub['id_product']?>','<?=$pub['title']?>','<?=$url_publi?>')"  href="#" class="btn-contacto font-family-Roboto-Medium">
-                                                <i class="fab fa-whatsapp"></i> Contactar
+                                                <i class="fab fa-whatsapp"></i> <b class="icono_mobile">Contactar</b>
                                             </a>
                                             </div>
                                         </div>
