@@ -136,8 +136,8 @@
                 </h1>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migas1">&middot;  <?= $detalle['publication_type']['type_pub'] ?> </a>
-                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas"> <?=$detalle['mainCategory']['category'] ?></a>
+                <p class="font-family-Roboto-Regular migas migas1">&middot;  <?= $detalle['publication_type']['type_pub'] ?> </p>
+                <p  class="font-family-Roboto-Regular migas"> <?=$detalle['mainCategory']['category'] ?></p>
             </div>
             <div class="col-md-12 mt-4"></div>
             <div class="col-md-8">
