@@ -148,7 +148,7 @@ $url_publi = $protocol . '://' . $host;
                                     <div class="row">
                                         <div class="col-md-9 col-12 box-flex">
                                             <h2 class="font-family-Roboto-Medium mb-0 text-white">
-                                                Facilidades de Pago para tus Compras
+                                                Financiamiento para tus Compras
                                             </h2>
                                         </div>
                                         <div class="col-md-3 col-12 text-center">
