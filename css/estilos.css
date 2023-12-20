@@ -1036,10 +1036,7 @@ footer p{
     .navbar-nav .open .dropdown-menu .dropdown-header {
         color: #fff;
     }
-    .image-container2 {
-        width: 155px !important; /* Ancho deseado */ 
-        height: 155px !important; /* Alto deseado */
-      }
+   
       .presentacion_img{ 
         width: 100%;
         object-fit: contain; 
@@ -1050,6 +1047,7 @@ footer p{
       }
 
 }
+ 
 .image-container {
     width: 157px; /* Ancho deseado */
     height: 157px; /* Alto deseado */
@@ -1061,7 +1059,7 @@ footer p{
   }
 
 .image-container2 {
-    width: 208px; /* Ancho deseado */ 
+   /* width: 208px; /* Ancho deseado */ 
     height: 208px; /* Alto deseado */
   }
 .image-container2 img {
