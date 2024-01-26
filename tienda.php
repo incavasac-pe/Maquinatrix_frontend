@@ -18,6 +18,7 @@ $url_publi = $protocol . '://' . $host;
     $price_max = ''; 
     $page = '';
     $currentRows = '';
+    $currentPage  = 1;
     
     $count_category = 0;
     $url12 = $baseUrl.'/list_category'; 
@@ -50,31 +51,46 @@ $url_publi = $protocol . '://' . $host;
             echo 'Error: ' . $dataRegion['msg'];
         }
     }  
-
+     $url_final='';
      $param='';
-     $search='';
- 
-      if (isset($_GET['buscar'])&& $_GET['buscar']!='') {
+     $search=''; 
+  
+     if (isset($_GET['page']) && $_GET['page']!='' ) {
+        $currentPage  = $_GET['page'];  
+        $url_final = "&page=".$currentPage;    
+     } 
+
+     if ( isset($_GET['page_pag']) && $_GET['page_pag']!='') {
+        $currentPage  = $_GET['page_pag']; 
+        $url_final = "&page=".$currentPage;    
+     } 
+
+     if (isset($_GET['typep'])) { //tipo publicacion arredar o comprar 
+        $tpublicacion = $_GET['typep'];
+        $param = $param ."&tpublicacion=".$tpublicacion ; 
+        $url_final =  $url_final ."&typep=".$tpublicacion;    
+     }   
+     if (isset($_GET['category']) && $_GET['category']!='') { //categorias de las publicaciones ej-repuest
+        $categoria = $_GET['category'];
+        $param = $param ."&category=".$categoria ; 
+        $url_final =  $url_final ."&category=".$categoria;    
+     }  
+      if (isset($_GET['buscar']) && $_GET['buscar']!='') { 
          $search = $_GET['buscar'];
-         $param = "&search=".urlencode($search); 
+         $param = $param."&search=".urlencode($search); 
+         $url_final =  $url_final ."&buscar=".$search;    
+      }else{
+        $url_final =  $url_final ."&buscar=".$search;    
       }
         if (isset($_GET['buscar-compra'])&& $_GET['buscar-compra']!='') {
          $search1 = $_GET['buscar-compra'];
-         $param = "&search=".urlencode($search1); 
+         $param = $param."&search=".urlencode($search1); 
          }
    
         if (isset($_POST['tipo'])) {
             $tipoSeleccionado = $_POST['tipo'];
             $param = $param ."&category=".$tipoSeleccionado ; 
          }  
-        if (isset($_GET['category']) && $_GET['category']!='') { //categorias de las publicaciones ej-repuest
-          $categoria = $_GET['category'];
-          $param = $param ."&category=".$categoria ; 
-       }  
-         if (isset($_GET['typep'])) { //tipo publicacion arredar o comprar
-          $tpublicacion = $_GET['typep'];
-          $param = $param ."&tpublicacion=".$tpublicacion ; 
-       }   
          
         if (isset($_GET['price-min'])) {
              $price_min  = $_GET['price-min'];
@@ -87,12 +103,12 @@ $url_publi = $protocol . '://' . $host;
          if (isset($_GET['region']) && $_GET['region']!='') {
             $region  = $_GET['region'];
             $param = $param ."&region=".urlencode($region);
-         } 
-         if (isset($_GET['page']) && $_GET['page']!='') {
-            $currentPage  = $_GET['page'];      
-         } 
+            $url_final =  $url_final ."&region=".urlencode($region);  
+         }  
+      
       $count_pub = 0;
-      $url = $baseUrl.'/list_publications?limit=1000'.$param;
+      $url = $baseUrl.'/list_publications?limit=1000'.$param;   
+    
  
        $response = file_get_contents($url);
       if ($response !== false) {
@@ -357,14 +373,26 @@ $url_publi = $protocol . '://' . $host;
                     <?php   
                       if($count_pub > 0){   ?>    
                     <div class="col-md-12 mt-5">
-                        <ul class="align-items-center font-family-Inter-Regular justify-content-end m-auto pagination">
-                            <li class="page-item"><a class="page-link" href="tienda.php?page=<?= $currentPage - 1 ?>"<?= $param?>>Anterior</a></li>
+                        <ul class="align-items-center font-family-Inter-Regular justify-content-end m-auto pagination">                         
                             <?php
-                                    for ($page = 1; $page <= $totalPages; $page++) {
-                                        echo '<li class="page-item' . ($page == $currentPage ? ' active' : '') . '"><a class="page-link" href="tienda.php?page=' . $page . ''.$param.'">' . $page . '</a></li>';
-                                    }
-                            ?>
-                            <li class="page-item"><a class="page-link" href="tienda.php?page=<?= $currentPage + 1 ?><?= $param?>">Siguiente</a></li>
+                            if ($currentPage <= 1) { 
+                                     echo ' <li class="page-item"><a class="page-link" href="javascript:void(0);">Anterior</a></li>';
+                                } else {
+                                    echo ' <li class="page-item"><a class="page-link" href="tienda.php?page_pag='.$currentPage - 1 .''.$url_final.'">Anterior</a></li>';
+                                }
+                        
+                                for ($page = 1; $page <= $totalPages; $page++) {
+                                    echo '<li class="page-item' . ($page == $currentPage ? ' active' : '') . '"><a class="page-link" href="tienda.php?page_pag=' . $page . ''.$url_final.'">' . $page . '</a></li>';
+                                }
+                          
+                               
+                              if ($currentPage >= $totalPages) { 
+                                     echo ' <li class="page-item"><a class="page-link" href="javascript:void(0);">Siguiente</a></li>';
+                                } else {
+                                    echo ' <li class="page-item"><a class="page-link" href="tienda.php?page_pag='.$currentPage + 1 .''.$url_final.'">Siguiente</a></li>';
+                                }
+                        ?>
+                            
                         </ul>
                     </div>
                     <?php    }  ?>    

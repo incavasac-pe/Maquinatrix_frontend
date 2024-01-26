@@ -133,6 +133,7 @@
     var selectElement = document.getElementById('region');
     var region = selectElement.value; 
     var url = "tienda.php?page=1&typep="+type+"&category=" + encodeURIComponent(category) + "&buscar=" + encodeURIComponent(buscar)+"&"+mov+"&region=" + encodeURIComponent(region);   
+    
     window.location.href = url;
 }
     
