@@ -71,8 +71,7 @@
                 }
            },
            error: function(response,xhr, textStatus, errorThrown) {
-               var statusCode = xhr.status; 
-               console.log("re",response.responseJSON.msg) 
+               var statusCode = xhr.status;  
                 $("#Msg").html("<div class='alert alert-danger' role='alert'>" + response.responseJSON.msg  + "</div>");
 
            }
