@@ -2,6 +2,26 @@
 <?php include 'menu.php' ?>
 <?php  
 $baseUrl = getenv('URL_API');
+
+function shuffleArray($array) {
+    $keys = array_keys($array);
+    shuffle($keys);
+    $shuffledArray = array();
+    foreach ($keys as $key) {
+        $shuffledArray[$key] = $array[$key];
+    }
+    return $shuffledArray;
+}
+
+function cortarString($texto) {
+    if (strlen($texto) > 23) {
+        $textoCortado = substr($texto, 0, 30);
+        $textoCortado .= "...";
+        return $textoCortado;
+    } else {
+        return $texto;
+    }
+}
  $count_category = 0;
    
     $url12 = $baseUrl.'/list_category';
@@ -23,15 +43,17 @@ $baseUrl = getenv('URL_API');
 
      
       $count_pub = 0;
-      $url = $baseUrl.'/list_publications?limit=4'; 
+      $url = $baseUrl.'/list_publications?limit=100'; 
     
       $response1 = file_get_contents($url);
       if ($response1 !== false) {
           // Decodificar la respuesta JSON
           $data = json_decode($response1, true);
           if (!$data['error']) {
-              // Obtener la lista de publicaciones
-              $list_publications = $data['data']; 
+              // Obtener la lista de publicaciones (se mezclan y se corta a  4 para mostrar en el home)
+              $data_origin = shuffleArray($data['data']);
+              $list_publications = array_slice($data_origin, 0, 4);
+ 
            $count_pub = $data['count'];
           } else {
               echo 'Error: ' . $data['msg'];
@@ -39,7 +61,7 @@ $baseUrl = getenv('URL_API');
       } else {
           echo 'Error al realizar la solicitud a la API';
       }  
-      
+      #
    ?>
 <section class="bg-slider d-flex align-items-center justify-content-start">
     <div class="container">
@@ -237,28 +259,31 @@ $baseUrl = getenv('URL_API');
                     Te puede interesar <a href="tienda.php?page=1" class="text-blue ml-2">Ver más</a>
                 </h5>
             </div>
-              <?php
-                            // Recorrer la lista de publicaciones y crear las opciones del select
-        if($count_pub > 0){  
-            foreach ($list_publications as $pub) { ?>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
-                <div class="cuadro"  onclick="rediDestacado('detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>' )">
-                    <div class="cuadro-img image-container2">
-                        <img  src="<?=$baseUrl?>/see_image?image=<?= isset($pub["product_images"][0]["image_name"])  ? $pub["product_images"][0]["image_name"]: 'sin_producto.jpg'?>" alt="producto">
-                     </div>
-                    <div class="cuadro-des">
-                        <ul class="font-family-Roboto-Regular">
-                            <li><a href="detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>">  <?= $pub['PublicationType']['type_pub']  ?></a></li>
-                        </ul>
-                        <p class="font-family-Roboto-Regular">
-                           <?= $pub['title']  ?>
-                        </p>
-                        <strong class="font-family-Roboto-Medium"> <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
-                 
+              <?php         // Recorrer la lista de publicaciones y crear las opciones del select
+                if($count_pub > 0){  
+                    foreach ($list_publications as $pub) { ?>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
+                        <div class="cuadro"  onclick="rediDestacado('detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>' )">
+                            <div class="cuadro-img image-container2">
+                                <img  src="<?=$baseUrl?>/see_image?image=<?= isset($pub["product_images"][0]["image_name"])  ? $pub["product_images"][0]["image_name"]: 'sin_producto.jpg'?>" alt="producto">
+                            </div>
+                            <div class="cuadro-des">
+                                <ul class="font-family-Roboto-Regular">
+                                    <li><a href="detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>">  <?= $pub['PublicationType']['type_pub']  ?></a></li>
+                                </ul>
+                                <span class="font-family-Roboto-Regular" tabindex="0" data-toggle="tooltip" title="<?= $pub['title'] ?> ">
+                                    <p class="font-family-Roboto-Regular" style="color: #212529;">
+                                    <?= cortarString($pub['title'])  ?> 
+                                </p>
+                            </span> 
+                                <strong class="font-family-Roboto-Medium"> <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-     <?php  } }  ?>
+                <?php  
+            }
+            }  
+        ?>
         </div>
     </div>
 </section>
