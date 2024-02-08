@@ -80,7 +80,7 @@
                         $rowsPerPage = 10; 
                         $indexOfLastRow = $currentPage * $rowsPerPage;
                         $indexOfFirstRow = $indexOfLastRow - $rowsPerPage;
-                        $currentRows = array_slice($list_publications, $indexOfFirstRow, $indexOfLastRow);
+                        $currentRows = array_slice($list_publications, $indexOfFirstRow, 10);
                         $totalPages = ceil(count($list_publications) / $rowsPerPage); 
 
                     } 
