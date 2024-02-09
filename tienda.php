@@ -85,6 +85,7 @@ $url_publi = $protocol . '://' . $host;
         if (isset($_GET['buscar-compra'])&& $_GET['buscar-compra']!='') {
          $search1 = $_GET['buscar-compra'];
          $param = $param."&search=".urlencode($search1); 
+       
          }
    
         if (isset($_POST['tipo'])) {
@@ -95,10 +96,12 @@ $url_publi = $protocol . '://' . $host;
         if (isset($_GET['price-min'])) {
              $price_min  = $_GET['price-min'];
              $param = $param ."&price_min=".$price_min ; 
+             $url_final =  $url_final ."&price-min=".$price_min;    
          } 
         if (isset($_GET['price-max'])) {
             $price_max  = $_GET['price-max'];
-            $param = $param ."&price_max=".$price_max ; 
+            $param = $param ."&price_max=".$price_max ;
+            $url_final =  $url_final ."&price-max=".$price_max;     
          } 
          if (isset($_GET['region']) && $_GET['region']!='') {
             $region  = $_GET['region'];
