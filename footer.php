@@ -25,7 +25,7 @@
                         <ul class="font-family-Roboto-Regular">
                         
                         <li>
-                                <a target="_blank" href="https://empresa.maquinatrix.com/servicios/" >Conócelos</a>
+                                <a target="_blank" href="https://maquinatrix.company/servicios/" >Conócelos</a>
                             </li>
                             <li>
                                 <a target="_blank" href="https://maquinatrix.com/tienda.php?page=1&typep=1&arrendar" >Arriendo</a>
