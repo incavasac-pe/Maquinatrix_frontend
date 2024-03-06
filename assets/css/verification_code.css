@@ -1,0 +1,126 @@
+.verification-code-main {
+    width: 100%;
+    height: 100svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eef0f3;
+  }
+  .verification-code-container {
+    width: 413px;
+  
+    padding: 40px;
+    border-radius: 8px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 1px 2px #00000029;
+    border-radius: 8px;
+    opacity: 1;
+    background: #fff;
+  }
+  
+  .verification-code-container h1 {
+    text-align: left;
+    font: normal normal 500 24px/32px Roboto;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #000000;
+    margin-bottom: 10px;
+    opacity: 1;
+  }
+
+  
+
+ 
+  .verification-code-container > p {
+    margin-top: 20px;
+    text-align: left;
+font: normal normal normal 14px/22px Roboto;
+letter-spacing: 0px;
+color: #000000;
+opacity: 1;
+  }
+
+  .verification-code-container .input-field {
+    flex-direction: row;
+    margin-top: 25px;
+   
+  }
+  .verification-code-container .input-field input {
+    height: 52px;
+    margin-right: 10px;
+    width: 52px;
+    border-radius: 6px;
+    outline: none;
+    font-size: 1.125rem;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  .verification-code-container .input-field input:focus {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  }
+  .verification-code-container .input-field input::-webkit-inner-spin-button,
+  .input-field input::-webkit-outer-spin-button {
+    display: none;
+  }
+
+  .verification-code-container .seconds{
+    text-align: left;
+font: normal normal normal 14px/22px Roboto;
+letter-spacing: 0px;
+color: #0070E0;
+opacity: 1;
+margin-top: 130px;
+width: 100%;
+text-align: center;
+  }
+
+  .verification-code-container .resend-btn-wrapper {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .verification-code-container .resend-btn {
+    width: 100%;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    font: normal normal 500 15px/22px Roboto;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    background: #eef0f3 0% 0% no-repeat padding-box;
+    border-radius: 23px;
+  }
+   .verification-code-container  .login-btn-wrapper {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .verification-code-container .login-btn {
+   
+    text-decoration: none;
+    width: 100%;
+    padding: 12px 20px;
+    text-align: center;
+    font: normal normal 500 15px/22px Roboto;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    background: #ffd140 0% 0% no-repeat padding-box;
+    border-radius: 23px;
+  }
+  .verification-code-container .login-btn :hover {
+    width: 100%;
+    padding: 12px 20px;
+    text-align: center;
+    font: normal normal 500 15px/22px Roboto;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    background: #feae02 0% 0% no-repeat padding-box;
+    border-radius: 23px;
+  }

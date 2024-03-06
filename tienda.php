@@ -1,6 +1,6 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
-<?php
+<!-- <?php
 
   
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
@@ -118,8 +118,8 @@ $url_publi = $protocol . '://' . $host;
           echo 'Error al realizar la solicitud a la API';
       }    
  
-   ?>
-   <section class="bg-carrucel mb-5">
+   ?> -->
+<section class="bg-carrucel mb-5">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -136,7 +136,7 @@ $url_publi = $protocol . '://' . $host;
                                             </h2>
                                         </div>
                                         <div class="col-md-3 col-12 text-center">
-                                            <img src="img/slider1.png" alt="img">
+                                            <img src="./assets/img/slider1.png" alt="img">
                                         </div>
                                     </div>
                                 </div>
@@ -148,11 +148,11 @@ $url_publi = $protocol . '://' . $host;
                                     <div class="row">
                                         <div class="col-md-9 col-12 box-flex">
                                             <h2 class="font-family-Roboto-Medium mb-0 text-white">
-                                                Financiamiento para tus Compras
+                                                Facilidades de Pago para tus Compras
                                             </h2>
                                         </div>
                                         <div class="col-md-3 col-12 text-center">
-                                            <img src="img/slider2.png" alt="img">
+                                            <img src="./assets/img/slider2.png" alt="img">
                                         </div>
                                     </div>
                                 </div>
@@ -168,7 +168,7 @@ $url_publi = $protocol . '://' . $host;
                                             </h2>
                                         </div>
                                         <div class="col-md-3 col-12 text-center">
-                                            <img src="img/slider3.png" alt="img">
+                                            <img src="./assets/img/slider3.png" alt="img">
                                         </div>
                                     </div>
                                 </div>
@@ -183,13 +183,13 @@ $url_publi = $protocol . '://' . $host;
         </div>
     </div>
 </section>
-<section class="pt-2">
+<section class="pt-3">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <ul class="nav-migas">
                     <li>
-                        <a href="index.php" class="font-family-Roboto-Regular">Inicio</a>
+                        <a href="#" class="font-family-Roboto-Regular">Inicio</a>
                     </li>
                     <li class="font-family-Roboto-Regular"> / <?= ($tpublicacion == '2') ? 'Comprar' :' Arrendar'; ?></li>
                 </ul>
@@ -202,25 +202,24 @@ $url_publi = $protocol . '://' . $host;
         <div class="row">
             <div class="col-md-12 mb-4">
                 <h3 class="font-family-Roboto-Medium titulo-principal">
-                    Palabra Buscada <?= $search ?>
+                    Palabra Buscada  <?= $search ?>
                 </h3>
                 <p class="mb-0 font-family-Roboto-Regular titulo-principal-adorno">
-                    <?=$count_pub?> resultados de búsqueda
+                <?=$count_pub?> 84745 resultados de búsqueda
                 </p>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-4">
                 <div class="busqueda">
-               <form  >
                     <div class="">
                         <h3 class="font-family-Roboto-Medium">Filtros de Búsqueda</h3>
                         <p class="font-family-Roboto-Regular">
                             Selecciona el tipo de búsqueda para que se desplieguen todos los filtros.
                         </p>
                     </div>
-                    <p class="titulo-tienda">
-                        <a href="#" onclick="filtroFooter('1')" class="font-family-Roboto-Medium mb-3 <?= ($tpublicacion == '1') ? 'activo' :''; ?>">Arrendar</a>
-                        <a href="#" onclick="filtroFooter('2')" class="font-family-Roboto-Medium mb-3 <?= ($tpublicacion == '2') ? 'activo' :''; ?>">Comprar</a>
-                    </p>
+                    <a href="javascript:void('0');" id="Arrendar" onclick="filtroFooter('1')"
+                        class="font-family-Roboto-Medium mb-3 <?= ($tpublicacion == '1') ? 'activo' :''; ?> titulo-filter-btn">Arrendar</a>
+                    <a href="javascript:void('0');" id="Comprar" onclick="filtroFooter('2')"
+                        class="font-family-Roboto-Medium mb-3 <?= ($tpublicacion == '2') ? 'activo' :''; ?> titulo-filter-btn">Comprar</a>
                     <div class="formulario-busqueda">
                         <div class="form-group">
                             <input type="text" name="buscar" id="buscar" value="<?=$search?>" placeholder="¿Qué buscas?">
@@ -242,40 +241,122 @@ $url_publi = $protocol . '://' . $host;
                                 }  
                             ?>
                          </div>
+                        <div class="form-group group">
+                            <select class="form-control" id="maquinaria" name="maquinaria">
+                                <option class="d-none" selected>Maquinaria y vehículos</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                        <div class="form-group group">
+                            <select class="form-control" id="industria" name="industria">
+                                <option class="d-none" selected>Industría</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                        <div class="form-group group">
+                            <select class="form-control" id="maquinaria" name="maquinaria">
+                                <option class="d-none" selected>Tipo de Maquinaria</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
                     </div>
 
                     <div class="mt-4">
-                        <h4 class="font-family-Roboto-Medium">Condición</h4>
+                        <h3 class="font-family-Roboto-Medium ">Detalles de producto</h3>
+                    </div>
+                    <div class="formulario-busqueda">
+                        <div class="form-group group">
+                            <select class="form-control" id="marca" name="marca">
+                                <option class="d-none" selected>Marca</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                        <div class="form-group group">
+                            <select class="form-control" id="modelo" name="modelo">
+                                <option class="d-none" selected>Modelo</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="font-family-Roboto-Medium input-sm-heading">Año de modelo</h4>
+                    </div>
+                    <div class="campos-min-max font-family-Roboto-Regular">
+                        <div class="form-check-inline">
+                            <input type="text" name="desde" id="desde" placeholder="Desde">
+                        </div>
+                        <div class="form-check-inline">-</div>
+                        <div class="form-check-inline mr-0">
+                            <input type="text" name="hasta" id="hasta" placeholder="Hasta">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="font-family-Roboto-Medium input-sm-heading">Condición</h4>
                     </div>
                     <div class="font-family-Roboto-Regular tipo">
-                          <?php  
-                                if ($count_category > 0) {
-                                    foreach ($categories as $categorie) {
-                                        echo '<div class="form-group mb-1">';
-                                        echo '<div class="custom-control custom-radio">';
-                                        
-                                        $id = $categorie['id_category'];
-                                        $categoryName = $categorie['category'];
-                                        
-                                        echo '<input type="radio" class="custom-control-input" id="' . $categoryName . '" name="category" value="' . $id . '"';
-                                        
-                                        if ($id == $categoria) {
-                                            echo ' checked';
-                                        }
-                                        
-                                        echo '>';
-                                        echo '<label class="custom-control-label font-family-Roboto-Regular" for="' . $categoryName . '">' . $categoryName . '</label>';
-                                        echo '</div></div>';
-                                    }
-                                }  ?> 
-                         
-                              </div>
-                            <div class="mt-5">                        
-                           <button type="button"  onclick="buscarTienda('<?=$tpublicacion?>');" class="btn-filtros font-family-Roboto-Medium">
-                               <i class="far fa-search"></i> Buscar
-                           </button>                      
+                        <div class="form-check-inline">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="nuevo" name="tipo">
+                                <label class="custom-control-label font-family-Roboto-Regular" for="nuevo">Nuevo</label>
+                            </div>
                         </div>
-                      </form>
+                        <div class="form-check-inline">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="usado" name="tipo">
+                                <label class="custom-control-label font-family-Roboto-Regular" for="usado">Usado</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="font-family-Roboto-Medium input-sm-heading">Odómetraje</h4>
+                        <p class="font-family-Roboto-Regular">
+                            En que unidad lo quieres medir?
+                        </p>
+                    </div>
+                    <div class="font-family-Roboto-Regular tipo">
+                        <div class="form-check-inline">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="kilometraje" name="recorrido">
+                                <label class="custom-control-label font-family-Roboto-Regular"
+                                    for="kilometraje">Kilometraje</label>
+                            </div>
+                        </div>
+                        <div class="form-check-inline">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="horometro" name="recorrido">
+                                <label class="custom-control-label font-family-Roboto-Regular" for="horometro">Horómetro
+                                    (Hrs)</label>
+                            </div>
+                        </div>
+                        <div class="campos-min-max font-family-Roboto-Regular mt-3">
+                            <div class="form-check-inline">
+                                <input type="text" name="kdesde" id="kdesde" placeholder="Desde">
+                            </div>
+                            <div class="form-check-inline">-</div>
+                            <div class="form-check-inline mr-0">
+                                <input type="text" name="khasta" id="khasta" placeholder="Hasta">
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
             <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
@@ -283,91 +364,578 @@ $url_publi = $protocol . '://' . $host;
                     <div class="col-md-12">
                         <p class="titulo-tienda text-right" id="">
                             <span class="mr-3">Ordenar por:</span>
-                            
-                            <a href="#" onclick="filtrotienda('<?=$tpublicacion?>','<?=$categoria?>','price-min=1','<?=$search?>')"  id="price-min" class="font-family-Roboto-Medium mb-3 <?= ($price_min == '1') ? 'activo' :''; ?>">Precio más bajo primero</a>
-                            <a href="#" onclick="filtrotienda('<?=$tpublicacion?>','<?=$categoria?>','price-max=1','<?=$search?>')"  id="price-max" class="font-family-Roboto-Medium mb-3 <?= ($price_max == '1') ? 'activo' :''; ?>">Precio más alto primero</a>
 
+                            <a href="javascript:void('0');" id="recent"
+                                class="font-family-Roboto-Medium mb-3 titulo-filter-btn">Más
+                                recientes</a>
+                            <a href="javascript:void('0');" id="price-min"
+                                class="font-family-Roboto-Medium mb-3 titulo-filter-btn">Precio
+                                más bajo primero</a>
                         </p>
-                        <p> <?= $msg_list_public ?> </p>
                     </div>
                     <div class="col-md-12 mt-3">
                         <div class="all">
-                      <?php   
-                      if($count_pub > 0){  
-                             foreach ($currentRows as $pub) {  ?>
-                            <a href="detalle.php?typep=<?=$tpublicacion ?>&id=<?= $pub['id_product'] ?>&<?= ($tpublicacion == '2') ? 'comprar' :' arrendar'; ?>">
-                                <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
-                                    <div class="box-img position-relative image-container">
-                                     <img src="<?=$baseUrl?>/see_image?image=<?= isset($pub["product_images"][0]["image_name"])  ? $pub["product_images"][0]["image_name"]: 'sin_producto.jpg'?>" alt="producto">
-                                    </div>
-                                    <div class="box-description w-100">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h2 class="font-family-Roboto-Regular">
-                                                    <?= $pub['title']  ?>
-                                                </h2>
-                                                <h3 class="mb-3">
-                                                    <strong class="font-family-Roboto-Bold"> <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-12 mini-detalles d-flex align-items-center justify-content-between">
-                                                <div class="ubicacion font-family-Roboto-Regular">
-                                                    <i class="fal fa-map-marker-alt"></i>   <?= $pub['location']  ?>
-                                                </div> 
-                                                <a onclick="whats('<?=$tpublicacion?>','<?=$pub['id_product']?>','<?=$pub['title']?>','<?=$url_publi?>')"  href="#" class="btn-contacto font-family-Roboto-Medium">
-                                                <i class="fab fa-whatsapp"></i> <b class="icono_mobile">Contactar</b>
-                                            </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        <?php  } }  ?>                   
-                        </div>
-                        <div class="price-minaaa" style="display: none;">
                             <a href="detalle.php">
                                 <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
                                     <div class="box-img position-relative">
-                                        <img src="img/detalle-pro.png" alt="producto">
+                                        <img src="./assets/img/tienda.png" alt="producto">
+                                        <div class="abs">
+                                            <span class="font-family-Roboto-Regular">Oportunidad</span>
+                                        </div>
                                     </div>
                                     <div class="box-description">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-7">
                                                 <h2 class="font-family-Roboto-Regular">
-                                                    Construcción Excavadora de las mejores del mundo Construcción
+                                                    Construcción Excavadora de las mejores del mundo
                                                 </h2>
                                                 <h3 class="mb-3">
-                                                    <strong class="font-family-Roboto-Bold">CLP 10.000 / hora</strong>
+                                                    <strong class="font-family-Roboto-Bold">CLP 10.000/hr.</strong>
+                                                    <span class="font-family-Roboto-Medium">(UF 0,050/hr.)</span>
                                                 </h3>
-                                            </div>
-                                            <div class="col-md-12 mini-detalles d-flex align-items-center justify-content-between">
-                                                <div class="ubicacion font-family-Roboto-Regular">
-                                                    <i class="fal fa-map-marker-alt"></i> San Isidro, Perú
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                            <img src="./assets/img/location-grey.png" alt="location" />
+                                                            San Isidro
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                            <img src="./assets/img/bus.png" alt="bus" /> PC200, 2019
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                            84.482 km
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                            Julio 2019
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <a href="https://api.whatsapp.com/send?phone=<?=$contact?>&text=¡Hola! Estoy interesado en el anuncio# <?= $detalle['$id']?> que vi en el  <?= $detalle['title']  ?> Maquinatrix." class="btn-contacto font-family-Roboto-Medium">
-                                                    <i class="fab fa-whatsapp"></i> Contactar
-                                                </a>
+                                            </div>
+                                            <div class="col-md-5 mini-detalles">
+                                                <p>Incluye:</p>
+                                                <ul>
+                                                    <li><i class="fa-regular fa-circle-check"></i> Contrato Maquinatrix
+                                                    </li>
+                                                    <li><i class="fa-regular fa-circle-check"></i> Garantía Maquinatrix
+                                                    </li>
+                                                    <li><i class="fa-regular fa-circle-check"></i> Despacho</li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </a>
+                            <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
+                                <div class="box-img position-relative">
+                                    <img src="./assets/img/tienda.png" alt="producto">
+                                    <div class="abs">
+                                        <span class="font-family-Roboto-Regular">Oportunidad</span>
+                                    </div>
+                                </div>
+                                <div class="box-description">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <h2 class="font-family-Roboto-Regular">
+                                                Construcción Excavadora de las mejores del mundo
+                                            </h2>
+                                            <h3 class="mb-3">
+                                                <strong class="font-family-Roboto-Bold">CLP 10.000/hr.</strong>
+                                                <span class="font-family-Roboto-Medium">(UF 0,050/hr.)</span>
+                                            </h3>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                        <img src="./assets/img/location-grey.png" alt="location" /> San
+                                                        Isidro
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                        <img src="./assets/img/bus.png" alt="bus" /> PC200, 2019
+                                                    </p>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                        84.482 km
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                        Julio 2019
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 mini-detalles">
+                                            <p>Incluye:</p>
+                                            <ul>
+                                                <li><i class="fa-regular fa-circle-check"></i>Contrato Maquinatrix</li>
+                                                <li><i class="fa-regular fa-circle-check"></i>Garantía Maquinatrix</li>
+                                                <li><i class="fa-regular fa-circle-check"></i>Despacho</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="detalle.php">
+                                <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
+                                    <div class="box-img position-relative">
+                                        <img src="./assets/img/tienda.png" alt="producto">
+                                        <div class="abs">
+                                            <span class="font-family-Roboto-Regular">Oportunidad</span>
+                                        </div>
+                                    </div>
+                                    <div class="box-description">
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <h2 class="font-family-Roboto-Regular">
+                                                    Construcción Excavadora de las mejores del mundo
+                                                </h2>
+                                                <h3 class="mb-3">
+                                                    <strong class="font-family-Roboto-Bold">CLP 10.000/hr.</strong>
+                                                    <span class="font-family-Roboto-Medium">(UF 0,050/hr.)</span>
+                                                </h3>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                            <img src="./assets/img/location-grey.png" alt="location" />
+                                                            San Isidro
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                            <img src="./assets/img/bus.png" alt="bus" /> PC200, 2019
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                            84.482 km
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                            Julio 2019
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 mini-detalles">
+                                                <p>Incluye:</p>
+                                                <ul>
+                                                    <li><i class="fa-regular fa-circle-check"></i> Contrato Maquinatrix
+                                                    </li>
+                                                    <li><i class="fa-regular fa-circle-check"></i> Garantía Maquinatrix
+                                                    </li>
+                                                    <li><i class="fa-regular fa-circle-check"></i> Despacho</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
+                                <div class="box-img position-relative">
+                                    <img src="./assets/img/tienda.png" alt="producto">
+                                    <div class="abs">
+                                        <span class="font-family-Roboto-Regular">Oportunidad</span>
+                                    </div>
+                                </div>
+                                <div class="box-description">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <h2 class="font-family-Roboto-Regular">
+                                                Construcción Excavadora de las mejores del mundo
+                                            </h2>
+                                            <h3 class="mb-3">
+                                                <strong class="font-family-Roboto-Bold">CLP 10.000/hr.</strong>
+                                                <span class="font-family-Roboto-Medium">(UF 0,050/hr.)</span>
+                                            </h3>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                        <img src="./assets/img/location-grey.png" alt="location" /> San
+                                                        Isidro
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                        <img src="./assets/img/bus.png" alt="bus" /> PC200, 2019
+                                                    </p>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                        84.482 km
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                        Julio 2019
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 mini-detalles">
+                                            <p>Incluye:</p>
+                                            <ul>
+                                                <li><i class="fa-regular fa-circle-check"></i>Contrato Maquinatrix</li>
+                                                <li><i class="fa-regular fa-circle-check"></i>Garantía Maquinatrix</li>
+                                                <li><i class="fa-regular fa-circle-check"></i>Despacho</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="detalle.php">
+                                <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
+                                    <div class="box-img position-relative">
+                                        <img src="./assets/img/tienda.png" alt="producto">
+                                        <div class="abs">
+                                            <span class="font-family-Roboto-Regular">Oportunidad</span>
+                                        </div>
+                                    </div>
+                                    <div class="box-description">
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <h2 class="font-family-Roboto-Regular">
+                                                    Construcción Excavadora de las mejores del mundo
+                                                </h2>
+                                                <h3 class="mb-3">
+                                                    <strong class="font-family-Roboto-Bold">CLP 10.000/hr.</strong>
+                                                    <span class="font-family-Roboto-Medium">(UF 0,050/hr.)</span>
+                                                </h3>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                            <img src="./assets/img/location-grey.png" alt="location" />
+                                                            San Isidro
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                            <img src="./assets/img/bus.png" alt="bus" /> PC200, 2019
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                            84.482 km
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                            Julio 2019
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 mini-detalles">
+                                                <p>Incluye:</p>
+                                                <ul>
+                                                    <li><i class="fa-regular fa-circle-check"></i> Contrato Maquinatrix
+                                                    </li>
+                                                    <li><i class="fa-regular fa-circle-check"></i> Garantía Maquinatrix
+                                                    </li>
+                                                    <li><i class="fa-regular fa-circle-check"></i> Despacho</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
+                                <div class="box-img position-relative">
+                                    <img src="./assets/img/tienda.png" alt="producto">
+                                    <div class="abs">
+                                        <span class="font-family-Roboto-Regular">Oportunidad</span>
+                                    </div>
+                                </div>
+                                <div class="box-description">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <h2 class="font-family-Roboto-Regular">
+                                                Construcción Excavadora de las mejores del mundo
+                                            </h2>
+                                            <h3 class="mb-3">
+                                                <strong class="font-family-Roboto-Bold">CLP 10.000/hr.</strong>
+                                                <span class="font-family-Roboto-Medium">(UF 0,050/hr.)</span>
+                                            </h3>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                        <img src="./assets/img/location-grey.png" alt="location" /> San
+                                                        Isidro
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                        <img src="./assets/img/bus.png" alt="bus" /> PC200, 2019
+                                                    </p>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                        84.482 km
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                        Julio 2019
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 mini-detalles">
+                                            <p>Incluye:</p>
+                                            <ul>
+                                                <li><i class="fa-regular fa-circle-check"></i>Contrato Maquinatrix</li>
+                                                <li><i class="fa-regular fa-circle-check"></i>Garantía Maquinatrix</li>
+                                                <li><i class="fa-regular fa-circle-check"></i>Despacho</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="detalle.php">
+                                <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
+                                    <div class="box-img position-relative">
+                                        <img src="./assets/img/tienda.png" alt="producto">
+                                        <div class="abs">
+                                            <span class="font-family-Roboto-Regular">Oportunidad</span>
+                                        </div>
+                                    </div>
+                                    <div class="box-description">
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <h2 class="font-family-Roboto-Regular">
+                                                    Construcción Excavadora de las mejores del mundo
+                                                </h2>
+                                                <h3 class="mb-3">
+                                                    <strong class="font-family-Roboto-Bold">CLP 10.000/hr.</strong>
+                                                    <span class="font-family-Roboto-Medium">(UF 0,050/hr.)</span>
+                                                </h3>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                            <img src="./assets/img/location-grey.png" alt="location" />
+                                                            San Isidro
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                            <img src="./assets/img/bus.png" alt="bus" /> PC200, 2019
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                            84.482 km
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                            Julio 2019
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 mini-detalles">
+                                                <p>Incluye:</p>
+                                                <ul>
+                                                    <li><i class="fa-regular fa-circle-check"></i> Contrato Maquinatrix
+                                                    </li>
+                                                    <li><i class="fa-regular fa-circle-check"></i> Garantía Maquinatrix
+                                                    </li>
+                                                    <li><i class="fa-regular fa-circle-check"></i> Despacho</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
+                                <div class="box-img position-relative">
+                                    <img src="./assets/img/tienda.png" alt="producto">
+                                    <div class="abs">
+                                        <span class="font-family-Roboto-Regular">Oportunidad</span>
+                                    </div>
+                                </div>
+                                <div class="box-description">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <h2 class="font-family-Roboto-Regular">
+                                                Construcción Excavadora de las mejores del mundo
+                                            </h2>
+                                            <h3 class="mb-3">
+                                                <strong class="font-family-Roboto-Bold">CLP 10.000/hr.</strong>
+                                                <span class="font-family-Roboto-Medium">(UF 0,050/hr.)</span>
+                                            </h3>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                        <img src="./assets/img/location-grey.png" alt="location" /> San
+                                                        Isidro
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                        <img src="./assets/img/bus.png" alt="bus" /> PC200, 2019
+                                                    </p>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                        84.482 km
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                        Julio 2019
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 mini-detalles">
+                                            <p>Incluye:</p>
+                                            <ul>
+                                                <li><i class="fa-regular fa-circle-check"></i>Contrato Maquinatrix</li>
+                                                <li><i class="fa-regular fa-circle-check"></i>Garantía Maquinatrix</li>
+                                                <li><i class="fa-regular fa-circle-check"></i>Despacho</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div> 
-                    <?php   
-                      if($count_pub > 0){   ?>    
-                    <div class="col-md-12 mt-5">
-                        <ul class="align-items-center font-family-Inter-Regular justify-content-end m-auto pagination">
-                            <li class="page-item"><a class="page-link" href="tienda.php?page=<?= $currentPage - 1 ?>"<?= $param?>>Anterior</a></li>
-                            <?php
-                                    for ($page = 1; $page <= $totalPages; $page++) {
-                                        echo '<li class="page-item' . ($page == $currentPage ? ' active' : '') . '"><a class="page-link" href="tienda.php?page=' . $page . ''.$param.'">' . $page . '</a></li>';
-                                    }
-                            ?>
-                            <li class="page-item"><a class="page-link" href="tienda.php?page=<?= $currentPage + 1 ?><?= $param?>">Siguiente</a></li>
-                        </ul>
+                        <div class="recent" style="display: none;">
+                            <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
+                                <div class="box-img position-relative">
+                                    <img src="./assets/img/tienda.png" alt="producto">
+                                    <div class="abs">
+                                        <span class="font-family-Roboto-Regular">Oportunidad</span>
+                                    </div>
+                                </div>
+                                <div class="box-description">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <h2 class="font-family-Roboto-Regular">
+                                                Construcción Excavadora de las mejores del mundo
+                                            </h2>
+                                            <h3 class="mb-3">
+                                                <strong class="font-family-Roboto-Bold">CLP 10.000/hr.</strong>
+                                                <span class="font-family-Roboto-Medium">(UF 0,050/hr.)</span>
+                                            </h3>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                        <img src="./assets/img/location-grey.png" alt="location" /> San
+                                                        Isidro
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                        <img src="./assets/img/bus.png" alt="bus" /> PC200, 2019
+                                                    </p>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                        84.482 km
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                        Julio 2019
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 mini-detalles">
+                                            <p>Incluye:</p>
+                                            <ul>
+                                                <li><i class="fa-regular fa-circle-check"></i> Contrato Maquinatrix</li>
+                                                <li><i class="fa-regular fa-circle-check"></i> Garantía Maquinatrix</li>
+                                                <li><i class="fa-regular fa-circle-check"></i> Despacho</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-min" style="display: none;">
+                            <div class="align-items-start box-tienda d-flex justify-content-start mb-3">
+                                <div class="box-img position-relative">
+                                    <img src="./assets/img/tienda.png" alt="producto">
+                                    <div class="abs">
+                                        <span class="font-family-Roboto-Regular">Oportunidad</span>
+                                    </div>
+                                </div>
+                                <div class="box-description">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <h2 class="font-family-Roboto-Regular">
+                                                Construcción Excavadora de las mejores del mundo
+                                            </h2>
+                                            <h3 class="mb-3">
+                                                <strong class="font-family-Roboto-Bold">CLP 10.000/hr.</strong>
+                                                <span class="font-family-Roboto-Medium">(UF 0,050/hr.)</span>
+                                            </h3>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                        <img src="./assets/img/location-grey.png" alt="location" /> San
+                                                        Isidro
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-grey mb-1">
+                                                        <img src="./assets/img/bus.png" alt="bus" /> PC200, 2019
+                                                    </p>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                        84.482 km
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="font-family-Roboto-Regular detalles-bold mb-1">
+                                                        Julio 2019
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 mini-detalles">
+                                            <p>Incluye:</p>
+                                            <ul>
+                                                <li><i class="fa-regular fa-circle-check"></i> Contrato Maquinatrix</li>
+                                                <li><i class="fa-regular fa-circle-check"></i> Garantía Maquinatrix</li>
+                                                <li><i class="fa-regular fa-circle-check"></i> Despacho</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pagination-container">
+    <button class="pagination-button prevNext" id="prev" disabled="">
+    <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <div class="pagination-links"></div>
+    <button class="pagination-button prevNext" id="next">
+    <i class="fa-solid fa-chevron-right"></i>
+    </button>
+</div>
                     </div>
-                    <?php    }  ?>    
                 </div>
             </div>
         </div>
@@ -377,14 +945,80 @@ $url_publi = $protocol . '://' . $host;
 <?php include 'footer.php' ?>
 <script>
     $('#all').click(function () {
-        $('.all').css('display','block');
-        $('.recent').css('display','none');
-        $('.price-min').css('display','none');
+        $('.all').css('display', 'block');
+        $('.recent').css('display', 'none');
+        $('.price-min').css('display', 'none');
+    });
+    $('#recent').click(function () {
+        $('.all').css('display', 'none');
+        $('.recent').css('display', 'block');
+        $('.price-min').css('display', 'none');
     });
     $('#price-min').click(function () {
-        $('.all').css('display','none');
-        $('.recent').css('display','none');
-        $('.price-min').css('display','block');
+        $('.all').css('display', 'none');
+        $('.recent').css('display', 'none');
+        $('.price-min').css('display', 'block');
     })
- 
+    $('#Arrendar').click(function () {
+        $('.all').css('display', 'none');
+        $('.recent').css('display', 'block');
+        $('.price-min').css('display', 'none');
+    });
+    $('#Comprar').click(function () {
+        $('.all').css('display', 'none');
+        $('.recent').css('display', 'none');
+        $('.price-min').css('display', 'block');
+    })
+</script>
+
+<script>
+    const prevBtn = document.querySelector("#prev");
+    const nextBtn = document.querySelector("#next");
+    const linksContainer = document.querySelector(".pagination-links");
+
+    const totalPages = 5; // Adjust this to the total number of pages
+    let currentStep = 0;
+
+    const updatePagination = () => {
+        const startBtn = currentStep === 0;
+        const endBtn = currentStep === totalPages - 1;
+
+        prevBtn.disabled = startBtn;
+        nextBtn.disabled = endBtn;
+
+        const linksHTML = Array.from({ length: totalPages }, (_, index) => {
+            const pageNum = index + 1;
+            const isActive = currentStep === index ? 'active' : '';
+            return `<a href="#" class="pagination-link ${isActive}" data-index="${index}">${pageNum}</a>`;
+        }).join('');
+
+        linksContainer.innerHTML = linksHTML;
+    };
+
+    const setPage = (index) => {
+        currentStep = index;
+        updatePagination();
+    };
+
+    const handlePageClick = (e) => {
+        e.preventDefault();
+        const index = parseInt(e.target.getAttribute('data-index'));
+        setPage(index);
+    };
+
+    const handlePrevNextClick = (e) => {
+        e.preventDefault();
+        currentStep += e.target.id === "next" ? 1 : -1;
+        setPage(currentStep);
+    };
+
+    const createPagination = () => {
+        updatePagination();
+
+        linksContainer.addEventListener('click', handlePageClick);
+        prevBtn.addEventListener('click', handlePrevNextClick);
+        nextBtn.addEventListener('click', handlePrevNextClick);
+    };
+
+    createPagination();
 </script>

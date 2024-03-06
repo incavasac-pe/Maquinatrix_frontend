@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 mb-5">
-                <img src="img/logo-white.png" alt="logo">
+                <img src="./assets/img/logo-white.png" alt="logo">
             </div>
             <div class="col-md-12">
                 <div class="row justify-content-between">
@@ -32,6 +32,21 @@
                             </li>
                             <li>
                                 <a target="_blank" href="https://maquinatrix.com/tienda.php?page=1&typep=2&comprar" >Compra</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <h3 class="font-family-Roboto-Medium">ENLACES ÚTILES</h3>
+                        <ul class="font-family-Roboto-Regular">
+                        
+                        <li>
+                                <a target="_blank" href="https://empresa.maquinatrix.com/servicios/" >Términos y Condiciones</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://maquinatrix.com/tienda.php?page=1&typep=1&arrendar" >Políticas de Privacidad</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://maquinatrix.com/tienda.php?page=1&typep=2&comprar" >Política de Cookies</a>
                             </li>
                         </ul>
                     </div>
