@@ -1,7 +1,8 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
-<?php  
+<?php 
 $baseUrl = getenv('URL_API');
+ 
 
 function shuffleArray($array) {
     $keys = array_keys($array);
@@ -64,7 +65,7 @@ function cortarString($texto) {
       #
    ?>
 <section class="bg-slider d-flex align-items-center justify-content-start">
-    <div class="container">
+    <div class="container"> 
         <div class="row">
             <div class="col-md-7">
                 <h2 class="font-family-Roboto-Bold">Arrienda y compra tu maquinaria ideal</h2>
@@ -72,12 +73,14 @@ function cortarString($texto) {
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active font-family-Roboto-Bold" data-toggle="tab" href="#arrendar"  style="border-radius: 10px 0 0 0;">
+                        <a class="nav-link active font-family-Roboto-Bold" data-toggle="tab" href="#arrendar"
+                            style="border-radius: 10px 0 0 0;">
                             Arrendar
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link font-family-Roboto-Bold" data-toggle="tab" href="#comprar"   style="border-radius: 0 10px 0 0">
+                        <a class="nav-link font-family-Roboto-Bold" data-toggle="tab" href="#comprar"
+                            style="border-radius: 0 10px 0 0">
                             Comprar
                         </a>
                     </li>
@@ -86,52 +89,57 @@ function cortarString($texto) {
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div id="arrendar" class="container tab-pane active">
-                        <form  class="fomulario-search row">
+                        <form class="fomulario-search row">
                             <div class="col-md-3 bg-white border-lado">
-                                <?php                                            
-                                    if ($count_category > 0) {  
-                                        echo '<select class="form-control font-family-Roboto-Regular"  id="category" name="category">';
-                                        echo '<option value="">Seleccionar</option>'; 
-                                        foreach ($categories as $categorie) {
-                                            $id = $categorie['id_category'];
-                                            $category = $categorie['category']; 
-                                            echo '<option value="' . $id . '">' . $category . '</option>';
-                                        }
-                                        echo '</select>';
-                                    }  
-                                 ?> 
+                                <?php
+                                if ($count_category > 0) {
+                                    echo '<select class="form-control font-family-Roboto-Regular"  id="category" name="category">';
+                                    echo '<option value="">Seleccionar</option>';
+                                    foreach ($categories as $categorie) {
+                                        $id = $categorie['id_category'];
+                                        $category = $categorie['category'];
+                                        echo '<option value="' . $id . '">' . $category . '</option>';
+                                    }
+                                    echo '</select>';
+                                }
+                                ?>
                             </div>
+
                             <div class="col-md-7 bg-white">
-                                <input type="text" name="buscar" id="buscar" placeholder="¿Qué buscas?" class="font-family-Roboto-Regular">
+                                <input type="text" name="buscar" id="buscar" placeholder="¿Qué buscas?"
+                                    class="font-family-Roboto-Regular">
                             </div>
                             <div class="col-md-2">
-                                <button type="button" onclick="buscarInicial('1')"  class="btn btn-amarillo font-family-Roboto-Medium">
-                                    <i class="far fa-search"></i> Buscar
+                                <button type="button" onclick="buscarInicial('1')"
+                                    class="btn btn-amarillo font-family-Roboto-Medium">
+                                    <i class="fa-solid fa-magnifying-glass"></i> Buscar
                                 </button>
                             </div>
                         </form>
                     </div>
                     <div id="comprar" class="container tab-pane fade">
-                        <form   class="fomulario-search row"  >
-                            <div class="col-md-3 bg-white border-lado">                             
-                            <?php                                            
-                                if ($count_category > 0) {  
+                        <form class="fomulario-search row">
+                            <div class="col-md-3 bg-white border-lado">
+                                <?php
+                                if ($count_category > 0) {
                                     echo '<select class="form-control font-family-Roboto-Regular"  id="category_compra" name="category_compra">';
-                                    echo '<option value="">Seleccionar</option>'; 
+                                    echo '<option value="">Seleccionar</option>';
                                     foreach ($categories as $categorie) {
                                         $id = $categorie['id_category'];
-                                        $category = $categorie['category']; 
+                                        $category = $categorie['category'];
                                         echo '<option value="' . $id . '">' . $category . '</option>';
                                     }
                                     echo '</select>';
-                                }  
-                               ?>
+                                }
+                                ?>
                             </div>
                             <div class="col-md-7 bg-white">
-                                <input type="text" name="buscar-compra" id="buscar-compra" placeholder="¿Qué buscas?" class="font-family-Roboto-Regular">
+                                <input type="text" name="buscar-compra" id="buscar-compra" placeholder="¿Qué buscas?"
+                                    class="font-family-Roboto-Regular">
                             </div>
                             <div class="col-md-2">
-                                <button type="button" onclick="buscarInicial('2');" class="btn btn-amarillo font-family-Roboto-Medium">
+                                <button type="button" onclick="buscarInicial('2');"
+                                    class="btn btn-amarillo font-family-Roboto-Medium">
                                     <i class="far fa-search"></i> Buscar
                                 </button>
                             </div>
@@ -142,66 +150,45 @@ function cortarString($texto) {
         </div>
     </div>
 </section>
-<section class="bg-carrucel mb-5">
+<section class="bg-top-box">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <!-- Swiper -->
-                <div class="swiper carrucel">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide slider-item slider-1">
-                            <div class="row">
-                                <div class="col-md-10 m-auto">
-                                    <div class="row">
-                                        <div class="col-md-9 col-12 box-flex">
-                                            <h2 class="font-family-Roboto-Medium mb-0">
-                                                Paga Ahora o al Final del arriendo en maquinaria y herramientas
-                                            </h2>
-                                        </div>
-                                        <div class="col-md-3 col-12 text-center">
-                                            <img src="img/slider1.png" alt="img">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide slider-item slider-2">
-                            <div class="row">
-                                <div class="col-md-10 m-auto">
-                                    <div class="row">
-                                        <div class="col-md-9 col-12 box-flex">
-                                            <h2 class="font-family-Roboto-Medium mb-0 text-white">
-                                                 Financiamiento para tus Compras
-                                            </h2>
-                                        </div>
-                                        <div class="col-md-3 col-12 text-center">
-                                            <img src="img/slider2.png" alt="img">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide slider-item slider-3">
-                            <div class="row">
-                                <div class="col-md-10 m-auto">
-                                    <div class="row">
-                                        <div class="col-md-9 col-12 box-flex text-white">
-                                            <h2 class="font-family-Roboto-Medium mb-0">
-                                                Garantía Maquinatrix para tus arriendos
-                                            </h2>
-                                        </div>
-                                        <div class="col-md-3 col-12 text-center">
-                                            <img src="img/slider3.png" alt="img">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-pagination"></div>
+        <div class="sub-container">
+            <div class="first-box">
+                <p class="main-heading">Arrienda fácil y seguro</p>
+                <p class="sub-heading">con Maquinatrix</p>
+            </div>
+            <div class="second-box">
+
+                <img src="./assets/img/garuntee.png" alt="garuntee">
+
+                <div class="text-wrapper">
+                    <p class="main-heading">Garantía Maquinatrix</p>
+                    <p class="sub-heading">Seguridad para todos</p>
                 </div>
+
+            </div>
+            <div class="second-box">
+                <img src="./assets/img/pay.png" alt="garuntee">
+                <div class="text-wrapper">
+                    <p class="main-heading">Paga Ahora o Después</p>
+                    <p class="sub-heading">Flexibilidad en los pagos</p>
+                </div>
+
+            </div>
+            <div class="second-box">
+                <img src="./assets/img/finance.png" alt="garuntee">
+                <div class="text-wrapper">
+                    <p class="main-heading">Financiamiento</p>
+                    <p class="sub-heading">Opciones más accesibles</p>
+                </div>
+
+            </div>
+            <hr/>
+            <div class="third-box">
+
+                <button class="arrow-wrapper" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                        class="fa-solid fa-arrow-right"></i></button>
+                <p class="sub-heading" style="margin-top: 5px;" style="margin-top: 5px;">Ver más</p>
             </div>
         </div>
     </div>
@@ -210,20 +197,20 @@ function cortarString($texto) {
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-3">
-                <div class="box" style="background-image: url(img/retroexcavadora.png);">
+                <div class="box" style="background-image: url(assets/img/retroexcavadora.png);">
                     <div>
                         <p class="font-family-Roboto-Regular mb-0">Lo mejor en</p>
                         <h5 class="font-family-Roboto-Bold mb-0">
                             Maquinaria y Equipos
                         </h5>
                     </div>
-                    <div> 
-                        <a href="#"  onclick="conocemas('1')" class="font-family-Roboto-Medium">Conoce más</a>
+                    <div>
+                        <a href="#" onclick="conocemas('1')" class="font-family-Roboto-Medium">Conoce más</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <div class="box" style="background-image: url(img/repuestos.png);">
+                <div class="box" style="background-image: url(assets/img/repuestos.png);">
                     <div>
                         <p class="font-family-Roboto-Regular mb-0">Todos los</p>
                         <h5 class="font-family-Roboto-Bold mb-0">
@@ -231,12 +218,12 @@ function cortarString($texto) {
                         </h5>
                     </div>
                     <div>
-                    <a href="#" onclick="conocemas('2')" class="font-family-Roboto-Medium">Conoce más</a>
+                        <a href="#" onclick="conocemas('2')" class="font-family-Roboto-Medium">Conoce más</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <div class="box" style="background-image: url(img/neumaticos.png);">
+                <div class="box" style="background-image: url(assets/img/neumaticos.png);">
                     <div>
                         <p class="font-family-Roboto-Regular mb-0">La variedad más grande en</p>
                         <h5 class="font-family-Roboto-Bold mb-0">
@@ -244,13 +231,14 @@ function cortarString($texto) {
                         </h5>
                     </div>
                     <div>
-                    <a href="#" onclick="conocemas('3')" class="font-family-Roboto-Medium">Conoce más</a>
+                        <a href="#" onclick="conocemas('3')" class="font-family-Roboto-Medium">Conoce más</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 <section>
     <div class="container">
         <div class="row">
@@ -288,6 +276,112 @@ function cortarString($texto) {
     </div>
 </section>
 
+<section class="interest">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 title-wrapper">
+                <h5 class="font-family-Roboto-Medium titulo">
+                    Te puede interesar
+                </h5>
+                <a href="./tienda.php" class="sub-title">Ver más</a>
+            </div>
+        </div>
+        <div class="interest-card-container">
+            <div class="card" style="width: 18rem;">
+            <div class="heart">
+            <i class="fa-regular fa-heart"></i>
+            </div>
+                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
+                <div class="card-body">
+                    <div class="status-wrapper">
+                        <div class="dot"></div>
+                        <h5 class="card-title">Arriendo</h5>
+                    </div>
+                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
+                    <p class="card-text2">CLP 84.000</p>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+            <div class="heart">
+            <i class="fa-regular fa-heart"></i>
+            </div>
+                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
+                <div class="card-body">
+                    <div class="status-wrapper">
+                        <div class="dot"></div>
+                        <h5 class="card-title">Arriendo</h5>
+                    </div>
+                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
+                    <p class="card-text2">CLP 84.000</p>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+            <div class="heart">
+            <i class="fa-regular fa-heart"></i>
+            </div>
+                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
+                <div class="card-body">
+                    <div class="status-wrapper">
+                        <div class="dot"></div>
+                        <h5 class="card-title">Arriendo</h5>
+                    </div>
+                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
+                    <p class="card-text2">CLP 84.000</p>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+            <div class="heart">
+            <i class="fa-regular fa-heart"></i>
+            </div>
+                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
+                <div class="card-body">
+                    <div class="status-wrapper">
+                        <div class="dot"></div>
+                        <h5 class="card-title">Arriendo</h5>
+                    </div>
+                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
+                    <p class="card-text2">CLP 84.000</p>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+            <div class="heart">
+            <i class="fa-regular fa-heart"></i>
+            </div>
+                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
+                <div class="card-body">
+                    <div class="status-wrapper">
+                        <div class="dot"></div>
+                        <h5 class="card-title">Arriendo</h5>
+                    </div>
+                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
+                    <p class="card-text2">CLP 84.000</p>
+                </div>
+            </div>
+        </div>
+</section>
+<section class="Discover">
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-12">
+                <h5 class="font-family-Roboto-Medium titulo">
+                    Descubre
+                </h5>
+            </div>
+        </div>
+        <div class="row row-class">
+            <div class="col-sm-6 col-md-6 col-lg-6 left-box">
+                <img src="./assets/img/feliz.png" alt="feliz" />
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 right-box">
+                <p class="first-title">CONOCE SOBRE </p>
+                <p class="sec-title">GARANTÍA MAQUINATRIX Y MUCHO MÁS</p>
+
+                <a href="#" class="Discover-btn"> Conoce más</a>
+
+            </div>
+        </div>
+    </div>
+</section>
 <section class="bg-general mb-5">
     <div class="container">
         <div class="row">
@@ -299,12 +393,12 @@ function cortarString($texto) {
             <div class="col-md-4 mb-3">
                 <div class="box-new">
                     <div class="box-img">
-                        <img src="img/lupa.png" alt="icono">
+                        <img src="./assets/img/lupa.png" alt="icono">
                     </div>
                     <div class="box-text">
                         <h2 class="font-family-Roboto-Medium">1. Encuentra</h2>
                         <p class="font-family-Roboto-Regular">
-                            Explora para descubrir la maquinaria, repuestos o herramientas <br> que necesitas.
+                            Explora para descubrir la maquinaria, repuestos o herramientas que necesitas.
                         </p>
                     </div>
                 </div>
@@ -312,7 +406,7 @@ function cortarString($texto) {
             <div class="col-md-4 mb-3">
                 <div class="box-new">
                     <div class="box-img">
-                        <img src="img/chat.png" alt="icono">
+                        <img src="./assets/img/chat.png" alt="icono">
                     </div>
                     <div class="box-text">
                         <h2 class="font-family-Roboto-Medium">2. Contacta</h2>
@@ -325,7 +419,7 @@ function cortarString($texto) {
             <div class="col-md-4 mb-3">
                 <div class="box-new">
                     <div class="box-img">
-                        <img src="img/carita.png" alt="icono">
+                        <img src="./assets/img/carita.png" alt="icono">
                     </div>
                     <div class="box-text">
                         <h2 class="font-family-Roboto-Medium">3. Disfruta</h2>
@@ -337,5 +431,8 @@ function cortarString($texto) {
             </div>
         </div>
     </div>
-</section> 
+</section>
+
+
 <?php include 'footer.php' ?>
+<?php include 'maq_service.php' ?>

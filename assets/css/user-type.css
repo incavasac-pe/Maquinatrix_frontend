@@ -1,0 +1,108 @@
+.user-type-main {
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eef0f3;
+}
+.user-type-container {
+  position: absolute;
+  width: 412px;
+  height: 590px;
+  padding: 40px;
+  border-radius: 8px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 1px 2px #00000029;
+  border-radius: 8px;
+  opacity: 1;
+  background: #fff;
+}
+
+.user-type-container h1 {
+  text-align: left;
+  font: normal normal 500 24px/32px Roboto;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #000000;
+  margin-bottom: 10px;
+  opacity: 1;
+}
+
+.user-type-container > p {
+  text-align: left;
+  font: normal normal normal 14px/22px Roboto;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  margin-bottom: 30px !important;
+}
+.user-type-container .custom-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-type-container .custom-option {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e4e5e7;
+  border-radius: 8px;
+}
+.user-type-container .custom-option:nth-child(1) {
+  margin-right: 20px;
+}
+.user-type-container img {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 10px;
+}
+
+.user-type-container p {
+  text-align: center;
+  font: normal normal 500 15px/22px Roboto;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #000000;
+  margin-bottom: 0;
+  width: 100%;
+  text-align: start;
+  opacity: 1;
+}
+
+.user-type-container .user-type-btn-wrapper {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  bottom: -45%;
+}
+.user-type-container .user-type-btn-wrapper .user-type-btn {
+  width: 100%;
+  padding: 12px 20px;
+  text-align: center;
+  font: normal normal 500 15px/22px Roboto;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  background: #ffd140 0% 0% no-repeat padding-box;
+  border-radius: 23px;
+  text-decoration: none;
+}
+
+.user-type-container .user-type-btn-wrapper .user-type-btn:hover {
+  width: 100%;
+  padding: 12px 20px;
+  text-align: center;
+  font: normal normal 500 15px/22px Roboto;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  background: #feae02 0% 0% no-repeat padding-box;
+  border-radius: 23px;
+}
+
+.custom-option.selected {
+  border: 2px solid #1d8eff;
+}

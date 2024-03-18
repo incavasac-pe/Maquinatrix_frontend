@@ -1,0 +1,179 @@
+.login {
+  width: 100%;
+  position: relative;
+}
+.login .one-color {
+  height: 30svh;
+  width: 100%;
+  background: #001343;
+}
+
+.login .two-color {
+  height: 70svh;
+  width: 100%;
+  background: #eef0f3;
+}
+.login .login-main {
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+}
+.login .login-container {
+  width: 412px;
+  height: 590px;
+  padding: 40px;
+  border-radius: 8px;
+  background: #fff;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 1px 2px #00000029;
+  border-radius: 8px;
+  opacity: 1;
+}
+.login-wrapper h1 {
+  text-align: left;
+  font: normal normal 24px/32px Roboto;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #000000;
+  margin-bottom: 20px;
+}
+.login-wrapper .form-control {
+  padding: 15px 20px;
+  background: #fff;
+  border: 1px solid #e4e5e7;
+  text-align: left;
+  font: normal normal normal 14px/22px Roboto;
+  letter-spacing: 0px;
+  color: #95979d;
+  opacity: 1;
+}
+.login-wrapper .login-btn-wrapper {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-wrapper .login-btn-wrapper .login-btn {
+  
+  bottom: 10px;
+  text-decoration: none;
+  width: 100%;
+  padding: 12px 20px;
+  text-align: center;
+  font: normal normal 500 15px/22px Roboto;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  background: #ffd140 0% 0% no-repeat padding-box;
+  border-radius: 23px;
+}
+.login-wrapper .login-btn-wrapper .login-btn :hover {
+  width: 100%;
+  padding: 12px 20px;
+  text-align: center;
+  font: normal normal 500 15px/22px Roboto;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  background: #feae02 0% 0% no-repeat padding-box;
+  border-radius: 23px;
+}
+
+.login-wrapper .register-btn-wrapper {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+.login-wrapper .register-btn-wrapper .register-btn {
+  width: 100%;
+  padding: 12px 20px;
+  text-decoration: none;
+  text-align: center;
+  font: normal normal 500 15px/22px Roboto;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  background: #eef0f3 0% 0% no-repeat padding-box;
+  border-radius: 23px;
+}
+.login-wrapper .forget-link-wrapper {
+  margin-top: 20px;
+}
+.login-wrapper .forget-link {
+  text-align: left;
+  text-decoration: none;
+  font: normal normal 500 14px/22px Roboto;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+.login-wrapper .hr-text {
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-wrapper .hr-text p {
+  text-align: left;
+  font: normal normal normal 13px/20px Roboto;
+  letter-spacing: 0px;
+  color: #62646a;
+  margin: 0 5px;
+  opacity: 1;
+}
+.hr-text hr {
+  width: 40%;
+}
+
+.login-wrapper .social-btns {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-btns .linkedin-btn .fa-facebook {
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+.social-btns .google-btn img {
+  margin-right: 10px;
+  width: 24px;
+}
+.social-btns .google-btn .google {
+  display: flex;
+  margin-left: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 20px;
+  text-align: left;
+  font: normal normal normal 14px/22px Roboto;
+  letter-spacing: 0px;
+  color: #000;
+  opacity: 1;
+  background: #e4e5e7 0% 0% no-repeat padding-box;
+  border-radius: 27px;
+  text-decoration: none;
+}
+.social-btns .linkedin-btn .linkedin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 20px;
+  background: #0f70f3 0% 0% no-repeat padding-box;
+  border-radius: 27px;
+  font: normal normal normal 14px/22px Roboto;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+  text-decoration: none;
+}

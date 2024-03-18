@@ -1,7 +1,7 @@
  <?php include 'header.php' ?>
 <section class="bg_login">
     <div class="container-fluid">
-              <?php
+    <?php
       if (isset($_GET['logout'])) {
         $msg = "Se ha cerrado la sesion.";
         echo '

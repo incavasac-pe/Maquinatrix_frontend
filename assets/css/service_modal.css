@@ -1,0 +1,54 @@
+.maq_service_modal .modal-body .modal-box-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items:flex-start;
+    padding: 20px 30px ;
+}
+.maq_service_modal .modal-body {
+    padding: 10px 0px !important;
+}
+
+.maq_service_modal .modal-body .modal-box-wrapper img {
+  margin-right: 30px;
+}
+
+.maq_service_modal .modal-body .modal-box-wrapper .box-main-heading {
+    text-align: left;
+font: normal normal 500 18px/24px Roboto;
+font-weight: 500;
+letter-spacing: 0px;
+color: #000000;
+opacity: 1;
+margin-bottom: 5px;
+}
+.maq_service_modal .modal-body .modal-box-wrapper .box-sub-heading {
+    text-align: left;
+    font: normal normal normal 14px/22px Roboto;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    margin-bottom: 0;
+}
+
+.maq_ser-learn-btn{
+    background: #FFD140 0% 0% no-repeat padding-box;
+    border-radius: 21px;
+    opacity: 1;
+    padding: 10px 20px;
+    border: 0;
+}
+.maq_ser-learn-btn:hover{
+    background: #FEAE02 0% 0% no-repeat padding-box;
+    border-radius: 21px;
+    opacity: 1;
+    padding: 10px 20px;
+    border: 0;
+}
+
+.maq_ser-cancel-btn{
+    background: #EEF0F3 0% 0% no-repeat padding-box;
+border-radius: 27px;
+opacity: 1;
+padding: 10px 20px;
+border: 0;
+}
