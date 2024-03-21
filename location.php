@@ -151,8 +151,7 @@ window.initAutocomplete = initAutocomplete;
     var url = '<?=$baseUrl?>/register_account';
 
     var inputElement = document.getElementById("pac-input-loc");
-    var inputValue = inputElement.value;
- 
+    var inputValue = inputElement.value; 
 
     var formData = {
       id_type_user: '<?=$id_type_user?>',

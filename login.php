@@ -8,7 +8,7 @@
 <div class="login-main">
 <div class="login-container">
 <div class="login-wrapper"> 
-        <span class="text-danger align-middle" id="Msg"></span>
+    <span class="text-danger align-middle" id="Msg"></span>
     <h1>Ingresa tus datos para iniciar</h1>
     <form action="" id="loginform" method="POST">
     <div class="mb-3">
@@ -122,12 +122,11 @@ function validarToken() {
             var email = $('#exampleFormControlInput1').val();
             var password = $('#exampleInputPassword1').val();
 
-            // Crear un objeto con los datos del formulario
             var formData = {
-            email: email,
-            password: password
+                email: email,
+                password: password
             }; 
-        $.ajax({
+         $.ajax({
             type: "POST",
             url: '<?=$baseUrl?>/login_account',
             data: JSON.stringify(formData),

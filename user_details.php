@@ -1,5 +1,11 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
+<?php  
+if (!isset($_SESSION['loggedIn'])) { 
+  header('location: index.php'); 
+}
+  
+?>
 <?php
 
 $baseUrl = getenv('URL_API');
@@ -74,24 +80,27 @@ if (isset($_SESSION['loggedIn'])) {
     <div class="tab-content content" id="v-pills-tabContent ">
       <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"
         tabindex="0">
+        <span class="text-danger align-middle" id="Msg"></span>
         <h1>Mi cuenta</h1>
         <div class="user-profile-main">
           <div class="profile-details-container">
             <div class="profile-details-wrapper">
               <img src="./assets/img/profile-img.png" alt="profile-mg">
               <div class="user-details">
+              <input type="text" id="id_user">
+                <input type="text" id="id_profile">
                 <p class="top-title">  <?= $username; ?></p>
                 <p class="verify-warning"><i class="fa-solid fa-circle-exclamation"></i>Verificación pendiente</p>
                 <div class="company-wrapper">
                   <div class="company-detail">
-                    <p class="main-title">Empresa</p>
+                    <p class="main-title" id="type_user"></p>
                     <p class="sub-title">
                       Tipo de Cuenta
                     </p>
                   </div>
                   <div class="company-wrapper">
                     <div class="company-detail">
-                      <p class="main-title">24</p>
+                      <p class="main-title" id="num_pub"></p>
                       <p class="sub-title">
                         Publicaciones
                       </p>
@@ -128,19 +137,19 @@ if (isset($_SESSION['loggedIn'])) {
                   <div class="user-detail-table">
 
                     <table>
-                    <tr id="email-field">
+                    <tr id="email">
                         <td>Correo</td>
-                        <td>  <?= $email; ?></td>
+                        <td></td>
                         <td><button type="button"> <img src="./assets/img/edit.png" alt="edit"> </button></td>
                       </tr>
-                      <tr>
+                      <tr id="address">
                         <td>Dirección</td>
-                        <td>Av. República de Venezuela 1829, Lima 15083</td>
+                        <td></td>
                         <td><button type="button"> <img src="./assets/img/edit.png" alt="edit"> </button></td>
                       </tr>
-                      <tr>
+                      <tr id="password-field">
                         <td>Contraseña</td>
-                        <td>Ejemplos de Nombres</td>
+                        <td>**********</td>
                         <td><button type="button"> <img src="./assets/img/edit.png" alt="edit"> </button></td>
                       </tr>
                     </table>
@@ -151,45 +160,38 @@ if (isset($_SESSION['loggedIn'])) {
                 <div class="user-detail-box">
                   <div class="table-title-2">
                     <p class="top-title2">Información adicional</p>
-                    <button type="button" class="profile-edit-btn">Editar Perfil</button>
+                    <button type="button" class="profile-edit-btn1">Editar Perfil</button>
                   </div>
-                  <div class="user-detail-table">
+                  <div class="user-detail-table1">
 
                     <table class="additional-table">
-                      <tr>
+                    <tr>
                         <td>ID Usuario</td>
-                        <td>  <?= $id_user_ext; ?></td>
-
+                        <td> <?= $id_user_ext; ?></td>
                       </tr>
-                      <tr>
+                      <tr id="social-field">
                         <td>Razón Social</td>
-                        <td>EJEMPLO DE RAZÓN SOCIAL</td>
-
+                        <td></td>
                       </tr>
-                      <tr>
+                      <tr id="rutCompany-field">
                         <td>RUT</td>
-                        <td>2314123123</td>
-
+                        <td></td> 
                       </tr>
-                      <tr>
+                      <tr id="FullNameRepreLegal-field">
                         <td>Nombres de representante</td>
-                        <td>Ejemplos de Nombres</td>
-
+                        <td></td>
                       </tr>
-                      <tr>
+                      <tr id="LastNameRepreLegal-field">
                         <td>Apellidos de representante</td>
-                        <td>Ejemplos de Apellidos</td>
-
+                        <td></td>
                       </tr>
-                      <tr>
+                      <tr id="type_doc-field">
                         <td>Documento</td>
-                        <td>RUT</td>
-
+                        <td></td>
                       </tr>
-                      <tr>
+                      <tr id="num_doc-field">
                         <td>Núm. documento</td>
-                        <td>7654321</td>
-
+                        <td></td> 
                       </tr>
                     </table>
                   </div>
@@ -535,28 +537,10 @@ if (isset($_SESSION['loggedIn'])) {
 
 //obtiene la data del perfil
 
-$(document).ready(function() {
- alert("busca la data");
-  // Llamada al servicio GET /profile_basic 
-  $.ajax({
-    url: '<?=$baseUrl?>/profile_basic',
-    type: 'GET',
-    beforeSend: function(xhr) {
-      // Agrega el Bearer Token al encabezado de autorización
-      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
-    },
-    success: function(response) {
-      // Maneja la respuesta exitosa
-      console.log(response.data.address);
-      // Aquí puedes realizar cualquier acción adicional con los datos recibidos
-    },
-    error: function(xhr, status, error) {
-      // Maneja el error de la llamada al servicio
-      console.log('Error: ' + error);
-    }
-  });
+$(document).ready(function() { 
+  datosBasicos();
 
-//editar la data
+//editar la data "Datos de cuenta"
 $('.user-detail-table button').click(function() {
     var tr = $(this).closest('tr');
     var td = tr.find('td:nth-child(2)');
@@ -570,33 +554,179 @@ $('.user-detail-table button').click(function() {
       var newValue = input.val();
       td.empty().text(newValue);
       $(this).text('Editar');
-      
-      // Llamada a la función para enviar los datos actualizados
-      enviarActualizacion(tr.attr('id'), newValue);
+      if(tr.attr('id')=='password-field'){
+           enviarActualizacionDatosBasicos(1, newValue); 
+      }else if(tr.attr('id')=='email'){
+           enviarActualizacionDatosBasicos(2, newValue);
+      }else{        
+        enviarActualizacionInformacionAdicional(2, newValue);
+      }
+        
     });
+  });
+  
+  $('.profile-edit-btn1').click(function() {
+    if ($(this).text().trim() === 'Guardar') {  
+        enviarActualizacionInformacionAdicional(1);
+    } else {
+      $('.user-detail-table1 td:nth-child(2)').each(function(index) {
+        var value = $(this).text().trim();
+        var input = $('<input class="form-control">').val(value).prop('id', 'input_' + index);
+        $(this).empty().append(input);
+      });
+    
+      $('.profile-edit-btn1').text('Guardar');
+    }
   });
 
 });
-
-
-function enviarActualizacion(fieldId, newValue) {
-  // Aquí puedes realizar la llamada AJAX para enviar los datos al servicio
-  // Puedes utilizar los parámetros 'fieldId' y 'newValue' para enviar el campo y el valor actualizado al servicio
-  // Por ejemplo, puedes usar jQuery AJAX para realizar una solicitud POST al servicio
-  
+function datosBasicos(){
   $.ajax({
-    url: 'URL_DEL_SERVICIO',
-    method: 'POST',
-    data: { field: fieldId, value: newValue },
+    url: '<?=$baseUrl?>/profile_basic',
+    type: 'GET',
+    beforeSend: function(xhr) {
+      // Agrega el Bearer Token al encabezado de autorización
+      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
+    },
     success: function(response) {
-      // Aquí puedes manejar la respuesta del servicio si es necesario
-      console.log('Datos actualizados correctamente');
+      if(!response.error){
+      // Maneja la respuesta exitosa
+      $('#id_user').val(response.data.id_user);
+      $('#id_profile').val(response.data.id_profile);
+       //tipo de cuenta o usuario 
+       $('#type_user').text(response.data.type_user);
+
+       //num publicaciones
+       $('#num_pub').text(response.data.num_publications);
+        //email 
+        var addressFieldValue = response.data.email;
+        var addressFieldTd = $('#email td:nth-child(2)');
+        addressFieldTd.text(addressFieldValue); 
+
+       //direccion 
+        var addressFieldValue = response.data.address;
+        var addressFieldTd = $('#address td:nth-child(2)');
+        addressFieldTd.text(addressFieldValue); 
+        
+        //social-field 
+        var addressFieldValue6 = response.data.razon_social;
+        var addressFieldTd6 = $('#social-field td:nth-child(2)');
+        addressFieldTd6.text(addressFieldValue6); 
+
+        //nombre representate legal
+        var addressFieldValue3 = response.data.FullNameRepreLegal;
+        var addressFieldTd3 = $('#FullNameRepreLegal-field td:nth-child(2)');
+        addressFieldTd3.text(addressFieldValue3);
+
+        //apellidos representante legal 
+        var addressFieldValue4 = response.data.LastNameRepreLegal;
+        var addressFieldTd4 = $('#LastNameRepreLegal-field td:nth-child(2)');
+        addressFieldTd4.text(addressFieldValue4);
+        
+        //RUT Company
+        var addressFieldValue5 = response.data.rutCompany;
+        var addressFieldTd5 = $('#rutCompany-field td:nth-child(2)');
+        addressFieldTd5.text(addressFieldValue5);
+
+        // TIPODOC
+        var addressFieldValue1 = response.data.id_type_doc;
+        var addressFieldTd1 = $('#type_doc-field td:nth-child(2)');
+        if(addressFieldValue1==1){
+          addressFieldTd1.text('RUT');;
+        }
+        //num_doc
+        var addressFieldValue2 = response.data.num_doc;
+        var addressFieldTd2 = $('#num_doc-field td:nth-child(2)');
+        addressFieldTd2.text(addressFieldValue2); 
+        
+      }
+      // Aquí puedes realizar cualquier acción adicional con los datos recibidos
+    },
+    error: function(xhr, status, error) { 
+      window.location.href = 'create_session_portal.php?logout=true'; 
+      // Maneja el error de la llamada al servicio
+      console.log('Error: ' + error);
+    }
+  });
+}
+
+function enviarActualizacionDatosBasicos(type, newValue) {
+  var id_user = $('#id_user').val();
+  var url;
+  var data = {};
+
+  $("#Msg").html("");
+
+  if (type == 2) {
+    url = '<?=$baseUrl?>/profile_basic_update_1?id_user=' + id_user;
+    data.email = newValue;
+  } else {
+    url = '<?=$baseUrl?>/changePassword?id_user=' + id_user;
+    data.password = newValue;
+  }
+
+  $.ajax({
+    url: url,
+    method: 'PATCH',
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
+    },
+    success: function(response) {
+      $("#Msg").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
+      location.reload();
     },
     error: function(error) {
-      // Aquí puedes manejar el error en caso de que ocurra
       console.error('Error al enviar los datos actualizados');
     }
   });
 }
 
+
+function enviarActualizacionInformacionAdicional(type, value = '') {
+  $("#Msg").html("");
+
+  var data;
+  if (type == 1) {
+    var razonSocial = $('#input_1').val();
+    var rut = $('#input_2').val();
+    var nombresRepresentante = $('#input_3').val();
+    var apellidosRepresentante = $('#input_4').val();
+    var tipoDocumento = $('#input_5').val() == 'RUT' ? '1' : '2';
+    var numeroDocumento = $('#input_6').val();
+
+    data = {
+      razon_social: razonSocial,
+      rutCompany: rut,
+      FullNameRepreLegal: nombresRepresentante,
+      LastNameRepreLegal: apellidosRepresentante,
+      id_type_doc: tipoDocumento,
+      num_doc: numeroDocumento
+    };
+  } else {
+    data = {
+      address: value
+    };
+  }
+
+  var id_profile = $('#id_profile').val();
+
+  $.ajax({
+    url: '<?=$baseUrl?>/profile_basic_update?id_profile=' + id_profile,
+    method: 'PATCH',
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
+    },
+    success: function(response) {
+      $("#Msg").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
+      location.reload();
+    },
+    error: function(error) {
+      console.error('Error al enviar los datos actualizados');
+    }
+  });
+}
 </script>

@@ -40,7 +40,7 @@
           <div class="mb-3"> 
             <select id="exampleInputTypeDoc" name="exampleInputTypeDoc" required>
               <option value="" selected disabled hidden>RUT</option>
-              <option value="1">One</option>
+              <option value="1">RUT</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
             </select>
