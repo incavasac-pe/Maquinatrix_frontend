@@ -3,7 +3,7 @@
 <?php 
  
     if (isset($_GET['type']) && $_GET['type']!='') {
-       echo  $type_user  = $_GET['type']; 
+          $type_user  = $_GET['type']; 
     }  
   ?>
 

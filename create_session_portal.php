@@ -8,6 +8,7 @@ if (isset($_GET['email']) && isset($_GET['token']) &&  isset($_GET['loggin']) ) 
     $_SESSION['photo'] =  $_GET['photo'] ?? '';   
     $_SESSION['token'] =  $_GET['token'];   
     $_SESSION['id_user_ext'] =  $_GET['id_user_ext']; 
+    $_SESSION['id_user'] =  $_GET['id_user']; 
   print_r($_SESSION); 
     header('location: index.php');
 }

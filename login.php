@@ -135,7 +135,7 @@ function validarToken() {
             {
                 var statusCode = xhr.status; 
                 if (statusCode === 200 && !response.error)  {             
-                  window.location.href = 'create_session_portal.php?email=' + response.data.email_User+'&token='+response.data.token+'&loggin=true&username='+response.data.full_name+'&photo='+response.data?.photo+'&id_user_ext='+response.data?.id_user_ext;
+                  window.location.href = 'create_session_portal.php?email=' + response.data.email_User+'&token='+response.data.token+'&loggin=true&username='+response.data.full_name+'&photo='+response.data?.photo+'&id_user_ext='+response.data?.id_user_ext+'&id_user='+response.data?.id_user;
                  } else {
                  $("#Msg").html("<div class='alert alert-danger' role='alert'>" + response.msg  + "</div>");  
                  $('#login-account').prop('disabled', false);              

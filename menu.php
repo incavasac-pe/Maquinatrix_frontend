@@ -48,7 +48,7 @@ if (isset($_SESSION['loggedIn'])) {
                 <li><a class="dropdown-item" href="./user_details.php?tab=profile">Mis Publicaciones</a></li>
                 <li><a class="dropdown-item" href="#">Solicitudes Hechas</a></li>
                 <li><a class="dropdown-item" href="#">Solicitudes Recibidas</a></li>
-                <li><a class="dropdown-item" href="./user_details.php?tab=publication">Mi Cuenta</a></li>
+                <li><a class="dropdown-item" href="./user_details.php?tab=profile">Mi Cuenta</a></li>
                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ayuda">Ayuda</a></li> 
                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#signOut">Cerrar sesión</a></li>
       </ul>
