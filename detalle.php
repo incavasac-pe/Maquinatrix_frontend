@@ -116,11 +116,12 @@ if ($responseimg !== false) {
     <div class="container">
         <div class="row">
             <div class="col-md-12 p-0">
-                <ul class="nav-migas">
+            <ul class="nav-migas">
                     <li>
-                        <a href="#" class="font-family-Roboto-Regular">Inicio</a>
+                        <a href="index.php" class="font-family-Roboto-Regular">Inicio</a>
                     </li>
-                    <li class="font-family-Roboto-Regular"> / Comprar</li>
+                     <li class="font-family-Roboto-Regular"> / <a href="tienda.php?typep=<?=$tpublicacion?>&<?=$mov?>" class="font-family-Roboto-Regular"><?= ($tpublicacion == '2') ? 'Comprar' :' Arrendar'; ?></a></li>
+                    <li class="font-family-Roboto-Regular"> / <?= $detalle['title']  ?> </li>
                 </ul>
             </div>
         </div>
@@ -132,13 +133,12 @@ if ($responseimg !== false) {
         <div class="row">
             <div class="col-md-12 mb-3 p-0">
                 <h1 class="font-family-Roboto-Medium">
-                    Construcción Excavadora de las mejores del mundo
+                <?= $detalle['title']  ?>
                 </h1>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3 p-0">
-                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migas1">&middot; Arriendo</a>
-                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas">Maquinaria y vehículos</a>
-                <!--                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migasactive">Oportunidad</a>-->
+                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migas1">&middot; <?= $detalle['publication_type']['description']; ?></a>
+                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas"> <?= $detalle['mainCategory']['category']; ?></a> 
             </div>
             <div class="publication-draft-warning detalle-warn">
               <i class="fa-solid fa-circle-exclamation"></i>
@@ -252,7 +252,7 @@ if ($responseimg !== false) {
                 <div class="perfil">
                     <div class="row" style="padding-bottom: 35px;">
                         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 datos">
-                            <h5 class="font-family-Roboto-Medium">Publicación creada por: Ricardo</h5>
+                            <h5 class="font-family-Roboto-Medium">Publicación creada por:  <?= $detalle['User']['Profile']['full_name']  ?> <?= $detalle['User']['Profile']['last_name']  ?></h5>
 
                         </div>
                         <div
@@ -272,9 +272,9 @@ if ($responseimg !== false) {
                                 <img src="./assets/img/office-building.png" alt="office-building">
                             </div>
                             <div>
-                                <h5 class="font-family-Roboto-Medium">Cuenta de particular</h5>
+                                <h5 class="font-family-Roboto-Medium">Cuenta de   <?= $detalle['User']['id_type_user']==1 ? 'particular ':'empresa'  ?> </h5>
                                 <p class="font-family-Roboto-Regular">
-                                    El propietario de la publicación es una <br /> persona particular.
+                                    El propietario de la publicación es una <br /> <?= $detalle['User']['id_type_user']==1 ? 'persona particular. ':'empresa.'  ?>  
                                 </p>
                             </div>
                         </div>
@@ -296,31 +296,11 @@ if ($responseimg !== false) {
                         Detalles
                     </h2>
                     <p class="font-family-Roboto-Regular">
-                        Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del
-                        texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una
-                        distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo
-                        "Contenido aquí, contenido aquí".
+                        <?php  
+                       echo  $dato_con_saltos_de_linea = nl2br($detalle['description']); 
+                       ?>
                     </p>
-                    <p class="font-family-Roboto-Regular">
-                        Estos textos hacen parecerlo un español que se puede leer.
-                        Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto por
-                        defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que
-                        usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a
-                        través de los años, algunas veces por accidente, otras veces a propósito (por ejemplo
-                        insertándole humor y cosas por el estilo). Al contrario del pensamiento popular, el texto de
-                        Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la
-                        literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de
-                        2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de
-                        Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín,
-                        "consecteur", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín,
-                        descubrió la fuente indudable
-                    </p>
-                    <p class="font-family-Roboto-Regular">
-                        Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de "de
-                        Finnibus Bonorum et Malorum" (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45
-                        antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el
-                        Renacimiento. La primera linea del Lorem Ipsum, "Lorem ipsum dolor sit amet.."
-                    </p>
+                   
                 </div>
                 <div class="linea mt-5 mb-5"></div>
                 <div class="caracteristicas">
@@ -331,31 +311,31 @@ if ($responseimg !== false) {
                         <tbody>
                             <tr>
                                 <td>Marca</td>
-                                <td>VOLVO</td>
+                                <td><?= $detalle['product_details']['brand']; ?></td>
                             </tr>
                             <tr>
                                 <td>Modelo</td>
-                                <td>Pc200</td>
+                                <td><?= $detalle['product_details']['model']; ?></td>
                             </tr>
                             <tr>
                                 <td>Año</td>
-                                <td>2020</td>
+                                <td><?= $detalle['product_details']['year']; ?></td>
                             </tr>
                             <tr>
                                 <td>Condición</td>
-                                <td>Usado</td>
+                                <td><?= $detalle['product_details']['condition']; ?></td>
                             </tr>
                             <tr>
                                 <td>Kilometraje</td>
-                                <td>16,000 km</td>
+                                <td><?= $detalle['product_technical_characteristics']['km_traveled']; ?></td>
                             </tr>
                             <tr>
                                 <td>N° de Motor</td>
-                                <td>X32198312312</td>
+                                <td><?= $detalle['product_details']['engine_number']; ?></td>
                             </tr>
                             <tr>
                                 <td>Ubicación</td>
-                                <td>Lima, San Isidro</td>
+                                <td><?= $detalle['product_details']['region'];   ?>, <?= $detalle['product_details']['city'];   ?></td>
                             </tr>
                             <tr>
                                 <td>Garantía Maquinatrix</td>
@@ -363,11 +343,11 @@ if ($responseimg !== false) {
                             </tr>
                             <tr>
                                 <td>Tipo de Vendedor</td>
-                                <td>Particular</td>
+                                <td> <?= $detalle['User']['id_type_user']==1 ? 'Particular ':'Empresa'  ?> </td>
                             </tr>
                             <tr>
                                 <td>Despacho</td>
-                                <td>Sí</td>
+                                <td> <?= $detalle['product_details']['delivery'] == 'S' ? 'Sí':'No';   ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -405,21 +385,22 @@ if ($responseimg !== false) {
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                                CLP 1.000 <span class="font-family-Roboto-Regular">/ hora</span>
+                            <?= isset($detalle['product_details']["price"])? $detalle['product_details']["price"]:'0' ?>  <span class="font-family-Roboto-Regular"></span>
                             </h3>
 
                         </div>
 
                         <div class="location-tx-wrapper">
                             <img src="./assets/img/location.png" alt="location">
-                            <p>San Isidro, Perú</p>
+                            <p><?= $detalle['product_details']['region'];   ?>, <?= $detalle['product_details']['city'];   ?></p>
                         </div>
                         <p class="cotiza-md-text">Contáctate con el propietario de este anuncio para realizar la
                             solicitud de cotización del producto.</p>
                         <div class="cotiza-text-wrapper">
                             <p class="cotiza-grey-text">Mensaje</p>
-                            <p class="cotiza-sm-text">¡Hola! Estoy interesado en el anuncio que vi en el "Nombre de
-                                Publicación" Maquinatrix.</p>
+                          
+                            <textarea name="mensaje" id="mensaje" cols="30" rows="3" class="fz-14 font-family-Roboto-Regular">¡Hola! Estoy interesado en el anuncio que vi en  Maquinatrix.</textarea>
+
                         </div>
                         <p class="cotiza-grey-text">Al enviar estoy aceptando los Términos y Condiciones de Maquinatrix
                         </p>

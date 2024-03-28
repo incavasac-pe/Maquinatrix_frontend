@@ -44,7 +44,7 @@ function cortarString($texto) {
 
      
       $count_pub = 0;
-      $url = $baseUrl.'/list_publications?limit=100'; 
+      $url = $baseUrl.'/list_publications?limit=5'; 
     
       $response1 = file_get_contents($url);
       if ($response1 !== false) {
@@ -242,7 +242,7 @@ function cortarString($texto) {
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 d-none">
+            <div class="col-md-12 ">
                 <h5 class="font-family-Roboto-Medium titulo">
                     Te puede interesar <a href="tienda.php?page=1" class="text-blue ml-2">Ver más</a>
                 </h5>
@@ -252,12 +252,15 @@ function cortarString($texto) {
                     foreach ($list_publications as $pub) { ?>
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
                         <div class="cuadro"  onclick="rediDestacado('detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>' )">
-                            <div class="cuadro-img image-container2">
+                        <div class="heart">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                          <div class="cuadro-img image-container2">
                                 <img  src="<?=$baseUrl?>/see_image?image=<?= isset($pub["product_images"][0]["image_name"])  ? $pub["product_images"][0]["image_name"]: 'sin_producto.jpg'?>" alt="producto">
                             </div>
                             <div class="cuadro-des">
                                 <ul class="font-family-Roboto-Regular">
-                                    <li><a href="detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>">  <?= $pub['PublicationType']['type_pub']  ?></a></li>
+                                    <li><a href="detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>">  <?= $pub['PublicationType']['description']  ?></a></li>
                                 </ul>
                                 <span class="font-family-Roboto-Regular" tabindex="0" data-toggle="tooltip" title="<?= $pub['title'] ?> ">
                                     <p class="font-family-Roboto-Regular" style="color: #212529;">
@@ -269,21 +272,21 @@ function cortarString($texto) {
                         </div>
                     </div>
                 <?php  
-            }
+                }
             }  
         ?>
         </div>
     </div>
 </section>
 
-<section class="interest">
+<!--section class="interest">
     <div class="container">
         <div class="row">
             <div class="col-md-12 title-wrapper">
                 <h5 class="font-family-Roboto-Medium titulo">
                     Te puede interesar
                 </h5>
-                <a href="./tienda.php" class="sub-title">Ver más</a>
+                <a href="./tienda.php?page=1" class="sub-title">Ver más</a>
             </div>
         </div>
         <div class="interest-card-container">
@@ -358,7 +361,7 @@ function cortarString($texto) {
                 </div>
             </div>
         </div>
-</section>
+</section-->
 <section class="Discover">
     <div class="container">
         <div class="row ">

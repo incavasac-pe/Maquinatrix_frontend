@@ -241,7 +241,7 @@ if (isset($_SESSION['loggedIn'])) {
       </div>
       <div class="modal-body base-modal-body">
        <img src="./assets/img/question.png" alt="logout">
-       <p>¿Deseas eliminar la Publicación*****?</p>
+       <p>¿Deseas eliminar la Publicación?</p>
       </div>
       <div class="modal-footer base-modal-footer">
         <button type="button" class="grey-btn" data-bs-dismiss="modal">No</button>
