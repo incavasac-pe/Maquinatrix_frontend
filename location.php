@@ -2,6 +2,8 @@
 <?php include 'menu.php' ?>
 <?php  
 $baseUrl = getenv('URL_API');
+
+print_r($_POST);
  
 if (isset($_POST['exampleInputName'])) {
   $firstname = $_POST['exampleInputName'];
@@ -18,17 +20,47 @@ if (isset($_POST['exampleInputEmail1'])) {
 if (isset($_POST['exampleInputTypeDoc'])) {
   $type_doc = $_POST['exampleInputTypeDoc'];
   echo "El valor enviado es: " . $type_doc;
+}else{
+  $type_doc='1';
 }
 if (isset($_POST['exampleInputDocNumber'])) {
   $num_doc = $_POST['exampleInputDocNumber'];
   echo "El valor enviado es: " . $num_doc;
+}else{
+  $num_doc ='';
 }
 if (isset($_POST['exampleInputPassword1'])) {
   $password = $_POST['exampleInputPassword1'];
   echo "El valor enviado es: " . $password;
 }
+
+
+//company
+if (isset($_POST['exampleInputRutRP'])) {
+  $RutRepreLegal = $_POST['exampleInputRutRP'];
+  echo "El valor enviado es: " . $RutRepreLegal;
+}else{
+  $RutRepreLegal='';
+}
+
+if (isset($_POST['exampleInputRutEmpresa'])) {
+  $rutCompany = $_POST['exampleInputRutEmpresa'];
+  echo "El valor enviado es: " . $rutCompany;
+}else{
+  $rutCompany='';
+}
+
+if (isset($_POST['exampleInputRazonSocial'])) {
+  $razon_social = $_POST['exampleInputRazonSocial'];
+  echo "El valor enviado es: " . $razon_social;
+}else{
+  $razon_social='';
+}
+ 
+
 if (isset($_POST['type_user'])) {
   $type_user = $_POST['type_user'];
+
   if($type_user =='Particular') {
     $id_type_user = 1;
   }else{
@@ -42,8 +74,8 @@ if (isset($_POST['type_user'])) {
 
 <div class="location-main">
     <div class="location-container">
-        <h1>Selecciona tu dirección actual</h1>
-       
+    <span class="text-success align-middle" id="Msg"></span>
+        <h1>Selecciona tu dirección actual</h1>       
  
         <div id="pac-input" class="location-input-wrapper">
             <div class="location-input-group">
@@ -143,7 +175,7 @@ window.initAutocomplete = initAutocomplete;
 <script>
     
     document.getElementById('continueButtonLocation').addEventListener('click', function () {
-    register_acount();
+     register_acount();
   });
 
  function register_acount(){ 
@@ -152,9 +184,11 @@ window.initAutocomplete = initAutocomplete;
 
     var inputElement = document.getElementById("pac-input-loc");
     var inputValue = inputElement.value; 
+    var id_type_user = '<?=$id_type_user?>';
+    var status = 4;
 
     var formData = {
-      id_type_user: '<?=$id_type_user?>',
+      id_type_user: id_type_user,
       email: '<?=$email?>',
       password: '<?=$password?>',
       firstname: '<?=$firstname?>',
@@ -162,23 +196,39 @@ window.initAutocomplete = initAutocomplete;
       type_doc: '<?=$type_doc?>',
       num_doc: '<?=$num_doc?>',
       address: inputValue,
-      status_id: '4'
-}  
+      status_id: status
+    };
+
+    var formDataCompany = {
+      id_type_user: id_type_user,
+        email: '<?=$email?>',
+        emailRepreLegal: '<?=$email?>',        
+        password: '<?=$password?>',
+        FullNameRepreLegal: '<?=$firstname?>',
+        LastNameRepreLegal: '<?=$lastname?>',
+        rutCompany: '<?=$rutCompany?>',
+        RutRepreLegal: '<?=$RutRepreLegal?>',
+        address: inputValue,
+        status_id:status
+      };
   
       $.ajax({
         url: url,
         type: "POST",
-        data: JSON.stringify(formData),
+        data: JSON.stringify(id_type_user == 1 ? formData:formDataCompany),
         contentType: "application/json",
         success: function(response) {
           // Manejar la respuesta del servidor en 'response'
           console.log(response);
           window.location.href = 'verification_email.php';
         },
-        error: function(xhr, status, error) {
-          // Manejar errores de la solicitud
-          console.log(error);
+        error: function(response,xhr, textStatus, errorThrown) {
+            console.log(response.responseJSON.msg)
+            var statusCode = xhr.status;  
+                $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
+                $('#new_password').prop('disabled', false);
         }
+        
       });
   }
   

@@ -1,23 +1,28 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
-
+<?php  $baseUrl = getenv('URL_API'); ?>
+<?php echo $email = $_POST['email'];?>
 
 <div class="verification-code-main">
     <div class="verification-code-container">
+    <span class="text-success align-middle" id="Msg"></span>
         <h1>Ingresa el código que enviamos</h1>
         <p>Hemos enviado un código de 4 dígitos al correo que ingresaste. Escríbelo a continuación.</p>
-        <div class="input-field">
-            <input type="number" />
-            <input type="number" disabled />
-            <input type="number" disabled />
-            <input type="number" disabled />
-        </div>
-        <p class="seconds">Podrás reenviarlo en 30 segundos.</p>
-        <div class="login-btn-wrapper">
-<a class="login-btn" href="./create_password.php">Iniciar Sesión </a>
-</div>
+        <form action="" id="codeform" method="POST"> 
+            <div class="input-field">
+                <input type="number" id="code1" />
+                <input type="number" id="code2"  disabled />
+                <input type="number"  id="code3"  disabled />
+                <input type="number" id="code4"  disabled />
+            </div>
+            <p class="seconds">Podrás reenviarlo en 30 segundos.</p>
+            <div class="login-btn-wrapper">
+              <button type="submit" id="validate_code"  class="login-btn">Iniciar Sesión </button>  
+            </div>
+        </form> 
 <div class="resend-btn-wrapper">
-<a class="resend-btn" href="./index.php">Reenviar Código </a>
+    <a class="resend-btn" href="./index.php">Reenviar Código </a>
+
 </div>
     </div>
 </div>
@@ -67,6 +72,56 @@
         });
     });
 
-
     window.addEventListener("load", () => inputs[0].focus());
+</script>
+
+<script>  
+    $(document).ready(function() {
+        $('#codeform').submit(function(e) {  
+              e.preventDefault();  
+            $("#Msg").html("");   
+            $('#validate_code').prop('disabled', true); 
+            var data = {
+                email:'<?= $email?>',
+                code: $('#code1').val() +  $('#code2').val() + $('#code3').val()+ $('#code4').val()
+            };
+
+            $.ajax({
+            type: "POST",
+            url: '<?=$baseUrl?>/validateDigPassword',
+            data: JSON.stringify(data),
+             contentType: "application/json",
+            success: function(response, textStatus, xhr)
+            {
+                var statusCode = xhr.status; 
+                if (statusCode === 200 && !response.error)  {    
+                    var form = $('<form></form>');
+                        form.attr('method', 'post');
+                        form.attr('action', './create_password.php');
+
+                        // Agregar parámetros al formulario
+                        var input = $('<input type="hidden" name="email" />');
+                        input.val('<?= $email?>');
+                        form.append(input);
+
+                        // Agregar el formulario al cuerpo del documento
+                        form.appendTo('body');
+
+                        // Enviar el formulario
+                        form.submit();   
+                  } else {
+                   $("#Msg").html("<div class='alert alert-danger' role='alert'>" + response.msg  + "</div>");  
+                   $('#validate_code').prop('disabled', false);              
+                }
+           },
+                error: function(response,xhr, textStatus, errorThrown) {
+                    console.log(response.responseJSON.msg)
+                    var statusCode = xhr.status;  
+                        $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
+                        $('#validate_code').prop('disabled', false);
+                }
+            });
+           
+        });  
+    });
 </script>

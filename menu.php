@@ -33,7 +33,7 @@ if (isset($_SESSION['loggedIn'])) {
        
      
         <div class="publish-btn-wrapper">
-            <a class="publish-btn">PUBLICA TU MAQUINARIA </a>
+            <a class="publish-btn" data-bs-toggle="modal" data-bs-target="#exampleModalPublication" >PUBLICA TU MAQUINARIA </a>
 </div>
 <?php if (isset($_SESSION['loggedIn'])) { ?>
     <div class="dropdown">
@@ -69,3 +69,4 @@ if (isset($_SESSION['loggedIn'])) {
 </script>
 <?php include './sign_out.php' ?>
 <?php include './ayuda.php' ?>
+<?php include './publication_type.php' ?>

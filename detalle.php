@@ -151,98 +151,33 @@ if ($responseimg !== false) {
             <div class="col-md-7 col-class">
 
      <div class="slider-container-1">
-     <div class="mySlides-back">
-         <img class="slider-img-back" src="./assets/img/carousel.png">
-         <div class="numbertext1">
-             <i class="fa-solid fa-camera"></i> <span id="currentSlide1">1</span> / <span id="totalSlides1">6</span>
-         </div>
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
+        <div class="mySlides-back">
+            <img class="slider-img-back" src="<?= $baseUrl ?>/see_image?image=<?= $detalle_img[0]["image_name"]!=null ? $detalle_img[0]["image_name"]: 'sin_producto.jpg'?>">
+            <div class="numbertext1">
+                <i class="fa-solid fa-camera"></i> <span id="currentSlide1">1</span> / <span id="totalSlides1"> <?= $count_imagen; ?></span>
+            </div>
+        </div>
+     <?php  
+       foreach ($detalle_img as $img)   {   ?>
+            <div class="mySlides1" onclick="openModal()">
+                <img class="slider-img1"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>">
+            </div>
+     <?php  }  ?>    
+      
      <a class="slider-prev1" onclick="plusSlides1(-1)">❮</a>
      <a class="slider-next1" onclick="plusSlides1(1)">❯</a>
  
      <div class="slider-img-wrapper1">
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(1)" alt="The Woods">
+        <?php 
+            $i=0;
+        foreach ($detalle_img as $img)    { 
+            $i++;
+            ?>
+         <div class="column1"> 
+             <img class="demo1 cursor"  style="width:100%" onclick="currentSlide1(<?=$i;?>)"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" alt="min galeria">
          </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(2)" alt="Cinque Terre">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(3)" alt="Mountains and fjords">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(4)" alt="Northern Lights">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(5)" alt="Nature and sunrise">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(6)" alt="Snowy Mountains">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(7)" alt="The Woods">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(8)" alt="Cinque Terre">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(9)" alt="Mountains and fjords">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(10)" alt="Northern Lights">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(11)" alt="Nature and sunrise">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(12)" alt="Snowy Mountains">
-         </div>
+         <?php  }  ?>    
+         
          <span id="hiddenSlidesBadge" class="position-absolute translate-middle badge rounded-pill bg-primary" style="display: none;">
         <span class="visually-hidden">unread messages</span>
     </span>
@@ -272,7 +207,7 @@ if ($responseimg !== false) {
                                 <img src="./assets/img/office-building.png" alt="office-building">
                             </div>
                             <div>
-                                <h5 class="font-family-Roboto-Medium">Cuenta de   <?= $detalle['User']['id_type_user']==1 ? 'particular ':'empresa'  ?> </h5>
+                                <h5 class="font-family-Roboto-Medium">Cuenta de   <?= $detalle['User']['id_type_user']==1 ? 'Particular ':'Empresa'  ?> </h5>
                                 <p class="font-family-Roboto-Regular">
                                     El propietario de la publicación es una <br /> <?= $detalle['User']['id_type_user']==1 ? 'persona particular. ':'empresa.'  ?>  
                                 </p>
@@ -372,11 +307,8 @@ if ($responseimg !== false) {
                         <div class="col-1"><i class="fa-regular fa-circle-check"></i>
                             <p>Garantía Maquinatrix</p> <img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
-
                     </div>
                 </div>
-
-
             </div>
             
             <div class="col-md-4">
@@ -385,7 +317,7 @@ if ($responseimg !== false) {
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                            <?= isset($detalle['product_details']["price"])? $detalle['product_details']["price"]:'0' ?>  <span class="font-family-Roboto-Regular"></span>
+                                 <?= isset($detalle['product_details']["price"])? $detalle['product_details']["price"]:'0' ?>  <span class="font-family-Roboto-Regular"></span>
                             </h3>
 
                         </div>
@@ -517,135 +449,29 @@ if ($responseimg !== false) {
          <div class="numbertext2">
             <span id="currentSlide2">1</span> / <span id="totalSlides2">6</span>
          </div>
- 
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
+         <?php  
+            foreach ($detalle_img as $img)    {  
+               ?>
+
+            <div class="mySlides2">
+                <img class="slider-img2"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>">
+            </div>
+         <?php  }  ?>    
  
      <a class="slider-prev2" onclick="plusSlides2(-1)">❮</a>
      <a class="slider-next2" onclick="plusSlides2(1)">❯</a>
  
      <div class=" slider-img-wrapper2">
+     <?php 
+            $i=0;
+            foreach ($detalle_img as $img)    { 
+              $i++;
+               ?>
          <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(1)" alt="The Woods">
+             <img class="demo2 cursor"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" style="width:100%" onclick="currentSlide2(<?=$i;?>)" alt="The Woods">
          </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(2)" alt="Cinque Terre">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(3)" alt="Mountains and fjords">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(4)" alt="Northern Lights">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(5)" alt="Nature and sunrise">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(6)" alt="Snowy Mountains">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(7)" alt="The Woods">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(8)" alt="Cinque Terre">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(9)" alt="Mountains and fjords">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(10)" alt="Northern Lights">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(11)" alt="Nature and sunrise">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(12)" alt="Cinque Terre">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(13)" alt="Mountains and fjords">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(14)" alt="Northern Lights">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(15)" alt="Nature and sunrise">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(16)" alt="Mountains and fjords">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(17)" alt="Northern Lights">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(18)" alt="Nature and sunrise">
-         </div>
+         <?php  }  ?>    
+         
      </div>
  </div>
 
