@@ -626,10 +626,7 @@ function searchTypeModelo(industria){
 function searchPublication(params) {
     $.ajax({   
     url: '<?=$baseUrl?>/list_publications?limit=10'+params,
-    method: 'GET',
-    beforeSend: function(xhr) {
-      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
-    },
+    method: 'GET',  
     success: function(res) {
      if(!res.error){ 
           res.data.forEach(function(element) {
@@ -638,7 +635,7 @@ function searchPublication(params) {
            var nuevoValor = res.count;  
                 // Actualizar el contenido del elemento <p> con el nuevo valor
            $('.titulo-principal-adorno').text(nuevoValor + ' resultados de búsqueda');
-          if(element.status_id == '6' ) { 
+           if(element.status_id == '6' ) { 
                var imagen = '<?=$baseUrl?>/see_image?image='+element.product_images[0]['image_name']; 
                // Crear el elemento <a> y establecer el atributo href
                 var typep = element.PublicationType.id_publication_type;

@@ -32,6 +32,8 @@
 <?php include 'footer.php' ?>
 <script>
   document.getElementById('Cancelar_continue-btn').addEventListener('click', function () {
+    var formData = $('#userAccountSetupForm').serialize();
+    console.log("*****form*****",formData);
     window.location.href = 'post_review.php';
   });
 </script>

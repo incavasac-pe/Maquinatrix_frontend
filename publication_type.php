@@ -10,7 +10,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body publication-modal">
-                <p>Selecciona el tipo de usuario que eres</p>
+                <p>Selecciona el tipo de publicación que deseas crear</p>
                 <div class="custom-select" id="customSelect">
 
 

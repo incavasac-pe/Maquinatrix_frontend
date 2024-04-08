@@ -47,21 +47,21 @@
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="Motor" placeholder="N°. de Motor">
+                    <input type="text" class="form-control" id="Motor"  name="Motor" placeholder="N°. de Motor">
                     <p class="text-grey">Ej. de N°. de Motor: X123123124123</p>
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="Chasis" placeholder="N°. de Chasis/VIN">
+                    <input type="text" class="form-control" id="Chasis" name="Chasis"  placeholder="N°. de Chasis/VIN">
                     <p class="text-grey">Ej. de VIN: 1G1RC6E42BUXXXXXX</p>
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="Patente" placeholder="Patente">
+                    <input type="text" class="form-control" id="Patente" name="Patente" placeholder="Patente">
 
                 </div>
             </div>
@@ -72,36 +72,27 @@
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="PesoNeto" placeholder="Peso Neto">
-
-
+                    <input type="number" class="form-control" id="PesoNeto" name="PesoNeto"  placeholder="Peso Neto">
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="Potencia" placeholder="Potencia">
-
+                    <input type="text" class="form-control" id="Potencia"  name="Potencia" placeholder="Potencia">
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="Cilindrada" placeholder="Cilindrada (CC)">
-
-                </div>
-            </div>
-
-
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                    <input type="number" class="form-control" id="Torque" placeholder="Torque (NM)">
-
+                    <input type="text" class="form-control" id="Cilindrada"  name="Cilindrada" placeholder="Cilindrada (CC)">
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="ConsumoMixto" placeholder="Consumo Mixto">
-
-
+                    <input type="number" class="form-control" id="Torque"  name="Torque" placeholder="Torque (NM)">
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="ConsumoMixto"  name="ConsumoMixto" placeholder="Consumo Mixto">
                 </div>
             </div>
         </div>
@@ -174,7 +165,6 @@
             </div>
         </div>
 
-
         <p class="sm-title">Mantenciones incluyen suministro</p>
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="maintenance_suppy" id="maintenance_suppy1" value="Sí">
@@ -206,14 +196,12 @@
                     <div class="input-group-addon-km">
                         Km.
                     </div>
-
                 </div>
                 <p class="text-grey">Ej. Kilómetros recorridos: 8 000 km.</p>
             </div>
-
             <div class="hourometer">
                 <div class="input-group" id="km_input">
-                    <input type="number" class="form-control input-control-km" placeholder="Horómetro" id="Horómetro">
+                    <input type="number" class="form-control input-control-km" placeholder="Horómetro" id="Horómetro" name="Horómetro">
                     <div class="input-group-addon-km">
                         Hrs.
                     </div>
@@ -227,7 +215,7 @@
         <h1>Precio por hora</h1>
         <p class="sm-title">Ingresa la tarifa que cobrarás por hora</p>
         <div class="kilometer" style="margin-right:20px !important;">
-            <div class="input-group " id="km_input" style="width: 273px;">
+            <div class="input-group " id="km_input" name="km_input"  style="width: 273px;">
                 <input type="number" class="form-control input-control-price" placeholder="En pesos*"
                     id="KilometrosRecorridos">
                 <div class="input-group-addon-km">
@@ -243,13 +231,21 @@
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <select required>
-                        <option value="" selected disabled hidden>Región*</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                <?php                                            
+                    if ($count_regiones > 0) {
 
+                        echo '<select required  id="region" name="region">';
+                        echo '<option value="">Región*</option>'; 
+                        foreach ($regiones as $reg) { 
+                            echo '<option value="' . $reg . '"'; 
+                            if (isset($region) && $region == $reg) {
+                                echo ' selected';
+                            }  
+                            echo '>' . $reg. '</option>';
+                        }
+                        echo '</select>';
+                    }  
+                            ?> 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
@@ -472,7 +468,7 @@
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn">Cancelar</button></div>
-            <div><button type="button" class="grey-btn">Guardar y salir</button><button type="button"
+            <div><button type="button" class="grey-btn">Guardar y salir aaaaa</button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Cancelar</button></div>
         </div>
     </div>

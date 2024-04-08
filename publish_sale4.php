@@ -108,9 +108,9 @@
                 <div class="mb-3">
                     <select required>
                         <option value="" selected disabled hidden>Ciudad</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="1">Coquimbo</option>
+                        <option value="2">El Melón</option>
+                        <option value="3">Gultro</option>
                     </select>
 
                 </div>

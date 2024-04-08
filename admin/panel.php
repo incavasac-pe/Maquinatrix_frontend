@@ -412,7 +412,7 @@
         }
 
         function registarPublicacion() {
-            var token = '<?php echo $_SESSION["token"]; ?>';
+            var token = '<?= $_SESSION["token"]; ?>';
          
             var postData = {
                 "title": $('#title').val(),
