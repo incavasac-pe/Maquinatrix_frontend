@@ -1,5 +1,53 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
+<?php 
+
+$baseUrl = getenv('URL_API');
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
+$host = $_SERVER['HTTP_HOST']; 
+$uri = $_SERVER['REQUEST_URI']; 
+$url_publi = $protocol . '://' . $host;
+
+if (isset($_POST['id'])&& $_POST['id']!='') {
+    $id = $_POST['id'];
+ 
+  $tpublicacion =  '1';
+  $mov = ($tpublicacion == '2') ? 'comprar' :' arrendar';
+ 
+
+    $count_category = 0;
+    $url12 = $baseUrl.'/list_publications_panel_details?id='.$id;
+
+    $response = file_get_contents($url12);
+    if ($response !== false) {
+    // Decodificar la respuesta JSON
+    $data = json_decode($response, true);
+    if (!$data['error']) {
+        // Obtener la lista de $categories
+        $detalle = $data['data'][0];
+        $count_category = $data['count'];
+    }  
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
+
+        $count_imagen = 0;
+        $url  = $baseUrl.'/list_publications_imagen?id='.$id;
+
+        $responseimg = file_get_contents($url);
+        if ($responseimg !== false) {
+        // Decodificar la respuesta JSON
+        $dataimg = json_decode($responseimg, true);
+        if (!$data['error']) {
+            // Obtener la lista de $categories
+            $detalle_img = $dataimg['data'] ;
+            $count_imagen = $dataimg['count'];
+        }  
+        } else {
+            echo 'Error al realizar la solicitud a la API';
+        }
+  }  
+   ?>  
 <section class="bg-carrucel mb-5">
     <div class="container">
         <div class="row">
@@ -68,136 +116,78 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 p-0">
-                <ul class="nav-migas">
+            <ul class="nav-migas">
                     <li>
-                        <a href="#" class="font-family-Roboto-Regular">Inicio</a>
+                        <a href="index.php" class="font-family-Roboto-Regular">Inicio</a>
                     </li>
-                    <li class="font-family-Roboto-Regular"> / Comprar</li>
+                    <li class="font-family-Roboto-Regular"> / <a href="tienda.php?typep=<?=$tpublicacion?>&<?=$mov?>" class="font-family-Roboto-Regular"><?= ($tpublicacion == '2') ? 'Comprar' :' Arrendar'; ?></a></li>
+                    <li class="font-family-Roboto-Regular"> / <?= $detalle['title']  ?> </li>
                 </ul>
             </div>
         </div>
     </div>
 </section>
+
 <section class="bg-detalles">
     <div class="container">
         <div class="row">
             <div class="col-md-12 mb-3 p-0">
                 <h1 class="font-family-Roboto-Medium">
-                    Construcción Excavadora de las mejores del mundo
+                <?= $detalle['title']  ?>
                 </h1>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3 p-0">
-                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migas1">&middot; Arriendo</a>
-                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas">Maquinaria y vehículos</a>
-                <!--                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migasactive">Oportunidad</a>-->
+                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migas1">&middot; <?= $detalle['publication_type']['description']; ?></a>
+                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas"> <?= $detalle['mainCategory']['category']; ?></a> 
             </div>
-
+            <div class="publication-draft-warning detalle-warn">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <div>
+                <p class="draft-warning-text-main">Estamos revisando tu publicación para asegurar que cumpla con nuestros Términos y Condiciones.</p>
+                <p class="draft-warning-text-sub">Te notificaremos tan pronto como tu aviso sea aprobado y esté listo para ser publicado. ¡Gracias por tu paciencia!</p>
+              </div>
+            </div>
           
             <div class="col-md-7 col-class">
 
      <div class="slider-container-1">
-     <div class="mySlides-back">
-         <img class="slider-img-back" src="./assets/img/carousel.png">
-         <div class="numbertext1">
-             <i class="fa-solid fa-camera"></i> <span id="currentSlide1">1</span> / <span id="totalSlides1">6</span>
-         </div>
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides1" onclick="openModal()">
-         <img class="slider-img1" src="./assets/img/carousel.png">
-     </div>
+        <div class="mySlides-back">
+            <img class="slider-img-back" src="<?= $baseUrl ?>/see_image?image=<?= $detalle_img[0]["image_name"]!=null ? $detalle_img[0]["image_name"]: 'sin_producto.jpg'?>">
+            <div class="numbertext1">
+                <i class="fa-solid fa-camera"></i> <span id="currentSlide1">1</span> / <span id="totalSlides1"> <?= $count_imagen; ?></span>
+            </div>
+        </div>
+     <?php  
+       foreach ($detalle_img as $img)   {   ?>
+            <div class="mySlides1" onclick="openModal()">
+                <img class="slider-img1"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>">
+            </div>
+     <?php  }  ?>    
+      
      <a class="slider-prev1" onclick="plusSlides1(-1)">❮</a>
      <a class="slider-next1" onclick="plusSlides1(1)">❯</a>
  
      <div class="slider-img-wrapper1">
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(1)" alt="The Woods">
+        <?php 
+            $i=0;
+        foreach ($detalle_img as $img)    { 
+            $i++;
+            ?>
+         <div class="column1"> 
+             <img class="demo1 cursor"  style="width:100%" onclick="currentSlide1(<?=$i;?>)"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" alt="min galeria">
          </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(2)" alt="Cinque Terre">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(3)" alt="Mountains and fjords">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(4)" alt="Northern Lights">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(5)" alt="Nature and sunrise">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(6)" alt="Snowy Mountains">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(7)" alt="The Woods">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(8)" alt="Cinque Terre">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(9)" alt="Mountains and fjords">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(10)" alt="Northern Lights">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(11)" alt="Nature and sunrise">
-         </div>
-         <div class="column1">
-             <img class="demo1 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide1(12)" alt="Snowy Mountains">
-         </div>
+         <?php  }  ?>    
+         
          <span id="hiddenSlidesBadge" class="position-absolute translate-middle badge rounded-pill bg-primary" style="display: none;">
         <span class="visually-hidden">unread messages</span>
-    </span>
+         </span>
      </div>
  </div>
 
                 <div class="perfil">
                     <div class="row" style="padding-bottom: 35px;">
                         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 datos">
-                            <h5 class="font-family-Roboto-Medium">Publicación creada por: Ricardo</h5>
+                            <h5 class="font-family-Roboto-Medium">Publicación creada por:  <?= $detalle['User']['Profile']['full_name'] ?? ''  ?> <?= $detalle['User']['Profile']['last_name'] ?? ''  ?></h5>
 
                         </div>
                         <div
@@ -217,9 +207,9 @@
                                 <img src="./assets/img/office-building.png" alt="office-building">
                             </div>
                             <div>
-                                <h5 class="font-family-Roboto-Medium">Cuenta de particular</h5>
+                                <h5 class="font-family-Roboto-Medium">Cuenta de   <?= $detalle['User']['id_type_user']==1 ? 'Particular ':'Empresa'  ?> </h5>
                                 <p class="font-family-Roboto-Regular">
-                                    El propietario de la publicación es una <br /> persona particular.
+                                    El propietario de la publicación es una <br /> <?= $detalle['User']['id_type_user']==1 ? 'persona particular. ':'empresa.'  ?>  
                                 </p>
                             </div>
                         </div>
@@ -241,31 +231,11 @@
                         Detalles
                     </h2>
                     <p class="font-family-Roboto-Regular">
-                        Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del
-                        texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una
-                        distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo
-                        "Contenido aquí, contenido aquí".
+                        <?php  
+                       echo  $dato_con_saltos_de_linea = nl2br($detalle['description']); 
+                       ?>
                     </p>
-                    <p class="font-family-Roboto-Regular">
-                        Estos textos hacen parecerlo un español que se puede leer.
-                        Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto por
-                        defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que
-                        usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a
-                        través de los años, algunas veces por accidente, otras veces a propósito (por ejemplo
-                        insertándole humor y cosas por el estilo). Al contrario del pensamiento popular, el texto de
-                        Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la
-                        literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de
-                        2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de
-                        Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín,
-                        "consecteur", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín,
-                        descubrió la fuente indudable
-                    </p>
-                    <p class="font-family-Roboto-Regular">
-                        Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de "de
-                        Finnibus Bonorum et Malorum" (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45
-                        antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el
-                        Renacimiento. La primera linea del Lorem Ipsum, "Lorem ipsum dolor sit amet.."
-                    </p>
+                   
                 </div>
                 <div class="linea mt-5 mb-5"></div>
                 <div class="caracteristicas">
@@ -276,31 +246,31 @@
                         <tbody>
                             <tr>
                                 <td>Marca</td>
-                                <td>VOLVO</td>
+                                <td><?= $detalle['product_details']['brand']; ?></td>
                             </tr>
                             <tr>
                                 <td>Modelo</td>
-                                <td>Pc200</td>
+                                <td><?= $detalle['product_details']['model']; ?></td>
                             </tr>
                             <tr>
                                 <td>Año</td>
-                                <td>2020</td>
+                                <td><?= $detalle['product_details']['year']; ?></td>
                             </tr>
                             <tr>
                                 <td>Condición</td>
-                                <td>Usado</td>
+                                <td><?= $detalle['product_details']['condition']; ?></td>
                             </tr>
                             <tr>
                                 <td>Kilometraje</td>
-                                <td>16,000 km</td>
+                                <td><?= $detalle['product_technical_characteristics']['km_traveled']; ?></td>
                             </tr>
                             <tr>
                                 <td>N° de Motor</td>
-                                <td>X32198312312</td>
+                                <td><?= $detalle['product_details']['engine_number']; ?></td>
                             </tr>
                             <tr>
                                 <td>Ubicación</td>
-                                <td>Lima, San Isidro</td>
+                                <td><?= $detalle['product_details']['region'];   ?>, <?= $detalle['product_details']['city'];   ?></td>
                             </tr>
                             <tr>
                                 <td>Garantía Maquinatrix</td>
@@ -308,11 +278,11 @@
                             </tr>
                             <tr>
                                 <td>Tipo de Vendedor</td>
-                                <td>Particular</td>
+                                <td> <?= $detalle['User']['id_type_user']==1 ? 'Particular ':'Empresa'  ?> </td>
                             </tr>
                             <tr>
                                 <td>Despacho</td>
-                                <td>Sí</td>
+                                <td> <?= $detalle['product_details']['delivery'] == 'S' ? 'Sí':'No';   ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -337,11 +307,8 @@
                         <div class="col-1"><i class="fa-regular fa-circle-check"></i>
                             <p>Garantía Maquinatrix</p> <img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
-
                     </div>
                 </div>
-
-
             </div>
             
             <div class="col-md-4">
@@ -350,29 +317,30 @@
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                                CLP 1.000 <span class="font-family-Roboto-Regular">/ hora</span>
+                                 <?= isset($detalle['product_details']["price"])? $detalle['product_details']["price"]:'0' ?>  <span class="font-family-Roboto-Regular"></span>
                             </h3>
 
                         </div>
 
                         <div class="location-tx-wrapper">
                             <img src="./assets/img/location.png" alt="location">
-                            <p>San Isidro, Perú</p>
+                            <p><?= $detalle['product_details']['region'];   ?>, <?= $detalle['product_details']['city'];   ?></p>
                         </div>
                         <p class="cotiza-md-text">Contáctate con el propietario de este anuncio para realizar la
                             solicitud de cotización del producto.</p>
                         <div class="cotiza-text-wrapper">
                             <p class="cotiza-grey-text">Mensaje</p>
-                            <p class="cotiza-sm-text">¡Hola! Estoy interesado en el anuncio que vi en el "Nombre de
-                                Publicación" Maquinatrix.</p>
+                          
+                            <textarea name="mensaje" id="mensaje" cols="30" rows="3" class="fz-14 font-family-Roboto-Regular">¡Hola! Estoy interesado en el anuncio que vi en  Maquinatrix.</textarea>
+
                         </div>
                         <p class="cotiza-grey-text">Al enviar estoy aceptando los Términos y Condiciones de Maquinatrix
                         </p>
                         <button class="whatsapp-btn"><img src="./assets/img/whatsapp.png"
                                 alt="whatsapp">Contactar</button>
-                        <button class="consult-yellow-btn">Consulta por financiamiento</button>
-                        <button class="consult-yellow-btn">Conoce las facilidades de pago</button>
+                         
                         <p class="grey-heading">Sujeto a factibilidad</p>
+                       
                         <div class="cotiza-grey-box">
                             <img src="./assets/img/no-money.png" alt="no-money">
                             <p>No se cobra ningún monto por Contactar por WhatsApp con el Propietario del anuncio.</p>
@@ -383,6 +351,7 @@
             </div>
 
         </div>
+        
     </div>
 </section>
 
@@ -482,135 +451,29 @@
          <div class="numbertext2">
             <span id="currentSlide2">1</span> / <span id="totalSlides2">6</span>
          </div>
- 
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
- 
-     <div class="mySlides2">
-         <img class="slider-img2" src="./assets/img/carousel.png">
-     </div>
+         <?php  
+            foreach ($detalle_img as $img)    {  
+               ?>
+
+            <div class="mySlides2">
+                <img class="slider-img2"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>">
+            </div>
+         <?php  }  ?>    
  
      <a class="slider-prev2" onclick="plusSlides2(-1)">❮</a>
      <a class="slider-next2" onclick="plusSlides2(1)">❯</a>
  
      <div class=" slider-img-wrapper2">
+     <?php 
+            $i=0;
+            foreach ($detalle_img as $img)    { 
+              $i++;
+               ?>
          <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(1)" alt="The Woods">
+             <img class="demo2 cursor"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" style="width:100%" onclick="currentSlide2(<?=$i;?>)" alt="The Woods">
          </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(2)" alt="Cinque Terre">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(3)" alt="Mountains and fjords">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(4)" alt="Northern Lights">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(5)" alt="Nature and sunrise">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(6)" alt="Snowy Mountains">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(7)" alt="The Woods">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(8)" alt="Cinque Terre">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(9)" alt="Mountains and fjords">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(10)" alt="Northern Lights">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(11)" alt="Nature and sunrise">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(12)" alt="Cinque Terre">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(13)" alt="Mountains and fjords">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(14)" alt="Northern Lights">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(15)" alt="Nature and sunrise">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(16)" alt="Mountains and fjords">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(17)" alt="Northern Lights">
-         </div>
-         <div class="column2">
-             <img class="demo2 cursor" src="./assets/img/carousel.png" style="width:100%" onclick="currentSlide2(18)" alt="Nature and sunrise">
-         </div>
+         <?php  }  ?>    
+         
      </div>
  </div>
 
@@ -618,6 +481,8 @@
 </div>
 
 <?php include 'footer.php' ?>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     $('#miniatura a').click(function () {
         $('a').removeClass('activo');
@@ -681,8 +546,7 @@
 
 
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 
 

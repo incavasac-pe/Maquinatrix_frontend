@@ -7,15 +7,15 @@
           <div class="excavator-box-wrapper">
             <img src="./assets/img/detalle-pro.png" alt="producto">
             <div class="excavator-right-box" >
-              <p class="sm-title" style="margin-top:0px !important;" >Construcción Excavadora de las mejores del mundo</p>
-              <p class="text-lg-bold">CLP 10.000 / hora</p>
+              <p class="sm-title r_title" style="margin-top:0px !important;" >Construcción Excavadora de las mejores del mundo</p>
+              <p class="text-lg-bold r_price"></p>
               <div class="location-grey-box">
               <i class="fa-solid fa-location-dot"></i>
-              <p class="location-grey-text">San Isidro, Perú</p>
+              <p class="location-grey-text"></p>
               </div>
               <div class="location-grey-btns-wrapper">
-                <button class="btn_1"> <i class="fa-solid fa-circle"></i> Compra</button>
-                <button class="btn_2">Maquinaria y vehículos</button>
+                <button class="btn_1 "> <i class="fa-solid fa-circle"></i> Arriendo</button>
+                <button class="btn_2 btn_rrrr"></button>
               </div>
              
             </div>
@@ -25,39 +25,39 @@
     <tbody>
       <tr>
         <td>Marca</td>
-        <td>VOLVO</td>
+        <td class="r_marca"></td>
       </tr>
       <tr>
         <td>Modelo</td>
-        <td>PC200</td>
+        <td class="r_modelo"></td>
       </tr>
       <tr>
         <td>Año</td>
-        <td>2020</td>
+        <td class="r_anio"></td>
       </tr>
       <tr>
         <td>Condición</td>
-        <td>Usado</td>
+        <td class="r_condicion"></td>
       </tr>
       <tr>
         <td>Kilometraje</td>
-        <td>16,000 km</td>
+        <td class="r_km">km</td>
       </tr>
       <tr>
         <td>N° de Motor</td>
-        <td>X32198312312</td>
+        <td class="r_motor"></td>
       </tr>
       <tr>
         <td>Ubicación</td>
-        <td>Lima, San Isidro</td>
+        <td class="r_ubicacion"></td>
       </tr>
       <tr>
         <td>Tipo de Vendedor</td>
-        <td>Particular</td>
+        <td class="r_tipo_vendedor"></td>
       </tr>
       <tr>
         <td>Despacho</td>
-        <td>Sí</td>
+        <td class="r_delivery"></td>
       </tr>
     </tbody>
   </table>
@@ -66,19 +66,19 @@
   <tbody>
     <tr>
       <td>Despacho incluido</td>
-      <td>Sí</td>
+      <td class="r_delivery1"></td>
     </tr>
     <tr>
-      <td>Despacho incluido</td>
-      <td>No</td>
+      <td>Operador incluido</td>
+      <td class="r_operator"></td>
     </tr>
     <tr>
       <td>Contrato de Arriendo</td>
-      <td>Sí</td>
+      <td class="r_Machinery"></td>
     </tr>
     <tr>
       <td>Garantía de Arriendo</td>
-      <td>No</td>
+      <td class="r_rental"></td>
     </tr>
     
   </tbody>
@@ -89,14 +89,14 @@
             <p class="cfm-pub-head">Información del precio</p>
             <div class="cfm-text-wrapper">
               <p class="cfm-text">Precio</p>
-              <p class="cfm-text">CLP 10.000 / hora</p>
+              <p class="cfm-text r_price"> </p>
             </div>
             <hr />
             <div class="cfm-text-wrapper">
             <p class="text-sm-bold">Total</p>
-              <p class="text-sm-bold">CLP 10.000 / hora</p>
+              <p class="text-sm-bold r_price"> </p>
             </div>
-            <button type="button"
+            <button type="button" id="confirm_public"
                     class="price-yellow-btn" type="button" step_number="3">Confirmar y publicar</button>
           </div>
         </div>

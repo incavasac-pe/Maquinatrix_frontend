@@ -45,14 +45,14 @@ $url_publi = $protocol . '://' . $host;
             <h1>Categoría y tipo de producto</h1>
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
               <li class="nav-item" role="presentation">
-                <button onclick="setCategory(1)" class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
+                <button onclick="setCategory(1,'Maquinaria y vehículos')" class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
                   type="button" role="tab" aria-controls="pills-publish1" aria-selected="true"><img
                     src="./assets/img/excavator.png" alt="excavator" />
                   <p>Maquinaria y<br /> vehículos</p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button   onclick="setCategory(2)" class="nav-link" id="pills-publish2-tab" data-bs-toggle="pill" data-bs-target="#pills-publish2"
+                <button   onclick="setCategory(2,'Equipos y herramientas')" class="nav-link" id="pills-publish2-tab" data-bs-toggle="pill" data-bs-target="#pills-publish2"
                   type="button" role="tab" aria-controls="pills-publish2" aria-selected="false"><img
                     src="./assets/img/hand-drill.png" alt="hand-drill" />
                   <p>Equipos y<br /> herramientas </p>
@@ -112,7 +112,7 @@ $url_publi = $protocol . '://' . $host;
                 </div>
 
                 <div class="category-product">
-                    <h1>Información de producto aa</h1>
+                    <h1>Información de producto</h1>
                     <div class="row">
                         <div class="col-sm-6 col-md-6 col-lg-6">
                             <div class="mb-3">
@@ -250,22 +250,22 @@ $url_publi = $protocol . '://' . $host;
                         <div>
                             <p class="sm-title">Incluye mantenciones programadas</p>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="maintenance" id="maintenance1" value="Sí">
+                                <input class="form-check-input" type="radio" name="maintenance" id="maintenance1" value="Y">
                                 <label class="form-check-label" for="maintenance1">Sí</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="maintenance" id="maintenance2" value="No">
+                                <input class="form-check-input" type="radio" name="maintenance" id="maintenance2" value="N">
                                 <label class="form-check-label" for="maintenance2">No</label>
                             </div>
                         </div>
                         <div>
                             <p class="sm-title">Mantenciones incluyen visita técnica</p>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="technical" id="technical1" value="Sí">
+                                <input class="form-check-input" type="radio" name="technical" id="technical1" value="Y">
                                 <label class="form-check-label" for="technical1">Sí</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="technical" id="technical2" value="No">
+                                <input class="form-check-input" type="radio" name="technical" id="technical2" value="N">
                                 <label class="form-check-label" for="technical2">No</label>
                             </div>
                         </div>
@@ -274,11 +274,11 @@ $url_publi = $protocol . '://' . $host;
 
                     <p class="sm-title">Mantenciones incluyen suministro</p>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="maintenance_suppy" id="maintenance_suppy1" value="Sí">
+                        <input class="form-check-input" type="radio" name="maintenance_suppy" id="maintenance_suppy1" value="Y">
                         <label class="form-check-label" for="maintenance_suppy1">Sí</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="maintenance_suppy" id="maintenance_suppy2" value="No">
+                        <input class="form-check-input" type="radio" name="maintenance_suppy" id="maintenance_suppy2" value="N">
                         <label class="form-check-label" for="maintenance_suppy2">No</label>
                     </div>
                     <p class="sm-title">Condición actual del producto</p>
@@ -384,7 +384,7 @@ $url_publi = $protocol . '://' . $host;
                             <div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                        value="S">
+                                        value="Y">
                                     <label class="form-check-label" for="inlineRadio1">Sí</label>
                                 </div>
                                 <div class="form-check form-check-inline">
@@ -400,7 +400,7 @@ $url_publi = $protocol . '://' . $host;
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label dark-grey-text">Fecha de Certificado</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="DD/MM/AAAA">
+                            <input type="text" class="form-control"  name="dateCerti"  id="dateCerti" placeholder="DD/MM/AAAA">
                         </div>
                         <div>
                             <label for="exampleFormControlInput11" class="form-label dark-grey-text">Adjuntar Archivo</label>
@@ -429,11 +429,11 @@ $url_publi = $protocol . '://' . $host;
                             </div>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="insurance" id="insurance1" value="Sí">
+                                    <input class="form-check-input" type="radio" name="insurance" id="insurance1" value="Y">
                                     <label class="form-check-label" for="insurance1">Sí</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="insurance" id="insurance2" value="No">
+                                    <input class="form-check-input" type="radio" name="insurance" id="insurance2" value="N">
                                     <label class="form-check-label" for="insurance2">No</label>
                                 </div>
                             </div>
@@ -479,7 +479,7 @@ $url_publi = $protocol . '://' . $host;
                             </div>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="shipping" id="shipping1" value="S">
+                                    <input class="form-check-input" type="radio" name="shipping" id="shipping1" value="Y">
                                     <label class="form-check-label" for="shipping1">Sí</label>
                                 </div>
                                 <div class="form-check form-check-inline">
@@ -499,11 +499,11 @@ $url_publi = $protocol . '://' . $host;
                             </div>
                             <div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="operator" id="operator1" value="Sí">
+                                    <input class="form-check-input" type="radio" name="operator" id="operator1" value="Y">
                                     <label class="form-check-label" for="operator1">Sí</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="operator" id="operator2" value="No">
+                                    <input class="form-check-input" type="radio" name="operator" id="operator2" value="N">
                                     <label class="form-check-label" for="operator2">No</label>
                                 </div>
                             </div>
@@ -520,11 +520,11 @@ $url_publi = $protocol . '://' . $host;
                 </div>
                 <div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="Machinery" id="Machinery1" value="Sí">
+                        <input class="form-check-input" type="radio" name="Machinery" id="Machinery1" value="Y">
                         <label class="form-check-label" for="Machinery1">Sí</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="Machinery" id="Machinery2" value="No">
+                        <input class="form-check-input" type="radio" name="Machinery" id="Machinery2" value="N">
                         <label class="form-check-label" for="Machinery2">No</label>
                     </div>
                 </div>
@@ -547,7 +547,7 @@ $url_publi = $protocol . '://' . $host;
                 </div>
                 <div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="rental" id="rental1" value="S">
+                        <input class="form-check-input" type="radio" name="rental" id="rental1" value="Y">
                         <label class="form-check-label" for="rental1">Sí</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -639,28 +639,22 @@ function searchTypeMarca(industria){
       contentType: "application/json",
     
       success: function(res) {
-          var selectElement = $('#marca');
-
-              // Limpiar las opciones existentes
-              selectElement.empty(); 
-                // Agregar la opción por defecto
+          var selectElement = $('#marca'); 
+              selectElement.empty();  
               var defaultOption = $('<option>').prop('selected', true).text('Marca*');
               selectElement.append(defaultOption);
               res.data.forEach(function(element) { 
               var option = $('<option value='+element.id_marca+' >').text(element.description);
               selectElement.append(option);             
-          });
-  
+          });  
       },
       error: function(error) {
-
       console.error('Error al enviar los datos actualizados');
       }
   });
 }
 
-function searchTypeModelo(industria){
-   
+function searchTypeModelo(industria){   
    var url = '<?=$baseUrl?>/list_model?id_product_type=' + industria;  
    $.ajax({
       url: url,
@@ -677,12 +671,10 @@ function searchTypeModelo(industria){
               res.data.forEach(function(element) { 
               var option = $('<option value='+element.id_model+' >').text(element.description);
               selectElement.append(option);             
-          });
-  
+          });  
       },
       error: function(error) {
-        
-      console.error('Error al enviar los datos actualizados');
+         console.error('Error al enviar los datos actualizados');
       }
   });
 }
