@@ -1,10 +1,10 @@
 <?php 
-$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
-$host = $_SERVER['HTTP_HOST']; 
-$uri = $_SERVER['REQUEST_URI']; 
-$url_publi = $protocol . '://' . $host; 
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
+    $host = $_SERVER['HTTP_HOST']; 
+    $uri = $_SERVER['REQUEST_URI']; 
+    $url_publi = $protocol . '://' . $host; 
   
-   echo $baseUrl = getenv('URL_API'); 
+    $baseUrl = getenv('URL_API'); 
     //list industria
     
     $count_industry = 0;
@@ -45,35 +45,35 @@ $url_publi = $protocol . '://' . $host;
             <h1>Categoría y tipo de producto</h1>
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(1)"  class="nav-link " id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
+                <button  onclick="setCategory(1,'Maquinaria y vehículos')"  class="nav-link " id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
                   type="button" role="tab" aria-controls="pills-publish1" aria-selected="true"><img
                     src="./assets/img/excavator.png" alt="excavator" />
                   <p>Maquinaria y<br /> vehículos</p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(1)" class="nav-link" id="pills-publish2-tab" data-bs-toggle="pill" data-bs-target="#pills-publish2"
+                <button  onclick="setCategory(2,'Equipos y herramientas')" class="nav-link" id="pills-publish2-tab" data-bs-toggle="pill" data-bs-target="#pills-publish2"
                   type="button" role="tab" aria-controls="pills-publish2" aria-selected="false"><img
                     src="./assets/img/hand-drill.png" alt="hand-drill" />
                   <p>Equipos y<br /> herramientas </p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(3)"  class="nav-link" id="pills-publish3-tab" data-bs-toggle="pill" data-bs-target="#pills-publish3"
+                <button  onclick="setCategory(3,'Productos y accesorios')"  class="nav-link" id="pills-publish3-tab" data-bs-toggle="pill" data-bs-target="#pills-publish3"
                   type="button" role="tab" aria-controls="pills-publish3" aria-selected="false"><img
                     src="./assets/img/helmet.png" alt="helmet" />
                   <p>Productos y<br /> accesorios </p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(4)" class="nav-link" id="pills-publish4-tab" data-bs-toggle="pill" data-bs-target="#pills-publish4"
+                <button  onclick="setCategory(4,'Repuestos')" class="nav-link" id="pills-publish4-tab" data-bs-toggle="pill" data-bs-target="#pills-publish4"
                   type="button" role="tab" aria-controls="pills-publish4" aria-selected="false"><img
                     src="./assets/img/timing-belt.png" alt="timing-belt" />
                   <p>Repuestos</p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(5)" class="nav-link" id="pills-publish5-tab" data-bs-toggle="pill" data-bs-target="#pills-publish5"
+                <button  onclick="setCategory(5,'Neumáticos')" class="nav-link" id="pills-publish5-tab" data-bs-toggle="pill" data-bs-target="#pills-publish5"
                   type="button" role="tab" aria-controls="#pills-publish5" aria-selected="false"
                   style="margin-right:0px !important;"><img src="./assets/img/tire.png" alt="tire" />
                   <p>Neumáticos</p>
@@ -107,8 +107,7 @@ $url_publi = $protocol . '://' . $host;
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
                 <select required  id="maquinaria" name="maquinaria">
-                 </select>  
-
+                 </select>   
                 </div>
               </div>
             </div>
@@ -143,13 +142,18 @@ $url_publi = $protocol . '://' . $host;
 
         
  <script>   
- var categoria = 0; 
+ var id_categoria = 0;
+ var categoria = '';
 
   // Función para asignar un valor a la variable global
-  function setCategory(value) {
-    categoria = value;
-    console.log("la categoria es",categoria)
-  }
+  function setCategory(value,text) {
+  id_categoria = value;
+  categoria = text;
+  console.log("la categoria es",id_categoria)
+  if (id_categoria==2) {
+    $('#engine_number, #chasis_number, #patente').hide(); // Ocultar los elementos de entrada
+ }
+}
   function searchTypeMachine(industria){
    
    var url = '<?=$baseUrl?>/list_machine?id_product_type=' + industria;  
@@ -196,7 +200,7 @@ function searchTypeMarca(industria){
               var defaultOption = $('<option>').prop('selected', true).text('Marca*');
               selectElement.append(defaultOption);
               res.data.forEach(function(element) { 
-              var option = $('<option value='+element.marca+' >').text(element.description);
+              var option = $('<option value='+element.id_marca+' >').text(element.description);
               selectElement.append(option);             
           });
   

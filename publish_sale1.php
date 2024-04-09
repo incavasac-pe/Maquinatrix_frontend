@@ -2,10 +2,10 @@
     <div class="category-product">
         <h1>Título y descripción de publicación</h1>
         <p class="sm-title">Arma el título para tu publicación. Indica el producto, marca y modelo.</p>
-        <input type="text" class="form-control" id="exampleInputSurname" placeholder="Título de publicación*">
+        <input type="text" class="form-control" id="title" name="title" placeholder="Título de publicación*">
         <p class="text-grey">Ej: Construcción Excavadora de las mejores del mundo</p>
         <p class="sm-title">Describe tu publicación</p>
-        <textarea class="form-control text-container" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <textarea   id="descrip" name="descrip"  class="form-control text-container"  rows="3"></textarea>
         <div id="charCount" class="char-count">Caracteres (0/10000)</div>
     </div>
 
@@ -14,54 +14,51 @@
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <select required>
-                        <option value="" selected disabled hidden>Marca*</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                <select required id="marca" name="marca">  
+                   </select> 
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <select required>
-                        <option value="" selected disabled hidden>Modelo*</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                <select required  id="modelo" name="modelo"> 
+                 </select> 
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <select required>
-                        <option value="" selected disabled hidden>Año</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                <select name="anios"  id="anios"   required>
+                        <?php
+                        // Obtener el año actual
+                        $anioActual = date("Y");
+                        echo '<option value="">Año</option>';
+                        // Crear opciones para los últimos 50 años
+                            for ($i = $anioActual; $i >= ($anioActual - 50); $i--) {
+                            echo '<option value="' . $i . '">' . $i . '</option>';
+                            }
+                        ?>
+                  </select>
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="Motor" placeholder="N°. de Motor">
+                    <input type="number" class="form-control" name="engine_number"  id="engine_number"  placeholder="N°. de Motor">
                     <p class="text-grey">Ej. de N°. de Motor: X123123124123</p>
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="Chasis" placeholder="N°. de Chasis/VIN">
+                    <input type="number" class="form-control"  name="chasis_number" id="chasis_number" placeholder="N°. de Chasis/VIN">
                     <p class="text-grey">Ej. de VIN: 1G1RC6E42BUXXXXXX</p>
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="Patente" placeholder="Patente">
+                    <input type="text" class="form-control"  name="patente" id="patente" placeholder="Patente">
 
                 </div>
             </div>
@@ -72,20 +69,20 @@
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="PesoNeto" placeholder="Peso Neto">
+                    <input type="number" class="form-control" id="PesoNeto"  name="PesoNeto" placeholder="Peso Neto">
 
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="Potencia" placeholder="Potencia">
+                    <input type="number" class="form-control" name="Potencia"  id="Potencia" placeholder="Potencia">
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="Cilindrada" placeholder="Cilindrada (CC)">
+                    <input type="number" class="form-control" name="Cilindrada"  id="Cilindrada" placeholder="Cilindrada (CC)">
 
                 </div>
             </div>
@@ -93,13 +90,13 @@
 
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="Torque" placeholder="Torque (NM)">
+                    <input type="number" class="form-control" id="Torque"  name="Torque"  placeholder="Torque (NM)">
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="ConsumoMixto" placeholder="Consumo Mixto">
+                    <input type="text" class="form-control" id="mixed_consumption" name="mixed_consumption"  placeholder="Consumo Mixto">
 
 
                 </div>
@@ -107,30 +104,30 @@
         </div>
         <p class="sm-title">Transmisión</p>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="Manual" id="inlineRadio1" value="Manual">
+            <input class="form-check-input" type="radio" name="transmission" id="inlineRadio1" value="Manual">
             <label class="form-check-label" for="inlineRadio1">Manual</label>
         </div>
 
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="Automática" id="inlineRadio2" value="Automática">
+            <input class="form-check-input" type="radio" name="transmission" id="inlineRadio2" value="Automática">
             <label class="form-check-label" for="inlineRadio2">Automática</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="NoClasifica" id="inlineRadio3" value="NoClasifica">
+            <input class="form-check-input" type="radio" name="transmission" id="inlineRadio3" value="NoClasifica">
             <label class="form-check-label" for="inlineRadio3">No Clasifica</label>
         </div>
         <p class="sm-title">Combustible</p>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="Diésel" id="inlineRadio1" value="Diésel">
+            <input class="form-check-input" type="radio" name="combustible" id="inlineRadio1" value="Diésel">
             <label class="form-check-label" for="inlineRadio1">Diésel</label>
         </div>
 
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="Bencina" id="inlineRadio2" value="Bencina">
+            <input class="form-check-input" type="radio" name="combustible" id="inlineRadio2" value="Bencina">
             <label class="form-check-label" for="inlineRadio2">Bencina</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="NoClasifica" id="inlineRadio3" value="NoClasifica">
+            <input class="form-check-input" type="radio" name="combustible" id="inlineRadio3" value="NoClasifica">
             <label class="form-check-label" for="inlineRadio3">No Clasifica</label>
         </div>
         <p class="sm-title">Tracción</p>
@@ -146,7 +143,7 @@
                 <div class="traction-text">No clasifica</div>
             </div>
             <div class="traction-right-section">
-                <button class="traction-btn">Escribir otro</button>
+            <input class="traction-btn" placeholder="Escribir otro" id="traction_index1"  />
             </div>
         </div>
         <p class="sm-title">Condición actual del producto</p>
@@ -167,7 +164,7 @@
             <div class="kilometer" style="margin-right:20px !important;">
                 <div class="input-group" id="km_input">
                     <input type="number" class="form-control input-control-km" placeholder="Kilometros recorridos"
-                        id="KilometrosRecorridos">
+                    name="KilometrosRecorridos"   id="KilometrosRecorridos">
                     <div class="input-group-addon-km">
                         Km.
                     </div>
@@ -178,7 +175,7 @@
 
             <div class="hourometer">
                 <div class="input-group" id="km_input">
-                    <input type="number" class="form-control input-control-km" placeholder="Horómetro" id="Horómetro">
+                    <input type="number" class="form-control input-control-km" placeholder="Horómetro"  name="Horometro" id="Horometro">
                     <div class="input-group-addon-km">
                         Hrs.
                     </div>
@@ -193,23 +190,31 @@
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <select required>
-                        <option value="" selected disabled hidden>Región*</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                <?php                                            
+                                    if ($count_regiones > 0) { 
+                                            echo '<select required id="region" name="region">';
+                                            echo '<option value="" selected disabled hidden>Región*</option>'; 
+                                            foreach ($regiones as $reg) { 
+                                                echo '<option value="' . $reg . '"'; 
+                                                if (isset($region) && $region == $reg) {
+                                                    echo ' selected';
+                                                }  
+                                                echo '>' . $reg. '</option>';
+                                            }
+                                            echo '</select>';
+                                        }  
+                                    ?> 
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <select required>
-                        <option value="" selected disabled hidden>Ciudad</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                <select required  id="city" name="city">
+                    <option value="" selected disabled hidden>Ciudad</option>
+                    <option value="1">Coquimbo</option>
+                    <option value="2">El Melón</option>
+                    <option value="3">Gultro</option>
+                </select>
 
                 </div>
             </div>
@@ -220,12 +225,11 @@
         <p class="sm-title">Ingresa los precios</p>
         <div class="kilometer" style="margin-right:20px !important;">
             <div class="input-group " id="km_input" style="width: 273px;">
-                <input type="number" class="form-control input-control-price" placeholder="Kilometros recorridos"
-                    id="KilometrosRecorridos">
-                <div class="input-group-addon-km">
-                    Km.
-                </div>
-
+            <input type="number" class="form-control input-control-price" placeholder="En pesos*"
+                    name="price"  id="price">
+                    <div class="input-group-addon-km">
+                        CLP
+                    </div>
             </div>
 
         </div>
@@ -240,11 +244,11 @@
             </div>
             <div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Sí">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Y">
                     <label class="form-check-label" for="inlineRadio1">Sí</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="No">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="N">
                     <label class="form-check-label" for="inlineRadio2">No</label>
                 </div>
             </div>

@@ -19,21 +19,12 @@
       <!-- Step 2 Content, default hidden on page load. -->
       <section id="step-2" class="form-step d-none">
         <?php include 'Arriendo_sale_sec2.php' ?>
-        <!-- <div class="mt-3">
-      Step 2 input fields goes here..
-    </div>
-    <div class="mt-3">
-      <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
-      <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
-    </div> -->
+    
       </section>
       <!-- Step 3 Content, default hidden on page load. -->
       <section id="step-3" class="form-step d-none">
         <?php include 'Arriendo_sale_sec3.php' ?>
-        <!-- <div class="mt-3">
-      <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
-      <button class="button submit-btn" type="submit">Save</button>
-    </div> -->
+     
       </section>
     </form>
   </div>
@@ -108,13 +99,14 @@
 
 
 <script>
-  document.getElementById('exampleFormControlTextarea1').addEventListener('input', function () {
+  document.getElementById('descrip').addEventListener('input', function () {
     var maxLength = 10000; // Set your maximum character count
     var currentLength = this.value.length;
 
     // Update the character count inside brackets
     document.getElementById('charCount').innerText = 'Caracteres (' + currentLength + '/' + maxLength + ')';
   });
+ 
 </script>
 <script>
   
@@ -189,7 +181,7 @@ $(document).ready(function() {
       "id_category": id_categoria,
       "id_product_type": $("#industria").val(),
       "id_machine":  $("#id_machine").val(),
-      "status_id": 6,
+      "status_id": 9,
       "title": $("#title").val(),
       "description":$("#descrip").val()
      };
@@ -204,15 +196,15 @@ $(document).ready(function() {
       "year": $("#anios").val(),
       "factory_code": "Factory Code",
       "mileage": $("#KilometrosRecorridos").val(), 
-      "engine_number": $("#engine_number").val(),
-      "chasis_number":$("#chasis_number").val(),
-      "patent": $("#patente").val(),
+      "engine_number": $("#engine_number").val() ?? '',
+      "chasis_number":$("#chasis_number").val() ?? '',
+      "patent": $("#patente").val() ?? '',
       "warranty": $('input[name="rental"]:checked').val(),
       "condition": $('input[name="flexRadioDefault"]:checked').val(),
       "owner": "Owner",
       "delivery": $('input[name="inlineRadioOptions"]:checked').val(),
-      "pay_now_delivery": "Y",
-      "facipay": "Y",
+      "pay_now_delivery": "N",
+      "facipay": $('input[name="price_type"]:checked').val(),
       "contact_me": "Contact Me PRUEBA" 
     };
 
@@ -283,7 +275,7 @@ $(document).ready(function() {
   $('.r_condicion').text($('input[name="flexRadioDefault"]:checked').val());
   
   $('.r_km').text( $("#KilometrosRecorridos").val());
-  $('.r_motor').text($("#engine_number").val());
+  $('.r_motor').text($("#engine_number").val() ?? '');
   $('.r_ubicacion').text( $("#region option:selected").text());
   $('.location-grey-text').text( $("#region option:selected").text());
   var value = 'CLP ' +$("#price").val() + ' / hora'
