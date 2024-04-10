@@ -52,7 +52,7 @@ $url_publi = $protocol . '://' . $host;
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button   onclick="setCategory(2,'Equipos y herramientas')" class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
+                <button   onclick="setCategory(5,'Equipos y herramientas')" class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
                   type="button" role="tab" aria-controls="pills-publish1" aria-selected="false"><img
                     src="./assets/img/hand-drill.png" alt="hand-drill" />
                   <p>Equipos y<br /> herramientas </p>
@@ -601,7 +601,7 @@ function setCategory(value,text) {
   id_categoria = value;
   categoria = text;
   console.log("la categoria es",id_categoria)
-  if (id_categoria==2) {
+  if (id_categoria==5) {
     $('#engine_number, #chasis_number, #patente').hide(); // Ocultar los elementos de entrada
  }
 }

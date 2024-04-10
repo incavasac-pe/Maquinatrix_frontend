@@ -311,6 +311,9 @@ $(document).ready(function() {
           registerPublication2(response.data.id_product)
       },
       error: function(response,xhr, textStatus, errorThrown) {
+        if (response.status === 401 || response.status === 403) {
+              window.location.href = 'create_session_portal.php?logout=true';
+              }
           console.log(response.responseJSON.msg)
           var statusCode = xhr.status;  
               $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
@@ -445,7 +448,7 @@ function deleteImagenAll() {
           },
       error: function (response) { 
           if (response.status === 401 || response.status === 403) {
-              window.location.href = 'create_session.php?logout=true';
+              window.location.href = 'create_session_portal.php?logout=true';
               }
           }
       });

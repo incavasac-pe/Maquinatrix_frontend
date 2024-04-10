@@ -7,7 +7,7 @@
           <div class="excavator-box-wrapper">
             <img src="./assets/img/detalle-pro.png" alt="producto">
             <div class="excavator-right-box" >
-              <p class="sm-title r_title" style="margin-top:0px !important;" >Construcción Excavadora de las mejores del mundo</p>
+            <p class="sm-title r_title" style="margin-top:0px !important;"></p>
               <p class="text-lg-bold r_price"></p>
               <div class="location-grey-box">
               <i class="fa-solid fa-location-dot"></i>
@@ -105,7 +105,7 @@
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn" >Cancelar</button></div>
-            <div><button type="button" class="grey-btn">Guardar y salir ddd</button><button type="button"
+            <div><button type="button" class="grey-btn">Guardar y salir </button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" id="Cancelar_continue-btn" step_number="3">Continuar</button></div>
         </div>
     </div>

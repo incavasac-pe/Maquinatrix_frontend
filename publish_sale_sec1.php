@@ -52,28 +52,28 @@
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(2,'Equipos y herramientas')" class="nav-link" id="pills-publish2-tab" data-bs-toggle="pill" data-bs-target="#pills-publish2"
+                <button  onclick="setCategory(5,'Equipos y herramientas')" class="nav-link" id="pills-publish2-tab" data-bs-toggle="pill" data-bs-target="#pills-publish2"
                   type="button" role="tab" aria-controls="pills-publish2" aria-selected="false"><img
                     src="./assets/img/hand-drill.png" alt="hand-drill" />
                   <p>Equipos y<br /> herramientas </p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(3,'Productos y accesorios')"  class="nav-link" id="pills-publish3-tab" data-bs-toggle="pill" data-bs-target="#pills-publish3"
+                <button  onclick="setCategory(4,'Productos y accesorios')"  class="nav-link" id="pills-publish3-tab" data-bs-toggle="pill" data-bs-target="#pills-publish3"
                   type="button" role="tab" aria-controls="pills-publish3" aria-selected="false"><img
                     src="./assets/img/helmet.png" alt="helmet" />
                   <p>Productos y<br /> accesorios </p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(4,'Repuestos')" class="nav-link" id="pills-publish4-tab" data-bs-toggle="pill" data-bs-target="#pills-publish4"
+                <button  onclick="setCategory(2,'Repuestos')" class="nav-link" id="pills-publish4-tab" data-bs-toggle="pill" data-bs-target="#pills-publish4"
                   type="button" role="tab" aria-controls="pills-publish4" aria-selected="false"><img
                     src="./assets/img/timing-belt.png" alt="timing-belt" />
                   <p>Repuestos</p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(5,'Neumáticos')" class="nav-link" id="pills-publish5-tab" data-bs-toggle="pill" data-bs-target="#pills-publish5"
+                <button  onclick="setCategory(3,'Neumáticos')" class="nav-link" id="pills-publish5-tab" data-bs-toggle="pill" data-bs-target="#pills-publish5"
                   type="button" role="tab" aria-controls="#pills-publish5" aria-selected="false"
                   style="margin-right:0px !important;"><img src="./assets/img/tire.png" alt="tire" />
                   <p>Neumáticos</p>
@@ -106,7 +106,7 @@
               </div>
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select required  id="maquinaria" name="maquinaria">
+                <select required  id="id_machine" name="id_machine">
                  </select>   
                 </div>
               </div>
@@ -124,24 +124,28 @@
 
           <div class="tab-pane fade" id="pills-publish2" role="tabpanel" aria-labelledby="pills-publish2-tab"
             tabindex="0">
-            <?php include 'publish_sale2.php' ?>
+            <?php include 'publish_sale1.php' ?>
           </div>
           <div class="tab-pane fade" id="pills-publish3" role="tabpanel" aria-labelledby="pills-publish3-tab"
             tabindex="0">
-            <?php include 'publish_sale3.php' ?>
+            <?php include 'publish_sale1.php' ?>
           </div>
           <div class="tab-pane fade" id="pills-publish4" role="tabpanel" aria-labelledby="pills-publish4-tab"
             tabindex="0">
-            <?php include 'publish_sale4.php' ?>
+            <?php include 'publish_sale1.php' ?>
           </div>
           <div class="tab-pane fade" id="pills-publish5" role="tabpanel" aria-labelledby="pills-publish5-tab"
             tabindex="0">
-            <?php include 'publish_sale5.php' ?>
+            <?php include 'publish_sale5.php' ?>>
           </div>
         </div>
 
         
- <script>   
+ <script> 
+    $(document).ready(function() {
+  
+  }); 
+
  var id_categoria = 0;
  var categoria = '';
 
@@ -149,10 +153,25 @@
   function setCategory(value,text) {
   id_categoria = value;
   categoria = text;
-  console.log("la categoria es",id_categoria)
-  if (id_categoria==2) {
-    $('#engine_number, #chasis_number, #patente').hide(); // Ocultar los elementos de entrada
- }
+ 
+  console.log("la categoria de venta es",id_categoria)
+
+  if (id_categoria!=1) {
+    $('#engine_number, #chasis_number, #patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').hide(); 
+    $('#title-transmission,#t-transmission,#t-tranx').hide(); // Ocultar los elementos de entrada// Ocultar los elementos de entrada
+  }else{
+    $('#engine_number, #chasis_number, #patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').show(); 
+    $('#title-transmission,#t-transmission,#t-tranx').show(); 
+  }
+   
+  if (id_categoria==4 || id_categoria==2 ) {
+     $('#factory_code').prop('type', 'number'); 
+  }
+  if (id_categoria==4   || id_categoria==2) {    
+    $('#category-product, #t-combustible,#kilometer-box-wrapper').hide(); 
+  }else{
+    $('#category-product, #t-combustible,#kilometer-box-wrapper').show(); 
+  }
 }
   function searchTypeMachine(industria){
    
@@ -163,7 +182,7 @@
       contentType: "application/json",
     
       success: function(res) {
-          var selectElement = $('#maquinaria');
+          var selectElement = $('#id_machine');
 
               // Limpiar las opciones existentes
               selectElement.empty(); 
@@ -203,6 +222,15 @@ function searchTypeMarca(industria){
               var option = $('<option value='+element.id_marca+' >').text(element.description);
               selectElement.append(option);             
           });
+             var selectElement1 = $('#marca5'); 
+              selectElement1.empty();  
+              var defaultOption1 = $('<option>').prop('selected', true).text('Marca*');
+              selectElement1.append(defaultOption1);
+              res.data.forEach(function(element) { 
+              var option1 = $('<option value='+element.id_marca+' >').text(element.description);
+              selectElement1.append(option1);   
+                        
+          }); 
   
       },
       error: function(error) {
@@ -230,6 +258,16 @@ function searchTypeModelo(industria){
               res.data.forEach(function(element) { 
               var option = $('<option value='+element.id_model+' >').text(element.description);
               selectElement.append(option);             
+          });
+          var selectElement1 = $('#modelo5'); 
+              // Limpiar las opciones existentes
+              selectElement1.empty(); 
+                // Agregar la opción por defecto
+              var defaultOption1 = $('<option>').prop('selected', true).text('Modelo*');
+              selectElement1.append(defaultOption1);
+              res.data.forEach(function(element) { 
+              var option1 = $('<option value='+element.id_model+' >').text(element.description);
+              selectElement1.append(option1);             
           });
   
       },
