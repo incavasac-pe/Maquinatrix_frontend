@@ -478,8 +478,10 @@ function construirEstructuraHTML() {
     success: function(res) {
      if(!res.error){ 
           res.data.forEach(function(element) {
+            console.log("element",element);
           if(element.status_id != '8') { 
-              var imagen = '<?=$baseUrl?>/see_image?image='+element.product_images[0]['image_name']; 
+            var imagen_url = element?.product_images[0] ? element.product_images[0]['image_name'] :'';
+              var imagen = '<?=$baseUrl?>/see_image?image='+ imagen_url;
               // Construir la estructura HTML con los datos obtenidos
               var constructionContainer = $('<div>').addClass('contruction-main-container');
               var constructionLeftContainer = $('<div>').addClass('construction-left-container');
@@ -490,7 +492,7 @@ function construirEstructuraHTML() {
               var constructionStats = $('<div>').addClass('construction-stats');
               var blueMdText = $('<div>').addClass('blue-md-text').append($('<i>').addClass('fa-solid fa-circle fa-dot')).text(element.PublicationType.description);
               var mdText = $('<div>').addClass('md-text').text(element.Category.category);
-
+ console.log("constructionTextconstructionText",constructionText);
               // Agregar elementos al contenedor principal
               constructionStats.append(blueMdText);
               constructionStats.append(mdText);
@@ -568,8 +570,7 @@ function construirEstructuraHTML() {
                     constructionRightContainer.append(publicationDraftWrapper);
               
                 }
-                  
-
+                   
                 constructionContainer.append(constructionRightContainer); 
 
                 var idDetail = $('<div>').addClass('id-detail');

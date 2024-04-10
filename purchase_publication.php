@@ -2,34 +2,37 @@
 <?php include 'menu.php' ?>
 <?php 
 
-$baseUrl = getenv('URL_API');
-$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
-$host = $_SERVER['HTTP_HOST']; 
-$uri = $_SERVER['REQUEST_URI']; 
-$url_publi = $protocol . '://' . $host;
+    $baseUrl = getenv('URL_API');
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
+    $host = $_SERVER['HTTP_HOST']; 
+    $uri = $_SERVER['REQUEST_URI']; 
+    $url_publi = $protocol . '://' . $host;
+    $id;
 
-if (isset($_POST['id'])&& $_POST['id']!='') {
-    $id = $_POST['id'];
- 
-  $tpublicacion =  '1';
-  $mov = ($tpublicacion == '2') ? 'comprar' :' arrendar';
- 
-
-    $count_category = 0;
-    $url12 = $baseUrl.'/list_publications_panel_details?id='.$id;
-
-    $response = file_get_contents($url12);
-    if ($response !== false) {
-    // Decodificar la respuesta JSON
-    $data = json_decode($response, true);
-    if (!$data['error']) {
-        // Obtener la lista de $categories
-        $detalle = $data['data'][0];
-        $count_category = $data['count'];
-    }  
-    } else {
-        echo 'Error al realizar la solicitud a la API';
+    if (isset($_POST['id'])&& $_POST['id']!='') {
+        $id = $_POST['id'];
     }
+    if (isset($_GET['id'])&& $_GET['id']!='') {
+        $id = $_GET['id'];
+    }
+    $tpublicacion =  '1';
+    $mov = ($tpublicacion == '2') ? 'comprar' :' arrendar'; 
+
+        $count_category = 0;
+        $url12 = $baseUrl.'/list_publications_panel_details?id='.$id;
+
+        $response = file_get_contents($url12);
+        if ($response !== false) {
+        // Decodificar la respuesta JSON
+        $data = json_decode($response, true);
+        if (!$data['error']) {
+            // Obtener la lista de $categories
+            $detalle = $data['data'][0];
+            $count_category = $data['count'];
+        }  
+        } else {
+            echo 'Error al realizar la solicitud a la API';
+        }
 
         $count_imagen = 0;
         $url  = $baseUrl.'/list_publications_imagen?id='.$id;
@@ -46,7 +49,7 @@ if (isset($_POST['id'])&& $_POST['id']!='') {
         } else {
             echo 'Error al realizar la solicitud a la API';
         }
-  }  
+ 
    ?>  
 <section class="bg-carrucel mb-5">
     <div class="container">
