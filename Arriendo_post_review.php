@@ -31,7 +31,7 @@ if (isset($_POST['title'])&& $_POST['title']!='') {
 
     <script> 
         function goPublication(){
-            window.location.href = 'Arriendo_post_review.php';
+            window.location.href = 'user_details.php?tab=profile';
         }
         
         function seePublication(id){

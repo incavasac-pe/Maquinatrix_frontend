@@ -245,7 +245,7 @@ if (isset($_SESSION['loggedIn'])) {
       </div>
       <div class="modal-footer base-modal-footer">
         <button type="button" class="grey-btn" data-bs-dismiss="modal">No</button>
-        <button type="button" class="yellow-btn" onclick="deletePublic()">Sí</button>
+        <button type="button" class="yellow-btn" onclick="deletePublic(8)">Sí</button>
       </div>
     </div>
   </div>
@@ -502,13 +502,31 @@ function construirEstructuraHTML() {
               constructionLeftContainer.append(constructionImage);
               constructionLeftContainer.append(constructionDetails);
               constructionContainer.append(constructionLeftContainer);
-              var status = element.status_id == '6' ? 'Publicación Activa' : 'Publicación en Borrador';
-                status = element.status_id == '7' ? 'Publicación Suspendida' : status;
-
-
-              var color_status = element.status_id == '6' ? 'green-status' : 'grey-status';
-                color_status = element.status_id == '7' ? 'yellow-status' : color_status;
-
+              var status;
+              var color_status = 'grey-status';
+            
+                switch (element.status_id) {
+                    case 6:
+                      status = 'Publicación Activa';
+                      color_status = 'green-status';
+                      break;
+                    case 7:
+                      status = 'Publicación Suspendida';
+                      color_status = 'yellow-status';
+                      break;
+                    case 8:
+                      status = 'Publicación Eliminada';
+                      break;
+                    case 9:
+                      status = 'Publicación en Revisión';
+                      break;
+                    case 10:
+                      status = 'Publicación en Borrador';
+                      break;
+                    default:
+                      status = 'Estado Desconocido';
+                  }
+ 
 
               var constructionRightContainer = $('<div>').addClass('construction-right-container');
               var draftDetails = $('<div>').addClass('draft-details');
@@ -518,17 +536,56 @@ function construirEstructuraHTML() {
               var dropdownToggle = $('<a>').addClass('btn btn-secondary dropdown-toggle').attr('href', '#').attr('role', 'button').attr('data-bs-toggle', 'dropdown').attr('aria-expanded', 'false').text('Opciones').append($('<i>').addClass('fa-solid fa-chevron-down'));
               var dropdownMenu = $('<ul>').addClass('dropdown-menu');
               var editOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Editar'));
-              var publishOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Publicar'));
-        
+
+              var publishOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Publicar').click(function() {
+                var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
+                Publicar(id);
+              }));
+
+              var publishOption1 = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Ver publicación').click(function() {
+                var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
+                seePublicacion(id);
+              }));
+              var borradorOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Volver borrador').click(function() {
+              var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
+                 statusBorrador(id);
+              }));
             var deleteOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').attr('data-bs-toggle', 'modal').attr('data-bs-target', '#confirmation').text('Eliminar').click(function() {
                 var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
                 setValue(id);
               }));
-
+              switch (element.status_id) {
+                    case 6:
+                    //Activa
+                      dropdownMenu.append(publishOption1); //ver pub
+                      dropdownMenu.append(borradorOption); //borrador
+                      break;
+                    case 7:
+                     //Suspendida
+                      dropdownMenu.append(editOption); //editar
+                      dropdownMenu.append(publishOption1); //ver pub
+                      break;
+                    case 8:
+                      
+                      break;
+                    case 9:
+                     
+                      break;
+                    case 10:
+                      //borrador
+                      dropdownMenu.append(editOption); //editar
+                      dropdownMenu.append(publishOption1); //ver pub
+                      break;
+                    default:
+                      
+                  }
               // Agregar elementos al contenedor de detalles del borrador
-              dropdownMenu.append(editOption);
-              dropdownMenu.append(publishOption);
-              dropdownMenu.append(deleteOption);
+          
+              /*dropdownMenu.append(publishOption1); //ver pub
+              dropdownMenu.append(borradorOption); //borrador
+              dropdownMenu.append(publishOption); // publicar*/
+              dropdownMenu.append(deleteOption); //eliminar
+              
               dropdown.append(dropdownToggle);
               dropdown.append(dropdownMenu);
               draftDetails.append(greyStatus);
@@ -594,7 +651,29 @@ function setValue(id){
   $('#id_product').val(id);
 }
 
-function deletePublic(){
+function  statusBorrador(id){
+  $('#id_product').val(id);
+   deletePublic(10);
+}
+
+function seePublicacion(id){
+  $('#id_product').val(id);
+  var form = document.createElement('form');
+          form.method = 'POST';
+          form.action = 'purchase_publication.php';
+
+          var input3= document.createElement('input');
+          input3.type = 'hidden';
+          input3.name = 'id';
+          input3.value = id;
+          form.appendChild(input3); 
+
+          document.body.appendChild(form);
+          form.submit();
+  
+}
+
+function deletePublic(status){
   var url;
   var data = {};
 
@@ -603,7 +682,7 @@ function deletePublic(){
  
     url = '<?=$baseUrl?>/update_publication_status?id_user=' + <?=$id_user?>;
     data.id_product = id_product;
-    data.status_id = 8;
+    data.status_id = status;
   
    $.ajax({
     url: url,
@@ -615,7 +694,7 @@ function deletePublic(){
     },
     success: function(response) {
       location.reload();
-      $("#Msg1").html("<div class='alert alert-success' role='alert'>Publicación eliminada.</div>");
+      $("#Msg1").html("<div class='alert alert-success' role='alert'>Estatus actualizado.</div>");
  
     },
     error: function(error) {
