@@ -190,31 +190,31 @@ function setTraccion(valor){
   console.log("resumePublication sale",id_categoria);
 
     publicacion1 = {  
-      "id_publication_type": 1,
+      "id_publication_type": 2,
       "id_category": id_categoria,
       "id_product_type": $("#industria").val(),
       "id_machine":  $("#id_machine").val(),
       "status_id": 9,
-      "title": id_categoria!=3 ? $("#title").val():$("#title5").val(),
-      "description":  id_categoria!=3 ? $("#descrip").val():$("#descrip5").val()
+      "title": id_categoria!='3' ? $("#title").val():$("#title5").val(),
+      "description":  id_categoria!='3' ? $("#descrip").val():$("#descrip5").val()
      };
 
     publicacion2 = {   
       "id_product":id_product,
-      "region": id_categoria!=3 ? $("#region").val():$("#region5").val(),
-      "city": id_categoria!=3 ? $("#city").val():$("#city5").val(),
-      "price": id_categoria!=3 ? $("#price").val():$("#price5").val(),
-      "brand": id_categoria!=3 ? $("#marca").val():$("#marca5").val(),
-      "model": id_categoria!=3 ? $("#modelo").val():$("#modelo5").val(),
-      "year":  id_categoria!=3 ? $("#anios").val():$("#anios5").val(),
+      "region": id_categoria!='3' ? $("#region").val():$("#region5").val(),
+      "city": id_categoria!='3' ? $("#city").val():$("#city5").val(),
+      "price": id_categoria!='3' ? $("#price").val():$("#price5").val(),
+      "brand": id_categoria!='3' ? $("#marca").val():$("#marca5").val(),
+      "model": id_categoria!='3' ? $("#modelo").val():$("#modelo5").val(),
+      "year":  id_categoria!='3' ? $("#anios").val():$("#anios5").val(),
       "factory_code": "Factory Code",
       "mileage": $("#KilometrosRecorridos").val(), 
       "engine_number": $("#engine_number").val() ?? '',
       "chasis_number":$("#chasis_number").val() ?? '',
       "patent": $("#patente").val() ?? '',     
-      "condition": id_categoria!=3 ? $('input[name="flexRadioDefault"]:checked').val() : $('input[name="flexRadioDefault5"]:checked').val(),
+      "condition": id_categoria!='3' ? $('input[name="flexRadioDefault"]:checked').val() : $('input[name="flexRadioDefault5"]:checked').val(),
       "owner": "Owner",
-      "delivery": id_categoria!=3 ? $('input[name="inlineRadioOptions"]:checked').val() : $('input[name="inlineRadioOptions5"]:checked').val(),
+      "delivery": id_categoria!='3' ? $('input[name="inlineRadioOptions"]:checked').val() : $('input[name="inlineRadioOptions5"]:checked').val(),
       "pay_now_delivery": "N",
       "facipay":"N",
       "contact_me": "Contact Me PRUEBA" 
@@ -268,9 +268,9 @@ function setTraccion(valor){
 
   $('.btn_2').text(categoria);
  
-  $('.r_marca').text( id_categoria!=3 ?  $("#marca option:selected").text(): $("#marca5 option:selected").text()); 
-  $('.r_modelo').text(  id_categoria!=3 ? $("#modelo option:selected").text(): $("#modelo5 option:selected").text());
-  $('.r_anio').text( publicacion2.year );
+  $('.r_marca').text( id_categoria!='3' ?  $("#marca option:selected").text(): $("#marca5 option:selected").text()); 
+  $('.r_modelo').text(  id_categoria!='3' ? $("#modelo option:selected").text(): $("#modelo5 option:selected").text());
+  $('.r_anio').text( publicacion2.year);
   $('.r_condicion').text(publicacion2.condition);
   
   $('.r_km').text( $("#KilometrosRecorridos").val());

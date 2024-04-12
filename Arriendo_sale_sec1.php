@@ -233,14 +233,14 @@ $url_publi = $protocol . '://' . $host;
                             <p class="sm-title">Tracción</p>
                             <div class="traction-wrapper">
                                 <div class="traction-left-section">
-                                    <div class="traction-text">4X2</div>
-                                    <div class="traction-text">2X2</div>
-                                    <div class="traction-text">6X4</div>
-                                    <div class="traction-text">4X4</div>
-                                    <div class="traction-text">6X6</div>
-                                    <div class="traction-text">8X4</div>
-                                    <div class="traction-text">Otros</div>
-                                    <div class="traction-text">No clasifica</div>
+                                    <div class="traction-text"  onclick="setTraccion('4X2')">4X2</div>
+                                    <div class="traction-text"  onclick="setTraccion('2X2')">2X2</div>
+                                    <div class="traction-text"  onclick="setTraccion('6X4')">6X4</div>
+                                    <div class="traction-text"  onclick="setTraccion('4X4')">4X4</div>
+                                    <div class="traction-text"  onclick="setTraccion('6X6')">6X6</div>
+                                    <div class="traction-text"  onclick="setTraccion('8X4')">8X4</div>
+                                    <div class="traction-text"  onclick="setTraccion('Otros')">Otros</div>
+                                    <div class="traction-text"  onclick="setTraccion('No clasifica')">No clasifica</div>
                                 </div>
                                 <div class="traction-right-section">
                                     <input class="traction-btn" placeholder="Escribir otro" id="traction_index1"  />

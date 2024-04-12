@@ -135,35 +135,7 @@ $url_publi = $protocol . '://' . $host;
             $url_final =  $url_final ."&region=".urlencode($region);  
          }  
       
-      $count_pub = 0;
-     // $url = $baseUrl.'/list_publications?limit=1000'.$param;   
-    
- 
-      /* $response = file_get_contents($url);
-      if ($response !== false) {
-          // Decodificar la respuesta JSON
-          $data = json_decode($response, true);
-          if (!$data['error']) {
-              // Obtener la lista de publicaciones
-             //$list_publications = $data['data']; 
-    
-           // $count_pub = $data['count'];
-            $rowsPerPage = 10;
-            
-            // Paginar los datos
-         
-            $indexOfLastRow = $currentPage * $rowsPerPage;
-            $indexOfFirstRow = $indexOfLastRow - $rowsPerPage;
-           
-           /* $currentRows = array_slice($list_publications, $indexOfFirstRow, 10);
-            $totalPages = ceil(count($list_publications) / $rowsPerPage);
-
-          } else {              
-              $msg_list_public =  $data['msg'];
-          }
-      } else {
-          echo 'Error al realizar la solicitud a la API';
-      }  */ 
+      $count_pub = 0; 
  
    ?>
 <section class="bg-carrucel mb-5">
@@ -262,13 +234,14 @@ $url_publi = $protocol . '://' . $host;
                             Selecciona el tipo de búsqueda para que se desplieguen todos los filtros.
                         </p>
                     </div>
-                    <a href="javascript:void('0');" id="Arrendar" onclick="filtroFooter('1')"
-                        class="font-family-Roboto-Medium mb-3 <?= ($tpublicacion == '1') ? 'activo' :''; ?> titulo-filter-btn">Arrendar</a>
-                    <a href="javascript:void('0');" id="Comprar" onclick="filtroFooter('2')"
-                        class="font-family-Roboto-Medium mb-3 <?= ($tpublicacion == '2') ? 'activo' :''; ?> titulo-filter-btn">Comprar</a>
+                    <p class="titulo-tienda">
+                        <a  href="javascript:void('0');" onclick="filtroFooter('1')" class="font-family-Roboto-Medium mb-3 titulo-tienda <?= ($tpublicacion == '1') ? 'activo' :''; ?>">Arrendar</a>
+                        <a  href="javascript:void('0');" onclick="filtroFooter('2')" class="font-family-Roboto-Medium mb-3 titulo-tienda <?= ($tpublicacion == '2') ? 'activo' :''; ?>">Comprar</a>
+                    </p> 
+       
                     <div class="formulario-busqueda">
                         <div class="form-group">
-                            <input type="text" name="buscar" id="buscar" value="<?=$search?>" placeholder="¿Qué buscas?">
+                            <input onblur type="text" name="buscar" id="buscar" value="<?=$search?>" placeholder="¿Qué buscas?">
                         </div>
                         <!--div class="form-group">
                         <?php                                            
@@ -289,23 +262,32 @@ $url_publi = $protocol . '://' . $host;
                          </div-->
                         
                         <div class="form-group group">
-                        <?php  
-                                if ($count_category > 0) { 
-                                    echo '<select class="form-control font-family-Inter-Medium"  id="category" name="category">';
-                                    echo '<option value="">---Seleccione---</option>'; 
-                                    foreach ($categories as $categorie) {
-                                        $id = $categorie['id_category'];
-                                        $categoryName = $categorie['category'];
-                                        echo '<option value="' . $id . '"'; 
-                                        if ($id == $categoria) {
-                                            echo ' selected';
-                                        }  
-                                        echo '>' . $categoryName. '</option>';
-                                    }
-                                    echo '</select>
-                                    <i class="fa-solid fa-caret-down"></i>';
-                         
-                        }  ?> 
+                    <?php
+                      if ($count_category > 0) {
+                        echo '<select class="form-control font-family-Inter-Medium" id="category" name="category">';
+                        echo '<option value="">---Seleccione---</option>';
+                        foreach ($categories as $categorie) {
+                            $id = $categorie['id_category'];
+                            $categoryName = $categorie['category'];
+
+                            if ($tpublicacion == 1 && ($id == 1 || $id == 5)) {
+                                echo '<option value="' . $id . '"';
+                                if ($id == $categoria) {
+                                    echo ' selected';
+                                }
+                                echo '>' . $categoryName . '</option>';
+                            } elseif ($tpublicacion != 1) {
+                                echo '<option value="' . $id . '"';
+                                if ($id == $categoria) {
+                                    echo ' selected';
+                                }
+                                echo '>' . $categoryName . '</option>';
+                            }
+                        }
+                        echo '</select>
+                        <i class="fa-solid fa-caret-down"></i>';
+                    }
+                    ?>
                         </div>
                         <div class="form-group group">
                         <?php  
@@ -339,7 +321,7 @@ $url_publi = $protocol . '://' . $host;
                     </div>
                     <div class="formulario-busqueda">
                         <div class="form-group group">
-                          <select class="form-control" id="marca" name="marca">
+                          <select class="form-control" id="marca" name="marca" >
                           </select>                           
                         </div>
                         <div class="form-group group">
@@ -353,11 +335,11 @@ $url_publi = $protocol . '://' . $host;
                     </div>
                     <div class="campos-min-max font-family-Roboto-Regular">
                         <div class="form-check-inline">
-                            <input type="text" name="desde" id="desde" placeholder="Desde">
+                            <input type="number" name="desde" id="desde" placeholder="Desde">
                         </div>
                         <div class="form-check-inline">-</div>
                         <div class="form-check-inline mr-0">
-                            <input type="text" name="hasta" id="hasta" placeholder="Hasta">
+                            <input type="number" name="hasta" id="hasta" placeholder="Hasta">
                         </div>
                     </div>
                     <div class="mt-4">
@@ -366,13 +348,13 @@ $url_publi = $protocol . '://' . $host;
                     <div class="font-family-Roboto-Regular tipo">
                         <div class="form-check-inline">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="nuevo" name="tipo">
+                                <input type="radio" class="custom-control-input" id="condition" name="condition" value="Nuevo">
                                 <label class="custom-control-label font-family-Roboto-Regular" for="nuevo">Nuevo</label>
                             </div>
                         </div>
                         <div class="form-check-inline">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="usado" name="tipo">
+                                <input type="radio" class="custom-control-input" id="condition1" name="condition" value="Usado">
                                 <label class="custom-control-label font-family-Roboto-Regular" for="usado">Usado</label>
                             </div>
                         </div>
@@ -415,21 +397,18 @@ $url_publi = $protocol . '://' . $host;
                 <div class="row">
                     <div class="col-md-12">
                         <p class="titulo-tienda text-right" id="">
-                            <span class="mr-3">Ordenar por:</span>
+                            <span class="mr-3">Ordenar por:</span> 
 
                             <a href="javascript:void('0');" id="recent"
                                 class="font-family-Roboto-Medium mb-3 titulo-filter-btn">Más
                                 recientes</a>
-                            <a href="javascript:void('0');" id="price-min"
+                            <a href="javascript:void('0');" id="price-min-filter"
                                 class="font-family-Roboto-Medium mb-3 titulo-filter-btn">Precio
                                 más bajo primero</a>
                         </p>
                     </div>
                     <div class="col-md-12 mt-3">
-                        <div class="all list_publi_owner">
-                        
-                      
-                         
+                        <div class="all list_publi_owner">  
                         </div>
                    
                     
@@ -450,24 +429,63 @@ $url_publi = $protocol . '://' . $host;
 </section>
 
 <?php include 'footer.php' ?>
+
 <script>
 $(document).ready(function() { 
-    alert("busca las publicaciones");
-    searchPublication('<?=$param?>')    
+  //  alert("busca las publicaciones");
+    searchPublication('<?=$param?>','1')   
+    searchTypeMarca('1');
+    searchTypeModelo('1');
+    
+    //filtros search
+    $('#buscar').on('blur', function() { 
+        var value =  $('#buscar').val();
+        var filter = updateFilterParam('search', value, '<?=$param?>'); 
+        searchPublication(filter,2);
+    }); 
+    $('#marca').on('change', function() { 
+        var value =  $('#marca').val(); 
+        var filter = updateFilterParam('brand', value, '<?=$param?>');
+        searchPublication(filter,2);
+    });
+    $('#modelo').on('change', function() { 
+        var value =  $('#modelo').val();
+        var filter = updateFilterParam('model', value, '<?=$param?>');
+        searchPublication(filter,2);
+    });
+    $('#condition').on('click', function() {
+        var selectedValue = $('input[name="condition"]:checked').val();  
+        var filter = updateFilterParam('condition', selectedValue, '<?=$param?>');
+        searchPublication(filter,2);
+    });
+    $('#condition1').on('click', function() {
+        var selectedValue = $('input[name="condition"]:checked').val(); 
+        var filter = updateFilterParam('condition', selectedValue, '<?=$param?>');
+        searchPublication(filter,2);
+    });
+    $('#price-min-filter').on('click', function() { 
+        var filter = updateFilterParam('price_min', 1, '<?=$param?>');
+        searchPublication(filter,2);
+    });
+  
+    $('#recent').on('click', function() {
+        var filter = updateFilterParam('recent', 1, '<?=$param?>');
+        searchPublication(filter,2);
+    });
  });
 
     $('#all').click(function () {
-        $('.all').css('display', 'block');
+     //   $('.all').css('display', 'block');
         $('.recent').css('display', 'none');
         $('.price-min').css('display', 'none');
     });
     $('#recent').click(function () {
-        $('.all').css('display', 'none');
+      //  $('.all').css('display', 'none');
         $('.recent').css('display', 'block');
         $('.price-min').css('display', 'none');
     });
     $('#price-min').click(function () {
-        $('.all').css('display', 'none');
+      //  $('.all').css('display', 'none');
         $('.recent').css('display', 'none');
         $('.price-min').css('display', 'block');
     })
@@ -568,7 +586,7 @@ $(document).ready(function() {
 
 function searchTypeMarca(industria){
    
-   var url = '<?=$baseUrl?>/list_marca?id_product_type=' + industria;  
+   var url = '<?=$baseUrl?>/list_marca';  
    $.ajax({
       url: url,
       method: 'GET', 
@@ -583,7 +601,7 @@ function searchTypeMarca(industria){
               var defaultOption = $('<option>').prop('selected', true).text('Marca');
               selectElement.append(defaultOption);
               res.data.forEach(function(element) { 
-              var option = $('<option value='+element.marca+' >').text(element.description);
+              var option = $('<option value='+element.id_marca+' >').text(element.description);
               selectElement.append(option);             
           });
   
@@ -595,14 +613,12 @@ function searchTypeMarca(industria){
   });
 }
 
-function searchTypeModelo(industria){
-   
+function searchTypeModelo(industria){   
    var url = '<?=$baseUrl?>/list_model?id_product_type=' + industria;  
    $.ajax({
       url: url,
       method: 'GET', 
-      contentType: "application/json",
-    
+      contentType: "application/json",    
       success: function(res) {
           var selectElement = $('#modelo'); 
               // Limpiar las opciones existentes
@@ -613,8 +629,7 @@ function searchTypeModelo(industria){
               res.data.forEach(function(element) { 
               var option = $('<option value='+element.id_model+' >').text(element.description);
               selectElement.append(option);             
-          });
-  
+          });  
       },
       error: function(error) {
         
@@ -623,20 +638,49 @@ function searchTypeModelo(industria){
   });
 }
 
-function searchPublication(params) {
+function updateFilterParam(paramName, paramValue, filter) {
+  var regex = new RegExp(paramName + '=([^&#]*)');
+  var match = regex.exec(filter);
+  if (match) {
+    // El parámetro ya existe, modificar su valor
+    var updatedFilter = filter.replace(match[0], paramName + '=' + paramValue);
+    return updatedFilter;
+  } else {
+    // El parámetro no existe, agregarlo al filtro
+    if (filter.length > 0) {
+      return filter + '&' + paramName + '=' + paramValue;
+    } else {
+      return paramName + '=' + paramValue;
+    }
+  }
+}
+
+function searchPublication(params,type) {
+    console.log("parameetros",params);
+    var url;
+    if(type=='1'){
+        url = '<?=$baseUrl?>/list_publications?limit=10'+params;
+    }else{
+        params = params + ''
+        url = '<?=$baseUrl?>/list_publications?limit=10&'+params;
+    }
+
     $.ajax({   
-    url: '<?=$baseUrl?>/list_publications?limit=10'+params,
+    url: url,
     method: 'GET',  
     success: function(res) {
+      $('.list_publi_owner').empty();
      if(!res.error){ 
           res.data.forEach(function(element) {
             console.log("element",element)
         // Obtener el nuevo valor para count_pub utilizando jQuery
            var nuevoValor = res.count;  
                 // Actualizar el contenido del elemento <p> con el nuevo valor
-           $('.titulo-principal-adorno').text(nuevoValor + ' resultados de búsqueda');
-           if(element.status_id == '6' ) { 
-               var imagen = '<?=$baseUrl?>/see_image?image='+element.product_images[0]['image_name']; 
+           $('.titulo-principal-adorno').text(nuevoValor + ' resultados de búsqueda'); 
+           
+           if(element.status_id == 6 ) { 
+            var imagen_url = element?.product_images[0] ? element.product_images[0]['image_name'] :'';
+            var imagen = '<?=$baseUrl?>/see_image?image='+ imagen_url;
                // Crear el elemento <a> y establecer el atributo href
                 var typep = element.PublicationType.id_publication_type;
                 var id = element.id_product;
@@ -644,52 +688,26 @@ function searchPublication(params) {
                 var detalle = 'typep='+typep+'&id='+id+'&%'+asunto;
                 var link = $('<a>').attr('href', 'detalle.php?'+detalle);
 
-                // Crear el elemento <div> con la clase "align-items-start box-tienda d-flex justify-content-start mb-3"
                 var divContainer = $('<div>').addClass('align-items-start box-tienda d-flex justify-content-start mb-3');
 
-                // Crear el elemento <div> con la clase "box-img position-relative"
                 var divImage = $('<div>').addClass('box-img position-relative');
-
-                // Crear la imagen dentro del div de la imagen
                 var image = $('<img>').attr('src', imagen).attr('alt', 'producto');
-
-                // Crear el elemento <div> con la clase "abs"
                 var divAbs = $('<div>').addClass('abs');
 
-                // Crear el elemento <span> con la clase "font-family-Roboto-Regular"
-                var span = $('<span>').addClass('font-family-Roboto-Regular').text('Oportunidad');
-
-                // Agregar el elemento <span> dentro del div "abs"
-                divAbs.append(span);
-
-                // Agregar la imagen y el div "abs" dentro del div de la imagen
+              
                 divImage.append(image, divAbs);
 
                 // Crear el elemento <div> con la clase "box-description"
                 var divDescription = $('<div>').addClass('box-description');
 
-                // Crear el elemento <div> con la clase "row"
                 var divRow = $('<div>').addClass('row');
-
-                // Crear el elemento <div> con la clase "col-md-7"
                 var divCol7 = $('<div>').addClass('col-md-7');
-
-                // Crear el elemento <h2> con la clase "font-family-Roboto-Regular"
                 var h2 = $('<h2>').addClass('font-family-Roboto-Regular').text(element.title);
-
-                // Crear el elemento <h3> con la clase "mb-3"
                 var h3 = $('<h3>').addClass('mb-3');
-
-                // Crear el elemento <strong> con la clase "font-family-Roboto-Bold"
-                var strong = $('<strong>').addClass('font-family-Roboto-Bold').text(element.product_details.price);
-
-                // Crear el elemento <span> con la clase "font-family-Roboto-Medium"
+                var strong = $('<strong>').addClass('font-family-Roboto-Bold').text(element.product_details?.price ?? '');
                 var spanPrice = $('<span>').addClass('font-family-Roboto-Medium').text('');
-
-                // Agregar el texto del precio dentro del elemento <h3>
                 h3.append(strong, spanPrice);
 
-                // Crear el elemento <div> con la clase "row"
                 var divInnerRow = $('<div>').addClass('row');
 
                 // Crear los elementos <div> y <p> para los detalles
@@ -697,63 +715,45 @@ function searchPublication(params) {
                 var divCol6_2 = $('<div>').addClass('col-md-6');
                 var pLocation = $('<p>').addClass('font-family-Roboto-Regular detalles-grey mb-1').html('<img src="./assets/img/location-grey.png" alt="location"> Ubicado en');
                 var pBus = $('<p>').addClass('font-family-Roboto-Regular detalles-grey mb-1').html('<img src="./assets/img/bus.png" alt="bus"> Marca');
-                var pKm = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element.product_details.region +' ' +element.product_details.city);
-                var pDate = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element.product_details.brand);
+                var pKm = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element.product_details?.region);
+              //  var pKm = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element.product_details?.region +' ' +element.product_details?.city);
+                var pDate = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element.product_details?.brand);
 
                 // Agregar los elementos de los detalles dentro del div de la columna 1 y columna 2
                 divCol6_1.append(pLocation, pKm);
                 divCol6_2.append(pBus, pDate);
-
-                // Agregar las columnas de los detalles dentro del div de la fila interna
                 divInnerRow.append(divCol6_1, divCol6_2);
-
-                // Agregar los elementos principales dentro del div de la columna 7
                 divCol7.append(h2, h3, divInnerRow);
-
-                // Crear el elemento <div> con la clase "col-md-5 mini-detalles"
                 var divCol5 = $('<div>').addClass('col-md-5 mini-detalles');
 
-                // Crear el elemento <p> para "Incluye:"
                 var pIncludes = $('<p>').text('Incluye:');
 
-                // Crear la lista de elementos <li> para los detalles incluidos
                 var ul = $('<ul>');
                 var li1 = $('<li>').html('<i class="fa-regular fa-circle-check"></i> Contrato Maquinatrix');
                 var li2 = $('<li>').html('<i class="fa-regular fa-circle-check"></i>Garantía Maquinatrix');
                 var li3 = $('<li>').html('<i class="fa-regular fa-circle-check"></i> Despacho');
 
-                if(element.product_details.delivery=='Y' ||element.product_details.delivery=='S' ){
+                if(element.product_details?.delivery=='Y' || element.product_details?.delivery=='S' ){
                     ul.append(li1);
                 } 
-                 if(element.product_details.warranty=='Y' ||element.product_details.warranty=='S' ){
+                 if(element.product_details?.warranty=='Y' || element.product_details?.warranty=='S' ){
                     ul.append(li2);
                 }
-                 if(element.product_details.delivery=='Y' ||element.product_details.delivery=='S' ){
+                 if(element.product_details?.delivery=='Y' || element.product_details?.delivery=='S' ){
                     ul.append(li3);
                 }
-               
-                // Agregar los elementos <li> dentro de la lista <ul>
-              
+                
+                divCol5.append(pIncludes, ul); 
+                divRow.append(divCol7, divCol5); 
+                divDescription.append(divRow); 
+                divContainer.append(divImage, divDescription); 
+                link.append(divContainer); 
 
-                // Agregar los elementos principales dentro del div de la columna 5
-                divCol5.append(pIncludes, ul);
-
-                // Agregar los elementos principales dentro del div de la fila
-                divRow.append(divCol7, divCol5);
-
-                // Agregar los elementos principales dentro del div de la descripción
-                divDescription.append(divRow);
-
-                // Agregar los elementos principales dentro del div del contenedor
-                divContainer.append(divImage, divDescription);
-
-                // Agregar el div del contenedor dentro del enlace
-                link.append(divContainer);
-
-                // Agregar el enlace al elemento deseado en tu página HTML
-                $('.list_publi_owner').append(link);
+                $('.list_publi_owner').append(link);  
              }
         });
+      } else {
+        $('.list_publi_owner').text(res?.msg);
       }
     }
   });  

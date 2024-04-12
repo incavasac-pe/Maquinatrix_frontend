@@ -403,7 +403,7 @@ footer p{
     outline: none !important;
     display: inline-block;
 }
-.titulo-tienda .activo,
+.titulo-tienda .activo-title,
 .titulo-tienda a:focus{
     background-color: #D9EAFB !important;
     color: #0070E0 !important;
@@ -502,6 +502,10 @@ footer p{
 }
 .bg-detalles .migas1{
     color: #0070E0;
+    background-color: rgba(0,112,224,0.22);
+}
+.bg-detalles .migas2{
+    color: #552E88;
     background-color: rgba(0,112,224,0.22);
 }
 .bg-detalles .migasactive{

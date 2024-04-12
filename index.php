@@ -35,10 +35,10 @@ function cortarString($texto) {
            $categories = $data['data'];
            $count_category = $data['count'];
        } else {
-           echo 'Error: ' . $data['msg'];
+             'Error: ' . $data['msg'];
        }
     } else {
-        echo 'Error al realizar la solicitud a la API';
+          'Error al realizar la solicitud a la API';
     }
     
 
@@ -57,7 +57,7 @@ function cortarString($texto) {
  
            $count_pub = $data['count'];
           } else {
-              echo 'Error: ' . $data['msg'];
+                'Error: ' . $data['msg'];
           }
       } else {
           echo 'Error al realizar la solicitud a la API';
@@ -260,7 +260,7 @@ function cortarString($texto) {
                             </div>
                             <div class="cuadro-des">
                                 <ul class="font-family-Roboto-Regular">
-                                    <li><a href="detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>">  <?= $pub['PublicationType']['description']  ?></a></li>
+                                    <li><a href="detalle.php?typep=<?=$pub['PublicationType']['id_publication_type'] ?>&id=<?= $pub['id_product'] ?>&<?= ($pub['PublicationType']['id_publication_type']  == '2') ? 'comprar' :' arrendar'; ?>">  <?= $pub['PublicationType']['type_pub']  ?></a></li>
                                 </ul>
                                 <span class="font-family-Roboto-Regular" tabindex="0" data-toggle="tooltip" title="<?= $pub['title'] ?> ">
                                     <p class="font-family-Roboto-Regular" style="color: #212529;">

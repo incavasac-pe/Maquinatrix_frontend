@@ -15,7 +15,7 @@
                 <input type="number"  id="code3"  disabled />
                 <input type="number" id="code4"  disabled />
             </div>
-            <p class="seconds">Podrás reenviarlo en 30 segundos.</p>
+            <p class="seconds" onclick="goPublication()">Podrás reenviarlo en 30 segundos.</p>
             <div class="login-btn-wrapper">
               <button type="submit" id="validate_code"  class="login-btn">Iniciar Sesión </button>  
             </div>
@@ -85,7 +85,6 @@
                 email:'<?= $email?>',
                 code: $('#code1').val() +  $('#code2').val() + $('#code3').val()+ $('#code4').val()
             };
-
             $.ajax({
             type: "POST",
             url: '<?=$baseUrl?>/validateDigPassword',

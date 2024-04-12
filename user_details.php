@@ -215,7 +215,7 @@ if (isset($_SESSION['loggedIn'])) {
             <button type="button" class="filter-btn">Borradores</button>
             <button type="button" class="filter-btn">Suspendidos</button>
           </div>
-          <button type="button" class="publication-create-btn">+ Crear
+          <button type="button" class="publication-create-btn" data-bs-toggle="modal" data-bs-target="#exampleModalPublication">+ Crear
             Publicación</button>
         </div> 
         <input type="hidden" id="id_product">

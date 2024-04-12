@@ -9,22 +9,16 @@
     <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
       <!-- Step 1 Content -->
 
-      <section id="step-1" class="form-step">
-
-
-        <?php include 'Arriendo_sale_sec1.php' ?>
-
-
+      <section id="step-1" class="form-step">  
+        <?php include 'Arriendo_sale_sec1.php' ?>  
       </section>
       <!-- Step 2 Content, default hidden on page load. -->
       <section id="step-2" class="form-step d-none">
-        <?php include 'Arriendo_sale_sec2.php' ?>
-    
+        <?php include 'Arriendo_sale_sec2.php' ?> 
       </section>
       <!-- Step 3 Content, default hidden on page load. -->
       <section id="step-3" class="form-step d-none">
-        <?php include 'Arriendo_sale_sec3.php' ?>
-     
+        <?php include 'Arriendo_sale_sec3.php' ?> 
       </section>
     </form>
   </div>
@@ -173,6 +167,12 @@ $(document).ready(function() {
   var publicacion3;
   var publicacion4;
   var publicacion5;
+  var traxion;
+ 
+  function setTraccion(valor){
+    traxion = valor;  
+  }
+
 
  function resumePublication(){  
 
@@ -217,7 +217,7 @@ $(document).ready(function() {
     "mixed_consumption": $("#mixed_consumption").val(),   
     "transmission":$('input[name="transmission"]:checked').val(),
     "fuel": $('input[name="combustible"]:checked').val(),
-    "traction": $("#traction_index1").val(), 
+    "traction": traxion ? traxion : $("#traction_index1").val(), 
     "km_traveled": $("#KilometrosRecorridos").val(),   
     "hrs_traveled": $("#Horometro").val(), 
   };
