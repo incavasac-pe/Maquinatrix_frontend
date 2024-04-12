@@ -492,7 +492,7 @@ function construirEstructuraHTML() {
               var constructionStats = $('<div>').addClass('construction-stats');
               var blueMdText = $('<div>').addClass('blue-md-text').append($('<i>').addClass('fa-solid fa-circle fa-dot')).text(element.PublicationType.description);
               var mdText = $('<div>').addClass('md-text').text(element.Category.category);
- console.log("constructionTextconstructionText",constructionText);
+ 
               // Agregar elementos al contenedor principal
               constructionStats.append(blueMdText);
               constructionStats.append(mdText);
@@ -612,10 +612,10 @@ function construirEstructuraHTML() {
                     var publicationDraftWrapper = $('<div>').addClass('publication-draft-wrapper');
                     var pubContainer1 = $('<div>').addClass('pub-container');
                     var greyMdText1 = $('<p>').addClass('grey-md-text').text('Visitas');
-                    var boldPubText1 = $('<p>').addClass('bold-pub-text').text('0');
+                    var boldPubText1 = $('<p>').addClass('bold-pub-text').text(element.visitt);
                     var pubContainer2 = $('<div>').addClass('pub-container');
                     var greyMdText2 = $('<p>').addClass('grey-md-text').text('Interacción');
-                    var boldPubText2 = $('<p>').addClass('bold-pub-text').text(0);
+                    var boldPubText2 = $('<p>').addClass('bold-pub-text').text(element.interaction);
 
                     // Agregar elementos al contenedor de publicación y borrador
                     pubContainer1.append(greyMdText1);

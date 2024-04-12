@@ -3,56 +3,56 @@
 <?php  
 $baseUrl = getenv('URL_API');
 
-print_r($_POST);
+//print_r($_POST);
  
 if (isset($_POST['exampleInputName'])) {
   $firstname = $_POST['exampleInputName'];
-  echo "El valor enviado es: " . $firstname;
+ // echo "El valor enviado es: " . $firstname;
 }
 if (isset($_POST['exampleInputSurname'])) {
   $lastname = $_POST['exampleInputSurname'];
-  echo "El valor enviado es: " . $lastname;
+ // echo "El valor enviado es: " . $lastname;
 }
 if (isset($_POST['exampleInputEmail1'])) {
   $email = $_POST['exampleInputEmail1'];
-  echo "El valor enviado es: " . $email;
+//  echo "El valor enviado es: " . $email;
 }
 if (isset($_POST['exampleInputTypeDoc'])) {
   $type_doc = $_POST['exampleInputTypeDoc'];
-  echo "El valor enviado es: " . $type_doc;
+ // echo "El valor enviado es: " . $type_doc;
 }else{
   $type_doc='1';
 }
 if (isset($_POST['exampleInputDocNumber'])) {
   $num_doc = $_POST['exampleInputDocNumber'];
-  echo "El valor enviado es: " . $num_doc;
+ // echo "El valor enviado es: " . $num_doc;
 }else{
   $num_doc ='';
 }
 if (isset($_POST['exampleInputPassword1'])) {
   $password = $_POST['exampleInputPassword1'];
-  echo "El valor enviado es: " . $password;
+//  echo "El valor enviado es: " . $password;
 }
 
 
 //company
 if (isset($_POST['exampleInputRutRP'])) {
   $RutRepreLegal = $_POST['exampleInputRutRP'];
-  echo "El valor enviado es: " . $RutRepreLegal;
+ // echo "El valor enviado es: " . $RutRepreLegal;
 }else{
   $RutRepreLegal='';
 }
 
 if (isset($_POST['exampleInputRutEmpresa'])) {
   $rutCompany = $_POST['exampleInputRutEmpresa'];
-  echo "El valor enviado es: " . $rutCompany;
+ // echo "El valor enviado es: " . $rutCompany;
 }else{
   $rutCompany='';
 }
 
 if (isset($_POST['exampleInputRazonSocial'])) {
   $razon_social = $_POST['exampleInputRazonSocial'];
-  echo "El valor enviado es: " . $razon_social;
+ // echo "El valor enviado es: " . $razon_social;
 }else{
   $razon_social='';
 }
@@ -66,7 +66,7 @@ if (isset($_POST['type_user'])) {
   }else{
     $id_type_user = 2;
   }
-  echo "El valor enviado es: " . $type_user ;
+//  echo "El valor enviado es: " . $type_user ;
 }
  
 ?>

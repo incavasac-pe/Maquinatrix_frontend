@@ -109,6 +109,14 @@ $(document).ready(function() {
      $("#confirm_public").on('click', function(event) {
       registerPublication();
     });  
+
+    $('#pdfFile').change(function() {
+      console.log("subir doc", $(this)[0].files[0]); 
+    });
+
+    $('#pdfFile1').change(function() {
+      console.log("subir doc11", $(this)[0].files[0]); 
+    });
   });  
 </script>
  

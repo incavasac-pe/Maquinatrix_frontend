@@ -262,7 +262,7 @@
             </div>
         </div>
     </div>
-    <div class="error-container">
+    <div class="error-container hidden">
         <i class="fa-solid fa-circle-xmark"></i>
         <div>
             <p class="error-heading">Campos faltan completar</p>

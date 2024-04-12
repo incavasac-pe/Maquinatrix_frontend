@@ -31,10 +31,11 @@ if (isset($_SESSION['loggedIn'])) {
             <a class="login-link" href="./login.php"> INICIAR SESIÓN </a>
         <?php } ?> 
        
-     
-        <div class="publish-btn-wrapper">
-            <a class="publish-btn" data-bs-toggle="modal" data-bs-target="#exampleModalPublication" >PUBLICA TU MAQUINARIA </a>
-</div>
+        <?php if (isset($_SESSION['loggedIn'])) { ?>
+            <div class="publish-btn-wrapper">
+                <a class="publish-btn" data-bs-toggle="modal" data-bs-target="#exampleModalPublication" >PUBLICA TU MAQUINARIA </a>
+            </div>
+     <?php } ?> 
 <?php if (isset($_SESSION['loggedIn'])) { ?>
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle"  type="button" data-bs-toggle="dropdown" aria-expanded="false">

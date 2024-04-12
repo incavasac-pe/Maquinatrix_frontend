@@ -415,7 +415,7 @@ $url_publi = $protocol . '://' . $host;
                                     <label for="exampleFormControlInput11" class="form-label dark-grey-text">Adjuntar Archivo</label>
                                     <div class="input-group mb-3">
 
-                                        <input type="text" class="form-control input-addon" id="exampleFormControlInput11"
+                                        <input type="file" id="pdfFile" name="pdfFile" class="form-control input-addon" 
                                             placeholder="Adjuntar certificado" aria-label="Adjuntar certificado"
                                             aria-describedby="basic-addon2">
                                         <span class="input-group-text input-addon-symbol" id="basic-addon2">@</span>
@@ -458,14 +458,14 @@ $url_publi = $protocol . '://' . $host;
                                 <p class="dark-grey-text-md">Se admiten los formatos PDF, JPG Y PNG.</p>
                                 <div class="input-group mb-3" style="width: 223px;">
 
-                                    <input type="text" class="form-control input-addon" id="exampleFormControlInput11"
+                                    <input type="file" id="pdfFile1" name="pdfFile1"  class="form-control input-addon" 
                                         placeholder="Adjuntar certificado" aria-label="Adjuntar certificado"
                                         aria-describedby="basic-addon2">
                                     <span class="input-group-text input-addon-symbol" id="basic-addon2">@</span>
                                 </div>
 
                             </div>
-                            <div class="warning-wrapper">
+                            <div class="warning-wrapper hidden">
                                 <i class="fa-solid fa-circle-exclamation"></i>
                                 <div>
                                     <p class="error-heading">Campos faltan completar</p>
@@ -571,7 +571,7 @@ $url_publi = $protocol . '://' . $host;
                    </div>
                 </div>
 
-                <div class="error-container">
+                <div class="error-container hidden">
                     <i class="fa-solid fa-circle-xmark"></i>
                     <div>
                         <p class="error-heading">Campos faltan completar</p>
@@ -648,7 +648,7 @@ function searchTypeMarca(industria){
               var defaultOption = $('<option>').prop('selected', true).text('Marca*');
               selectElement.append(defaultOption);
               res.data.forEach(function(element) { 
-              var option = $('<option value='+element.id_marca+' >').text(element.description);
+              var option = $('<option value='+element.description+' >').text(element.description);
               selectElement.append(option);   
                         
           });  
@@ -657,7 +657,7 @@ function searchTypeMarca(industria){
               var defaultOption1 = $('<option>').prop('selected', true).text('Marca*');
               selectElement1.append(defaultOption1);
               res.data.forEach(function(element) { 
-              var option1 = $('<option value='+element.id_marca+' >').text(element.description);
+              var option1 = $('<option value='+element.description+' >').text(element.description);
               selectElement1.append(option1);   
                         
           });  
@@ -683,7 +683,7 @@ function searchTypeModelo(industria){
               var defaultOption = $('<option>').prop('selected', true).text('Modelo*');
               selectElement.append(defaultOption);
               res.data.forEach(function(element) { 
-              var option = $('<option value='+element.id_model+' >').text(element.description);
+              var option = $('<option value='+element.description+' >').text(element.description);
               selectElement.append(option);             
           });  
           var selectElement1 = $('#modelo1'); 
@@ -693,7 +693,7 @@ function searchTypeModelo(industria){
               var defaultOption1 = $('<option>').prop('selected', true).text('Modelo*');
               selectElement1.append(defaultOption1);
               res.data.forEach(function(element) { 
-              var option1 = $('<option value='+element.id_model+' >').text(element.description);
+              var option1 = $('<option value='+element.description+' >').text(element.description);
               selectElement1.append(option1);             
           }); 
       },

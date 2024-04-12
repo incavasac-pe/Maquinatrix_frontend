@@ -273,11 +273,11 @@
                             </tr>
                             <tr>
                                 <td>Ubicación</td>
-                                <td><?= $detalle['product_details']['region'];   ?>, <?= $detalle['product_details']['city'];   ?></td>
+                                <td><?= $detalle['product_details']['region']; ?></td>
                             </tr>
                             <tr>
                                 <td>Garantía Maquinatrix</td>
-                                <td>Acordar con el arrendador</td>
+                                <td><?= $detalle['product_details']['warranty'] == 'Y' ? 'Sí':'No';   ?></td>
                             </tr>
                             <tr>
                                 <td>Tipo de Vendedor</td>
@@ -285,7 +285,7 @@
                             </tr>
                             <tr>
                                 <td>Despacho</td>
-                                <td> <?= $detalle['product_details']['delivery'] == 'S' ? 'Sí':'No';   ?></td>
+                                <td> <?= $detalle['product_details']['delivery'] == 'Y' ? 'Sí':'No';   ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -320,14 +320,14 @@
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                                 <?= isset($detalle['product_details']["price"])? $detalle['product_details']["price"]:'0' ?>  <span class="font-family-Roboto-Regular"></span>
+                            CLP  <?= isset($detalle['product_details']["price"])? $detalle['product_details']["price"]:'0' ?>  <span class="font-family-Roboto-Regular"></span>
                             </h3>
 
                         </div>
 
                         <div class="location-tx-wrapper">
-                            <img src="./assets/img/location.png" alt="location">
-                            <p><?= $detalle['product_details']['region'];   ?>, <?= $detalle['product_details']['city'];   ?></p>
+                            <img src="./assets/img/location.png" alt="loc ation">
+                            <p><?= $detalle['product_details']['region']; ?></p>
                         </div>
                         <p class="cotiza-md-text">Contáctate con el propietario de este anuncio para realizar la
                             solicitud de cotización del producto.</p>

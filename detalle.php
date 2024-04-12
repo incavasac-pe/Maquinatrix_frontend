@@ -270,7 +270,7 @@ if ($responseimg !== false) {
                             </tr>
                             <tr>
                                 <td>Ubicación</td>
-                                <td><?= $detalle['product_details']['region'];   ?>, <?= $detalle['product_details']['city'];   ?></td>
+                                <td><?= $detalle['product_details']['region'];   ?>   </td>
                             </tr>
                             <tr>
                                 <td>Garantía Maquinatrix</td>
@@ -701,5 +701,28 @@ function countVisibleColumns(sliderWrapper, columnContainer) {
     
     return Math.floor(sliderWidth / columnWidth);
 }
+
+</script>
+
+<script>
+$(document).ready(function() { 
+ 
+  
+       console.log("se visita", )
+       var url = '<?=$baseUrl?>/visity_public?id_product = '+<?=$id?>;  
+   $.ajax({
+      url: url,
+      method: 'PUT', 
+      contentType: "application/json",    
+      success: function(res) {
+          
+      },
+      error: function(error) {
+        
+      console.error('Error al enviar los datos actualizados');
+      }
+  });
+
+});
 
 </script>

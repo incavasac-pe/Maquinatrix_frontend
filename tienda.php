@@ -432,6 +432,11 @@ $url_publi = $protocol . '://' . $host;
 
 <script>
 $(document).ready(function() { 
+
+ 
+    $('#visity').on('click', function() {
+       console.log("se")
+    });
   //  alert("busca las publicaciones");
     searchPublication('<?=$param?>','1')   
     searchTypeMarca('1');
@@ -686,7 +691,7 @@ function searchPublication(params,type) {
                 var id = element.id_product;
                 var asunto = element.PublicationType.type_pub
                 var detalle = 'typep='+typep+'&id='+id+'&%'+asunto;
-                var link = $('<a>').attr('href', 'detalle.php?'+detalle);
+                var link = $('<a id="visity">').attr('href', 'detalle.php?'+detalle);
 
                 var divContainer = $('<div>').addClass('align-items-start box-tienda d-flex justify-content-start mb-3');
 
