@@ -1,5 +1,16 @@
 <?php include './header.php' ?>
-<?php  $baseUrl = getenv('URL_API'); ?>
+<?php  $baseUrl = getenv('URL_API');   
+
+//Include Configuration File
+include('config.php');
+
+$login_button = '';
+  
+if(!isset($_SESSION['token']))
+{ 
+ $login_button = '<a href="'.$google_client->createAuthUrl().'" class="google"><img src="./assets/img/google.png" alt="google" /> Con Google</a>';
+ }
+?>
 
 
 <div class="login">
@@ -9,6 +20,20 @@
 <div class="login-container">
 <div class="login-wrapper"> 
     <span class="text-danger align-middle" id="Msg"></span>
+    <?php
+// Otras líneas de código...
+
+if (isset($_GET['register'] ) ) {
+    $parametro = $_GET['register'];
+    if ($parametro == true) {
+        echo ' <span class="text-success align-middle" id="Msg"><div class="alert alert-success" role="alert">Registro Exitoso.</div></span>';
+    }else{
+        echo ' <span class="text-success align-middle" id="Msg"><div class="alert alert-danger" role="alert">No se pudo completar el registro.</div></span>';  
+    }
+}
+
+// Otras líneas de código...
+?>
     <h1>Ingresa tus datos para iniciar</h1>
     <form action="" id="loginform" method="POST">
     <div class="mb-3">
@@ -42,9 +67,8 @@
     <div class="linkedin-btn"> 
         <a class="linkedin" href="./index.php"><i class="fa-brands fa-facebook"></i> Con Facebook </a>
     </div>
-    <div class="google-btn"> 
-    <a href="./index.php" class="google"> <img src="./assets/img/google.png" alt="google" /> Con Google</a>
-    </div>
+    <?php  echo '  <div class="google-btn"> '.$login_button . '</div>';   ?>
+    
 </div>
 </div>
 </div>
@@ -124,7 +148,8 @@ function validarToken() {
 
             var formData = {
                 email: email,
-                password: password
+                password: password,
+                credencials : 1
             }; 
          $.ajax({
             type: "POST",

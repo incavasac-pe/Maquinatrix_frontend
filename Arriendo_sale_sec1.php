@@ -115,14 +115,15 @@ $url_publi = $protocol . '://' . $host;
                             <h1>Información de producto</h1>
                             <div class="row">
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="mb-3">
-                                        <select required id="marca" name="marca">  
+                                    <div class="mb-3">          
+
+                                        <select   data-live-search="true" required id="marca" name="marca">  
                                         </select> 
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
-                                        <select required  id="modelo" name="modelo"> 
+                                        <select required   data-live-search="true" id="modelo" name="modelo"> 
                                         </select> 
                                     </div>
                                 </div>
@@ -142,21 +143,21 @@ $url_publi = $protocol . '://' . $host;
 
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="col-sm-6 col-md-6 col-lg-6 engine_number" >
                                     <div class="mb-3">
                                         <input type="text" class="form-control" name="engine_number"  id="engine_number"  placeholder="N°. de Motor">
                                         <p class="text-grey">Ej. de N°. de Motor: X123123124123</p>
 
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="col-sm-6 col-md-6 col-lg-6 chasis_number" >
                                     <div class="mb-3">
                                         <input type="text" class="form-control"  name="chasis_number" id="chasis_number" placeholder="N°. de Chasis/VIN">
                                         <p class="text-grey">Ej. de VIN: 1G1RC6E42BUXXXXXX</p>
 
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="col-sm-6 col-md-6 col-lg-6 patente"  >
                                     <div class="mb-3">
                                         <input type="text" class="form-control"  name="patente" id="patente" placeholder="Patente">
 
@@ -170,8 +171,6 @@ $url_publi = $protocol . '://' . $host;
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
                                         <input type="text" class="form-control" id="PesoNeto"  name="PesoNeto" placeholder="Peso Neto">
-
-
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
@@ -601,9 +600,12 @@ function setCategory(value,text) {
   id_categoria = value;
   categoria = text;
   console.log("la categoria es",id_categoria)
-  if (id_categoria==5) {
-    $('#engine_number, #chasis_number, #patente').hide(); // Ocultar los elementos de entrada
- }
+    if (id_categoria==5) {
+       $('.engine_number, .chasis_number, .patente').hide(); // Ocultar los elementos de entrada
+    }else{
+        $('.engine_number, .chasis_number, .patente').show();
+    }
+ 
 }
   function searchTypeMachine(industria){
    

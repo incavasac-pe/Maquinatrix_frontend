@@ -44,27 +44,27 @@
                 
             </div> 
           
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
+            <div class="col-sm-6 col-md-6 col-lg-6 engine_number" >
+                <div class="mb-3" >
                     <input type="text" class="form-control" name="engine_number"  id="engine_number"  placeholder="N°. de Motor">
-                    <p class="text-grey">Ej. de N°. de Motor: X123123124123</p>
+                    <p class="text-grey" >Ej. de N°. de Motor: X123123124123</p>
 
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
+            <div class="col-sm-6 col-md-6 col-lg-6 chasis_number" >
+                <div class="mb-3" >
                     <input type="text"  class="form-control"  name="chasis_number" id="chasis_number" placeholder="N°. de Chasis/VIN">
                     <p class="text-grey">Ej. de VIN: 1G1RC6E42BUXXXXXX</p>
 
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="col-sm-6 col-md-6 col-lg-6 patente" >
                 <div class="mb-3">
                     <input type="text" class="form-control"  name="patente" id="patente" placeholder="Patente">
 
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="col-sm-6 col-md-6 col-lg-6 factory_code" >
                 <div class="mb-3">
                 <input type="hidden"  class="form-control" id="factory_code" name="factory_code"
                         placeholder="Número de Parte (código de fábrica producto)">

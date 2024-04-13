@@ -157,10 +157,10 @@
   console.log("la categoria de venta es",id_categoria)
 
   if (id_categoria!=1) {
-    $('#engine_number, #chasis_number, #patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').hide(); 
+    $('.engine_number, .chasis_number, .patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').hide(); 
     $('#title-transmission,#t-transmission,#t-tranx').hide(); // Ocultar los elementos de entrada// Ocultar los elementos de entrada
   }else{
-    $('#engine_number, #chasis_number, #patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').show(); 
+    $('.engine_number, .chasis_number, .patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').show(); 
     $('#title-transmission,#t-transmission,#t-tranx').show(); 
   }
    

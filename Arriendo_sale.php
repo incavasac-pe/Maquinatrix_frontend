@@ -286,7 +286,7 @@ $(document).ready(function() {
   $('.r_motor').text($("#engine_number").val() ?? '');
   $('.r_ubicacion').text( $("#region option:selected").text());
   $('.location-grey-text').text( $("#region option:selected").text());
-  var value = 'CLP ' +$("#price").val() + ' / hora'
+  var value =  publicacion2.facipay =='C' ? 'Cotizar' : 'CLP ' +$("#price").val() + ' / hora'
   $('.r_price').text( value);
 
   $('.r_tipo_vendedor').text(categoria);

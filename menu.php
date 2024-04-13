@@ -5,12 +5,12 @@ if (isset($_SESSION['loggedIn'])) {
     $token = $_SESSION['token'];
     $email = $_SESSION['email'];
     $username = $_SESSION['username'];
-    $photo = $_SESSION['photo'];
-    $id_user_ext = $_SESSION['id_user_ext'];
+    $photo = $_SESSION['photo'] ?? '';
+    $id_user_ext = $_SESSION['id_user_ext'] ?? '';
 }
   
 ?>
-<?php include './header.php' ?>
+<?php  include './header.php' ?>
 <div class="navbar navbar-light bg-maquinatrix navbar-expand-md">
     <div class="container">
         <a class="navbar-brand" href="./index.php">
@@ -30,7 +30,9 @@ if (isset($_SESSION['loggedIn'])) {
         <?php if (!isset($_SESSION['loggedIn'])) { ?>
             <a class="login-link" href="./login.php"> INICIAR SESIÓN </a>
         <?php } ?> 
-       
+        <?php if (!isset($_SESSION['loggedIn'])) { ?>
+            <a class="login-link" href="./login.php"> PUBLICA TU MAQUINARIA </a>
+        <?php } ?> 
         <?php if (isset($_SESSION['loggedIn'])) { ?>
             <div class="publish-btn-wrapper">
                 <a class="publish-btn" data-bs-toggle="modal" data-bs-target="#exampleModalPublication" >PUBLICA TU MAQUINARIA </a>

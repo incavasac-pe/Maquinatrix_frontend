@@ -1,8 +1,45 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
+
+<?php  
+ 
+include('config.php');
+
+if(isset($_GET["code"]))
+{
+
+$token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);//print_r($token);
+
+ if(!isset($token['error'])) {
+ 
+  $google_client->setAccessToken($token['access_token']);
+  $_SESSION['token'] = $token['access_token'];
+  $google_service = new Google_Service_Oauth2($google_client); 
+  $response = $google_service->userinfo->get();
+    echo "tipo..". $_SESSION['type'];
+     if($_SESSION['type'] == 1 || $_SESSION['type'] == 2){
+            //para registro
+            $_SESSION['email']= $response['email']; 
+            $_SESSION['firstname']= urlencode($response['given_name']);
+            $_SESSION['lastname'] = urlencode($response['family_name']); 
+        
+             $urlRegister = 'create_session_portal_redes.php?register=true'; 
+             echo '<meta http-equiv="refresh" content="0; url=' . $urlRegister . '">';
+        }else{
+                 //para login
+        if(!empty($response['email']))
+            {
+             $_SESSION['email'] = $response['email'];
+              $url = 'create_session_portal_redes.php?validate=true';
+             echo '<meta http-equiv="refresh" content="0; url=' . $url . '">';
+            } 
+        }
+ }
+}
+
+?>
 <?php 
 $baseUrl = getenv('URL_API');
- 
 
 function shuffleArray($array) {
     $keys = array_keys($array);
@@ -278,90 +315,7 @@ function cortarString($texto) {
         </div>
     </div>
 </section>
-
-<!--section class="interest">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 title-wrapper">
-                <h5 class="font-family-Roboto-Medium titulo">
-                    Te puede interesar
-                </h5>
-                <a href="./tienda.php?page=1" class="sub-title">Ver más</a>
-            </div>
-        </div>
-        <div class="interest-card-container">
-            <div class="card" style="width: 18rem;">
-            <div class="heart">
-            <i class="fa-regular fa-heart"></i>
-            </div>
-                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
-                <div class="card-body">
-                    <div class="status-wrapper">
-                        <div class="dot"></div>
-                        <h5 class="card-title">Arriendo</h5>
-                    </div>
-                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
-                    <p class="card-text2">CLP 84.000</p>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-            <div class="heart">
-            <i class="fa-regular fa-heart"></i>
-            </div>
-                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
-                <div class="card-body">
-                    <div class="status-wrapper">
-                        <div class="dot"></div>
-                        <h5 class="card-title">Arriendo</h5>
-                    </div>
-                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
-                    <p class="card-text2">CLP 84.000</p>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-            <div class="heart">
-            <i class="fa-regular fa-heart"></i>
-            </div>
-                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
-                <div class="card-body">
-                    <div class="status-wrapper">
-                        <div class="dot"></div>
-                        <h5 class="card-title">Arriendo</h5>
-                    </div>
-                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
-                    <p class="card-text2">CLP 84.000</p>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-            <div class="heart">
-            <i class="fa-regular fa-heart"></i>
-            </div>
-                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
-                <div class="card-body">
-                    <div class="status-wrapper">
-                        <div class="dot"></div>
-                        <h5 class="card-title">Arriendo</h5>
-                    </div>
-                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
-                    <p class="card-text2">CLP 84.000</p>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-            <div class="heart">
-            <i class="fa-regular fa-heart"></i>
-            </div>
-                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
-                <div class="card-body">
-                    <div class="status-wrapper">
-                        <div class="dot"></div>
-                        <h5 class="card-title">Arriendo</h5>
-                    </div>
-                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
-                    <p class="card-text2">CLP 84.000</p>
-                </div>
-            </div>
-        </div>
-</section-->
+ 
 <section class="Discover">
     <div class="container">
         <div class="row ">
