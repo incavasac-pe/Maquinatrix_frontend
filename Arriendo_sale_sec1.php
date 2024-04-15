@@ -65,7 +65,7 @@ $url_publi = $protocol . '://' . $host;
             <div class="row">
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <?php  
+                <!-- <?php  
                       if ($count_industry > 0) { 
                           echo '<select required   id="industria" name="industria"  onchange="searchTypeMachine(this.value)">';
                           echo '<option value="">Seleccionar industria*</option>'; 
@@ -80,13 +80,34 @@ $url_publi = $protocol . '://' . $host;
                           }
                           echo '</select> ';
                 
-                        }  ?>  
+                        }  ?>   -->
+                         <select id="industria" name="industria">
+  <option value=""></option>
+  <option value="1">Awesome</option>
+  <option value="2">Beast</option>
+  <option value="3">Compatible</option>
+  <option value="4">Thomas Edison</option>
+  <option value="5">Nikola</option>
+  <option value="6">Selectize</option>
+  <option value="7">Javascript</option>
+</select> 
 
                 </div>
               </div>
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select required  id="id_machine" name="id_machine">
+                
+                <select id="id_machine" name="id_machine">
+  <option value=""></option>
+  <option value="1">Awesome</option>
+  <option value="2">Beast</option>
+  <option value="3">Compatible</option>
+  <option value="4">Thomas Edison</option>
+  <option value="5">Nikola</option>
+  <option value="6">Selectize</option>
+  <option value="7">Javascript</option>
+
+
                  </select>  
                 </div>
               </div>
@@ -704,3 +725,7 @@ function searchTypeModelo(industria){
 }
 
 </script>
+<script>
+          $('#industria').selectize({ normalize: true });
+          $('#id_machine').selectize({ normalize: true });
+        </script>
