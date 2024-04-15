@@ -156,17 +156,8 @@
   color: #95979d;
   margin-bottom: 0px;
 }
-.user-details-container .profile-edit-btn1  {
-  padding: 10px 15px;
-  font: normal normal normal 13px/20px Roboto;
-  letter-spacing: 0px;
-  color: #000000;
-  background: #f5f7f8 0% 0% no-repeat padding-box;
-  border-radius: 19px;
-  border: 0;
-  margin-right: 10px;
-}
-.user-details-container .profile-edit-btn  {
+
+.user-details-container .profile-edit-btn {
   padding: 10px 15px;
   font: normal normal normal 13px/20px Roboto;
   letter-spacing: 0px;
@@ -252,49 +243,6 @@
   padding: 12px;
   border: 0;
 
-  display: flex;
-  float: right;
-  border-radius: 50%;
-}
-
-
-
-
-.user-detail-table1 {
-  padding: 0px 20px 30px;
-  width: 100%;
-}
-.user-detail-table1 > table {
-  width: 100%;
-}
-
-.user-detail-table1 td:first-child {
-  font: normal normal normal 13px/20px Roboto;
-  letter-spacing: 0px;
-  color: #62646a !important;
-  text-align: start;
-}
-
-.user-detail-table1 td:nth-child(2) {
-  font: normal normal normal 14px/22px Roboto;
-  letter-spacing: 0px;
-  color: #000000;
-  text-align: center;
-}
-.user-detail-table1 td:nth-child(3) {
-  text-align: end;
-}
-.user-detail-table1 td {
-  padding: 20px 0;
-}
-.user-detail-table1 tr:first-child,
-.user-detail-table1 tr:nth-child(2) {
-  border-bottom: 1px solid #e4e5e7;
-}
-
-.user-detail-table1 td:nth-child(3) > button {
-  padding: 12px;
-  border: 0; 
   display: flex;
   float: right;
   border-radius: 50%;

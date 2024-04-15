@@ -26,12 +26,15 @@
 .font-family-Roboto-Regular {
   font-family: "Roboto-Regular", arial, sans-serif;
 }
-
+.modal-backdrop.show{
+opacity: 0.1 !important;
+}
 /*.navbar{position:sticky}*/
 
 .menu-large {
   position: static !important;
 }
+
 
 .megamenu {
   padding: 20px 20px;
@@ -710,7 +713,7 @@ footer p {
 .titulo-tienda {
   font-size: 14px;
   color: #000000;
-  text-align: start;
+  text-align: end;
 }
 .titulo-filter-btn {
   border: 1px solid #62646a;
@@ -820,26 +823,6 @@ margin-right: 5px;
   display: inline-block;
 }
 
-.titulo-tienda{
-  font-size: 14px;
-  color: #000000;
-}
-.titulo-tienda a{
-  border: 1px solid #62646A;
-  border-radius: 20px;
-  padding: 8px 13px;
-  font-size: 14px;
-  color: #000000;
-  text-decoration: none !important;
-  outline: none !important;
-  display: inline-block;
-}
-.titulo-tienda .activo,
-.titulo-tienda a:focus{
-  background-color: #D9EAFB !important;
-  color: #0070E0 !important;
-  border: 1px solid #0070E0 !important;
-}
 /*page detalles*/
 .bg-detalles {
   padding: 50px 0;
@@ -859,10 +842,6 @@ margin-right: 5px;
 .bg-detalles .migas1 {
   color: #0070e0;
   background-color: rgba(0, 112, 224, 0.22);
-}
-.bg-detalles .migas2{
-  color: #552E88;
-  background-color: rgba(0,112,224,0.22);
 }
 .bg-detalles .migasactive {
   background-color: #0070e0;
