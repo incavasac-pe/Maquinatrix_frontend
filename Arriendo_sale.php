@@ -80,6 +80,46 @@
     formNavigationBtn.addEventListener("click", () => {
       const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
       console.log("*****stepNumber***",stepNumber) 
+      if(stepNumber==2 & ($("#industria").val()=='0' || $("#id_machine").val()=='0' || $("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' 
+         || $('input[name="price_type"]:checked').val()=='' || $("#price").val()=='' || $("#region").val()=='0' || $("#city").val() == '0' || $("#anios").val() == '0' )){
+        console.log("se validan los campos no están completos.");
+
+        if(id_categoria=='' || $("#industria").val()=='0' || $("#id_machine").val()=='0' ){
+          $("#error-container-tipo").show();
+        }else{
+          $("#error-container-tipo").hide();
+        }
+
+        if($("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' || $("#anios").val() == '0'){
+          $("#error-container-title").show();
+        }else{
+          $("#error-container-title").hide();
+        }
+
+        if($('input[name="price_type"]:checked').val()=='' || $("#price").val()==''){
+          $("#error-container-price").show();
+        }else{
+          $("#error-container-price").hide();
+        }
+
+        if( $("#region").val()=='0' || $("#city").val() == '0'){
+          $("#error-container-ubicacion").show();
+        }else{
+          $("#error-container-ubicacion").hide();
+        }
+
+      
+
+        $("#error-container").show();
+        var info = id_categoria == 1 ? 'Información de maquinaria y vehículos.' : 'Información de equipos.'
+        $('#industria').addClass('has-error');
+        $('.text-msg-error').text('Campos requeridos faltan completar: '+info);
+     
+       return;
+      }else{
+        $("#error-container").hide();
+      }
+     
       resumePublication(); 
       navigateToFormStep(stepNumber);
     });
@@ -106,6 +146,7 @@
   
 $(document).ready(function() {
     console.log( "ready publication!" ); 
+    $("#error-container").hide();
      $("#confirm_public").on('click', function(event) {
       registerPublication();
     });  
@@ -208,16 +249,16 @@ bottomStrip.appendChild(pTag);
       "model": $("#modelo").val(),
       "year": $("#anios").val(),
       "factory_code": "Factory Code",
-      "mileage": $("#KilometrosRecorridos").val(), 
+      "mileage": $("#KilometrosRecorridos").val() == '', 
       "engine_number": $("#engine_number").val() ?? '',
       "chasis_number":$("#chasis_number").val() ?? '',
       "patent": $("#patente").val() ?? '',
       "warranty": $('input[name="rental"]:checked').val(),
-      "condition": $('input[name="flexRadioDefault"]:checked').val(),
+      "condition": $('input[name="flexRadioDefault"]:checked').val() ?? '',
       "owner": "Owner",
-      "delivery": $('input[name="inlineRadioOptions"]:checked').val(),
+      "delivery": $('input[name="inlineRadioOptions"]:checked').val() ?? '',
       "pay_now_delivery": "N",
-      "facipay": $('input[name="price_type"]:checked').val(),
+      "facipay": $('input[name="price_type"]:checked').val() ?? '',
       "contact_me": "Contact Me PRUEBA" 
     };
 

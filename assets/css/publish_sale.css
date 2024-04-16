@@ -218,15 +218,13 @@ ul.form-stepper li a .form-stepper-circle {
 
 .category-product select {
   padding: 15px 20px !important;
-  width: 100%;
-
-  color: #000000;
-
+  width: 100%; 
+  color: #000000;  
   border: 1px solid #e4e5e7;
   border-radius: 4px;
   opacity: 1;
 }
-
+ 
 .category-product select [value=""],
 select:invalid {
   padding: 19px 20px !important;
@@ -926,4 +924,9 @@ margin-bottom: 0px;
   margin-bottom: 10px;
 letter-spacing: 0px;
 color: #000000;
+}
+
+  
+.has-error {
+    border: 2px solid red;
 }

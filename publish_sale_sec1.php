@@ -88,7 +88,7 @@
                 <!-- <?php  
                       if ($count_industry > 0) { 
                           echo '<select required   id="industria" name="industria"  onchange="searchTypeMachine(this.value)">';
-                          echo '<option value="">Seleccionar industria*</option>'; 
+                          echo '<option value="0">Seleccionar industria*</option>'; 
                           foreach ($industry as $field) {
                               $id = $field['id_product_type'];
                               $industryName = $field['description'];
@@ -188,12 +188,12 @@
               // Limpiar las opciones existentes
               selectElement.empty(); 
                 // Agregar la opción por defecto
-              var defaultOption = $('<option>').prop('selected', true).text('Tipo de Máquina *');
-              selectElement.append(defaultOption);
-              res.data.forEach(function(element) { 
-              var option = $('<option value='+element.id_machine+' >').text(element.description);
-              selectElement.append(option);             
-                });
+                  var defaultOption = $('<option value="0">').prop('selected', true).text('Tipo de Máquina *');
+                  selectElement.append(defaultOption);
+                  res.data.forEach(function(element) { 
+                  var option = $('<option value='+element.id_machine+' >').text(element.description);
+                  selectElement.append(option);             
+               });
            searchTypeMarca(industria);
            searchTypeModelo(industria);
       },
@@ -217,7 +217,7 @@ function searchTypeMarca(industria){
               // Limpiar las opciones existentes
               selectElement.empty(); 
                 // Agregar la opción por defecto
-              var defaultOption = $('<option>').prop('selected', true).text('Marca*');
+              var defaultOption = $('<option value"0">').prop('selected', true).text('Marca*'); 
               selectElement.append(defaultOption);
               res.data.forEach(function(element) { 
               var option = $('<option value='+element.id_marca+' >').text(element.description);
@@ -225,7 +225,7 @@ function searchTypeMarca(industria){
           });
              var selectElement1 = $('#marca5'); 
               selectElement1.empty();  
-              var defaultOption1 = $('<option>').prop('selected', true).text('Marca*');
+              var defaultOption1 = $('<option value"0">').prop('selected', true).text('Marca*'); 
               selectElement1.append(defaultOption1);
               res.data.forEach(function(element) { 
               var option1 = $('<option value='+element.id_marca+' >').text(element.description);
@@ -247,14 +247,13 @@ function searchTypeModelo(industria){
    $.ajax({
       url: url,
       method: 'GET', 
-      contentType: "application/json",
-    
+      contentType: "application/json",    
       success: function(res) {
           var selectElement = $('#modelo'); 
               // Limpiar las opciones existentes
               selectElement.empty(); 
                 // Agregar la opción por defecto
-              var defaultOption = $('<option>').prop('selected', true).text('Modelo*');
+              var defaultOption = $('<option value"0">').prop('selected', true).text('Modelo*');
               selectElement.append(defaultOption);
               res.data.forEach(function(element) { 
               var option = $('<option value='+element.id_model+' >').text(element.description);
@@ -264,7 +263,7 @@ function searchTypeModelo(industria){
               // Limpiar las opciones existentes
               selectElement1.empty(); 
                 // Agregar la opción por defecto
-              var defaultOption1 = $('<option>').prop('selected', true).text('Modelo*');
+              var defaultOption1 = $('<option value"0">').prop('selected', true).text('Modelo*');
               selectElement1.append(defaultOption1);
               res.data.forEach(function(element) { 
               var option1 = $('<option value='+element.id_model+' >').text(element.description);

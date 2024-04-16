@@ -30,12 +30,10 @@
   opacity: 0.1 !important;
   }
   /*.navbar{position:sticky}*/
-  
   .menu-large {
     position: static !important;
   }
-  
-  
+    
   .megamenu {
     padding: 20px 20px;
     width: 100%;
