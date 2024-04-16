@@ -307,8 +307,9 @@ bottomStrip.appendChild(pTag);
  }
 
  function registerPublication(){ 
+ 
     var url = '<?=$baseUrl?>/register_publication'; 
-    var token = '<?= $_SESSION["token"]; ?>';
+    var token = '<?= $_SESSION["token"]  ?? ''?>';
     $.ajax({
       url: url,
       type: "POST",
@@ -346,7 +347,7 @@ function registerPublication2(id){
   publicacion3.id_product = id;
   publicacion4.id_product = id;
   publicacion5.id_product = id;
-  var token = '<?= $_SESSION["token"]; ?>';
+  var token = '<?= $_SESSION["token"]  ?? ''?>';
   $.ajax({
     url: url,
     type: "POST",
@@ -372,7 +373,7 @@ function registerPublication2(id){
 
 function registerPublication3(){ 
  var url = '<?=$baseUrl?>/register_product_technical';  
-  var token = '<?= $_SESSION["token"]; ?>';
+ var token = '<?= $_SESSION["token"]  ?? ''?>';
   $.ajax({
     url: url,
     type: "POST",
@@ -398,7 +399,7 @@ function registerPublication3(){
 function registerPublication4(){ 
  var url = '<?=$baseUrl?>/register_product_dimensions';  
  console.log("PUBLICACION 4 DIMENSIONES",publicacion4)
-  var token = '<?= $_SESSION["token"]; ?>';
+ var token = '<?= $_SESSION["token"]  ?? ''?>';
   $.ajax({
     url: url,
     type: "POST",
@@ -424,7 +425,7 @@ function registerPublication4(){
 function registerPublication5(){ 
  var url = '<?=$baseUrl?>/register_product_rental';  
  console.log("PUBLICACION 5 RENTAL",publicacion5)
-  var token = '<?= $_SESSION["token"]; ?>';
+ var token = '<?= $_SESSION["token"]  ?? ''?>';
   $.ajax({
     url: url,
     type: "POST",
@@ -448,7 +449,7 @@ function registerPublication5(){
 }
  
 function deleteImagenAll() {   
-  var token = '<?= $_SESSION["token"]; ?>';        
+  var token = '<?= $_SESSION["token"]  ?? ''?>';
     $.ajax({
       type: "DELETE", 
       url: '<?= $baseUrl ?>/delete_all?id_product='+id_product,
@@ -472,14 +473,14 @@ function deleteImagenAll() {
   var archivos = input.files;
       if(archivos.length > 0){
       deleteImagenAll();
-  
+   var token = '<?= $_SESSION["token"]  ?? ''?>';    
         setTimeout(function() {
         var files = input.files; 
         for (var i = 0; i < archivos.length; i++) {
           var archivo = archivos[i];
             var formData = new FormData();
             formData.append('file',archivo);  
-            var token = '<?= $_SESSION["token"]; ?>';      
+           
             var orden = i +1;  
             $.ajax({
                 type: "POST",

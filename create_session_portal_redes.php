@@ -1,6 +1,6 @@
 <?php
 include('config.php');
-session_start();
+@session_start();
 $baseUrl = getenv('URL_API');   
  
 if (isset($_GET['register']) &&  $_GET['register']=== 'true') {
@@ -64,17 +64,17 @@ if (isset($_GET['validate']) &&  $_GET['validate']=== 'true') {
                         url: 'http://localhost:3500/login_account',
                         type: 'POST',
                         data: { 
-                            email: '{$_SESSION['email']}',
-                            password:false,
+                            email: '{$_GET['email']}',
+                            password:'password',
                             credencials :0
                         },
                         success: function(response, textStatus, xhr){
                             var statusCode = xhr.status; 
-                            console.log('statusCodestatusCode',statusCode);
+                            console.log('statusCodestatusCode',response);
                             if (statusCode === 200 && !response.error)  {             
-                              window.location.href = 'create_session_portal.php?email=' + response.data.email_User+'&token='+response.data.token+'&loggin=true&username='+response.data.full_name+'&photo='+response.data?.photo+'&id_user_ext='+response.data?.id_user_ext+'&id_user='+response.data?.id_user;
+                           window.location.href = 'create_session_portal.php?email=' + response.data.email_User+'&token='+response.data.token+'&loggin=true&username='+response.data.full_name+'&photo='+response.data?.photo+'&id_user_ext='+response.data?.id_user_ext+'&id_user='+response.data?.id_user;
                              } else{
-                                window.location.href ='login777.php';
+                            window.location.href ='login777.php';
                              }
                         },
                         error: function(xhr, status, error) {

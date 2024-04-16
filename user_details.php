@@ -90,7 +90,7 @@ if (isset($_SESSION['loggedIn'])) {
               <input type="hidden" id="id_user">
                 <input type="hidden" id="id_profile">
                
-                <p class="top-title">  <?= $username; ?></p>
+                <p class="top-title">  <?= $username ?? ''; ?></p>
                 <p class="verify-warning"><i class="fa-solid fa-circle-exclamation"></i>Verificación pendiente</p>
                 <div class="company-wrapper">
                   <div class="company-detail">
@@ -167,7 +167,7 @@ if (isset($_SESSION['loggedIn'])) {
                     <table class="additional-table">
                     <tr>
                         <td>ID Usuario</td>
-                        <td> <?= $id_user_ext; ?></td>
+                        <td> <?= $id_user_ext ?? ''; ?></td>
                       </tr>
                       <tr id="social-field">
                         <td>Razón Social</td>
@@ -186,7 +186,7 @@ if (isset($_SESSION['loggedIn'])) {
                         <td></td>
                       </tr>
                       <tr id="type_doc-field">
-                        <td>Documento</td>
+                        <td id="type_doc-field">Documento</td>
                         <td></td>
                       </tr>
                       <tr id="num_doc-field">
@@ -318,12 +318,13 @@ $('.user-detail-table button').click(function() {
 });
 
 function datosBasicos(){
+  var token = '<?= $_SESSION["token"]; ?>';
   $.ajax({
     url: '<?=$baseUrl?>/profile_basic',
     type: 'GET',
     beforeSend: function(xhr) {
       // Agrega el Bearer Token al encabezado de autorización
-      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
+      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
     success: function(response) {
       if(!response.error){
@@ -370,6 +371,8 @@ function datosBasicos(){
         var addressFieldTd1 = $('#type_doc-field td:nth-child(2)');
         if(addressFieldValue1==1){
           addressFieldTd1.text('RUT');;
+        }else{
+          addressFieldTd1.text('Pasaporte');;
         }
         //num_doc
         var addressFieldValue2 = response.data.num_doc;
@@ -400,14 +403,14 @@ function enviarActualizacionDatosBasicos(type, newValue) {
     url = '<?=$baseUrl?>/changePassword?id_user=' + <?=$id_user?>;
     data.password = newValue;
   }
-
+  var token = '<?= $_SESSION["token"]; ?>';
   $.ajax({
     url: url,
     method: 'PATCH',
     data: JSON.stringify(data),
     contentType: "application/json",
     beforeSend: function(xhr) {
-      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
+      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
     success: function(response) {
       $("#Msg").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
@@ -447,14 +450,14 @@ function enviarActualizacionInformacionAdicional(type, value = '') {
   }
 
   var id_profile = $('#id_profile').val();
-
+  var token = '<?= $_SESSION["token"]; ?>';
   $.ajax({
     url: '<?=$baseUrl?>/profile_basic_update?id_profile=' + id_profile,
     method: 'PATCH',
     data: JSON.stringify(data),
     contentType: "application/json",
     beforeSend: function(xhr) {
-      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
+      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
     success: function(response) {
       $("#Msg").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
@@ -469,11 +472,12 @@ function enviarActualizacionInformacionAdicional(type, value = '') {
 //javascript de las publicaciones
 function construirEstructuraHTML() {
   // Realizar la llamada AJAX para obtener los datos
+  var token = '<?= $_SESSION["token"]; ?>';
   $.ajax({
     url: '<?=$baseUrl?>/list_publications_byuser?limit=10&id_user=' + <?=$id_user?>,
     method: 'GET',
     beforeSend: function(xhr) {
-      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
+      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
     success: function(res) {
      if(!res.error){ 
@@ -683,14 +687,14 @@ function deletePublic(status){
     url = '<?=$baseUrl?>/update_publication_status?id_user=' + <?=$id_user?>;
     data.id_product = id_product;
     data.status_id = status;
-  
+    var token = '<?= $_SESSION["token"]; ?>';
    $.ajax({
     url: url,
     method: 'PUT',
     data: JSON.stringify(data),
     contentType: "application/json",
     beforeSend: function(xhr) {
-      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
+      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
     success: function(response) {
       location.reload();

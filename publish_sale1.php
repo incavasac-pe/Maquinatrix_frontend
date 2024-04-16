@@ -217,12 +217,15 @@
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select required  id="city" name="city">
-                    <option value="" selected disabled hidden>Ciudad</option>
-                    <option value="1">Coquimbo</option>
-                    <option value="2">El Melón</option>
-                    <option value="3">Gultro</option>
-                </select>
+                <?php 
+                    require 'comunas.php';
+                    // Generar el select de comunas
+                    echo '<select required  id="city" name="city">';
+                    foreach ($comunas as $comuna) {
+                        echo '<option value="' . $comuna . '">' . $comuna . '</option>';
+                    }
+                    echo '</select>';
+                    ?> 
 
                 </div>
             </div>

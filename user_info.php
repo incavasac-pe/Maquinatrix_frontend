@@ -39,10 +39,9 @@
           <div class="col-sm-3 col-md-3 col-lg-3">
             <div class="mb-3"> 
               <select id="exampleInputTypeDoc" name="exampleInputTypeDoc" required>
-                <option value="" selected disabled hidden>RUT</option>
+                <option value="" selected disabled hidden>Documento</option>
                 <option value="1">RUT</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="2">Pasaporte</option> 
               </select>
 
             </div>

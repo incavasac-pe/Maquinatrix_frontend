@@ -1,6 +1,9 @@
 <?php 
-session_start(); 
-//print_r($_SESSION); 
+ob_start();
+ob_end_clean();
+session_start();
+?>
+<?php 
 if (isset($_SESSION['loggedIn'])) {
     $token = $_SESSION['token'];
     $email = $_SESSION['email'];

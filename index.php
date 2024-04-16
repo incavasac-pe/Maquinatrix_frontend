@@ -1,9 +1,7 @@
-<?php include 'header.php' ?>
-<?php include 'menu.php' ?>
-
-<?php  
- 
-include('config.php');
+<?php// include 'header.php' ?>
+<?php include 'menu.php' ?>  
+<?php   
+include('config.php'); 
 
 if(isset($_GET["code"]))
 {
@@ -16,21 +14,22 @@ $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);//print_r($
   $_SESSION['token'] = $token['access_token'];
   $google_service = new Google_Service_Oauth2($google_client); 
   $response = $google_service->userinfo->get();
-    echo "tipo..". $_SESSION['type'];
-     if($_SESSION['type'] == 1 || $_SESSION['type'] == 2){
+   
+        if(isset($_SESSION['type']) && ($_SESSION['type'] == 1 || $_SESSION['type'] == 2)){
             //para registro
             $_SESSION['email']= $response['email']; 
             $_SESSION['firstname']= urlencode($response['given_name']);
             $_SESSION['lastname'] = urlencode($response['family_name']); 
         
-             $urlRegister = 'create_session_portal_redes.php?register=true'; 
-             echo '<meta http-equiv="refresh" content="0; url=' . $urlRegister . '">';
-        }else{
+            $urlRegister = 'create_session_portal_redes.php?register=true'; 
+            echo '<meta http-equiv="refresh" content="0; url=' . $urlRegister . '">';
+    
+    }else{
                  //para login
         if(!empty($response['email']))
             {
              $_SESSION['email'] = $response['email'];
-              $url = 'create_session_portal_redes.php?validate=true';
+              $url = 'create_session_portal_redes.php?validate=true&email='.$response['email'];
              echo '<meta http-equiv="refresh" content="0; url=' . $url . '">';
             } 
         }

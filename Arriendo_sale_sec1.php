@@ -1,4 +1,5 @@
 <?php 
+
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
 $host = $_SERVER['HTTP_HOST']; 
 $uri = $_SERVER['REQUEST_URI']; 
@@ -16,6 +17,7 @@ $url_publi = $protocol . '://' . $host;
        if (!$data['error']) {
            // Obtener la lista de $categories
            $industry = $data['data'];
+
            $count_industry = $data['count'];
        } else {
            echo 'Error: ' . $data['msg'];
@@ -65,7 +67,7 @@ $url_publi = $protocol . '://' . $host;
             <div class="row">
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <!-- <?php  
+              <?php  
                       if ($count_industry > 0) { 
                           echo '<select required   id="industria" name="industria"  onchange="searchTypeMachine(this.value)">';
                           echo '<option value="">Seleccionar industria*</option>'; 
@@ -80,34 +82,14 @@ $url_publi = $protocol . '://' . $host;
                           }
                           echo '</select> ';
                 
-                        }  ?>   -->
-                         <select id="industria" name="industria">
-  <option value=""></option>
-  <option value="1">Awesome</option>
-  <option value="2">Beast</option>
-  <option value="3">Compatible</option>
-  <option value="4">Thomas Edison</option>
-  <option value="5">Nikola</option>
-  <option value="6">Selectize</option>
-  <option value="7">Javascript</option>
-</select> 
+                        }  ?>   
+                       
 
                 </div>
               </div>
               <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                
-                <select id="id_machine" name="id_machine">
-  <option value=""></option>
-  <option value="1">Awesome</option>
-  <option value="2">Beast</option>
-  <option value="3">Compatible</option>
-  <option value="4">Thomas Edison</option>
-  <option value="5">Nikola</option>
-  <option value="6">Selectize</option>
-  <option value="7">Javascript</option>
-
-
+                <div class="mb-3">                
+                <select id="id_machine" name="id_machine">   
                  </select>  
                 </div>
               </div>
@@ -120,7 +102,7 @@ $url_publi = $protocol . '://' . $host;
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade " id="pills-publish1" role="tabpanel" aria-labelledby="pills-publish1-tab"
             tabindex="0">
-            <?php// include 'Arriendo_sale1.php' ?>
+        
          <div class="container">
                         <div class="category-product">
                             <h1>Título y descripción de publicación</h1>
@@ -388,12 +370,15 @@ $url_publi = $protocol . '://' . $host;
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
-                                        <select required  id="city" name="city">
-                                            <option value="" selected disabled hidden>Ciudad</option>
-                                            <option value="1">Coquimbo</option>
-                                            <option value="2">El Melón</option>
-                                            <option value="3">Gultro</option>
-                                        </select>
+                                    <?php 
+                                        require 'comunas.php';
+                                        // Generar el select de comunas
+                                        echo '<select required  id="city" name="city">';
+                                        foreach ($comunas as $comuna) {
+                                            echo '<option value="' . $comuna . '">' . $comuna . '</option>';
+                                        }
+                                        echo '</select>';
+                                        ?> 
 
                                     </div>
                                 </div>
@@ -561,7 +546,7 @@ $url_publi = $protocol . '://' . $host;
                     </div>
                     <div class="pdf-container">
                         <img src="./assets/img/pdf.png" alt="pdf">
-                        <a href="#">Descargar muestra.</a>
+                       
                     </div>
 
                     </div>
@@ -585,7 +570,7 @@ $url_publi = $protocol . '://' . $host;
                     </div>
                     <div class="pdf-container">
                         <img src="./assets/img/pdf.png" alt="pdf">
-                        <a href="#">Descargar muestra.</a>
+                       
                     </div>
 
                    </div>
@@ -728,6 +713,6 @@ function searchTypeModelo(industria){
 
 </script>
 <script>
-          $('#industria').selectize({ normalize: true });
-          $('#id_machine').selectize({ normalize: true });
+      //    $('#industria').selectize({ normalize: true });
+        //  $('#id_machine').selectize({ normalize: true });
         </script>
