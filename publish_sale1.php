@@ -32,7 +32,7 @@
                         <?php
                         // Obtener el año actual
                         $anioActual = date("Y");
-                        echo '<option value="">Año</option>';
+                        echo '<option value="0">Año*</option>';
                         // Crear opciones para los últimos 50 años
                             for ($i = $anioActual; $i >= ($anioActual - 50); $i--) {
                             echo '<option value="' . $i . '">' . $i . '</option>';
@@ -73,12 +73,12 @@
             </div>
         </div>
         <div class="error-container" id="error-container-title">
-                                        <i class="fa-solid fa-circle-xmark"></i>
-                                        <div>
-                                            <p class="error-heading">Campos faltan completar</p>
-                                            <p class="sm-text">Campos requeridos faltan completar: Información de producto.</p>
-                                        </div>
+                            <i class="fa-solid fa-circle-xmark"></i>
+                            <div>
+                                <p class="error-heading">Campos faltan completar</p>
+                                <p class="sm-text">Campos requeridos faltan completar: Información de producto.</p>
                             </div>
+               </div>
     </div>
     <div class="category-product">
         <h1 id="category-product">Características Técnicas</h1>
@@ -208,7 +208,7 @@
                 <?php                                            
                                     if ($count_regiones > 0) { 
                                             echo '<select required id="region" name="region">';
-                                            echo '<option value="" selected disabled hidden>Región*</option>'; 
+                                            echo '<option value="0" selected >Región*</option>'; 
                                             foreach ($regiones as $reg) { 
                                                 echo '<option value="' . $reg . '"'; 
                                                 if (isset($region) && $region == $reg) {
@@ -228,6 +228,7 @@
                     require 'comunas.php';
                     // Generar el select de comunas
                     echo '<select required  id="city" name="city">';
+                    echo '<option value="0" selected >Comunas*</option>'; 
                     foreach ($comunas as $comuna) {
                         echo '<option value="' . $comuna . '">' . $comuna . '</option>';
                     }
@@ -236,13 +237,14 @@
 
                 </div>
             </div>
-</div>   <div class="error-container" id="error-container-ubicacion">
-                                <i class="fa-solid fa-circle-xmark"></i>
-                                <div>
-                                    <p class="error-heading">Campos faltan completar</p>
-                                    <p class="sm-text">Campos requeridos faltan completar: Región,comunas.</p>
-                                </div>
-                    </div>
+</div>   
+<div class="error-container" id="error-container-ubicacion">
+            <i class="fa-solid fa-circle-xmark"></i>
+            <div>
+                <p class="error-heading">Campos faltan completar</p>
+                <p class="sm-text">Campos requeridos faltan completar: Región,comunas.</p>
+            </div>
+</div>
     </div>
     <div class="category-product">
         <h1>Precio</h1>
@@ -258,12 +260,12 @@
 
         </div>
         <div class="error-container" id="error-container-price">
-                                        <i class="fa-solid fa-circle-xmark"></i>
-                                        <div>
-                                            <p class="error-heading">Campos faltan completar</p>
-                                            <p class="sm-text">Campos requeridos faltan completar: Precio.</p>
-                                        </div>
-                            </div>
+            <i class="fa-solid fa-circle-xmark"></i>
+            <div>
+                <p class="error-heading">Campos faltan completar</p>
+                <p class="sm-text">Campos requeridos faltan completar: Precio.</p>
+            </div>
+        </div>
     </div>
     <div class="category-product">
         <h1>Opciones de Venta</h1>
@@ -285,14 +287,13 @@
             </div>
         </div>
     </div>
-    <div class="error-container hidden">
-        <i class="fa-solid fa-circle-xmark"></i>
-        <div>
-            <p class="error-heading">Campos faltan completar</p>
-            <p class="sm-text">Campos requeridos faltan completar: Información de vehículo, Facilidad de entrega,
-                Contrato de Arriendo Maquinatrix, Garantía de Arriendo.</p>
-        </div>
-    </div>
+    <div class="error-container" id="error-container">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                    <div>
+                        <p class="error-heading">Campos faltan completar</p>
+                        <p class="sm-text text-msg-error">Campos requeridos faltan completar .</p>
+                    </div>
+                </div>
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn">Cancelar</button></div>

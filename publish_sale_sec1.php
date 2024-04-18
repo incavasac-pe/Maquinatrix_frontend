@@ -106,7 +106,7 @@
               </div>
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select id="id_machine" name="id_machine">
+                <select id="id_machine" name="id_machine" >
                 </select>  
                 </div>
               </div>

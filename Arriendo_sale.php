@@ -149,6 +149,12 @@ $(document).ready(function() {
       registerPublication();
     });  
 
+    $("#id_machine").on('change', function(event) {
+    if( $("#id_machine").val()!='0'){
+        $("#error-container-tipo").hide();
+      }
+    }); 
+
     $('#pdfFile').change(function() {
       console.log("subir doc", $(this)[0].files[0]); 
     });

@@ -87,48 +87,112 @@
     formNavigationBtn.addEventListener("click", () => {
       const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
       console.log("*****stepNumber***",stepNumber) 
-
-      if(stepNumber==2 & ($("#industria").val()=='0' || $("#id_machine").val()=='0' || $("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' 
-         || $('input[name="price_type"]:checked').val()=='' || $("#price").val()=='' || $("#region").val()=='0' || $("#city").val() == '0' || $("#anios").val() == '0' )){
+ 
+        if(id_categoria!='3' && stepNumber==2 & ($("#industria").val()=='0' || $("#id_machine").val()=='0' || $("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' 
+         || $("#price").val()=='' || $("#region").val()=='0' || $("#city").val() == '0' || $("#anios").val() == '0')){
         console.log("se validan los campos no están completos.");
 
         if(id_categoria=='' || $("#industria").val()=='0' || $("#id_machine").val()=='0' ){
           $("#error-container-tipo").show();
+          return
+        }else{
+          $("#error-container-tipo").hide();
+        }
+        
+        if($("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' || $("#anios").val() == '0'){
+          $("#error-container-title").show();
+          return
+        }else{
+          $("#error-container-title").hide();
+       
+        }
+       
+          if($('input[name="price_type"]:checked').val()=='' || $("#price").val()==''){
+            $("#error-container-price").show();            
+          }else{
+            $("#error-container-price").hide();
+          }
+       
+
+        if( $("#region").val()=='0' || $("#city").val() == '0'){
+          alert("bbbbbbbbbb")
+          $("#error-container-ubicacion").show();
+        return
+        }else{
+          $("#error-container-ubicacion").hide();  
+        }
+       
+        
+        $("#error-container").show();
+        var info = id_categoria == 1 ? 'Información de maquinaria y vehículos.' : 'Información de equipos.'
+      
+        $('.text-msg-error').text('Campos requeridos faltan completar: '+info);
+        return;
+       
+ 
+      }else if(id_categoria=='3' && stepNumber==2 & ($("#industria").val()=='0' || $("#id_machine").val()=='0' || $("#title5").val()=='' || $("#marca5").val()=='0' || $("#modelo5").val()=='0' 
+         || $("#price5").val()=='' || $("#region5").val()=='0' || $("#city5").val() == '0' )){
+
+          if(id_categoria=='' || $("#industria").val()=='0' || $("#id_machine").val()=='0' ){
+          $("#error-container-tipo").show();
+          return
         }else{
           $("#error-container-tipo").hide();
         }
 
-        if($("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' || $("#anios").val() == '0'){
-          $("#error-container-title").show();
+        if($("#title5").val()=='' || $("#marca5").val()=='0' || $("#modelo5").val()=='0' || $("#anios5").val() == '0'){
+          $("#error-container-title5").show();
+          return
         }else{
-          $("#error-container-title").hide();
-        }
+          $("#error-container-title5").hide();
+        } 
+          if( $("#section_width").val()=='' || $("#aspect_ratio").val() == '' || $("#rim_diameter").val() == '' || $("#extern_diameter").val() == ''){
+             $("#error-container-dimen").show();
+             return
+          }else{
+            $("#error-container-dimen").hide();
+           
+          }
+          
+          if( $("#load_index").val()=='' || $("#speed_index").val() == '' ){
+             $("#error-container-espec").show();
+             return
+          }else{
+             $("#error-container-espec").hide();
+            
+          }
+          if( $('input[name="flexRadioDefault5"]:checked').val()=='Y' || $('input[name="flexRadioDefault5"]:checked').val()=='N' ){
+             $("#error-container-cond5").hide(); 
+          }else{
+             $("#error-container-cond5").show(); 
+             return
+          }
 
-        if($('input[name="price_type"]:checked').val()=='' || $("#price").val()==''){
-          $("#error-container-price").show();
-        }else{
-          $("#error-container-price").hide();
-        }
-
-        if( $("#region").val()=='0' || $("#city").val() == '0'){
-          $("#error-container-ubicacion").show();
-        }else{
-          $("#error-container-ubicacion").hide();
-        }
-  
-        $("#error-container").show();
-        var info = id_categoria == 1 ? 'Información de maquinaria y vehículos.' : 'Información de equipos.'
-        $('#industria').addClass('has-error');
+          if( $("#region5").val()=='0' || $("#city5").val() == '0'){ 
+            $("#error-container-ubicacion5").show();
+            return
+            }else{
+              $("#error-container-ubicacion5").hide();  
+            }
+         
+             
+          if( $('input[name="inlineRadioOptions5"]:checked').val()=='Y' || $('input[name="inlineRadioOptions5"]:checked').val()=='N' ){
+             $("#error-container-desp5").hide(); 
+          }else{
+             $("#error-container-desp5").show();
+             return
+            
+          }
+         
+          $("#error-container").show();
+         var info = 'Información de neumaticos.'
+      
         $('.text-msg-error').text('Campos requeridos faltan completar: '+info);
-     
-       return;
+        return;
       }else{
         $("#error-container").hide();
       }
-
-
-
-
+ 
 
       resumePublication(); 
       navigateToFormStep(stepNumber);
@@ -213,6 +277,34 @@ $(document).ready(function() {
      $("#confirm_public_sale").on('click', function(event) {
       registerPublication();
     });  
+    $("#id_machine").on('change', function(event) {
+    if( $("#id_machine").val()!='0'){
+        $("#error-container-tipo").hide();
+      }
+    }); 
+    $("#price").on('keyup', function(event) {
+    if( $("#price").val()!=''){
+        $("#error-container-price").hide();
+      }else{
+        $("#error-container-price").show();
+      }
+    }); 
+    $("#price5").on('keyup', function(event) {
+    if( $("#price5").val()!=''){
+        $("#error-container-price5").hide();
+      }else{
+        $("#error-container-price5").show();
+      }
+    }); 
+ 
+    $('#pdfFile').change(function() {
+      console.log("subir doc", $(this)[0].files[0]); 
+    });
+
+    $('#pdfFile1').change(function() {
+      console.log("subir doc11", $(this)[0].files[0]); 
+    });
+    
   });  
 </script>
 
