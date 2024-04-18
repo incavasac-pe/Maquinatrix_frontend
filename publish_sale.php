@@ -87,6 +87,49 @@
     formNavigationBtn.addEventListener("click", () => {
       const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
       console.log("*****stepNumber***",stepNumber) 
+
+      if(stepNumber==2 & ($("#industria").val()=='0' || $("#id_machine").val()=='0' || $("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' 
+         || $('input[name="price_type"]:checked').val()=='' || $("#price").val()=='' || $("#region").val()=='0' || $("#city").val() == '0' || $("#anios").val() == '0' )){
+        console.log("se validan los campos no están completos.");
+
+        if(id_categoria=='' || $("#industria").val()=='0' || $("#id_machine").val()=='0' ){
+          $("#error-container-tipo").show();
+        }else{
+          $("#error-container-tipo").hide();
+        }
+
+        if($("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' || $("#anios").val() == '0'){
+          $("#error-container-title").show();
+        }else{
+          $("#error-container-title").hide();
+        }
+
+        if($('input[name="price_type"]:checked').val()=='' || $("#price").val()==''){
+          $("#error-container-price").show();
+        }else{
+          $("#error-container-price").hide();
+        }
+
+        if( $("#region").val()=='0' || $("#city").val() == '0'){
+          $("#error-container-ubicacion").show();
+        }else{
+          $("#error-container-ubicacion").hide();
+        }
+  
+        $("#error-container").show();
+        var info = id_categoria == 1 ? 'Información de maquinaria y vehículos.' : 'Información de equipos.'
+        $('#industria').addClass('has-error');
+        $('.text-msg-error').text('Campos requeridos faltan completar: '+info);
+     
+       return;
+      }else{
+        $("#error-container").hide();
+      }
+
+
+
+
+
       resumePublication(); 
       navigateToFormStep(stepNumber);
     });

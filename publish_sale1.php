@@ -72,6 +72,13 @@
                 </div>
             </div>
         </div>
+        <div class="error-container" id="error-container-title">
+                                        <i class="fa-solid fa-circle-xmark"></i>
+                                        <div>
+                                            <p class="error-heading">Campos faltan completar</p>
+                                            <p class="sm-text">Campos requeridos faltan completar: Información de producto.</p>
+                                        </div>
+                            </div>
     </div>
     <div class="category-product">
         <h1 id="category-product">Características Técnicas</h1>
@@ -229,7 +236,13 @@
 
                 </div>
             </div>
-        </div>
+</div>   <div class="error-container" id="error-container-ubicacion">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                                <div>
+                                    <p class="error-heading">Campos faltan completar</p>
+                                    <p class="sm-text">Campos requeridos faltan completar: Región,comunas.</p>
+                                </div>
+                    </div>
     </div>
     <div class="category-product">
         <h1>Precio</h1>
@@ -244,6 +257,13 @@
             </div>
 
         </div>
+        <div class="error-container" id="error-container-price">
+                                        <i class="fa-solid fa-circle-xmark"></i>
+                                        <div>
+                                            <p class="error-heading">Campos faltan completar</p>
+                                            <p class="sm-text">Campos requeridos faltan completar: Precio.</p>
+                                        </div>
+                            </div>
     </div>
     <div class="category-product">
         <h1>Opciones de Venta</h1>

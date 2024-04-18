@@ -107,9 +107,7 @@
         }else{
           $("#error-container-ubicacion").hide();
         }
-
-      
-
+  
         $("#error-container").show();
         var info = id_categoria == 1 ? 'Información de maquinaria y vehículos.' : 'Información de equipos.'
         $('#industria').addClass('has-error');
@@ -514,7 +512,7 @@ function deleteImagenAll() {
   var archivos = input.files;
       if(archivos.length > 0){
       deleteImagenAll();
-   var token = '<?= $_SESSION["token"]  ?? ''?>';    
+       var token = '<?= $_SESSION["token"]  ?? ''?>';    
         setTimeout(function() {
         var files = input.files; 
         for (var i = 0; i < archivos.length; i++) {
@@ -534,7 +532,9 @@ function deleteImagenAll() {
                 data: formData, 
                 success: function (response, textStatus, xhr)
                 {
-                  sendDataResume(archivo.name);
+                  if(orden == archivos.length){
+                    sendDataResume(archivo.name);
+                  }
                 },
                 error: function (response) { 
                     if (response.status === 401 || response.status === 403) {

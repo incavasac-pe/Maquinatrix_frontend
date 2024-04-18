@@ -67,7 +67,7 @@ $url_publi = $protocol . '://' . $host;
             <div class="row">
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-              <?php  
+                  <?php  
                       if ($count_industry > 0) { 
                           echo '<select required  id="industria" name="industria"  onchange="searchTypeMachine(this.value)">';
                           echo '<option value="0">Seleccionar industria*</option>'; 
@@ -386,7 +386,7 @@ $url_publi = $protocol . '://' . $host;
                                         }  
                                     ?> 
 
-                                    </div>
+                                 </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">

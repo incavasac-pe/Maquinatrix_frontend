@@ -85,7 +85,7 @@
             <div class="row">
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <!-- <?php  
+                <?php  
                       if ($count_industry > 0) { 
                           echo '<select required   id="industria" name="industria"  onchange="searchTypeMachine(this.value)">';
                           echo '<option value="0">Seleccionar industria*</option>'; 
@@ -100,20 +100,26 @@
                           }
                           echo '</select> ';
                 
-                        }  ?>   -->
-                      
+                        }  ?>   
 
                 </div>
               </div>
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
                 <select id="id_machine" name="id_machine">
- 
+                </select>  
                 </div>
               </div>
             </div>
+            <div class="error-container" id="error-container-tipo">
+                <i class="fa-solid fa-circle-xmark"></i>
+                <div>
+                    <p class="error-heading">Campos faltan completar</p>
+                    <p class="sm-text">Campos requeridos faltan completar: Categoría ó tipo de producto.</p>
+                </div>
+           </div>
           </div>
-         
+          
         </div>
        
 
@@ -280,6 +286,6 @@ function searchTypeModelo(industria){
 
 </script>
 <script>
-  $('#industria').selectize({ normalize: true });
-  $('#id_machine').selectize({ normalize: true });
+ // $('#industria').selectize({ normalize: true });
+  //$('#id_machine').selectize({ normalize: true });
 </script>
