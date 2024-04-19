@@ -111,11 +111,11 @@ if (isset($_SESSION['loggedIn'])) {
               </div>
 
             </div>
-            <div class="verify-btns-wrapper">
+            <!--div class="verify-btns-wrapper">
               <button type="button" class="profile-edit-btn">Editar Perfil</button>
               <button type="button" class="verify-btn"> <img src="./assets/img/verify.png" alt="verify"> Verificar mi
                 cuenta</button>
-            </div>
+            </div-->
           </div>
           <ul class="nav user-detail-tab nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">

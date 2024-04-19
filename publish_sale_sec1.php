@@ -286,6 +286,6 @@ function searchTypeModelo(industria){
 
 </script>
 <script>
- // $('#industria').selectize({ normalize: true });
-  //$('#id_machine').selectize({ normalize: true });
+ $('#industria').selectize({ normalize: true });
+ $('#id_machine').selectize({ normalize: true });
 </script>
