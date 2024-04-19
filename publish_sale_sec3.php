@@ -52,7 +52,7 @@
         <td class="r_ubicacion"></td>
       </tr>
       <tr>
-        <td>Tipo de Vendedor</td>
+        <td>Tipo de Producto</td>
         <td class="r_tipo_vendedor"></td>
       </tr>
       <tr>

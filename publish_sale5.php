@@ -254,13 +254,13 @@ $url_publi = $protocol . '://' . $host;
                 Usado
             </label>
         </div>
-        <div class="error-container" id="error-container-cond5">
+        <!--div class="error-container" id="error-container-cond5">
                 <i class="fa-solid fa-circle-xmark"></i>
                 <div>
                     <p class="error-heading">Campos faltan completar</p>
                     <p class="sm-text">Campos requeridos faltan completar: condición actual.</p>
                 </div>
-        </div>
+        </div-->
     </div>
     <div class="category-product">
         <h1>Ubicación de publicación</h1>

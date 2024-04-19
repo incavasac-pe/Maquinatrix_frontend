@@ -85,7 +85,7 @@
         console.log("se validan los campos no están completos.");
 
         if(id_categoria=='' || $("#industria").val()=='0' || $("#id_machine").val()=='0' ){
-          $("#error-container-tipo").show();
+          $("#error-container-tipo").show();          
         }else{
           $("#error-container-tipo").hide();
         }
@@ -95,11 +95,11 @@
         }else{
           $("#error-container-title").hide();
         }
-
-        if($('input[name="price_type"]:checked').val()=='' || $("#price").val()==''){
-          $("#error-container-price").show();
-        }else{
+    
+        if( $('#price_type1').is(':checked') || $('#price_type2').is(':checked') && $("#price").val()!=''){
           $("#error-container-price").hide();
+        }else{
+          $("#error-container-price").show();
         }
 
         if( $("#region").val()=='0' || $("#city").val() == '0'){
@@ -108,9 +108,9 @@
           $("#error-container-ubicacion").hide();
         }
   
-        $("#error-container").show();
+       
         var info = id_categoria == 1 ? 'Información de maquinaria y vehículos.' : 'Información de equipos.'
-        $('#industria').addClass('has-error');
+ 
         $('.text-msg-error').text('Campos requeridos faltan completar: '+info);
      
        return;
@@ -118,7 +118,8 @@
         $("#error-container").hide();
       }
      
-      resumePublication(); 
+      resumePublication(stepNumber); 
+     
       navigateToFormStep(stepNumber);
     });
   });
@@ -232,7 +233,7 @@ bottomStrip.appendChild(pTag);
   }
 
 
- function resumePublication(){  
+ function resumePublication(step){  
 
     publicacion1 = {  
       "id_publication_type": 1,
@@ -348,7 +349,19 @@ bottomStrip.appendChild(pTag);
   $('.r_rental').text($('input[name="rental"]:checked').val() == 'Y' ? 'Sí' : 'No'); 
   $('.btn_rrrr').text(categoria);
   $('.r_title').text( $("#title").val());
- 
+
+  if(step==3){
+
+    var imgPreview = document.getElementById('image_preview');
+  var input = document.getElementById('file-input');
+  var file = input.files[0];
+  
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    imgPreview.src = e.target.result;
+  }
+  reader.readAsDataURL(file); 
+  } 
  }
 
  function registerPublication(){ 
@@ -520,26 +533,34 @@ function deleteImagenAll() {
       deleteImagenAll();
        var token = '<?= $_SESSION["token"]  ?? ''?>';    
         setTimeout(function() {
-        var files = input.files; 
+       // var files = input.files; 
+        var loading = 0;
         for (var i = 0; i < archivos.length; i++) {
           var archivo = archivos[i];
             var formData = new FormData();
             formData.append('file',archivo);  
            
-            var orden = i +1;  
+            var orden = i +1; 
+            if(orden==1){
+              cover = true;
+            } else{
+              cover = false;
+            }
             $.ajax({
                 type: "POST",
                 processData: false,  // tell jQuery not to process the data
                 contentType: false ,  // tell jQuery not to set contentType
-                url: '<?= $baseUrl ?>/upload_image?id_product='+id_product+'&orden='+orden+'&cover=true',
+                url: '<?= $baseUrl ?>/upload_image?id_product='+id_product+'&orden='+orden+'&cover='+cover,
                 headers: {
                     'Authorization': 'Bearer ' + token
                 },
                 data: formData, 
                 success: function (response, textStatus, xhr)
                 {
-                  if(orden == archivos.length){
-                    sendDataResume(archivo.name);
+                  loading++;
+                  if(loading == archivos.length){
+                    alert("enviar resuemn")
+                   sendDataResume(archivo[0]);
                   }
                 },
                 error: function (response) { 

@@ -161,12 +161,12 @@
              $("#error-container-espec").hide();
             
           }
-          if( $('input[name="flexRadioDefault5"]:checked').val()=='Y' || $('input[name="flexRadioDefault5"]:checked').val()=='N' ){
+        /*  if( $('input[name="flexRadioDefault5"]:checked').val()=='Y' || $('input[name="flexRadioDefault5"]:checked').val()=='N' ){
              $("#error-container-cond5").hide(); 
           }else{
              $("#error-container-cond5").show(); 
              return
-          }
+          }*/
 
           if( $("#region5").val()=='0' || $("#city5").val() == '0'){ 
             $("#error-container-ubicacion5").show();
@@ -183,14 +183,7 @@
              return
             
           }
-         
-          $("#error-container").show();
-         var info = 'Información de neumaticos.'
-      
-        $('.text-msg-error').text('Campos requeridos faltan completar: '+info);
-        return;
-      }else{
-        $("#error-container").hide();
+    
       }
  
 
@@ -422,7 +415,7 @@ function setTraccion(valor){
 
   $('.r_tipo_vendedor').text(categoria); 
   $('.r_delivery').text(publicacion2.delivery == 'Y' ? 'Sí' : 'No');
-
+  $('.r_title').text(publicacion1.title);
   
  }
 
@@ -530,7 +523,8 @@ function registerPublication4(){
     },
     success: function(response) {
       // Manejar la respuesta del servidor en 'response'
-      uploadImagen();
+       uploadImagen();
+    
       console.log(response);    
     },
     error: function(response,xhr, textStatus, errorThrown) {
@@ -564,8 +558,54 @@ function deleteImagenAll() {
           }
       });
  }         
+        
        
  function uploadImagen() {  
+  var input = document.getElementById('file-input');
+  var archivos = input.files;
+      if(archivos.length > 0){
+      deleteImagenAll();
+       var token = '<?= $_SESSION["token"]  ?? ''?>';    
+        setTimeout(function() {
+        var files = input.files; 
+        for (var i = 0; i < archivos.length; i++) {
+          var archivo = archivos[i];
+            var formData = new FormData();
+            formData.append('file',archivo);  
+           
+            var orden = i +1;  
+            $.ajax({
+                type: "POST",
+                processData: false,  // tell jQuery not to process the data
+                contentType: false ,  // tell jQuery not to set contentType
+                url: '<?= $baseUrl ?>/upload_image?id_product='+id_product+'&orden='+orden+'&cover=true',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                data: formData, 
+                success: function (response, textStatus, xhr)
+                {
+                  if(orden == archivos.length){
+                  //  sendDataResume(archivo.name);
+                  }
+                },
+                error: function (response) { 
+                    if (response.status === 401 || response.status === 403) {
+                        window.location.href = 'create_session_portal.php?logout=true';
+                    }
+                  }
+                  });
+                } 
+            }, 300); // 3000 milisegundos = 3 segundos
+        }  
+        setTimeout(function() {
+          var input = document.getElementById('file-input');
+          var archivos = input.files;
+          sendDataResume(archivos[0].name);
+    }, 3000);    
+      }
+
+ function uploadImagenOld() {  
   var input = document.getElementById('file-input');
   var archivos = input.files;
       if(archivos.length > 0){
@@ -590,7 +630,7 @@ function deleteImagenAll() {
                 data: formData, 
                 success: function (response, textStatus, xhr)
                 {
-                  sendDataResume(archivo.name);
+                 //sendDataResume(archivo[0].name);
                 },
                 error: function (response) { 
                     if (response.status === 401 || response.status === 403) {
@@ -600,6 +640,8 @@ function deleteImagenAll() {
                   });
                 } 
             }, 1000); // 3000 milisegundos = 3 segundos
+
+          
         }     
       }
 
@@ -617,7 +659,7 @@ function sendDataResume(imagen){
   var input1 = document.createElement('input');
   input1.type = 'text';
   input1.name = 'title';
-  input1.value =  $("#title").val();
+  input1.value =   id_categoria!='3' ? $("#title").val():$("#title5").val(),
   form.appendChild(input1);
 
   var input2 = document.createElement('input');
@@ -627,6 +669,7 @@ function sendDataResume(imagen){
   form.appendChild(input2);
 
   document.body.appendChild(form);
+  
   form.submit();
 }
 

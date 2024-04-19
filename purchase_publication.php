@@ -28,7 +28,7 @@
         if (!$data['error']) {
             // Obtener la lista de $categories
             $detalle = $data['data'][0];
-            print_r($detalle['product_details'] );
+           
             $count_category = $data['count'];
         }  
         } else {
@@ -281,7 +281,7 @@
                                 <td><?= $detalle['product_rental']['rental_guarantee'] == 'Y' ? 'Sí':'No';   ?></td>
                             </tr>
                             <tr>
-                                <td>Tipo de Vendedor</td>
+                                <td>Tipo </td>
                                 <td> <?= $detalle['User']['id_type_user']==1 ? 'Particular ':'Empresa'  ?> </td>
                             </tr>
                             <tr>
