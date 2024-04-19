@@ -81,7 +81,7 @@
       const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
       console.log("*****stepNumber***",stepNumber) 
       if(stepNumber==2 & ($("#industria").val()=='0' || $("#id_machine").val()=='0' || $("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' 
-         || $('input[name="price_type"]:checked').val()=='' || $("#price").val()=='' || $("#region").val()=='0' || $("#city").val() == '0' || $("#anios").val() == '0' )){
+          || $("#price").val()=='' || $("#region").val()=='0' || $("#city").val() == '0' || $("#anios").val() == '0' )){
         console.log("se validan los campos no están completos.");
 
         if(id_categoria=='' || $("#industria").val()=='0' || $("#id_machine").val()=='0' ){
@@ -352,7 +352,7 @@ bottomStrip.appendChild(pTag);
 
   if(step==3){
 
-    var imgPreview = document.getElementById('image_preview');
+    var imgPreview = document.getElementById('image-preview');
   var input = document.getElementById('file-input');
   var file = input.files[0];
   

@@ -3,7 +3,7 @@
         <h1>Título y descripción de publicación</h1>
         <p class="sm-title">Arma el título para tu publicación. Indica el producto, marca y modelo.</p>
         <input type="text" class="form-control" id="title" name="title" placeholder="Título de publicación*">
-        <p class="text-grey">Ej: Construcción Excavadora de las mejores del mundo</p>
+        <p class="text-grey"></p>
         <p class="sm-title">Describe tu publicación</p>
         <textarea id="descrip" name="descrip"  class="form-control text-container"  rows="3"></textarea>
         <div id="charCount" class="char-count">Caracteres (0/10000)</div>
@@ -14,15 +14,43 @@
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select required id="marca" name="marca">  
-                   </select> 
+                <?php  
+                                    if ($count_modelo > 0) { 
+                                        echo '<select required  id="modelo" name="modelo" >';
+                                        echo '<option value="0">Modelo*</option>'; 
+                                        foreach ($modelo as $field) {
+                                            $id = $field['id_model'];
+                                            $modeloName = $field['description'];
+                                            echo '<option value="' . $id . '"'; 
+                                            if ($id == $modelo) {
+                                                echo ' selected';
+                                            }  
+                                            echo '>' . $modeloName. '</option>';
+                                        }
+                                        echo '</select> ';
+                                
+                                        }  ?> 
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select required  id="modelo" name="modelo"> 
-                 </select> 
+                <?php  
+                                    if ($count_modelo > 0) { 
+                                        echo '<select required  id="modelo" name="modelo" >';
+                                        echo '<option value="0">Modelo*</option>'; 
+                                        foreach ($modelo as $field) {
+                                            $id = $field['id_model'];
+                                            $modeloName = $field['description'];
+                                            echo '<option value="' . $id . '"'; 
+                                            if ($id == $modelo) {
+                                                echo ' selected';
+                                            }  
+                                            echo '>' . $modeloName. '</option>';
+                                        }
+                                        echo '</select> ';
+                                
+                                        }  ?> 
 
                 </div>
             </div>

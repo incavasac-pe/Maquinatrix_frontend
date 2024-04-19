@@ -26,7 +26,62 @@ $url_publi = $protocol . '://' . $host;
         echo 'Error al realizar la solicitud a la API';
     }
 
+    $count_m = 0;
+    $url99 = $baseUrl.'/list_machine'; 
+    $response599= file_get_contents($url99);
+    if ($response599 !== false) {
+       // Decodificar la respuesta JSON
+       $data = json_decode($response599, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $maquina = $data['data'];
+
+           $count_m = $data['count'];
+       } else {
+           echo 'Error: ' . $data['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
+
+    $count_marca = 0;
+    $url965 = $baseUrl.'/list_marca'; 
+    $response965= file_get_contents($url965);
+    if ($response965 !== false) {
+       // Decodificar la respuesta JSON
+       $data = json_decode($response965, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $marca = $data['data'];
+
+           $count_marca = $data['count'];
+       } else {
+           echo 'Error: ' . $data['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
     
+
+
+    $count_modelo= 0;
+    $url33 = $baseUrl.'/list_model'; 
+    $response33= file_get_contents($url33);
+    if ($response33 !== false) {
+       // Decodificar la respuesta JSON
+       $data = json_decode($response33, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $modelo = $data['data'];
+
+           $count_modelo = $data['count'];
+       } else {
+           echo 'Error: ' . $data['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
+
     $count_regiones= 0;
     $url13 = $baseUrl.'/list_regiones';
     $response = file_get_contents($url13);
@@ -69,7 +124,7 @@ $url_publi = $protocol . '://' . $host;
                 <div class="mb-3">
                   <?php  
                       if ($count_industry > 0) { 
-                          echo '<select required  id="industria" name="industria"  onchange="searchTypeMachine(this.value)">';
+                          echo '<select required  id="industria" name="industria"  >';
                           echo '<option value="0">Seleccionar industria*</option>'; 
                           foreach ($industry as $field) {
                               $id = $field['id_product_type'];
@@ -89,16 +144,32 @@ $url_publi = $protocol . '://' . $host;
               </div>
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">                
-                <select id="id_machine" name="id_machine">   
-                 </select>  
+              
+                <?php  
+                      if ($count_m > 0) { 
+                          echo '<select required  id="id_machine" name="id_machine" >';
+                          echo '<option value="0"> Tipo Maquinas*</option>'; 
+                          foreach ($maquina as $field) {
+                              $id = $field['id_machine'];
+                              $maquinaName = $field['description'];
+                              echo '<option value="' . $id . '"'; 
+                              if ($id == $maquinaName) {
+                                  echo ' selected';
+                              }  
+                              echo '>' . $maquinaName. '</option>';
+                          }
+                          echo '</select> ';
+                
+                        }  ?>   
+                  
                 </div>
               </div>
             </div> 
-             <div class="error-container" id="error-container-tipo">
-                    <i class="fa-solid fa-circle-xmark"></i>
+             <div class="warning-wrapper" id="error-container-tipo">
+             <i class="fa-solid fa-circle-exclamation"></i>
                     <div>
                         <p class="error-heading">Campos faltan completar</p>
-                        <p class="sm-text">Campos requeridos faltan completar: Categoría ó tipo de producto.</p>
+                        <p class="sm-text">Campos requeridos faltan completar: CATEGORIA O TIPO DE PRODUCTO.</p>
                     </div>
            </div>
           </div>
@@ -127,14 +198,43 @@ $url_publi = $protocol . '://' . $host;
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">          
 
-                                        <select   data-live-search="true" required id="marca" name="marca">  
-                                        </select> 
+                                    <?php  
+                                    if ($count_marca > 0) { 
+                                        echo '<select required  id="marca" name="marca" >';
+                                        echo '<option value="0">Marca*</option>'; 
+                                        foreach ($marca as $field) {
+                                            $id = $field['id_marca'];
+                                            $marcaName = $field['description'];
+                                            echo '<option value="' . $id . '"'; 
+                                            if ($id == $marca) {
+                                                echo ' selected';
+                                            }  
+                                            echo '>' . $marcaName. '</option>';
+                                        }
+                                        echo '</select> ';
+                                
+                                        }  ?>   
+                       
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
-                                        <select required   data-live-search="true" id="modelo" name="modelo"> 
-                                        </select> 
+                                    <?php  
+                                    if ($count_modelo > 0) { 
+                                        echo '<select required  id="modelo" name="modelo" >';
+                                        echo '<option value="0">Modelo*</option>'; 
+                                        foreach ($modelo as $field) {
+                                            $id = $field['id_model'];
+                                            $modeloName = $field['description'];
+                                            echo '<option value="' . $id . '"'; 
+                                            if ($id == $modelo) {
+                                                echo ' selected';
+                                            }  
+                                            echo '>' . $modeloName. '</option>';
+                                        }
+                                        echo '</select> ';
+                                
+                                        }  ?> 
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
@@ -173,11 +273,11 @@ $url_publi = $protocol . '://' . $host;
                                   </div>
                                 </div>
                             </div>
-                            <div class="error-container" id="error-container-title">
-                                        <i class="fa-solid fa-circle-xmark"></i>
+                            <div class="warning-wrapper" id="error-container-title">
+                            <i class="fa-solid fa-circle-exclamation"></i>
                                         <div>
                                             <p class="error-heading">Campos faltan completar</p>
-                                            <p class="sm-text">Campos requeridos faltan completar: Información de producto.</p>
+                                            <p class="sm-text">Campos requeridos faltan completar: INFORMACION DE PRODUCTO.</p>
                                         </div>
                             </div>
                         </div>
@@ -358,11 +458,11 @@ $url_publi = $protocol . '://' . $host;
                                 </div>
 
                             </div>
-                            <div class="error-container" id="error-container-price">
-                                        <i class="fa-solid fa-circle-xmark"></i>
+                            <div class="warning-wrapper" id="error-container-price">
+                            <i class="fa-solid fa-circle-exclamation"></i>
                                         <div>
                                             <p class="error-heading">Campos faltan completar</p>
-                                            <p class="sm-text">Campos requeridos faltan completar: Precio.</p>
+                                            <p class="sm-text">Campos requeridos faltan completar: PRECIO.</p>
                                         </div>
                             </div>
                         </div>
@@ -404,11 +504,11 @@ $url_publi = $protocol . '://' . $host;
                                     </div>
                                 </div>
                             </div>
-                            <div class="error-container" id="error-container-ubicacion">
-                                        <i class="fa-solid fa-circle-xmark"></i>
+                            <div class="warning-wrapper" id="error-container-ubicacion">
+                            <i class="fa-solid fa-circle-exclamation"></i>
                                         <div>
                                             <p class="error-heading">Campos faltan completar</p>
-                                            <p class="sm-text">Campos requeridos faltan completar: Región,comunas.</p>
+                                            <p class="sm-text">Campos requeridos faltan completar: UBICACION.</p>
                                         </div>
                             </div>
                         </div>
@@ -498,14 +598,14 @@ $url_publi = $protocol . '://' . $host;
                                 </div>
 
                             </div>
-                            <div class="warning-wrapper hidden">
+                            <!--div class="warning-wrapper hidden">
                                 <i class="fa-solid fa-circle-exclamation"></i>
                                 <div>
                                     <p class="error-heading">Campos faltan completar</p>
                                     <p class="sm-text">Campos requeridos faltan completar: Información de vehículo, Facilidad de entrega,
                                         Contrato de Arriendo Maquinatrix, Garantía de Arriendo.</p>
                                 </div>
-                            </div>
+                            </div-->
                         </div>
 
                         <div class="category-product">
@@ -597,13 +697,13 @@ $url_publi = $protocol . '://' . $host;
                    </div>
                 </div>
 
-                <div class="error-container" id="error-container">
+                <!--div class="error-container" id="error-container">
                     <i class="fa-solid fa-circle-xmark"></i>
                     <div>
                         <p class="error-heading">Campos faltan completar</p>
                         <p class="sm-text text-msg-error">Campos requeridos faltan completar: Información de vehículo.</p>
                     </div>
-                </div>
+                </div-->
                 <div class="category-product2">
                     <div class="category-btns-wrapper">
                         <div><button type="button" class="grey-btn">Cancelar</button></div>
@@ -732,6 +832,12 @@ function searchTypeModelo(industria){
 
 </script>
 <script>
-      //    $('#industria').selectize({ normalize: true });
-        //  $('#id_machine').selectize({ normalize: true });
-        </script>
+    $('#industria').selectize({ normalize: true });
+    $('#id_machine').selectize({ normalize: true });
+    $('#anios').selectize({ normalize: true });
+    $('#marca').selectize({ normalize: true });
+    $('#modelo').selectize({ normalize: true });
+    $('#region').selectize({ normalize: true });
+    $('#city').selectize({ normalize: true });
+    
+</script>

@@ -336,15 +336,11 @@ if ($responseimg !== false) {
                         </div>
                         <p class="cotiza-grey-text">Al enviar estoy aceptando los Términos y Condiciones de Maquinatrix
                         </p>
-                        <!--button class="whatsapp-btn"><img src="./assets/img/whatsapp.png"
-                                alt="whatsapp">Contactar</button-->
-                                <a type="button" class="btn btn-contacto whatsapp-btn font-family-Roboto-Medium w-100 text-white"
-                                         onclick="whats('<?=$tpublicacion?>','<?=$id?>','<?=$detalle['title'] ?>','<?=$url_publi?>')" 
-                                         href="#" class="btn-contacto font-family-Roboto-Medium">
-                                    <i class="fab fa-whatsapp"></i> Contactar
-                                </a>
-                                <button class="consult-yellow-btn">Consulta por financiamiento</button>
-                        <button class="consult-yellow-btn">Conoce las facilidades de pago</button>
+                        <button class="whatsapp-btn"><img src="./assets/img/whatsapp.png"     onclick="whats('<?=$tpublicacion?>','<?=$id?>','<?=$detalle['title'] ?>','<?=$url_publi?>')"
+                                alt="whatsapp">Contactar</button>
+                                
+                                <!--button class="consult-yellow-btn">Consulta por financiamiento</button>
+                        <button class="consult-yellow-btn">Conoce las facilidades de pago</button-->
                         <p class="grey-heading">Sujeto a factibilidad</p>
                        
                         <div class="cotiza-grey-box">

@@ -24,6 +24,23 @@
         echo 'Error al realizar la solicitud a la API';
     }
 
+    $count_m = 0;
+    $url99 = $baseUrl.'/list_machine'; 
+    $response599= file_get_contents($url99);
+    if ($response599 !== false) {
+       // Decodificar la respuesta JSON
+       $data = json_decode($response599, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $maquina = $data['data'];
+
+           $count_m = $data['count'];
+       } else {
+           echo 'Error: ' . $data['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
     
     $count_regiones= 0;
     $url13 = $baseUrl.'/list_regiones';
@@ -87,7 +104,7 @@
                 <div class="mb-3">
                 <?php  
                       if ($count_industry > 0) { 
-                          echo '<select required   id="industria" name="industria"  onchange="searchTypeMachine(this.value)">';
+                          echo '<select required   id="industria" name="industria"   >';
                           echo '<option value="0">Seleccionar industria*</option>'; 
                           foreach ($industry as $field) {
                               $id = $field['id_product_type'];
@@ -106,8 +123,22 @@
               </div>
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select id="id_machine" name="id_machine" >
-                </select>  
+                <?php  
+                      if ($count_m > 0) { 
+                          echo '<select required  id="id_machine" name="id_machine" >';
+                          echo '<option value="0"> Tipo Maquinas*</option>'; 
+                          foreach ($maquina as $field) {
+                              $id = $field['id_machine'];
+                              $maquinaName = $field['description'];
+                              echo '<option value="' . $id . '"'; 
+                              if ($id == $maquinaName) {
+                                  echo ' selected';
+                              }  
+                              echo '>' . $maquinaName. '</option>';
+                          }
+                          echo '</select> ';
+                
+                        }  ?>   
                 </div>
               </div>
             </div>
@@ -285,7 +316,20 @@ function searchTypeModelo(industria){
 }
 
 </script>
+ 
 <script>
- $('#industria').selectize({ normalize: true });
- $('#id_machine').selectize({ normalize: true });
+    $('#industria').selectize({ normalize: true });
+    $('#id_machine').selectize({ normalize: true });
+    $('#anios').selectize({ normalize: true });
+    $('#marca').selectize({ normalize: true });
+    $('#modelo').selectize({ normalize: true });
+    $('#region').selectize({ normalize: true });
+    $('#city').selectize({ normalize: true });
+
+    $('#anios5').selectize({ normalize: true });
+    $('#marca5').selectize({ normalize: true });
+    $('#modelo5').selectize({ normalize: true });
+    $('#region5').selectize({ normalize: true });
+    $('#city5').selectize({ normalize: true });
+    
 </script>
