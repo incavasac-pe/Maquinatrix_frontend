@@ -35,15 +35,15 @@
         <td>Año</td>
         <td class="r_anio"></td>
       </tr>
-      <tr>
+      <tr id="r_condicion">
         <td>Condición</td>
         <td class="r_condicion"></td>
       </tr>
-      <tr>
+      <tr id="r_km">
         <td>Kilometraje</td>
         <td class="r_km">km</td>
       </tr>
-      <tr>
+      <tr id="r_motor">
         <td>N° de Motor</td>
         <td class="r_motor"></td>
       </tr>
@@ -105,7 +105,7 @@
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn" >Cancelar</button></div>
-            <div><button type="button" class="grey-btn">Guardar y salir </button><button type="button"
+            <div><button type="button" class="grey-btn" id="save_public3">Guardar y salir </button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" id="Cancelar_continue-btn" step_number="3">Continuar</button></div>
         </div>
     </div>

@@ -69,22 +69,22 @@
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(5,'Equipos y herramientas')" class="nav-link" id="pills-publish2-tab" data-bs-toggle="pill" data-bs-target="#pills-publish2"
-                  type="button" role="tab" aria-controls="pills-publish2" aria-selected="false"><img
+                <button  onclick="setCategory(5,'Equipos y herramientas')" class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
+                  type="button" role="tab" aria-controls="pills-publish1" aria-selected="false"><img
                     src="./assets/img/hand-drill.png" alt="hand-drill" />
                   <p>Equipos y<br /> herramientas </p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(4,'Productos y accesorios')"  class="nav-link" id="pills-publish3-tab" data-bs-toggle="pill" data-bs-target="#pills-publish3"
-                  type="button" role="tab" aria-controls="pills-publish3" aria-selected="false"><img
+                <button  onclick="setCategory(4,'Productos y accesorios')"  class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
+                  type="button" role="tab" aria-controls="pills-publish1" aria-selected="false"><img
                     src="./assets/img/helmet.png" alt="helmet" />
                   <p>Productos y<br /> accesorios </p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(2,'Repuestos')" class="nav-link" id="pills-publish4-tab" data-bs-toggle="pill" data-bs-target="#pills-publish4"
-                  type="button" role="tab" aria-controls="pills-publish4" aria-selected="false"><img
+                <button  onclick="setCategory(2,'Repuestos')" class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
+                  type="button" role="tab" aria-controls="pills-publish1" aria-selected="false"><img
                     src="./assets/img/timing-belt.png" alt="timing-belt" />
                   <p>Repuestos</p>
                 </button>
@@ -142,12 +142,12 @@
                 </div>
               </div>
             </div>
-            <div class="error-container" id="error-container-tipo">
-                <i class="fa-solid fa-circle-xmark"></i>
-                <div>
-                    <p class="error-heading">Campos faltan completar</p>
-                    <p class="sm-text">Campos requeridos faltan completar: Categoría ó tipo de producto.</p>
-                </div>
+            <div class="warning-wrapper" id="error-container-tipo">
+             <i class="fa-solid fa-circle-exclamation"></i>
+                    <div>
+                        <p class="error-heading">Campos faltan completar</p>
+                        <p class="sm-text">Campos requeridos faltan completar: CATEGORIA O TIPO DE PRODUCTO.</p>
+                    </div>
            </div>
           </div>
           
@@ -159,19 +159,7 @@
             tabindex="0">
             <?php include 'publish_sale1.php' ?>
           </div>
-
-          <div class="tab-pane fade" id="pills-publish2" role="tabpanel" aria-labelledby="pills-publish2-tab"
-            tabindex="0">
-            <?php include 'publish_sale1.php' ?>
-          </div>
-          <div class="tab-pane fade" id="pills-publish3" role="tabpanel" aria-labelledby="pills-publish3-tab"
-            tabindex="0">
-            <?php include 'publish_sale1.php' ?>
-          </div>
-          <div class="tab-pane fade" id="pills-publish4" role="tabpanel" aria-labelledby="pills-publish4-tab"
-            tabindex="0">
-            <?php include 'publish_sale1.php' ?>
-          </div>
+ 
           <div class="tab-pane fade" id="pills-publish5" role="tabpanel" aria-labelledby="pills-publish5-tab"
             tabindex="0">
             <?php include 'publish_sale5.php' ?>>
@@ -180,9 +168,7 @@
 
         
  <script> 
-    $(document).ready(function() {
-  
-  }); 
+    
 
  var id_categoria = 0;
  var categoria = '';

@@ -15,7 +15,7 @@ if (isset($_SESSION['loggedIn'])) {
   $username = $_SESSION['username'];
   $photo = $_SESSION['photo'];
   $id_user_ext = $_SESSION['id_user_ext'];
-
+  $id_user = $_SESSION['id_user'];
 }
  
 ?>
@@ -87,9 +87,10 @@ if (isset($_SESSION['loggedIn'])) {
             <div class="profile-details-wrapper">
               <img src="./assets/img/profile-img.png" alt="profile-mg">
               <div class="user-details">
-              <input type="text" id="id_user">
-                <input type="text" id="id_profile">
-                <p class="top-title">  <?= $username; ?></p>
+              <input type="hidden" id="id_user">
+                <input type="hidden" id="id_profile">
+               
+                <p class="top-title">  <?= $username ?? ''; ?></p>
                 <p class="verify-warning"><i class="fa-solid fa-circle-exclamation"></i>Verificación pendiente</p>
                 <div class="company-wrapper">
                   <div class="company-detail">
@@ -110,11 +111,11 @@ if (isset($_SESSION['loggedIn'])) {
               </div>
 
             </div>
-            <div class="verify-btns-wrapper">
+            <!--div class="verify-btns-wrapper">
               <button type="button" class="profile-edit-btn">Editar Perfil</button>
               <button type="button" class="verify-btn"> <img src="./assets/img/verify.png" alt="verify"> Verificar mi
                 cuenta</button>
-            </div>
+            </div-->
           </div>
           <ul class="nav user-detail-tab nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -163,11 +164,10 @@ if (isset($_SESSION['loggedIn'])) {
                     <button type="button" class="profile-edit-btn1">Editar Perfil</button>
                   </div>
                   <div class="user-detail-table1">
-
                     <table class="additional-table">
                     <tr>
                         <td>ID Usuario</td>
-                        <td> <?= $id_user_ext; ?></td>
+                        <td> <?= $id_user_ext ?? ''; ?></td>
                       </tr>
                       <tr id="social-field">
                         <td>Razón Social</td>
@@ -186,7 +186,7 @@ if (isset($_SESSION['loggedIn'])) {
                         <td></td>
                       </tr>
                       <tr id="type_doc-field">
-                        <td>Documento</td>
+                        <td id="type_doc-field">Documento</td>
                         <td></td>
                       </tr>
                       <tr id="num_doc-field">
@@ -197,7 +197,6 @@ if (isset($_SESSION['loggedIn'])) {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -216,305 +215,41 @@ if (isset($_SESSION['loggedIn'])) {
             <button type="button" class="filter-btn">Borradores</button>
             <button type="button" class="filter-btn">Suspendidos</button>
           </div>
-          <button type="button" class="publication-create-btn">+ Crear
+          <button type="button" class="publication-create-btn" data-bs-toggle="modal" data-bs-target="#exampleModalPublication">+ Crear
             Publicación</button>
-        </div>
-        <div class="contruction-main-container">
-          <div class="construction-left-container">
-            <img src="./assets/img/construction.png" alt="construction">
-            <div class="construction-details">
-              <p class="grey-md-text">Construcción</p>
-              <p class="contruction-text">Construcción Excavadora de las mejores del mundo</p>
-              <div class="construction-stats">
-                <div class="blue-md-text"><i class="fa-solid fa-circle fa-dot"></i> Arriendo</div>
-                <div class="md-text">Maquinaria y vehículos</div>
-              </div>
-            </div>
-          </div>
-          <div class="construction-right-container">
-            <div class="draft-details">
-              <div class="grey-status"> <i class="fa-solid fa-circle fa-dot"></i>
-                Publicación en Borrador
-              </div>
-              <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                 Opciones <i class="fa-solid fa-chevron-down"></i>
-                </a>
-
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Editar</a></li>
-                  <li><a class="dropdown-item" href="#">Publicar</a></li>
-                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirmation">Eliminar</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="publication-draft-wrapper">
-              <div class="pub-container">
-                <p class="grey-md-text">Visitas</p>
-                <p class="bold-pub-text">24</p>
-              </div>
-              <div class="pub-container">
-                <p class="grey-md-text">Interacción</p>
-                <p class="bold-pub-text">24</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="id-detail">
-          <p class="grey-md-text">ID Publicación #12312312</p>
-          <p class="grey-md-text">Creado 23/05/2022</p>
-        </div>
-
-        <div class="contruction-main-container">
-          <div class="construction-left-container">
-            <img src="./assets/img/construction.png" alt="construction">
-            <div class="construction-details">
-              <p class="grey-md-text">Construcción</p>
-              <p class="contruction-text">Construcción Excavadora de las mejores del mundo</p>
-              <div class="construction-stats">
-                <div class="grey-md-text-2"><i class="fa-solid fa-circle fa-dot"></i> Venta</div>
-                <div class="md-text">Maquinaria y vehículos</div>
-              </div>
-            </div>
-          </div>
-          <div class="construction-right-container">
-            <div class="draft-details">
-              <div class="green-status"> <i class="fa-solid fa-circle fa-dot"></i>
-                Publicación en Borrador
-              </div>
-              <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                 Opciones <i class="fa-solid fa-chevron-down"></i>
-                </a>
-
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Editar</a></li>
-                  <li><a class="dropdown-item" href="#">Publicar</a></li>
-                  <li><a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#confirmation"  href="#">Eliminar</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="publication-draft-wrapper">
-              <div class="pub-container">
-                <p class="grey-md-text">Visitas</p>
-                <p class="bold-pub-text">24</p>
-              </div>
-              <div class="pub-container">
-                <p class="grey-md-text">Interacción</p>
-                <p class="bold-pub-text">24</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="id-detail">
-          <p class="grey-md-text">ID Publicación #12312312</p>
-          <p class="grey-md-text">Creado 23/05/2022</p>
-        </div>
-
-        <div class="contruction-main-container">
-          <div class="construction-left-container">
-            <img src="./assets/img/construction.png" alt="construction">
-            <div class="construction-details">
-              <p class="grey-md-text">Construcción</p>
-              <p class="contruction-text">Construcción Excavadora de las mejores del mundo</p>
-              <div class="construction-stats">
-                <div class="blue-md-text"><i class="fa-solid fa-circle fa-dot"></i> Arriendo</div>
-                <div class="md-text">Maquinaria y vehículos</div>
-              </div>
-            </div>
-          </div>
-          <div class="construction-right-container">
-            <div class="draft-details">
-              <div class="green-status"> <i class="fa-solid fa-circle fa-dot"></i>
-                Publicación en Borrador
-              </div>
-              <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                 Opciones <i class="fa-solid fa-chevron-down"></i>
-                </a>
-
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Editar</a></li>
-                  <li><a class="dropdown-item" href="#">Publicar</a></li>
-                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirmation">Eliminar</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="publication-draft-wrapper">
-              <div class="pub-container">
-                <p class="grey-md-text">Visitas</p>
-                <p class="bold-pub-text">24</p>
-              </div>
-              <div class="pub-container">
-                <p class="grey-md-text">Interacción</p>
-                <p class="bold-pub-text">24</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="id-detail">
-          <p class="grey-md-text">ID Publicación #12312312</p>
-          <p class="grey-md-text">Creado 23/05/2022</p>
-        </div>
-
-
-
-        <div class="contruction-main-container">
-          <div class="construction-left-container">
-            <img src="./assets/img/construction.png" alt="construction">
-            <div class="construction-details">
-              <p class="grey-md-text">Construcción</p>
-              <p class="contruction-text">Construcción Excavadora de las mejores del mundo</p>
-              <div class="construction-stats">
-                <div class="blue-md-text"><i class="fa-solid fa-circle fa-dot"></i> Arriendo</div>
-                <div class="md-text">Maquinaria y vehículos</div>
-              </div>
-            </div>
-          </div>
-          <div class="construction-right-container">
-            <div class="draft-details">
-              <div class="yellow-status"> <i class="fa-solid fa-circle fa-dot"></i>
-                Publicación en Borrador
-              </div>
-              <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                 Opciones <i class="fa-solid fa-chevron-down"></i>
-                </a>
-
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Editar</a></li>
-                  <li><a class="dropdown-item" href="#">Publicar</a></li>
-                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirmation">Eliminar</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="publication-draft-warning">
-              <i class="fa-solid fa-circle-exclamation"></i>
-              <div>
-                <p class="draft-warning-text-main">Publicación suspendida</p>
-                <p class="draft-warning-text-sub">El administrador suspendió tu publicación. <span class="span-blue">
-                    Contactarlo..</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="id-detail">
-          <p class="grey-md-text">ID Publicación #12312312</p>
-          <p class="grey-md-text">Creado 23/05/2022</p>
-        </div>
-
-        <div class="contruction-main-container">
-          <div class="construction-left-container">
-            <img src="./assets/img/construction.png" alt="construction">
-            <div class="construction-details">
-              <p class="grey-md-text">Construcción</p>
-              <p class="contruction-text">Construcción Excavadora de las mejores del mundo</p>
-              <div class="construction-stats">
-                <div class="grey-md-text-2"><i class="fa-solid fa-circle fa-dot"></i> Venta</div>
-                <div class="md-text">Maquinaria y vehículos</div>
-              </div>
-            </div>
-          </div>
-          <div class="construction-right-container">
-            <div class="draft-details">
-              <div class="green-status"> <i class="fa-solid fa-circle fa-dot"></i>
-                Publicación en Borrador
-              </div>
-              <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                 Opciones <i class="fa-solid fa-chevron-down"></i>
-                </a>
-
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Editar</a></li>
-                  <li><a class="dropdown-item" href="#">Publicar</a></li>
-                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirmation">Eliminar</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="publication-draft-wrapper">
-              <div class="pub-container">
-                <p class="grey-md-text">Visitas</p>
-                <p class="bold-pub-text">24</p>
-              </div>
-              <div class="pub-container">
-                <p class="grey-md-text">Interacción</p>
-                <p class="bold-pub-text">24</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="id-detail">
-          <p class="grey-md-text">ID Publicación #12312312</p>
-          <p class="grey-md-text">Creado 23/05/2022</p>
-        </div>
-
-        <div class="contruction-main-container">
-          <div class="construction-left-container">
-            <img src="./assets/img/construction.png" alt="construction">
-            <div class="construction-details">
-              <p class="grey-md-text">Construcción</p>
-              <p class="contruction-text">Construcción Excavadora de las mejores del mundo</p>
-              <div class="construction-stats">
-                <div class="blue-md-text"><i class="fa-solid fa-circle fa-dot"></i> Arriendo</div>
-                <div class="md-text">Maquinaria y vehículos</div>
-              </div>
-            </div>
-          </div>
-          <div class="construction-right-container">
-            <div class="draft-details">
-              <div class="green-status"> <i class="fa-solid fa-circle fa-dot"></i>
-                Publicación en Borrador
-              </div>
-              <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                 Opciones <i class="fa-solid fa-chevron-down"></i>
-                </a>
-
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Editar</a></li>
-                  <li><a class="dropdown-item" href="#">Publicar</a></li>
-                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirmation">Eliminar</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="publication-draft-wrapper">
-              <div class="pub-container">
-                <p class="grey-md-text">Visitas</p>
-                <p class="bold-pub-text">24</p>
-              </div>
-              <div class="pub-container">
-                <p class="grey-md-text">Interacción</p>
-                <p class="bold-pub-text">24</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="id-detail">
-          <p class="grey-md-text">ID Publicación #12312312</p>
-          <p class="grey-md-text">Creado 23/05/2022</p>
-        </div>
-
+        </div> 
+        <input type="hidden" id="id_product">
+        <span class="text-danger align-middle" id="Msg1"></span>
+        <div class="list_publi">
+        </div>  
       </div>
     </div>
   </div>
-
-
-
 </div>
-
 </div>
 </div>
 
 <?php include 'publication_type.php' ?>
 
-<?php include 'confirmation.php' ?>
+
+<div class="modal fade" id="confirmation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered ">
+    <div class="modal-content">
+      <div class="modal-header base-modal-header">
+        
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body base-modal-body">
+       <img src="./assets/img/question.png" alt="logout">
+       <p>¿Deseas eliminar la Publicación?</p>
+      </div>
+      <div class="modal-footer base-modal-footer">
+        <button type="button" class="grey-btn" data-bs-dismiss="modal">No</button>
+        <button type="button" class="yellow-btn" onclick="deletePublic(8)">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
 <?php include 'footer.php' ?>
 
 
@@ -539,6 +274,7 @@ if (isset($_SESSION['loggedIn'])) {
 
 $(document).ready(function() { 
   datosBasicos();
+  construirEstructuraHTML();
 
 //editar la data "Datos de cuenta"
 $('.user-detail-table button').click(function() {
@@ -580,13 +316,15 @@ $('.user-detail-table button').click(function() {
   });
 
 });
+
 function datosBasicos(){
+  var token = '<?= $_SESSION["token"]; ?>';
   $.ajax({
     url: '<?=$baseUrl?>/profile_basic',
     type: 'GET',
     beforeSend: function(xhr) {
       // Agrega el Bearer Token al encabezado de autorización
-      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
+      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
     success: function(response) {
       if(!response.error){
@@ -633,6 +371,8 @@ function datosBasicos(){
         var addressFieldTd1 = $('#type_doc-field td:nth-child(2)');
         if(addressFieldValue1==1){
           addressFieldTd1.text('RUT');;
+        }else{
+          addressFieldTd1.text('Pasaporte');;
         }
         //num_doc
         var addressFieldValue2 = response.data.num_doc;
@@ -650,28 +390,27 @@ function datosBasicos(){
   });
 }
 
-function enviarActualizacionDatosBasicos(type, newValue) {
-  var id_user = $('#id_user').val();
+function enviarActualizacionDatosBasicos(type, newValue) { 
   var url;
   var data = {};
 
   $("#Msg").html("");
 
   if (type == 2) {
-    url = '<?=$baseUrl?>/profile_basic_update_1?id_user=' + id_user;
+    url = '<?=$baseUrl?>/profile_basic_update_1?id_user=' + <?=$id_user?>;
     data.email = newValue;
   } else {
-    url = '<?=$baseUrl?>/changePassword?id_user=' + id_user;
+    url = '<?=$baseUrl?>/changePassword?id_user=' + <?=$id_user?>;
     data.password = newValue;
   }
-
+  var token = '<?= $_SESSION["token"]; ?>';
   $.ajax({
     url: url,
     method: 'PATCH',
     data: JSON.stringify(data),
     contentType: "application/json",
     beforeSend: function(xhr) {
-      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
+      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
     success: function(response) {
       $("#Msg").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
@@ -711,18 +450,231 @@ function enviarActualizacionInformacionAdicional(type, value = '') {
   }
 
   var id_profile = $('#id_profile').val();
-
+  var token = '<?= $_SESSION["token"]; ?>';
   $.ajax({
     url: '<?=$baseUrl?>/profile_basic_update?id_profile=' + id_profile,
     method: 'PATCH',
     data: JSON.stringify(data),
     contentType: "application/json",
     beforeSend: function(xhr) {
-      xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
+      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
     success: function(response) {
       $("#Msg").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
       location.reload();
+    },
+    error: function(error) {
+      console.error('Error al enviar los datos actualizados');
+    }
+  });
+}
+ 
+//javascript de las publicaciones
+function construirEstructuraHTML() {
+  // Realizar la llamada AJAX para obtener los datos
+  var token = '<?= $_SESSION["token"]; ?>';
+  $.ajax({
+    url: '<?=$baseUrl?>/list_publications_byuser?limit=10&id_user=' + <?=$id_user?>,
+    method: 'GET',
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+    },
+    success: function(res) {
+     if(!res.error){ 
+          res.data.forEach(function(element) {
+            console.log("element",element);
+          if(element.status_id != '8') { 
+            var imagen_url = element?.product_images[0] ? element.product_images[0]['image_name'] :'';
+              var imagen = '<?=$baseUrl?>/see_image?image='+ imagen_url;
+              // Construir la estructura HTML con los datos obtenidos
+              var constructionContainer = $('<div>').addClass('contruction-main-container');
+              var constructionLeftContainer = $('<div>').addClass('construction-left-container');
+              var constructionImage = $('<img>').attr('src', imagen).attr('alt', 'construction');
+              var constructionDetails = $('<div>').addClass('construction-details');
+              var greyMdText = $('<p>').addClass('grey-md-text').text(element.Category.category);
+              var constructionText = $('<p>').addClass('contruction-text').text(element.title);
+              var constructionStats = $('<div>').addClass('construction-stats');
+              var blueMdText = $('<div>').addClass('blue-md-text').append($('<i>').addClass('fa-solid fa-circle fa-dot')).text(element.PublicationType.description);
+              var mdText = $('<div>').addClass('md-text').text(element.Category.category);
+ 
+              // Agregar elementos al contenedor principal
+              constructionStats.append(blueMdText);
+              constructionStats.append(mdText);
+              constructionDetails.append(greyMdText);
+              constructionDetails.append(constructionText);
+              constructionDetails.append(constructionStats);
+              constructionLeftContainer.append(constructionImage);
+              constructionLeftContainer.append(constructionDetails);
+              constructionContainer.append(constructionLeftContainer);
+              var status;
+              var color_status = 'grey-status';
+            
+                switch (element.status_id) {
+                    case 6:
+                      status = 'Publicación Activa';
+                      color_status = 'green-status';
+                      break;
+                    case 7:
+                      status = 'Publicación Suspendida';
+                      color_status = 'yellow-status';
+                      break;
+                    case 8:
+                      status = 'Publicación Eliminada';
+                      break;
+                    case 9:
+                      status = 'Publicación en Revisión';
+                      break;
+                    case 10:
+                      status = 'Publicación en Borrador';
+                      break;
+                    default:
+                      status = 'Estado Desconocido';
+                  }
+ 
+
+              var constructionRightContainer = $('<div>').addClass('construction-right-container');
+              var draftDetails = $('<div>').addClass('draft-details');
+              var greyStatus = $('<div>').addClass(color_status).append($('<i>').addClass('fa-solid fa-circle fa-dot')).text(status);
+              
+              var dropdown = $('<div>').addClass('dropdown');
+
+              // Crea el enlace de alternancia con las clases y atributos correspondientes
+              var toggleLink = $('<a>').addClass('btn btn-secondary dropdown-toggle')
+                                        .attr('href', '#')
+                                        .attr('role', 'button')
+                                        .attr('data-bs-toggle', 'dropdown')
+                                        .attr('aria-expanded', 'false')
+                                        .text('Opciones ');
+
+              // Crea el ícono dentro del enlace de alternancia
+              var chevronIcon = $('<i>').addClass('fa-solid fa-chevron-down');
+              toggleLink.append(chevronIcon);
+
+              // Crea la lista desplegable con la clase correspondiente
+              var dropdownMenu = $('<ul>').addClass('dropdown-menu');
+
+              // Crea los elementos de la lista desplegable con los enlaces correspondientes
+              var editarItem = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Editar'));
+              var publicarItem = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Publicar'));
+              var eliminarItem = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').attr('data-bs-toggle', 'modal').attr('data-bs-target', '#confirmation').text('Eliminar'));
+
+              // Agrega los elementos de la lista desplegable a la lista
+              dropdownMenu.append(editarItem);
+              dropdownMenu.append(publicarItem);
+              dropdownMenu.append(eliminarItem);
+
+              // Agrega el enlace de alternancia y la lista desplegable al elemento div
+              dropdown.append(toggleLink);
+              dropdown.append(dropdownMenu);
+             
+              draftDetails.append(greyStatus);
+              draftDetails.append(dropdown);
+              constructionRightContainer.append(draftDetails); 
+            
+            //publicacion suspendida
+
+            if( element.status_id == '7'){
+                var divElement = $('<div>').addClass('publication-draft-warning');
+                var iconElement = $('<i>').addClass('fa-solid fa-circle-exclamation');
+                var textDiv = $('<div>');
+                var mainText = $('<p>').addClass('draft-warning-text-main').text('Publicación suspendida');
+                var subText = $('<p>').addClass('draft-warning-text-sub').text('El administrador suspendió tu publicación. ');
+                var spanElement = $('<span>').addClass('span-blue').text('Contactarlo.');
+
+                subText.append(spanElement);
+                textDiv.append(mainText, subText);
+                divElement.append(iconElement, textDiv);
+                constructionRightContainer.append(divElement);
+              }else{
+                
+                  //publicacion activa y borrador          
+                    var publicationDraftWrapper = $('<div>').addClass('publication-draft-wrapper');
+                    var pubContainer1 = $('<div>').addClass('pub-container');
+                    var greyMdText1 = $('<p>').addClass('grey-md-text').text('Visitas');
+                    var boldPubText1 = $('<p>').addClass('bold-pub-text').text(element.visitt);
+                    var pubContainer2 = $('<div>').addClass('pub-container');
+                    var greyMdText2 = $('<p>').addClass('grey-md-text').text('Interacción');
+                    var boldPubText2 = $('<p>').addClass('bold-pub-text').text(element.interaction);
+
+                    // Agregar elementos al contenedor de publicación y borrador
+                    pubContainer1.append(greyMdText1);
+                    pubContainer1.append(boldPubText1);
+                    pubContainer2.append(greyMdText2);
+                    pubContainer2.append(boldPubText2);
+                    publicationDraftWrapper.append(pubContainer1);
+                    publicationDraftWrapper.append(pubContainer2);
+                    constructionRightContainer.append(publicationDraftWrapper);
+              
+                }
+                   
+                constructionContainer.append(constructionRightContainer); 
+
+                var idDetail = $('<div>').addClass('id-detail');
+                var greyMdText3 = $('<p>').addClass('grey-md-text').text('ID Publicación #' + element.id_product);
+                var greyMdText4 = $('<p>').addClass('grey-md-text').text('Creado ' + element.create_at_formatted);
+
+                idDetail.append(greyMdText3);
+                idDetail.append(greyMdText4);
+
+                // Agregar la estructura HTML al documento
+                $('.list_publi').append(constructionContainer);
+                $('.list_publi').append(idDetail);
+          }
+        });
+      }
+    }
+  });
+}
+
+function setValue(id){
+  $('#id_product').val(id);
+}
+
+function  statusBorrador(id){
+  $('#id_product').val(id);
+   deletePublic(10);
+}
+
+function seePublicacion(id){
+  $('#id_product').val(id);
+  var form = document.createElement('form');
+          form.method = 'POST';
+          form.action = 'purchase_publication.php';
+
+          var input3= document.createElement('input');
+          input3.type = 'hidden';
+          input3.name = 'id';
+          input3.value = id;
+          form.appendChild(input3); 
+
+          document.body.appendChild(form);
+          form.submit();
+  
+}
+
+function deletePublic(status){
+  var url;
+  var data = {};
+
+  $("#Msg").html("");
+  var id_product = $("#id_product").val();
+ 
+    url = '<?=$baseUrl?>/update_publication_status?id_user=' + <?=$id_user?>;
+    data.id_product = id_product;
+    data.status_id = status;
+    var token = '<?= $_SESSION["token"]; ?>';
+   $.ajax({
+    url: url,
+    method: 'PUT',
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+    },
+    success: function(response) {
+      location.reload();
+      $("#Msg1").html("<div class='alert alert-success' role='alert'>Estatus actualizado.</div>");
+ 
     },
     error: function(error) {
       console.error('Error al enviar los datos actualizados');

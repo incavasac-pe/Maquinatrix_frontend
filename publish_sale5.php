@@ -22,6 +22,44 @@ $url_publi = $protocol . '://' . $host;
             echo 'Error: ' . $dataRegion['msg'];
         }
     }  
+
+    
+   $count_marca = 0;
+   $url965 = $baseUrl.'/list_marca'; 
+   $response965= file_get_contents($url965);
+   if ($response965 !== false) {
+      // Decodificar la respuesta JSON
+      $data = json_decode($response965, true);
+      if (!$data['error']) {
+          // Obtener la lista de $categories
+          $marca = $data['data'];
+
+          $count_marca = $data['count'];
+      } else {
+          echo 'Error: ' . $data['msg'];
+      }
+   } else {
+       echo 'Error al realizar la solicitud a la API';
+   }
+   
+
+   $count_modelo= 0;
+    $url33 = $baseUrl.'/list_model'; 
+    $response33= file_get_contents($url33);
+    if ($response33 !== false) {
+       // Decodificar la respuesta JSON
+       $data = json_decode($response33, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $modelo = $data['data'];
+
+           $count_modelo = $data['count'];
+       } else {
+           echo 'Error: ' . $data['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
     ?>
 <div class="container">
     <div class="category-product">
@@ -39,14 +77,43 @@ $url_publi = $protocol . '://' . $host;
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select required id="marca5" name="marca5">  
-                   </select> 
+                <?php  
+                    
+                    if ($count_marca > 0) { 
+                        echo '<select required  id="marca5" name="marca5" >';
+                        echo '<option value="0">Marca*</option>'; 
+                        foreach ($marca as $field) {
+                            $id = $field['id_marca'];
+                            $marcaName = $field['description'];
+                            echo '<option value="' . $id . '"'; 
+                            if ($id == $marca) {
+                                echo ' selected';
+                            }  
+                            echo '>' . $marcaName. '</option>';
+                        }
+                        echo '</select> ';
+                
+                        }  ?>  
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select required  id="modelo5" name="modelo5"> 
-                 </select> 
+                <?php  
+                    if ($count_modelo > 0) { 
+                        echo '<select required  id="modelo5" name="modelo5" >';
+                        echo '<option value="0">Modelo*</option>'; 
+                        foreach ($modelo as $field) {
+                            $id = $field['id_model'];
+                            $modeloName = $field['description'];
+                            echo '<option value="' . $id . '"'; 
+                            if ($id == $modelo) {
+                                echo ' selected';
+                            }  
+                            echo '>' . $modeloName. '</option>';
+                        }
+                        echo '</select> ';
+                
+                        }  ?> 
 
                 </div>
             </div>

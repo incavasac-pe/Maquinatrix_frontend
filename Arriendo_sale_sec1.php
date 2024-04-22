@@ -697,17 +697,17 @@ $url_publi = $protocol . '://' . $host;
                    </div>
                 </div>
 
-                <!--div class="error-container" id="error-container">
+                <div class="error-container" id="error-container">
                     <i class="fa-solid fa-circle-xmark"></i>
                     <div>
                         <p class="error-heading">Campos faltan completar</p>
-                        <p class="sm-text text-msg-error">Campos requeridos faltan completar: Información de vehículo.</p>
+                        <p class="sm-text text-msg-error">Campos requeridos faltan completar.</p>
                     </div>
-                </div-->
+                </div>
                 <div class="category-product2">
                     <div class="category-btns-wrapper">
                         <div><button type="button" class="grey-btn">Cancelar</button></div>
-                        <div><button type="button" class="grey-btn">Guardar y salir</button><button type="button"
+                        <div><button type="button" class="grey-btn" id="save_public1">Guardar y salir</button><button type="button"
                            class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
                     </div>
                 </div>

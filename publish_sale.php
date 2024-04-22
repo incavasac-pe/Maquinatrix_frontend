@@ -270,11 +270,21 @@ $(document).ready(function() {
      $("#confirm_public_sale").on('click', function(event) {
       registerPublication();
     });  
-    $("#id_machine").on('change', function(event) {
-    if( $("#id_machine").val()!='0'){
+    $("#industria").on('change', function(event) {
+    if( $("#id_machine").val()!='0' &&  $("#industria").val()!='0' ){
         $("#error-container-tipo").hide();
+      }else{
+        $("#error-container-tipo").show();
       }
     }); 
+    $("#id_machine").on('change', function(event) {
+    if( $("#id_machine").val()!='0' &&  $("#industria").val()!='0' ){
+        $("#error-container-tipo").hide();
+      }else{
+        $("#error-container-tipo").show();
+      }
+    }); 
+
     $("#price").on('keyup', function(event) {
     if( $("#price").val()!=''){
         $("#error-container-price").hide();
@@ -337,20 +347,22 @@ function setTraccion(valor){
       "region": id_categoria!='3' ? $("#region").val():$("#region5").val(),
       "city": id_categoria!='3' ? $("#city").val():$("#city5").val(),
       "price": id_categoria!='3' ? $("#price").val():$("#price5").val(),
-      "brand": id_categoria!='3' ? $("#marca").val():$("#marca5").val(),
-      "model": id_categoria!='3' ? $("#modelo").val():$("#modelo5").val(),
+      "brand": id_categoria!='3' ? $("#marca").text():$("#marca5").text(),
+      "model": id_categoria!='3' ? $("#modelo").text():$("#modelo5").text(),
       "year":  id_categoria!='3' ? $("#anios").val():$("#anios5").val(),
-      "factory_code": "Factory Code",
+      "factory_code": "",
       "mileage": $("#KilometrosRecorridos").val(), 
       "engine_number": $("#engine_number").val() ?? '',
       "chasis_number":$("#chasis_number").val() ?? '',
       "patent": $("#patente").val() ?? '',     
       "condition": id_categoria!='3' ? $('input[name="flexRadioDefault"]:checked').val() : $('input[name="flexRadioDefault5"]:checked').val(),
-      "owner": "Owner",
+      "owner": "",
       "delivery": id_categoria!='3' ? $('input[name="inlineRadioOptions"]:checked').val() : $('input[name="inlineRadioOptions5"]:checked').val(),
       "pay_now_delivery": "N",
       "facipay":"N",
-      "contact_me": "Contact Me PRUEBA" 
+      "contact_me": "",
+      "id_marca": id_categoria!='3' ? $("#marca").val():$("#marca5").val(),
+      "id_model": id_categoria!='3' ? $("#modelo").val():$("#modelo5").val()
     };
 
     publicacion3 = {   
@@ -405,6 +417,16 @@ function setTraccion(valor){
   $('.r_modelo').text(  id_categoria!='3' ? $("#modelo option:selected").text(): $("#modelo5 option:selected").text());
   $('.r_anio').text( publicacion2.year);
   $('.r_condicion').text(publicacion2.condition);
+
+  if($("#KilometrosRecorridos").val()==''){   
+    $("#r_km").hide();
+  }
+  if($("#engine_number").val()==''){   
+    $("#r_motor").hide();
+  }
+  if(publicacion2.condition==''){   
+    $("#r_condicion").hide();
+  }
   
   $('.r_km').text( $("#KilometrosRecorridos").val());
   $('.r_motor').text($("#engine_number").val() ?? '');
@@ -673,4 +695,22 @@ function sendDataResume(imagen){
   form.submit();
 }
 
+</script>
+
+
+<script>
+    $('#industria').selectize({ normalize: true });
+    $('#id_machine').selectize({ normalize: true });
+    $('#anios').selectize({ normalize: true });
+    $('#marca').selectize({ normalize: true });
+    $('#modelo').selectize({ normalize: true });
+    $('#region').selectize({ normalize: true });
+    $('#city').selectize({ normalize: true });
+
+    $('#anios5').selectize({ normalize: true });
+    $('#marca5').selectize({ normalize: true });
+    $('#modelo5').selectize({ normalize: true });
+    $('#region5').selectize({ normalize: true });
+    $('#city5').selectize({ normalize: true });
+    
 </script>

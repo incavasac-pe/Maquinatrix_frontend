@@ -209,11 +209,11 @@ if (isset($_SESSION['loggedIn'])) {
         <div class="filter-wrapper">
           <div class="filter-btns">
             <p class="filter-text">Filtrar por:</p>
-            <button type="button" class="filter-active-btn">Todos</button>
-            <button type="button" class="filter-btn">Ventas</button>
-            <button type="button" class="filter-btn">Arriendos</button>
-            <button type="button" class="filter-btn">Borradores</button>
-            <button type="button" class="filter-btn">Suspendidos</button>
+            <button type="button" id="0" class="filter-btn filter-active-btn">Todos</button>
+            <button type="button" id="2" class="filter-btn">Ventas</button>
+            <button type="button" id="1" class="filter-btn">Arriendos</button>
+            <button type="button" id="10" class="filter-btn">Borradores</button>
+            <button type="button" id="7" class="filter-btn">Suspendidos</button>
           </div>
           <button type="button" class="publication-create-btn" data-bs-toggle="modal" data-bs-target="#exampleModalPublication">+ Crear
             Publicación</button>
@@ -274,7 +274,22 @@ if (isset($_SESSION['loggedIn'])) {
 
 $(document).ready(function() { 
   datosBasicos();
-  construirEstructuraHTML();
+  construirEstructuraHTML('0');
+
+
+  $('.filter-btn').click(function() {
+    // Remover la clase 'activo' de todos los botones
+    $('.filter-btn').removeClass('filter-active-btn');
+    
+    // Agregar la clase 'activo' al botón seleccionado
+    $(this).addClass('filter-active-btn');
+    var buttonId = $(this).attr('id');
+    
+      construirEstructuraHTML(buttonId);
+   
+    console.log('ID del botón presionado:', buttonId);
+     
+  });
 
 //editar la data "Datos de cuenta"
 $('.user-detail-table button').click(function() {
@@ -470,16 +485,25 @@ function enviarActualizacionInformacionAdicional(type, value = '') {
 }
  
 //javascript de las publicaciones
-function construirEstructuraHTML() {
+function construirEstructuraHTML(value) {
+  var url;
+  if(value == '0'){
+   url= '<?=$baseUrl?>/list_publications_byuser?limit=100&id_user=' + <?=$id_user?>;
+  }else if(value == '7' || value == '10' ) {
+    url='<?=$baseUrl?>/list_publications_byuser?limit=100&id_user=' + <?=$id_user?>+'&status_id='+value;
+  }else{
+    url= '<?=$baseUrl?>/list_publications_byuser?limit=100&id_user=' + <?=$id_user?>+'&tpublicacion='+value;
+  }
   // Realizar la llamada AJAX para obtener los datos
   var token = '<?= $_SESSION["token"]; ?>';
   $.ajax({
-    url: '<?=$baseUrl?>/list_publications_byuser?limit=10&id_user=' + <?=$id_user?>,
+    url: url,
     method: 'GET',
     beforeSend: function(xhr) {
       xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
     success: function(res) {
+      $('.list_publi').empty();
      if(!res.error){ 
           res.data.forEach(function(element) {
             console.log("element",element);
@@ -537,61 +561,36 @@ function construirEstructuraHTML() {
               var greyStatus = $('<div>').addClass(color_status).append($('<i>').addClass('fa-solid fa-circle fa-dot')).text(status);
               
               var dropdown = $('<div>').addClass('dropdown');
-              var dropdownToggle = $('<a>').addClass('btn btn-secondary dropdown-toggle').attr('href', '#').attr('role', 'button').attr('data-bs-toggle', 'dropdown').attr('aria-expanded', 'false').text('Opciones').append($('<i>').addClass('fa-solid fa-chevron-down'));
+
+              // Crea el enlace de alternancia con las clases y atributos correspondientes
+              var toggleLink = $('<a>').addClass('btn btn-secondary dropdown-toggle')
+                                        .attr('href', '#')
+                                        .attr('role', 'button')
+                                        .attr('data-bs-toggle', 'dropdown')
+                                        .attr('aria-expanded', 'false')
+                                        .text('Opciones ');
+
+              // Crea el ícono dentro del enlace de alternancia
+              var chevronIcon = $('<i>').addClass('fa-solid fa-chevron-down');
+              toggleLink.append(chevronIcon);
+
+              // Crea la lista desplegable con la clase correspondiente
               var dropdownMenu = $('<ul>').addClass('dropdown-menu');
-              var editOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Editar'));
 
-              var publishOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Publicar').click(function() {
-                var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
-                Publicar(id);
-              }));
+              // Crea los elementos de la lista desplegable con los enlaces correspondientes
+              var editarItem = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Editar'));
+              var publicarItem = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Publicar'));
+              var eliminarItem = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').attr('data-bs-toggle', 'modal').attr('data-bs-target', '#confirmation').text('Eliminar'));
 
-              var publishOption1 = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Ver publicación').click(function() {
-                var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
-                seePublicacion(id);
-              }));
-              var borradorOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Volver borrador').click(function() {
-              var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
-                 statusBorrador(id);
-              }));
-            var deleteOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').attr('data-bs-toggle', 'modal').attr('data-bs-target', '#confirmation').text('Eliminar').click(function() {
-                var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
-                setValue(id);
-              }));
-              switch (element.status_id) {
-                    case 6:
-                    //Activa
-                      dropdownMenu.append(publishOption1); //ver pub
-                      dropdownMenu.append(borradorOption); //borrador
-                      break;
-                    case 7:
-                     //Suspendida
-                      dropdownMenu.append(editOption); //editar
-                      dropdownMenu.append(publishOption1); //ver pub
-                      break;
-                    case 8:
-                      
-                      break;
-                    case 9:
-                     
-                      break;
-                    case 10:
-                      //borrador
-                      dropdownMenu.append(editOption); //editar
-                      dropdownMenu.append(publishOption1); //ver pub
-                      break;
-                    default:
-                      
-                  }
-              // Agregar elementos al contenedor de detalles del borrador
-          
-              /*dropdownMenu.append(publishOption1); //ver pub
-              dropdownMenu.append(borradorOption); //borrador
-              dropdownMenu.append(publishOption); // publicar*/
-              dropdownMenu.append(deleteOption); //eliminar
-              
-              dropdown.append(dropdownToggle);
+              // Agrega los elementos de la lista desplegable a la lista
+              dropdownMenu.append(editarItem);
+              dropdownMenu.append(publicarItem);
+              dropdownMenu.append(eliminarItem);
+
+              // Agrega el enlace de alternancia y la lista desplegable al elemento div
+              dropdown.append(toggleLink);
               dropdown.append(dropdownMenu);
+             
               draftDetails.append(greyStatus);
               draftDetails.append(dropdown);
               constructionRightContainer.append(draftDetails); 
@@ -616,10 +615,10 @@ function construirEstructuraHTML() {
                     var publicationDraftWrapper = $('<div>').addClass('publication-draft-wrapper');
                     var pubContainer1 = $('<div>').addClass('pub-container');
                     var greyMdText1 = $('<p>').addClass('grey-md-text').text('Visitas');
-                    var boldPubText1 = $('<p>').addClass('bold-pub-text').text(element.visitt);
+                    var boldPubText1 = $('<p>').addClass('bold-pub-text').text(element.visitt ? element.visitt :0 );
                     var pubContainer2 = $('<div>').addClass('pub-container');
                     var greyMdText2 = $('<p>').addClass('grey-md-text').text('Interacción');
-                    var boldPubText2 = $('<p>').addClass('bold-pub-text').text(element.interaction);
+                    var boldPubText2 = $('<p>').addClass('bold-pub-text').text(element.interaction ? element.interaction :0 );
 
                     // Agregar elementos al contenedor de publicación y borrador
                     pubContainer1.append(greyMdText1);
@@ -646,6 +645,8 @@ function construirEstructuraHTML() {
                 $('.list_publi').append(idDetail);
           }
         });
+      } else {
+        $('.list_publi').text(res?.msg);
       }
     }
   });

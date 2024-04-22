@@ -34,6 +34,7 @@
 
 
 <script>
+   var save_public = false;
   const navigateBackward = () => {
     const currentStep = getCurrentStep();
     if (currentStep > 1) {
@@ -106,20 +107,18 @@
           $("#error-container-ubicacion").show();
         }else{
           $("#error-container-ubicacion").hide();
-        }
-  
+        }  
        
         var info = id_categoria == 1 ? 'Información de maquinaria y vehículos.' : 'Información de equipos.'
  
         $('.text-msg-error').text('Campos requeridos faltan completar: '+info);
-     
+        $("#error-container").show();
        return;
       }else{
         $("#error-container").hide();
       }
      
-      resumePublication(stepNumber); 
-     
+      resumePublication(stepNumber,true);      
       navigateToFormStep(stepNumber);
     });
   });
@@ -147,15 +146,76 @@ $(document).ready(function() {
     console.log( "ready publication!" ); 
     $("#error-container").hide();
      $("#confirm_public").on('click', function(event) {
-      registerPublication();
+      save_public = true;
+      registerPublication(8);
     });  
 
-    $("#id_machine").on('change', function(event) {
-    if( $("#id_machine").val()!='0'){
+    $("#save_public1").on('click', function(event) {
+      resumePublication(1,false);   
+    }); 
+    $("#save_public2").on('click', function(event) {
+      resumePublication(2,false);   
+    });  
+    $("#save_public3").on('click', function(event) {
+      resumePublication(3,false);  
+      
+    });   
+
+
+    $("#industria").on('change', function(event) {
+    if( $("#id_machine").val()!='0' &&  $("#industria").val()!='0' ){
         $("#error-container-tipo").hide();
+      }else{
+        $("#error-container-tipo").show();
+      }
+    }); 
+    $("#id_machine").on('change', function(event) {
+    if( $("#id_machine").val()!='0' &&  $("#industria").val()!='0' ){
+        $("#error-container-tipo").hide();
+      }else{
+        $("#error-container-tipo").show();
       }
     }); 
 
+    $("#anios").on('change', function(event) {
+    if( $("#title").val()!='' && $("#marca").val()!='0' &&  $("#modelo").val()!='0' &&  $("#anios").val()!='0'){
+        $("#error-container-title").hide();
+      }else{
+        $("#error-container-title").show();
+      }
+    }); 
+
+    $("#price").on('keyup', function(event) { 
+    if($('#price_type1').is(':checked') || $('#price_type2').is(':checked') && $("#price").val()!=''){
+        $("#error-container-price").hide();
+      }else{
+        $("#error-container-price").show();
+      }
+    });  
+
+    $("#price_type2").on('change', function(event) {
+     if( $('#price_type2').is(':checked') ){
+       $("#price").val('0');
+      } 
+    }); 
+
+    $("#city").on('change', function(event) {
+      if(   $("#city").val()!='0' &&  $("#region").val()!='0'){
+        $("#error-container-ubicacion").hide();
+      }else{
+        $("#error-container-ubicacion").show();
+      }
+    }); 
+    $("#region").on('change', function(event) {
+      if(   $("#city").val()!='0' &&  $("#region").val()!='0'){
+        $("#error-container-ubicacion").hide();
+      }else{
+        $("#error-container-ubicacion").show();
+      }
+    }); 
+    
+
+  
     $('#pdfFile').change(function() {
       console.log("subir doc", $(this)[0].files[0]); 
     });
@@ -233,7 +293,7 @@ bottomStrip.appendChild(pTag);
   }
 
 
- function resumePublication(step){  
+ function resumePublication(step,save){  
 
     publicacion1 = {  
       "id_publication_type": 1,
@@ -250,8 +310,8 @@ bottomStrip.appendChild(pTag);
       "region":  $("#region").val(),
       "city":  $("#city").val(),
       "price":  $("#price").val(),
-      "brand": $("#marca").val(),
-      "model": $("#modelo").val(),
+      "brand": $("#marca").text(),
+      "model": $("#modelo").text(),
       "year": $("#anios").val(),
       "factory_code": "Factory Code",
       "mileage": $("#KilometrosRecorridos").val() == '', 
@@ -260,11 +320,13 @@ bottomStrip.appendChild(pTag);
       "patent": $("#patente").val() ?? '',
       "warranty": $('input[name="rental"]:checked').val(),
       "condition": $('input[name="flexRadioDefault"]:checked').val() ?? '',
-      "owner": "Owner",
+      "owner": "",
       "delivery": $('input[name="inlineRadioOptions"]:checked').val() ?? '',
       "pay_now_delivery": "N",
       "facipay": $('input[name="price_type"]:checked').val() ?? '',
-      "contact_me": "Contact Me PRUEBA" 
+      "contact_me": "",
+      "id_marca": $("#marca").val(),
+      "id_model": $("#modelo").val(),
     };
 
     publicacion3 = {   
@@ -283,26 +345,26 @@ bottomStrip.appendChild(pTag);
 
     publicacion4 = {  
     "id_product": id_product,
-      "section_width": "Section Width",
-      "aspect_ratio": "Aspect Ratio",
-      "rim_diameter": "Rim Diameter",
-      "extern_diameter": "External Diameter",
-      "load_index": "Load Index",
-      "speed_index": "Speed Index",
-      "maximum_load": "Maximum Load",
-      "maximum_speed": "Maximum Speed",
-      "utqg": "UTQG",
-      "wear_rate": "Wear Rate",
-      "traction_index": "Traction Index",
-      "temperature_index": "Temperature Index",
-      "runflat": "Runflat",
-      "terrain_type": "Terrain Type",
-      "tread_design": "Tread Design",
-      "type_of_service": "Type of Service",
-      "vehicle_type": "Vehicle Type",
-      "season": "Season",
-      "land_type": "Land Type",
-      "others": "Others"
+      "section_width": "",
+      "aspect_ratio": "",
+      "rim_diameter": "",
+      "extern_diameter": "",
+      "load_index": "L",
+      "speed_index": "",
+      "maximum_load": "",
+      "maximum_speed": "",
+      "utqg": "",
+      "wear_rate": "",
+      "traction_index": "",
+      "temperature_index": "",
+      "runflat": "",
+      "terrain_type": "",
+      "tread_design": "",
+      "type_of_service": "",
+      "vehicle_type": "",
+      "season": "",
+      "land_type": "",
+      "others": ""
   };
     publicacion5 ={
       "id_product": id_product,
@@ -326,45 +388,61 @@ bottomStrip.appendChild(pTag);
   console.log("PUBLICACION 4 DIMENSIONES",publicacion4)
   console.log("PUBLICACION 5 RENTAL",publicacion5)
   //agrega los valores en el resumen paso 3 
-  
-  $('.btn_2').text(categoria);
-  $('.r_marca').text(  $("#marca option:selected").text()); 
-  $('.r_modelo').text(  $("#modelo option:selected").text());
-  $('.r_anio').text($("#anios").val());
-  $('.r_condicion').text($('input[name="flexRadioDefault"]:checked').val());
-  
-  $('.r_km').text( $("#KilometrosRecorridos").val());
-  $('.r_motor').text($("#engine_number").val() ?? '');
-  $('.r_ubicacion').text( $("#region option:selected").text());
-  $('.location-grey-text').text( $("#region option:selected").text());
-  var value =  publicacion2.facipay =='C' ? 'Cotizar' : 'CLP ' +$("#price").val() + ' / hora'
-  $('.r_price').text( value);
+    if(save){
+    $('.btn_2').text(categoria);
+    $('.r_marca').text(  $("#marca option:selected").text()); 
+    $('.r_modelo').text(  $("#modelo option:selected").text());
+    $('.r_anio').text($("#anios").val());
+    $('.r_condicion').text($('input[name="flexRadioDefault"]:checked').val());
+    
+    $('.r_km').text( $("#KilometrosRecorridos").val());
+    $('.r_motor').text($("#engine_number").val() ?? '');
+    $('.r_ubicacion').text( $("#region option:selected").text());
+    $('.location-grey-text').text( $("#region option:selected").text());
+    var value =  publicacion2.facipay =='C' ? 'Cotizar' : 'CLP ' +$("#price").val() + ' / hora'
+    $('.r_price').text( value);
 
-  $('.r_tipo_vendedor').text(categoria);
-  $('.r_delivery').text($('input[name="inlineRadioOptions"]:checked').val() == 'Y' ? 'Sí' : 'No');
+    $('.r_tipo_vendedor').text(categoria);
+    $('.r_delivery').text($('input[name="inlineRadioOptions"]:checked').val() == 'Y' ? 'Sí' : 'No');
 
-  $('.r_delivery1').text($('input[name="shipping"]:checked').val() == 'Y' ? 'Sí' : 'No');
-  $('.r_operator').text($('input[name="operator"]:checked').val() == 'Y' ? 'Sí' : 'No');
-  $('.r_Machinery').text($('input[name="Machinery"]:checked').val() == 'Y' ? 'Sí' : 'No');
-  $('.r_rental').text($('input[name="rental"]:checked').val() == 'Y' ? 'Sí' : 'No'); 
-  $('.btn_rrrr').text(categoria);
-  $('.r_title').text( $("#title").val());
+    $('.r_delivery1').text($('input[name="shipping"]:checked').val() == 'Y' ? 'Sí' : 'No');
+    $('.r_operator').text($('input[name="operator"]:checked').val() == 'Y' ? 'Sí' : 'No');
+    $('.r_Machinery').text($('input[name="Machinery"]:checked').val() == 'Y' ? 'Sí' : 'No');
+    $('.r_rental').text($('input[name="rental"]:checked').val() == 'Y' ? 'Sí' : 'No'); 
+    $('.btn_rrrr').text(categoria);
+    $('.r_title').text( $("#title").val());
 
-  if(step==3){
+    if($("#KilometrosRecorridos").val()==''){   
+      $("#r_km").hide();
+    }
+    if($("#engine_number").val()==''){   
+      $("#r_motor").hide();
+    }
+    if(publicacion2.condition==''){   
+      $("#r_condicion").hide();
+    }
 
-    var imgPreview = document.getElementById('image-preview');
-  var input = document.getElementById('file-input');
-  var file = input.files[0];
-  
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    imgPreview.src = e.target.result;
+    if(step==3){
+
+      var imgPreview = document.getElementById('image-preview');
+      var input = document.getElementById('file-input');
+      var file = input.files[0];
+      
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        imgPreview.src = e.target.result;
+      }
+      reader.readAsDataURL(file); 
+    }
+  }else{
+    registerPublication(step);
   }
-  reader.readAsDataURL(file); 
-  } 
  }
 
- function registerPublication(){ 
+ function registerPublication(step_public){ 
+  if(step_public <= 3 ){
+    publicacion1.status_id = 10;
+  }
  
     var url = '<?=$baseUrl?>/register_publication'; 
     var token = '<?= $_SESSION["token"]  ?? ''?>';
@@ -560,7 +638,11 @@ function deleteImagenAll() {
                   loading++;
                   if(loading == archivos.length){
                     alert("enviar resuemn")
-                   sendDataResume(archivo[0]);
+                    if(save_public){
+                      sendDataResume(archivo[0]);
+                    }else{
+                      window.location.href = 'user_details.php?tab=profile'; 
+                    }
                   }
                 },
                 error: function (response) { 
@@ -571,7 +653,11 @@ function deleteImagenAll() {
                   });
                 } 
             }, 1000); // 3000 milisegundos = 3 segundos
-        }     
+        }  else{
+          if(!save_public){ 
+            window.location.href = 'user_details.php?tab=profile'; 
+           }
+        }
       }
 
 function sendDataResume(imagen){

@@ -80,7 +80,7 @@ function cortarString($texto) {
 
      
       $count_pub = 0;
-      $url = $baseUrl.'/list_publications?limit=5'; 
+      $url = $baseUrl.'/list_publications?limit=5&status_id=6'; 
     
       $response1 = file_get_contents($url);
       if ($response1 !== false) {
@@ -303,7 +303,7 @@ function cortarString($texto) {
                                     <?= cortarString($pub['title'])  ?> 
                                 </p>
                             </span> 
-                                <strong class="font-family-Roboto-Medium"> <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
+                                <strong class="font-family-Roboto-Medium"> <?= isset($pub['product_details']["facipay"]) &&  $pub['product_details']["facipay"] == 'C' ? 'Cotizar': $pub['product_details']["price"];  ?></strong>
                             </div>
                         </div>
                     </div>
