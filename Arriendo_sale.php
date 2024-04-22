@@ -158,7 +158,6 @@ $(document).ready(function() {
     });  
     $("#save_public3").on('click', function(event) {
       resumePublication(3,false);  
-      
     });   
 
 
@@ -475,10 +474,7 @@ bottomStrip.appendChild(pTag);
 
 
 function registerPublication2(id){ 
-
- var url = '<?=$baseUrl?>/register_product_details'; 
-  
-  console.log("PUBLICACION 2 DETALLE ",publicacion2)
+ var url = '<?=$baseUrl?>/register_product_details';    
   publicacion2.id_product = id;
   publicacion3.id_product = id;
   publicacion4.id_product = id;
@@ -637,7 +633,7 @@ function deleteImagenAll() {
                 {
                   loading++;
                   if(loading == archivos.length){
-                    alert("enviar resuemn")
+                
                     if(save_public){
                       sendDataResume(archivo[0]);
                     }else{

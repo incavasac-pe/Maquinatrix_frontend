@@ -36,11 +36,11 @@
     console.log("*****form*****",formData);
    // window.location.href = 'post_review.php';
   });
-</script>
-
+</script> 
 
 
 <script>
+  var save_public = false;
   const navigateBackward = () => {
     const currentStep = getCurrentStep();
     if (currentStep > 1) {
@@ -267,9 +267,22 @@ bottomStrip.appendChild(pTag);
   
 $(document).ready(function() {
     console.log( "ready publication sale!" ); 
+    $("#error-container").hide();
      $("#confirm_public_sale").on('click', function(event) {
-      registerPublication();
+      save_public = true;
+      registerPublication(0);
     });  
+
+    $("#save_public1").on('click', function(event) {
+      resumePublication(1,false);   
+    }); 
+    $("#save_public2").on('click', function(event) {
+      resumePublication(2,false);   
+    });  
+    $("#save_public3").on('click', function(event) {
+      resumePublication(3,false);  
+    });   
+   
     $("#industria").on('change', function(event) {
     if( $("#id_machine").val()!='0' &&  $("#industria").val()!='0' ){
         $("#error-container-tipo").hide();
@@ -285,21 +298,99 @@ $(document).ready(function() {
       }
     }); 
 
-    $("#price").on('keyup', function(event) {
+    $("#anios").on('change', function(event) {
+    if( $("#title").val()!='' && $("#marca").val()!='0' &&  $("#modelo").val()!='0' &&  $("#anios").val()!='0'){
+        $("#error-container-title").hide();
+      }else{
+        $("#error-container-title").show();
+      }
+    }); 
+
+    $("#anios5").on('change', function(event) {
+    if( $("#title5").val()!='' && $("#marca5").val()!='0' &&  $("#modelo5").val()!='0' &&  $("#anios5").val()!='0'){
+        $("#error-container-title5").hide();
+      }else{
+        $("#error-container-title5").show();
+      }
+    }); 
+
+    $("#price").on('keyup', function(event) { 
     if( $("#price").val()!=''){
         $("#error-container-price").hide();
       }else{
         $("#error-container-price").show();
       }
-    }); 
-    $("#price5").on('keyup', function(event) {
+    });  
+
+    $("#price5").on('keyup', function(event) { 
     if( $("#price5").val()!=''){
         $("#error-container-price5").hide();
       }else{
         $("#error-container-price5").show();
       }
+    });
+
+
+    $("#city").on('change', function(event) {
+      if(   $("#city").val()!='0' &&  $("#region").val()!='0'){
+        $("#error-container-ubicacion").hide();
+      }else{
+        $("#error-container-ubicacion").show();
+      }
     }); 
- 
+    $("#region").on('change', function(event) {
+      if(   $("#city").val()!='0' &&  $("#region").val()!='0'){
+        $("#error-container-ubicacion").hide();
+      }else{
+        $("#error-container-ubicacion").show();
+      }
+    }); 
+     $("#city5").on('change', function(event) {
+      if( $("#city5").val()!='0' &&  $("#region5").val()!='0'){
+        $("#error-container-ubicacion5").hide();
+      }else{
+        $("#error-container-ubicacion5").show();
+      }
+    }); 
+    $("#region5").on('change', function(event) {
+      if( $("#city5").val()!='0' &&  $("#region5").val()!='0'){
+        $("#error-container-ubicacion5").hide();
+      }else{
+        $("#error-container-ubicacion5").show();
+      }
+    }); 
+
+    $("#aspect_ratio").on('keyup', function(event) {
+      if( $("#aspect_ratio").val()!='' &&  $("#section_width").val()!=''){
+        $("#error-container-dimen").hide();
+      }else{
+        $("#error-container-dimen").show();
+      }
+    });
+    $("#section_width").on('keyup', function(event) {
+      if( $("#aspect_ratio").val()!='' &&  $("#section_width").val()!=''){
+        $("#error-container-dimen").hide();
+      }else{
+        $("#error-container-dimen").show();
+      }
+    });
+
+    $("#load_index").on('keyup', function(event) {
+      if( $("#load_index").val()!='' &&  $("#speed_index").val()!=''){
+        $("#error-container-espec").hide();
+      }else{
+        $("#error-container-espec").show();
+      }
+    });
+
+    $("#speed_index").on('keyup', function(event) {
+      if( $("#load_index").val()!='' &&  $("#speed_index").val()!=''){
+        $("#error-container-espec").hide();
+      }else{
+        $("#error-container-espec").show();
+      }
+    });
+
     $('#pdfFile').change(function() {
       console.log("subir doc", $(this)[0].files[0]); 
     });
@@ -329,7 +420,7 @@ function setTraccion(valor){
   traxion = valor;  
 }
 
- function resumePublication(){ 
+function resumePublication(step,save){  
   console.log("resumePublication sale",id_categoria);
 
     publicacion1 = {  
@@ -410,7 +501,7 @@ function setTraccion(valor){
   console.log("PUBLICACION 4 DIMENSIONES",publicacion4)
 
   //agrega los valores en el resumen paso 3 
-
+  if(save){
   $('.btn_2').text(categoria);
  
   $('.r_marca').text( id_categoria!='3' ?  $("#marca option:selected").text(): $("#marca5 option:selected").text()); 
@@ -438,10 +529,28 @@ function setTraccion(valor){
   $('.r_tipo_vendedor').text(categoria); 
   $('.r_delivery').text(publicacion2.delivery == 'Y' ? 'Sí' : 'No');
   $('.r_title').text(publicacion1.title);
+  if(step==3){
+
+var imgPreview = document.getElementById('image-preview');
+var input = document.getElementById('file-input');
+var file = input.files[0];
+
+var reader = new FileReader();
+reader.onload = function(e) {
+  imgPreview.src = e.target.result;
+}
+reader.readAsDataURL(file); 
+}
+}else{
+registerPublication(step);
+}
   
  }
 
- function registerPublication(){ 
+ function registerPublication(step_public){ 
+  if(step_public <= 3 ){
+    publicacion1.status_id = 10;
+  }
     var url = '<?=$baseUrl?>/register_publication'; 
     var token = '<?= $_SESSION["token"]; ?>';
     $.ajax({
@@ -545,8 +654,7 @@ function registerPublication4(){
     },
     success: function(response) {
       // Manejar la respuesta del servidor en 'response'
-       uploadImagen();
-    
+       uploadImagen();    
       console.log(response);    
     },
     error: function(response,xhr, textStatus, errorThrown) {
@@ -581,7 +689,7 @@ function deleteImagenAll() {
       });
  }         
         
-       
+        
  function uploadImagen() {  
   var input = document.getElementById('file-input');
   var archivos = input.files;
@@ -589,70 +697,39 @@ function deleteImagenAll() {
       deleteImagenAll();
        var token = '<?= $_SESSION["token"]  ?? ''?>';    
         setTimeout(function() {
-        var files = input.files; 
+       // var files = input.files; 
+        var loading = 0;
         for (var i = 0; i < archivos.length; i++) {
           var archivo = archivos[i];
             var formData = new FormData();
             formData.append('file',archivo);  
            
-            var orden = i +1;  
+            var orden = i +1; 
+            if(orden==1){
+              cover = true;
+            } else{
+              cover = false;
+            }
             $.ajax({
                 type: "POST",
                 processData: false,  // tell jQuery not to process the data
                 contentType: false ,  // tell jQuery not to set contentType
-                url: '<?= $baseUrl ?>/upload_image?id_product='+id_product+'&orden='+orden+'&cover=true',
+                url: '<?= $baseUrl ?>/upload_image?id_product='+id_product+'&orden='+orden+'&cover='+cover,
                 headers: {
                     'Authorization': 'Bearer ' + token
                 },
                 data: formData, 
                 success: function (response, textStatus, xhr)
                 {
-                  if(orden == archivos.length){
-                  //  sendDataResume(archivo.name);
-                  }
-                },
-                error: function (response) { 
-                    if (response.status === 401 || response.status === 403) {
-                        window.location.href = 'create_session_portal.php?logout=true';
+                  loading++;
+                  if(loading == archivos.length){
+                
+                    if(save_public){
+                      sendDataResume(archivo[0]);
+                    }else{
+                      window.location.href = 'user_details.php?tab=profile'; 
                     }
                   }
-                  });
-                } 
-            }, 300); // 3000 milisegundos = 3 segundos
-        }  
-        setTimeout(function() {
-          var input = document.getElementById('file-input');
-          var archivos = input.files;
-          sendDataResume(archivos[0].name);
-    }, 3000);    
-      }
-
- function uploadImagenOld() {  
-  var input = document.getElementById('file-input');
-  var archivos = input.files;
-      if(archivos.length > 0){
-      deleteImagenAll();
-  
-        setTimeout(function() {
-        var files = input.files; 
-        for (var i = 0; i < archivos.length; i++) {
-          var archivo = archivos[i];
-            var formData = new FormData();
-            formData.append('file',archivo);  
-            var token = '<?= $_SESSION["token"]; ?>';      
-            var orden = i +1;  
-            $.ajax({
-                type: "POST",
-                processData: false,  // tell jQuery not to process the data
-                contentType: false ,  // tell jQuery not to set contentType
-                url: '<?= $baseUrl ?>/upload_image?id_product='+id_product+'&orden='+orden+'&cover=true',
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                data: formData, 
-                success: function (response, textStatus, xhr)
-                {
-                 //sendDataResume(archivo[0].name);
                 },
                 error: function (response) { 
                     if (response.status === 401 || response.status === 403) {
@@ -662,37 +739,40 @@ function deleteImagenAll() {
                   });
                 } 
             }, 1000); // 3000 milisegundos = 3 segundos
-
-          
-        }     
+        }  else{
+          if(!save_public){ 
+            window.location.href = 'user_details.php?tab=profile'; 
+           }
+        }
       }
 
-function sendDataResume(imagen){
-  var form = document.createElement('form');
-  form.method = 'POST';
-  form.action = 'Arriendo_post_review.php';
 
-  var input3= document.createElement('input');
-  input3.type = 'text';
-  input3.name = 'id';
-  input3.value = id_product;
-  form.appendChild(input3);
+  function sendDataResume(imagen){
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'Arriendo_post_review.php';
 
-  var input1 = document.createElement('input');
-  input1.type = 'text';
-  input1.name = 'title';
-  input1.value =   id_categoria!='3' ? $("#title").val():$("#title5").val(),
-  form.appendChild(input1);
+    var input3= document.createElement('input');
+    input3.type = 'text';
+    input3.name = 'id';
+    input3.value = id_product;
+    form.appendChild(input3);
 
-  var input2 = document.createElement('input');
-  input2.type = 'text';
-  input2.name = 'imagen';
-  input2.value = imagen;
-  form.appendChild(input2);
+    var input1 = document.createElement('input');
+    input1.type = 'text';
+    input1.name = 'title';
+    input1.value =   id_categoria!='3' ? $("#title").val():$("#title5").val(),
+    form.appendChild(input1);
 
-  document.body.appendChild(form);
-  
-  form.submit();
+    var input2 = document.createElement('input');
+    input2.type = 'text';
+    input2.name = 'imagen';
+    input2.value = imagen;
+    form.appendChild(input2);
+
+    document.body.appendChild(form);
+    
+    form.submit();
 }
 
 </script>

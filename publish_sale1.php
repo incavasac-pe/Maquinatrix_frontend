@@ -149,11 +149,11 @@ $url_publi = $protocol . '://' . $host;
                 </div>
             </div>
         </div>
-        <div class="error-container" id="error-container-title">
-        <i class="fa-solid fa-circle-xmark"></i>
+        <div class="warning-wrapper" id="error-container-title">
+           <i class="fa-solid fa-circle-exclamation"></i>
         <div>
             <p class="error-heading">Campos faltan completar</p>
-            <p class="sm-text">Campos requeridos faltan completar: Información de producto.</p>
+            <p class="sm-text">Campos requeridos faltan completar: INFORMACION DE PRODUCTO.</p>
         </div>
     </div>
     </div>
@@ -315,12 +315,12 @@ $url_publi = $protocol . '://' . $host;
                 </div>
             </div>
 </div>   
-<div class="error-container" id="error-container-ubicacion">
-            <i class="fa-solid fa-circle-xmark"></i>
-            <div>
-                <p class="error-heading">Campos faltan completar</p>
-                <p class="sm-text">Campos requeridos faltan completar: Región,comunas.</p>
-            </div>
+<div class="warning-wrapper" id="error-container-ubicacion">
+    <i class="fa-solid fa-circle-exclamation"></i> 
+    <div>
+        <p class="error-heading">Campos faltan completar</p>
+        <p class="sm-text">Campos requeridos faltan completar: UBICACION.</p>
+    </div>
 </div>
     </div>
     <div class="category-product">
@@ -336,8 +336,8 @@ $url_publi = $protocol . '://' . $host;
             </div>
 
         </div>
-        <div class="error-container" id="error-container-price">
-            <i class="fa-solid fa-circle-xmark"></i>
+   <div class="warning-wrapper" id="error-container-price">
+       <i class="fa-solid fa-circle-exclamation"></i> 
             <div>
                 <p class="error-heading">Campos faltan completar</p>
                 <p class="sm-text">Campos requeridos faltan completar: Precio.</p>
@@ -374,7 +374,7 @@ $url_publi = $protocol . '://' . $host;
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn">Cancelar</button></div>
-            <div><button type="button" class="grey-btn">Guardar y salir</button><button type="button"
+            <div><button type="button" class="grey-btn" id="save_public1">Guardar y salir</button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
         </div>
     </div>

@@ -77,8 +77,7 @@ $url_publi = $protocol . '://' . $host;
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <?php  
-                    
+                <?php                      
                     if ($count_marca > 0) { 
                         echo '<select required  id="marca5" name="marca5" >';
                         echo '<option value="0">Marca*</option>'; 
@@ -132,12 +131,12 @@ $url_publi = $protocol . '://' . $host;
                   </select>
                 </div>
             </div>
-            <div class="error-container" id="error-container-title5">
-                            <i class="fa-solid fa-circle-xmark"></i>
-                            <div>
-                                <p class="error-heading">Campos faltan completar</p>
-                                <p class="sm-text">Campos requeridos faltan completar: Información de producto.</p>
-                            </div>
+            <div class="warning-wrapper" id="error-container-title5">
+                <i class="fa-solid fa-circle-exclamation"></i> 
+                    <div>
+                        <p class="error-heading">Campos faltan completar</p>
+                        <p class="sm-text">Campos requeridos faltan completar: Información de producto.</p>
+                    </div>
                </div>
         </div>
     </div>
@@ -152,7 +151,6 @@ $url_publi = $protocol . '://' . $host;
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
                     <input type="number" class="form-control" id="aspect_ratio" name="aspect_ratio" placeholder="Relación de Aspecto*"> 
-
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
@@ -165,11 +163,12 @@ $url_publi = $protocol . '://' . $host;
                     <input type="number" class="form-control" id="extern_diameter" name="extern_diameter" placeholder="Diámetro externo*">
                  </div>
             </div>
-            <div class="error-container" id="error-container-dimen">
-                        <i class="fa-solid fa-circle-xmark"></i>
+           
+             <div class="warning-wrapper" id="error-container-dimen">
+                <i class="fa-solid fa-circle-exclamation"></i> 
                         <div>
                             <p class="error-heading">Campos faltan completar</p>
-                            <p class="sm-text">Campos requeridos faltan completar: Dimensiones.</p>
+                            <p class="sm-text">Campos requeridos faltan completar: DIMENSIONES.</p>
                         </div>
                </div>
         </div>
@@ -199,9 +198,7 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="utgc" name="utqg" placeholder="UTQG">
-
-
+                    <input type="number" class="form-control" id="utgc" name="utqg" placeholder="UTQG">  
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
@@ -224,13 +221,14 @@ $url_publi = $protocol . '://' . $host;
                     <input type="text" class="form-control" id="terrain_type"  name="terrain_type" placeholder="Tipo de construcción"> 
                </div>
             </div>
-            <div class="error-container" id="error-container-espec">
-                        <i class="fa-solid fa-circle-xmark"></i>
+            <div class="warning-wrapper" id="error-container-espec">
+                <i class="fa-solid fa-circle-exclamation"></i> 
                         <div>
                             <p class="error-heading">Campos faltan completar</p>
                             <p class="sm-text">Campos requeridos faltan completar: Especificaciones.</p>
                         </div>
                </div>
+               
         
         </div>
     </div>
@@ -365,11 +363,11 @@ $url_publi = $protocol . '://' . $host;
                     ?> 
                 </div>
             </div>
-            <div class="error-container" id="error-container-ubicacion5">
-            <i class="fa-solid fa-circle-xmark"></i>
+            <div class="warning-wrapper" id="error-container-ubicacion5">
+                <i class="fa-solid fa-circle-exclamation"></i> 
             <div>
                 <p class="error-heading">Campos faltan completar</p>
-                <p class="sm-text">Campos requeridos faltan completar: Región,comunas.</p>
+                <p class="sm-text">Campos requeridos faltan completar: UBICACION.</p>
             </div>
 </div>
         </div>
@@ -382,11 +380,11 @@ $url_publi = $protocol . '://' . $host;
                 <input type="number" class="form-control input-control-price" placeholder="En pesos*"
                 name="price5"  id="price5">            
             </div>
-            <div class="error-container" id="error-container-price5">
-                <i class="fa-solid fa-circle-xmark"></i>
+            <div class="warning-wrapper" id="error-container-price5">
+                <i class="fa-solid fa-circle-exclamation"></i> 
                 <div>
                     <p class="error-heading">Campos faltan completar</p>
-                    <p class="sm-text">Campos requeridos faltan completar: Precio.</p>
+                    <p class="sm-text">Campos requeridos faltan completar: PRECIO.</p>
                 </div>
             </div>
         </div>
@@ -409,8 +407,9 @@ $url_publi = $protocol . '://' . $host;
                     <label class="form-check-label" for="inlineRadio2">No</label>
                 </div>
             </div>
-            <div class="error-container" id="error-container-desp5">
-                <i class="fa-solid fa-circle-xmark"></i>
+           
+                <div class="warning-wrapper" id="error-container-desp5">
+                <i class="fa-solid fa-circle-exclamation"></i> 
                 <div>
                     <p class="error-heading">Campos faltan completar</p>
                     <p class="sm-text">Campos requeridos faltan completar: Despacho incluido.</p>
@@ -422,14 +421,14 @@ $url_publi = $protocol . '://' . $host;
         <i class="fa-solid fa-circle-xmark"></i>
         <div>
             <p class="error-heading">Campos faltan completar</p>
-            <p class="sm-text">Campos requeridos faltan completar: Información de vehículo, Facilidad de entrega,
+            <p class="sm-text">Campos requeridos faltan completar
                 Contrato de Arriendo Maquinatrix, Garantía de Arriendo.</p>
         </div>
     </div>
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn">Cancelar</button></div>
-            <div><button type="button" class="grey-btn">Guardar y salir</button><button type="button"
+            <div><button type="button" class="grey-btn" id="save_public1">Guardar y salir</button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
         </div>
     </div>
