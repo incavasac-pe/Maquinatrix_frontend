@@ -42,10 +42,20 @@ if (isset($_SESSION['loggedIn'])) {
         <button class="btn btn-secondary dropdown-toggle"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-solid fa-bars"></i> <img class="profile-img" src="./assets/img/profile.png" alt="profile" />
         </button>
+        <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+  </ul>
+</div>
   <ul class="dropdown-menu">
         <div class="profile-info">
-            <p class="profile-name">   <?= $username; ?> </p>
-            <p class="profile-identity">ID usuario:  <?= $id_user_ext; ?> </p>
+            <p class="profile-name">   <?= $username ?? ''; ?> </p>
+            <p class="profile-identity">ID usuario:  <?= $id_user_ext ?? ''; ?> </p>
         </div>
                 <li><a class="dropdown-item" href="./user_details.php?tab=publication">Mis Publicaciones</a></li>
                 <li><a class="dropdown-item" href="#">Solicitudes Hechas</a></li>
