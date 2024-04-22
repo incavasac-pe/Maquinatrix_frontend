@@ -63,6 +63,7 @@
   bottom: 10px;
   text-decoration: none;
   width: 100%;
+  border: 0;
   padding: 12px 20px;
   text-align: center;
   font: normal normal 500 15px/22px Roboto;
@@ -91,6 +92,18 @@
   justify-content: center;
   align-items: center;
   
+}
+
+.dir-heading {
+  font: normal normal 500 20px/26px Roboto;
+  letter-spacing: 0px;
+  color: #000000;
+  margin-bottom: 0;
+}
+.nav-logo {
+  position: absolute;
+  margin-left: 200px;
+  margin-top: 20px;
 }
 .login-wrapper .register-btn-wrapper .register-btn {
   width: 100%;

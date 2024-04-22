@@ -1,5 +1,5 @@
 <?php include 'header.php' ?>
-<?php include 'menu.php' ?>
+<?php include 'menu2.php' ?>
 <?php  
 $baseUrl = getenv('URL_API');
 
@@ -66,7 +66,7 @@ if (isset($_POST['type_user'])) {
   }else{
     $id_type_user = 2;
   }
- //  echo "El valor enviado es: " . $type_user ;
+//  echo "El valor enviado es: " . $type_user ;
 }
  
 ?>
@@ -186,7 +186,6 @@ window.initAutocomplete = initAutocomplete;
     var inputValue = inputElement.value; 
     var id_type_user = '<?=$id_type_user?>';
     var status = 4;
-    var credencials = 1;
 
     var formData = {
       id_type_user: id_type_user,
@@ -197,8 +196,7 @@ window.initAutocomplete = initAutocomplete;
       type_doc: '<?=$type_doc?>',
       num_doc: '<?=$num_doc?>',
       address: inputValue,
-      status_id: status,
-      credencials:credencials
+      status_id: status
     };
 
     var formDataCompany = {
@@ -211,8 +209,7 @@ window.initAutocomplete = initAutocomplete;
         rutCompany: '<?=$rutCompany?>',
         RutRepreLegal: '<?=$RutRepreLegal?>',
         address: inputValue,
-        status_id:status,
-        credencials:credencials
+        status_id:status
       };
   
       $.ajax({
@@ -235,4 +232,10 @@ window.initAutocomplete = initAutocomplete;
       });
   }
   
+</script>
+<script>
+    
+    document.getElementById('continueButtonLocation').addEventListener('click', function () {
+    window.location.href = 'verification_email.php';
+  });
 </script>

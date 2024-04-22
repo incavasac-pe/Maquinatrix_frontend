@@ -30,8 +30,7 @@
 opacity: 0.1 !important;
 }
 /*.navbar{position:sticky}*/
- 
- 
+
 .menu-large {
   position: static !important;
 }
@@ -104,6 +103,11 @@ opacity: 0.1 !important;
 .navbar-light .navbar-toggler {
   color: #fff;
   border-color: #fff;
+}
+.navbar {
+  position: sticky;
+    top: 0;
+    z-index: 9999999;
 }
 .navbar .container .publish-btn-wrapper .publish-btn {
   padding: 15px 20px;
@@ -652,6 +656,7 @@ footer p {
   width: 100%;
   padding-right: 30px;
 }
+
 .fa-caret-down {
   position: absolute;
   top: 50%;
@@ -660,8 +665,8 @@ footer p {
   pointer-events: none;
 }
 .campos-min-max input {
-  width: 136px;
-  /*width: 82px;*/
+  width: 102px;
+ 
   border: 1px solid #e4e5e7;
   border-radius: 4px;
   outline: none !important;
@@ -715,6 +720,7 @@ footer p {
   font-size: 14px;
   color: #000000;
   text-align: end;
+  
 }
 .titulo-filter-btn {
   border: 1px solid #62646a;
@@ -741,8 +747,11 @@ footer p {
   border-radius: 8px;
 }
 .box-tienda .box-img {
-  width: 200px;
+  width: 25%;
   overflow: hidden;
+}
+.comprar-space{
+  margin-left: 15px;
 }
 .box-tienda .box-img .abs {
   background-color: #0070e0;
@@ -1312,6 +1321,7 @@ border: 1px solid rgba(69, 66, 66, 0.3);
 .nav-migas li a {
   color: #62646a;
   font-size: 13px;
+  text-decoration: none;
 }
 .navbar .login-link {
   font: normal normal normal 14px/19px Roboto;

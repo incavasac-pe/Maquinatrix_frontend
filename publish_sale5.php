@@ -22,44 +22,6 @@ $url_publi = $protocol . '://' . $host;
             echo 'Error: ' . $dataRegion['msg'];
         }
     }  
-
-    
-   $count_marca = 0;
-   $url965 = $baseUrl.'/list_marca'; 
-   $response965= file_get_contents($url965);
-   if ($response965 !== false) {
-      // Decodificar la respuesta JSON
-      $data = json_decode($response965, true);
-      if (!$data['error']) {
-          // Obtener la lista de $categories
-          $marca = $data['data'];
-
-          $count_marca = $data['count'];
-      } else {
-          echo 'Error: ' . $data['msg'];
-      }
-   } else {
-       echo 'Error al realizar la solicitud a la API';
-   }
-   
-
-   $count_modelo= 0;
-    $url33 = $baseUrl.'/list_model'; 
-    $response33= file_get_contents($url33);
-    if ($response33 !== false) {
-       // Decodificar la respuesta JSON
-       $data = json_decode($response33, true);
-       if (!$data['error']) {
-           // Obtener la lista de $categories
-           $modelo = $data['data'];
-
-           $count_modelo = $data['count'];
-       } else {
-           echo 'Error: ' . $data['msg'];
-       }
-    } else {
-        echo 'Error al realizar la solicitud a la API';
-    }
     ?>
 <div class="container">
     <div class="category-product">
@@ -77,43 +39,14 @@ $url_publi = $protocol . '://' . $host;
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <?php  
-                    
-                    if ($count_marca > 0) { 
-                        echo '<select required  id="marca5" name="marca5" >';
-                        echo '<option value="0">Marca*</option>'; 
-                        foreach ($marca as $field) {
-                            $id = $field['id_marca'];
-                            $marcaName = $field['description'];
-                            echo '<option value="' . $id . '"'; 
-                            if ($id == $marca) {
-                                echo ' selected';
-                            }  
-                            echo '>' . $marcaName. '</option>';
-                        }
-                        echo '</select> ';
-                
-                        }  ?>  
+                <select required id="marca5" name="marca5">  
+                   </select> 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <?php  
-                    if ($count_modelo > 0) { 
-                        echo '<select required  id="modelo5" name="modelo5" >';
-                        echo '<option value="0">Modelo*</option>'; 
-                        foreach ($modelo as $field) {
-                            $id = $field['id_model'];
-                            $modeloName = $field['description'];
-                            echo '<option value="' . $id . '"'; 
-                            if ($id == $modelo) {
-                                echo ' selected';
-                            }  
-                            echo '>' . $modeloName. '</option>';
-                        }
-                        echo '</select> ';
-                
-                        }  ?> 
+                <select required  id="modelo5" name="modelo5"> 
+                 </select> 
 
                 </div>
             </div>
@@ -123,7 +56,7 @@ $url_publi = $protocol . '://' . $host;
                         <?php
                         // Obtener el año actual
                         $anioActual = date("Y");
-                        echo '<option value="0">Año*</option>';
+                        echo '<option value="">Año</option>';
                         // Crear opciones para los últimos 50 años
                             for ($i = $anioActual; $i >= ($anioActual - 50); $i--) {
                             echo '<option value="' . $i . '">' . $i . '</option>';
@@ -132,13 +65,7 @@ $url_publi = $protocol . '://' . $host;
                   </select>
                 </div>
             </div>
-            <div class="error-container" id="error-container-title5">
-                            <i class="fa-solid fa-circle-xmark"></i>
-                            <div>
-                                <p class="error-heading">Campos faltan completar</p>
-                                <p class="sm-text">Campos requeridos faltan completar: Información de producto.</p>
-                            </div>
-               </div>
+
         </div>
     </div>
     <div class="category-product">
@@ -165,13 +92,6 @@ $url_publi = $protocol . '://' . $host;
                     <input type="number" class="form-control" id="extern_diameter" name="extern_diameter" placeholder="Diámetro externo*">
                  </div>
             </div>
-            <div class="error-container" id="error-container-dimen">
-                        <i class="fa-solid fa-circle-xmark"></i>
-                        <div>
-                            <p class="error-heading">Campos faltan completar</p>
-                            <p class="sm-text">Campos requeridos faltan completar: Dimensiones.</p>
-                        </div>
-               </div>
         </div>
     </div>
     <div class="category-product">
@@ -179,12 +99,12 @@ $url_publi = $protocol . '://' . $host;
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" require class="form-control" id="load_index" name="load_index" placeholder="Índice de carga*">
+                    <input type="number" class="form-control" id="load_index" name="load_index" placeholder="Índice de carga*">
                </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" require class="form-control" id="speed_index" name="speed_index" placeholder="Índice de velocidad*">
+                    <input type="number" class="form-control" id="speed_index" name="speed_index" placeholder="Índice de velocidad*">
                    </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
@@ -224,14 +144,6 @@ $url_publi = $protocol . '://' . $host;
                     <input type="text" class="form-control" id="terrain_type"  name="terrain_type" placeholder="Tipo de construcción"> 
                </div>
             </div>
-            <div class="error-container" id="error-container-espec">
-                        <i class="fa-solid fa-circle-xmark"></i>
-                        <div>
-                            <p class="error-heading">Campos faltan completar</p>
-                            <p class="sm-text">Campos requeridos faltan completar: Especificaciones.</p>
-                        </div>
-               </div>
-        
         </div>
     </div>
     <div class="category-product">
@@ -321,13 +233,7 @@ $url_publi = $protocol . '://' . $host;
                 Usado
             </label>
         </div>
-        <!--div class="error-container" id="error-container-cond5">
-                <i class="fa-solid fa-circle-xmark"></i>
-                <div>
-                    <p class="error-heading">Campos faltan completar</p>
-                    <p class="sm-text">Campos requeridos faltan completar: condición actual.</p>
-                </div>
-        </div-->
+       
     </div>
     <div class="category-product">
         <h1>Ubicación de publicación</h1>
@@ -337,7 +243,7 @@ $url_publi = $protocol . '://' . $host;
                 <?php                                            
                     if ($count_regiones > 0) { 
                             echo '<select required id="region5" name="region5">';
-                            echo '<option value="0" selected >Región*</option>'; 
+                            echo '<option value="" selected disabled hidden>Región*</option>'; 
                             foreach ($regiones as $reg) { 
                                 echo '<option value="' . $reg . '"'; 
                                 if (isset($region) && $region == $reg) {
@@ -353,25 +259,15 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <?php 
-                    require 'comunas.php';
-                    // Generar el select de comunas
-                        echo '<select required  id="city5" name="city5">';
-                        echo '<option value="0" selected >Comunas*</option>'; 
-                        foreach ($comunas as $comuna) {
-                            echo '<option value="' . $comuna . '">' . $comuna . '</option>';
-                        }
-                    echo '</select>';
-                    ?> 
+                    <select required  id="city5" name="city5">
+                        <option value="" selected disabled hidden>Ciudad</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
                 </div>
             </div>
-            <div class="error-container" id="error-container-ubicacion5">
-            <i class="fa-solid fa-circle-xmark"></i>
-            <div>
-                <p class="error-heading">Campos faltan completar</p>
-                <p class="sm-text">Campos requeridos faltan completar: Región,comunas.</p>
-            </div>
-</div>
         </div>
     </div>
     <div class="category-product">
@@ -382,13 +278,7 @@ $url_publi = $protocol . '://' . $host;
                 <input type="number" class="form-control input-control-price" placeholder="En pesos*"
                 name="price5"  id="price5">            
             </div>
-            <div class="error-container" id="error-container-price5">
-                <i class="fa-solid fa-circle-xmark"></i>
-                <div>
-                    <p class="error-heading">Campos faltan completar</p>
-                    <p class="sm-text">Campos requeridos faltan completar: Precio.</p>
-                </div>
-            </div>
+
         </div>
     </div>
     <div class="category-product">
@@ -409,13 +299,6 @@ $url_publi = $protocol . '://' . $host;
                     <label class="form-check-label" for="inlineRadio2">No</label>
                 </div>
             </div>
-            <div class="error-container" id="error-container-desp5">
-                <i class="fa-solid fa-circle-xmark"></i>
-                <div>
-                    <p class="error-heading">Campos faltan completar</p>
-                    <p class="sm-text">Campos requeridos faltan completar: Despacho incluido.</p>
-                </div>
-        </div>
         </div>
     </div>
     <div class="error-container hidden">

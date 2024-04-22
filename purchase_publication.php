@@ -28,7 +28,6 @@
         if (!$data['error']) {
             // Obtener la lista de $categories
             $detalle = $data['data'][0];
-           
             $count_category = $data['count'];
         }  
         } else {
@@ -125,7 +124,7 @@
                         <a href="index.php" class="font-family-Roboto-Regular">Inicio</a>
                     </li>
                     <li class="font-family-Roboto-Regular"> / <a href="tienda.php?typep=<?=$tpublicacion?>&<?=$mov?>" class="font-family-Roboto-Regular"><?= ($tpublicacion == '2') ? 'Comprar' :' Arrendar'; ?></a></li>
-                    <li class="font-family-Roboto-Regular"> / <?= $detalle['title'] ?? '' ?> </li>
+                    <li class="font-family-Roboto-Regular"> / <?= $detalle['title']  ?> </li>
                 </ul>
             </div>
         </div>
@@ -141,8 +140,8 @@
                 </h1>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3 p-0">
-                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migas1">&middot; <?= $detalle['publication_type']['description'] ?? ''; ?></a>
-                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas"> <?= $detalle['mainCategory']['category'] ?? '' ;?></a> 
+                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migas1">&middot; <?= $detalle['publication_type']['description']; ?></a>
+                <a href="javascript:void(0);" class="font-family-Roboto-Regular migas"> <?= $detalle['mainCategory']['category']; ?></a> 
             </div>
             <div class="publication-draft-warning detalle-warn">
               <i class="fa-solid fa-circle-exclamation"></i>
@@ -278,15 +277,15 @@
                             </tr>
                             <tr>
                                 <td>Garantía Maquinatrix</td>
-                                <td><?= $detalle['product_rental']['rental_guarantee'] == 'Y' ? 'Sí':'No';   ?></td>
+                                <td><?= $detalle['product_details']['warranty'] == 'Y' ? 'Sí':'No';   ?></td>
                             </tr>
                             <tr>
-                                <td>Tipo </td>
+                                <td>Tipo de Vendedor</td>
                                 <td> <?= $detalle['User']['id_type_user']==1 ? 'Particular ':'Empresa'  ?> </td>
                             </tr>
                             <tr>
                                 <td>Despacho</td>
-                                <td> <?= $detalle['product_rental']['delivery'] == 'Y' ? 'Sí':'No';   ?></td>
+                                <td> <?= $detalle['product_details']['delivery'] == 'Y' ? 'Sí':'No';   ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -300,11 +299,17 @@
                     <p class="font-family-Roboto-Regular">Esta publicación incluye para ti los siguientes servicios:
                     </p>
                     <div class="service-box-wrapper">
-                      
-                        <?= $detalle['product_rental']['rental_contract'] == 'Y'  ? ' <div class="col-1"><i class="fa-regular fa-circle-check"></i> <p>Contrato Maquinatrix </p><img src="./assets/img/help-circle-outline.png" alt="pregunta"> </div>'   :''?>    
-                        <?= $detalle['product_rental']['delivery'] == 'Y'  ? ' <div class="col-2"><i class="fa-regular fa-circle-check"></i> <p>Despacho</p><img src="./assets/img/help-circle-outline.png" alt="pregunta"> </div>'   :''?> 
-                        <?= $detalle['product_rental']['rental_guarantee'] == 'Y'  ? ' <div class="col-2"><i class="fa-regular fa-circle-check"></i> <p>Garantía Maquinatrix</p><img src="./assets/img/help-circle-outline.png" alt="pregunta"> </div>'   :''?>    
-                        
+                        <div class="col-1"><i class="fa-regular fa-circle-check"></i>
+                            <p>Contrato Maquinatrix </p><img src="./assets/img/help-circle-outline.png" alt="pregunta">
+                        </div>
+                        <div class="col-2"><i class="fa-regular fa-circle-check"></i>
+                            <p>Despacho</p> <img src="./assets/img/help-circle-outline.png" alt="pregunta">
+                        </div>
+                    </div>
+                    <div class="service-box-wrapper mt-3">
+                        <div class="col-1"><i class="fa-regular fa-circle-check"></i>
+                            <p>Garantía Maquinatrix</p> <img src="./assets/img/help-circle-outline.png" alt="pregunta">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -315,7 +320,7 @@
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                            CLP  <?= isset($detalle['product_details']["price"])? $detalle['product_details']["price"]:'0' ?>   <?=  $detalle['product_details']["facipay"] == 'H' ? ' / por hora':'' ?>  <span class="font-family-Roboto-Regular"></span>
+                            CLP  <?= isset($detalle['product_details']["price"])? $detalle['product_details']["price"]:'0' ?>  <span class="font-family-Roboto-Regular"></span>
                             </h3>
 
                         </div>

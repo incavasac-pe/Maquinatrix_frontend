@@ -23,7 +23,7 @@
           <table class="excavator-table">
   
     <tbody>
-      <tr >
+      <tr>
         <td>Marca</td>
         <td class="r_marca"></td>
       </tr>
@@ -35,15 +35,15 @@
         <td>Año</td>
         <td class="r_anio"></td>
       </tr>
-      <tr id="r_condicion">
+      <tr>
         <td>Condición</td>
         <td class="r_condicion"></td>
       </tr>
-      <tr id="r_km">
+      <tr>
         <td>Kilometraje</td>
         <td class="r_km">km</td>
       </tr>
-      <tr id="r_motor">
+      <tr>
         <td>N° de Motor</td>
         <td class="r_motor"></td>
       </tr>
@@ -52,7 +52,7 @@
         <td class="r_ubicacion"></td>
       </tr>
       <tr>
-        <td>Tipo de Producto</td>
+        <td>Tipo de Vendedor</td>
         <td class="r_tipo_vendedor"></td>
       </tr>
       <tr>

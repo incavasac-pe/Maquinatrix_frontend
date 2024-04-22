@@ -5,7 +5,7 @@
           <h1>Resumen publicación</h1>
           <p class="text-grey">Paso 3 de 3</p>
           <div class="excavator-box-wrapper">
-            <img  id="image-preview" width="200px" src="./assets/img/detalle-pro.png" alt="producto">
+            <img src="./assets/img/detalle-pro.png" alt="producto">
             <div class="excavator-right-box" >
             <p class="sm-title r_title" style="margin-top:0px !important;"></p>
               <p class="text-lg-bold r_price"></p>
@@ -35,15 +35,15 @@
         <td>Año</td>
         <td class="r_anio"></td>
       </tr>
-      <tr id="r_condicion">
+      <tr>
         <td>Condición</td>
         <td class="r_condicion"></td>
       </tr>
-      <tr id="r_km">
+      <tr>
         <td>Kilometraje</td>
         <td class="r_km">km</td>
       </tr>
-      <tr id="r_motor">
+      <tr>
         <td>N° de Motor</td>
         <td class="r_motor"></td>
       </tr>
@@ -52,7 +52,7 @@
         <td class="r_ubicacion"></td>
       </tr>
       <tr>
-        <td>Tipo de Producto</td>
+        <td>Tipo de Vendedor</td>
         <td class="r_tipo_vendedor"></td>
       </tr>
       <tr>
@@ -105,7 +105,7 @@
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn" >Cancelar</button></div>
-            <div><button type="button" class="grey-btn" id="save_public3">Guardar y salir </button><button type="button"
+            <div><button type="button" class="grey-btn">Guardar y salir </button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" id="Cancelar_continue-btn" step_number="3">Continuar</button></div>
         </div>
     </div>

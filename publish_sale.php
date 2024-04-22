@@ -87,106 +87,6 @@
     formNavigationBtn.addEventListener("click", () => {
       const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
       console.log("*****stepNumber***",stepNumber) 
- 
-        if(id_categoria!='3' && stepNumber==2 & ($("#industria").val()=='0' || $("#id_machine").val()=='0' || $("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' 
-         || $("#price").val()=='' || $("#region").val()=='0' || $("#city").val() == '0' || $("#anios").val() == '0')){
-        console.log("se validan los campos no están completos.");
-
-        if(id_categoria=='' || $("#industria").val()=='0' || $("#id_machine").val()=='0' ){
-          $("#error-container-tipo").show();
-          return
-        }else{
-          $("#error-container-tipo").hide();
-        }
-        
-        if($("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' || $("#anios").val() == '0'){
-          $("#error-container-title").show();
-          return
-        }else{
-          $("#error-container-title").hide();
-       
-        }
-       
-          if($('input[name="price_type"]:checked').val()=='' || $("#price").val()==''){
-            $("#error-container-price").show();            
-          }else{
-            $("#error-container-price").hide();
-          }
-       
-
-        if( $("#region").val()=='0' || $("#city").val() == '0'){
-          alert("bbbbbbbbbb")
-          $("#error-container-ubicacion").show();
-        return
-        }else{
-          $("#error-container-ubicacion").hide();  
-        }
-       
-        
-        $("#error-container").show();
-        var info = id_categoria == 1 ? 'Información de maquinaria y vehículos.' : 'Información de equipos.'
-      
-        $('.text-msg-error').text('Campos requeridos faltan completar: '+info);
-        return;
-       
- 
-      }else if(id_categoria=='3' && stepNumber==2 & ($("#industria").val()=='0' || $("#id_machine").val()=='0' || $("#title5").val()=='' || $("#marca5").val()=='0' || $("#modelo5").val()=='0' 
-         || $("#price5").val()=='' || $("#region5").val()=='0' || $("#city5").val() == '0' )){
-
-          if(id_categoria=='' || $("#industria").val()=='0' || $("#id_machine").val()=='0' ){
-          $("#error-container-tipo").show();
-          return
-        }else{
-          $("#error-container-tipo").hide();
-        }
-
-        if($("#title5").val()=='' || $("#marca5").val()=='0' || $("#modelo5").val()=='0' || $("#anios5").val() == '0'){
-          $("#error-container-title5").show();
-          return
-        }else{
-          $("#error-container-title5").hide();
-        } 
-          if( $("#section_width").val()=='' || $("#aspect_ratio").val() == '' || $("#rim_diameter").val() == '' || $("#extern_diameter").val() == ''){
-             $("#error-container-dimen").show();
-             return
-          }else{
-            $("#error-container-dimen").hide();
-           
-          }
-          
-          if( $("#load_index").val()=='' || $("#speed_index").val() == '' ){
-             $("#error-container-espec").show();
-             return
-          }else{
-             $("#error-container-espec").hide();
-            
-          }
-        /*  if( $('input[name="flexRadioDefault5"]:checked').val()=='Y' || $('input[name="flexRadioDefault5"]:checked').val()=='N' ){
-             $("#error-container-cond5").hide(); 
-          }else{
-             $("#error-container-cond5").show(); 
-             return
-          }*/
-
-          if( $("#region5").val()=='0' || $("#city5").val() == '0'){ 
-            $("#error-container-ubicacion5").show();
-            return
-            }else{
-              $("#error-container-ubicacion5").hide();  
-            }
-         
-             
-          if( $('input[name="inlineRadioOptions5"]:checked').val()=='Y' || $('input[name="inlineRadioOptions5"]:checked').val()=='N' ){
-             $("#error-container-desp5").hide(); 
-          }else{
-             $("#error-container-desp5").show();
-             return
-            
-          }
-    
-      }
- 
-
       resumePublication(); 
       navigateToFormStep(stepNumber);
     });
@@ -211,11 +111,15 @@
 <script>
   const fileInput = document.getElementById('file-input');
   const imageContainer = document.getElementById('image-container');
+  const uploadInputContainer = document.getElementById('upload-input-container');
 
   fileInput.addEventListener('change', handleImageUpload);
 
   function handleImageUpload() {
     const files = fileInput.files;
+
+    // Calculate the index to insert the new image container
+    const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
 
     for (const file of files) {
       const reader = new FileReader();
@@ -232,36 +136,48 @@
         const heartIcon = document.createElement('div');
         heartIcon.classList.add('heart-icon');
         const heartIconImg = document.createElement('img');
-      
         heartIcon.appendChild(heartIconImg);
 
         const galleryIcon = document.createElement('div');
         galleryIcon.classList.add('gallery-icon');
         const galleryIconImg = document.createElement('img');
-       
         galleryIcon.appendChild(galleryIconImg);
-
 
         const bottomStrip = document.createElement('div');
         bottomStrip.classList.add('bottom-strip');
         const pTag = document.createElement('p');
-pTag.textContent = 'Imagen de portada';
-bottomStrip.appendChild(pTag);
+        pTag.textContent = 'Imagen de portada';
+        bottomStrip.appendChild(pTag);
+
         heartIcon.addEventListener('click', function () {
           imgContainer.remove();
+        });
+
+        galleryIcon.addEventListener('click', function () {
+          // Store the first child image
+          const firstChild = imageContainer.firstChild;
+          // Replace the first child image with the clicked image
+          imageContainer.insertBefore(imgContainer, firstChild);
+          // Move the first child image to the location of the clicked image
+          imgContainer.parentNode.insertBefore(firstChild, imgContainer.nextSibling);
         });
 
         imgContainer.appendChild(imgElement);
         imgContainer.appendChild(heartIcon);
         imgContainer.appendChild(galleryIcon);
         imgContainer.appendChild(bottomStrip);
-        imageContainer.insertBefore(imgContainer, imageContainer.firstChild);
+
+        // Insert the new image container at the calculated index
+        imageContainer.insertBefore(imgContainer, imageContainer.children[insertIndex]);
+        // Move the file input container after the last uploaded image
+        imageContainer.parentNode.insertBefore(uploadInputContainer, null);
       };
 
       reader.readAsDataURL(file);
     }
   }
 </script>
+
 
 <script>
   
@@ -270,44 +186,6 @@ $(document).ready(function() {
      $("#confirm_public_sale").on('click', function(event) {
       registerPublication();
     });  
-    $("#industria").on('change', function(event) {
-    if( $("#id_machine").val()!='0' &&  $("#industria").val()!='0' ){
-        $("#error-container-tipo").hide();
-      }else{
-        $("#error-container-tipo").show();
-      }
-    }); 
-    $("#id_machine").on('change', function(event) {
-    if( $("#id_machine").val()!='0' &&  $("#industria").val()!='0' ){
-        $("#error-container-tipo").hide();
-      }else{
-        $("#error-container-tipo").show();
-      }
-    }); 
-
-    $("#price").on('keyup', function(event) {
-    if( $("#price").val()!=''){
-        $("#error-container-price").hide();
-      }else{
-        $("#error-container-price").show();
-      }
-    }); 
-    $("#price5").on('keyup', function(event) {
-    if( $("#price5").val()!=''){
-        $("#error-container-price5").hide();
-      }else{
-        $("#error-container-price5").show();
-      }
-    }); 
- 
-    $('#pdfFile').change(function() {
-      console.log("subir doc", $(this)[0].files[0]); 
-    });
-
-    $('#pdfFile1').change(function() {
-      console.log("subir doc11", $(this)[0].files[0]); 
-    });
-    
   });  
 </script>
 
@@ -347,22 +225,20 @@ function setTraccion(valor){
       "region": id_categoria!='3' ? $("#region").val():$("#region5").val(),
       "city": id_categoria!='3' ? $("#city").val():$("#city5").val(),
       "price": id_categoria!='3' ? $("#price").val():$("#price5").val(),
-      "brand": id_categoria!='3' ? $("#marca").text():$("#marca5").text(),
-      "model": id_categoria!='3' ? $("#modelo").text():$("#modelo5").text(),
+      "brand": id_categoria!='3' ? $("#marca").val():$("#marca5").val(),
+      "model": id_categoria!='3' ? $("#modelo").val():$("#modelo5").val(),
       "year":  id_categoria!='3' ? $("#anios").val():$("#anios5").val(),
-      "factory_code": "",
+      "factory_code": "Factory Code",
       "mileage": $("#KilometrosRecorridos").val(), 
       "engine_number": $("#engine_number").val() ?? '',
       "chasis_number":$("#chasis_number").val() ?? '',
       "patent": $("#patente").val() ?? '',     
       "condition": id_categoria!='3' ? $('input[name="flexRadioDefault"]:checked').val() : $('input[name="flexRadioDefault5"]:checked').val(),
-      "owner": "",
+      "owner": "Owner",
       "delivery": id_categoria!='3' ? $('input[name="inlineRadioOptions"]:checked').val() : $('input[name="inlineRadioOptions5"]:checked').val(),
       "pay_now_delivery": "N",
       "facipay":"N",
-      "contact_me": "",
-      "id_marca": id_categoria!='3' ? $("#marca").val():$("#marca5").val(),
-      "id_model": id_categoria!='3' ? $("#modelo").val():$("#modelo5").val()
+      "contact_me": "Contact Me PRUEBA" 
     };
 
     publicacion3 = {   
@@ -417,16 +293,6 @@ function setTraccion(valor){
   $('.r_modelo').text(  id_categoria!='3' ? $("#modelo option:selected").text(): $("#modelo5 option:selected").text());
   $('.r_anio').text( publicacion2.year);
   $('.r_condicion').text(publicacion2.condition);
-
-  if($("#KilometrosRecorridos").val()==''){   
-    $("#r_km").hide();
-  }
-  if($("#engine_number").val()==''){   
-    $("#r_motor").hide();
-  }
-  if(publicacion2.condition==''){   
-    $("#r_condicion").hide();
-  }
   
   $('.r_km').text( $("#KilometrosRecorridos").val());
   $('.r_motor').text($("#engine_number").val() ?? '');
@@ -437,7 +303,7 @@ function setTraccion(valor){
 
   $('.r_tipo_vendedor').text(categoria); 
   $('.r_delivery').text(publicacion2.delivery == 'Y' ? 'Sí' : 'No');
-  $('.r_title').text(publicacion1.title);
+
   
  }
 
@@ -545,8 +411,7 @@ function registerPublication4(){
     },
     success: function(response) {
       // Manejar la respuesta del servidor en 'response'
-       uploadImagen();
-    
+      uploadImagen();
       console.log(response);    
     },
     error: function(response,xhr, textStatus, errorThrown) {
@@ -580,54 +445,8 @@ function deleteImagenAll() {
           }
       });
  }         
-        
        
  function uploadImagen() {  
-  var input = document.getElementById('file-input');
-  var archivos = input.files;
-      if(archivos.length > 0){
-      deleteImagenAll();
-       var token = '<?= $_SESSION["token"]  ?? ''?>';    
-        setTimeout(function() {
-        var files = input.files; 
-        for (var i = 0; i < archivos.length; i++) {
-          var archivo = archivos[i];
-            var formData = new FormData();
-            formData.append('file',archivo);  
-           
-            var orden = i +1;  
-            $.ajax({
-                type: "POST",
-                processData: false,  // tell jQuery not to process the data
-                contentType: false ,  // tell jQuery not to set contentType
-                url: '<?= $baseUrl ?>/upload_image?id_product='+id_product+'&orden='+orden+'&cover=true',
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                data: formData, 
-                success: function (response, textStatus, xhr)
-                {
-                  if(orden == archivos.length){
-                  //  sendDataResume(archivo.name);
-                  }
-                },
-                error: function (response) { 
-                    if (response.status === 401 || response.status === 403) {
-                        window.location.href = 'create_session_portal.php?logout=true';
-                    }
-                  }
-                  });
-                } 
-            }, 300); // 3000 milisegundos = 3 segundos
-        }  
-        setTimeout(function() {
-          var input = document.getElementById('file-input');
-          var archivos = input.files;
-          sendDataResume(archivos[0].name);
-    }, 3000);    
-      }
-
- function uploadImagenOld() {  
   var input = document.getElementById('file-input');
   var archivos = input.files;
       if(archivos.length > 0){
@@ -652,7 +471,7 @@ function deleteImagenAll() {
                 data: formData, 
                 success: function (response, textStatus, xhr)
                 {
-                 //sendDataResume(archivo[0].name);
+                  sendDataResume(archivo.name);
                 },
                 error: function (response) { 
                     if (response.status === 401 || response.status === 403) {
@@ -662,8 +481,6 @@ function deleteImagenAll() {
                   });
                 } 
             }, 1000); // 3000 milisegundos = 3 segundos
-
-          
         }     
       }
 
@@ -681,7 +498,7 @@ function sendDataResume(imagen){
   var input1 = document.createElement('input');
   input1.type = 'text';
   input1.name = 'title';
-  input1.value =   id_categoria!='3' ? $("#title").val():$("#title5").val(),
+  input1.value =  $("#title").val();
   form.appendChild(input1);
 
   var input2 = document.createElement('input');
@@ -691,26 +508,7 @@ function sendDataResume(imagen){
   form.appendChild(input2);
 
   document.body.appendChild(form);
-  
   form.submit();
 }
 
-</script>
-
-
-<script>
-    $('#industria').selectize({ normalize: true });
-    $('#id_machine').selectize({ normalize: true });
-    $('#anios').selectize({ normalize: true });
-    $('#marca').selectize({ normalize: true });
-    $('#modelo').selectize({ normalize: true });
-    $('#region').selectize({ normalize: true });
-    $('#city').selectize({ normalize: true });
-
-    $('#anios5').selectize({ normalize: true });
-    $('#marca5').selectize({ normalize: true });
-    $('#modelo5').selectize({ normalize: true });
-    $('#region5').selectize({ normalize: true });
-    $('#city5').selectize({ normalize: true });
-    
 </script>

@@ -1,19 +1,16 @@
 <?php 
-ob_start();
-ob_end_clean();
-session_start();
-?>
-<?php 
+session_start(); 
+//print_r($_SESSION); 
 if (isset($_SESSION['loggedIn'])) {
     $token = $_SESSION['token'];
     $email = $_SESSION['email'];
     $username = $_SESSION['username'];
-    $photo = $_SESSION['photo'] ?? '';
-    $id_user_ext = $_SESSION['id_user_ext'] ?? '';
+    $photo = $_SESSION['photo'];
+    $id_user_ext = $_SESSION['id_user_ext'];
 }
   
 ?>
-<?php  include './header.php' ?>
+<?php include './header.php' ?>
 <div class="navbar navbar-light bg-maquinatrix navbar-expand-md">
     <div class="container">
         <a class="navbar-brand" href="./index.php">
@@ -33,9 +30,7 @@ if (isset($_SESSION['loggedIn'])) {
         <?php if (!isset($_SESSION['loggedIn'])) { ?>
             <a class="login-link" href="./login.php"> INICIAR SESIÓN </a>
         <?php } ?> 
-        <?php if (!isset($_SESSION['loggedIn'])) { ?>
-            <a class="login-link" href="./login.php"> PUBLICA TU MAQUINARIA </a>
-        <?php } ?> 
+       
         <?php if (isset($_SESSION['loggedIn'])) { ?>
             <div class="publish-btn-wrapper">
                 <a class="publish-btn" data-bs-toggle="modal" data-bs-target="#exampleModalPublication" >PUBLICA TU MAQUINARIA </a>
@@ -51,7 +46,7 @@ if (isset($_SESSION['loggedIn'])) {
             <p class="profile-name">   <?= $username; ?> </p>
             <p class="profile-identity">ID usuario:  <?= $id_user_ext; ?> </p>
         </div>
-                <li><a class="dropdown-item" href="./user_details.php?tab=profile">Mis Publicaciones</a></li>
+                <li><a class="dropdown-item" href="./user_details.php?tab=publication">Mis Publicaciones</a></li>
                 <li><a class="dropdown-item" href="#">Solicitudes Hechas</a></li>
                 <li><a class="dropdown-item" href="#">Solicitudes Recibidas</a></li>
                 <li><a class="dropdown-item" href="./user_details.php?tab=profile">Mi Cuenta</a></li>
