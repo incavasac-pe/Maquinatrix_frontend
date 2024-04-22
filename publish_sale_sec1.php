@@ -24,23 +24,6 @@
         echo 'Error al realizar la solicitud a la API';
     }
 
-    $count_m = 0;
-    $url99 = $baseUrl.'/list_machine'; 
-    $response599= file_get_contents($url99);
-    if ($response599 !== false) {
-       // Decodificar la respuesta JSON
-       $data = json_decode($response599, true);
-       if (!$data['error']) {
-           // Obtener la lista de $categories
-           $maquina = $data['data'];
-
-           $count_m = $data['count'];
-       } else {
-           echo 'Error: ' . $data['msg'];
-       }
-    } else {
-        echo 'Error al realizar la solicitud a la API';
-    }
     
     $count_regiones= 0;
     $url13 = $baseUrl.'/list_regiones';
@@ -69,22 +52,22 @@
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(5,'Equipos y herramientas')" class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
-                  type="button" role="tab" aria-controls="pills-publish1" aria-selected="false"><img
+                <button  onclick="setCategory(5,'Equipos y herramientas')" class="nav-link" id="pills-publish2-tab" data-bs-toggle="pill" data-bs-target="#pills-publish2"
+                  type="button" role="tab" aria-controls="pills-publish2" aria-selected="false"><img
                     src="./assets/img/hand-drill.png" alt="hand-drill" />
                   <p>Equipos y<br /> herramientas </p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(4,'Productos y accesorios')"  class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
-                  type="button" role="tab" aria-controls="pills-publish1" aria-selected="false"><img
+                <button  onclick="setCategory(4,'Productos y accesorios')"  class="nav-link" id="pills-publish3-tab" data-bs-toggle="pill" data-bs-target="#pills-publish3"
+                  type="button" role="tab" aria-controls="pills-publish3" aria-selected="false"><img
                     src="./assets/img/helmet.png" alt="helmet" />
                   <p>Productos y<br /> accesorios </p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(2,'Repuestos')" class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
-                  type="button" role="tab" aria-controls="pills-publish1" aria-selected="false"><img
+                <button  onclick="setCategory(2,'Repuestos')" class="nav-link" id="pills-publish4-tab" data-bs-toggle="pill" data-bs-target="#pills-publish4"
+                  type="button" role="tab" aria-controls="pills-publish4" aria-selected="false"><img
                     src="./assets/img/timing-belt.png" alt="timing-belt" />
                   <p>Repuestos</p>
                 </button>
@@ -102,10 +85,10 @@
             <div class="row">
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <?php  
+                <!-- <?php  
                       if ($count_industry > 0) { 
-                          echo '<select required   id="industria" name="industria"   >';
-                          echo '<option value="0">Seleccionar industria*</option>'; 
+                          echo '<select required   id="industria" name="industria"  onchange="searchTypeMachine(this.value)">';
+                          echo '<option value="">Seleccionar industria*</option>'; 
                           foreach ($industry as $field) {
                               $id = $field['id_product_type'];
                               $industryName = $field['description'];
@@ -117,40 +100,37 @@
                           }
                           echo '</select> ';
                 
-                        }  ?>   
+                        }  ?>   -->
+                        <select id="industria" name="industria> 
+  <option value=""></option>
+  <option value="1">Awesome</option>
+  <option value="2">Beast</option>
+  <option value="3">Compatible</option>
+  <option value="4">Thomas Edison</option>
+  <option value="5">Nikola</option>
+  <option value="6">Selectize</option>
+  <option value="7">Javascript</option>
+</select>
 
                 </div>
               </div>
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <?php  
-                      if ($count_m > 0) { 
-                          echo '<select required  id="id_machine" name="id_machine" >';
-                          echo '<option value="0"> Tipo Maquinas*</option>'; 
-                          foreach ($maquina as $field) {
-                              $id = $field['id_machine'];
-                              $maquinaName = $field['description'];
-                              echo '<option value="' . $id . '"'; 
-                              if ($id == $maquinaName) {
-                                  echo ' selected';
-                              }  
-                              echo '>' . $maquinaName. '</option>';
-                          }
-                          echo '</select> ';
-                
-                        }  ?>   
+                <select id="id_machine" name="id_machine">
+  <option value=""></option>
+  <option value="1">Awesome</option>
+  <option value="2">Beast</option>
+  <option value="3">Compatible</option>
+  <option value="4">Thomas Edison</option>
+  <option value="5">Nikola</option>
+  <option value="6">Selectize</option>
+  <option value="7">Javascript</option>
+</select> 
                 </div>
               </div>
             </div>
-            <div class="warning-wrapper" id="error-container-tipo">
-             <i class="fa-solid fa-circle-exclamation"></i>
-                    <div>
-                        <p class="error-heading">Campos faltan completar</p>
-                        <p class="sm-text">Campos requeridos faltan completar: CATEGORIA O TIPO DE PRODUCTO.</p>
-                    </div>
-           </div>
           </div>
-          
+         
         </div>
        
 
@@ -159,7 +139,19 @@
             tabindex="0">
             <?php include 'publish_sale1.php' ?>
           </div>
- 
+
+          <div class="tab-pane fade" id="pills-publish2" role="tabpanel" aria-labelledby="pills-publish2-tab"
+            tabindex="0">
+            <?php include 'publish_sale1.php' ?>
+          </div>
+          <div class="tab-pane fade" id="pills-publish3" role="tabpanel" aria-labelledby="pills-publish3-tab"
+            tabindex="0">
+            <?php include 'publish_sale1.php' ?>
+          </div>
+          <div class="tab-pane fade" id="pills-publish4" role="tabpanel" aria-labelledby="pills-publish4-tab"
+            tabindex="0">
+            <?php include 'publish_sale1.php' ?>
+          </div>
           <div class="tab-pane fade" id="pills-publish5" role="tabpanel" aria-labelledby="pills-publish5-tab"
             tabindex="0">
             <?php include 'publish_sale5.php' ?>>
@@ -168,7 +160,9 @@
 
         
  <script> 
-    
+    $(document).ready(function() {
+  
+  }); 
 
  var id_categoria = 0;
  var categoria = '';
@@ -181,10 +175,10 @@
   console.log("la categoria de venta es",id_categoria)
 
   if (id_categoria!=1) {
-    $('.engine_number, .chasis_number, .patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').hide(); 
+    $('#engine_number, #chasis_number, #patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').hide(); 
     $('#title-transmission,#t-transmission,#t-tranx').hide(); // Ocultar los elementos de entrada// Ocultar los elementos de entrada
   }else{
-    $('.engine_number, .chasis_number, .patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').show(); 
+    $('#engine_number, #chasis_number, #patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').show(); 
     $('#title-transmission,#t-transmission,#t-tranx').show(); 
   }
    
@@ -211,12 +205,12 @@
               // Limpiar las opciones existentes
               selectElement.empty(); 
                 // Agregar la opción por defecto
-                  var defaultOption = $('<option value="0">').prop('selected', true).text('Tipo de Máquina *');
-                  selectElement.append(defaultOption);
-                  res.data.forEach(function(element) { 
-                  var option = $('<option value='+element.id_machine+' >').text(element.description);
-                  selectElement.append(option);             
-               });
+              var defaultOption = $('<option>').prop('selected', true).text('Tipo de Máquina *');
+              selectElement.append(defaultOption);
+              res.data.forEach(function(element) { 
+              var option = $('<option value='+element.id_machine+' >').text(element.description);
+              selectElement.append(option);             
+                });
            searchTypeMarca(industria);
            searchTypeModelo(industria);
       },
@@ -240,7 +234,7 @@ function searchTypeMarca(industria){
               // Limpiar las opciones existentes
               selectElement.empty(); 
                 // Agregar la opción por defecto
-              var defaultOption = $('<option value"0">').prop('selected', true).text('Marca*'); 
+              var defaultOption = $('<option>').prop('selected', true).text('Marca*');
               selectElement.append(defaultOption);
               res.data.forEach(function(element) { 
               var option = $('<option value='+element.id_marca+' >').text(element.description);
@@ -248,7 +242,7 @@ function searchTypeMarca(industria){
           });
              var selectElement1 = $('#marca5'); 
               selectElement1.empty();  
-              var defaultOption1 = $('<option value"0">').prop('selected', true).text('Marca*'); 
+              var defaultOption1 = $('<option>').prop('selected', true).text('Marca*');
               selectElement1.append(defaultOption1);
               res.data.forEach(function(element) { 
               var option1 = $('<option value='+element.id_marca+' >').text(element.description);
@@ -270,13 +264,14 @@ function searchTypeModelo(industria){
    $.ajax({
       url: url,
       method: 'GET', 
-      contentType: "application/json",    
+      contentType: "application/json",
+    
       success: function(res) {
           var selectElement = $('#modelo'); 
               // Limpiar las opciones existentes
               selectElement.empty(); 
                 // Agregar la opción por defecto
-              var defaultOption = $('<option value"0">').prop('selected', true).text('Modelo*');
+              var defaultOption = $('<option>').prop('selected', true).text('Modelo*');
               selectElement.append(defaultOption);
               res.data.forEach(function(element) { 
               var option = $('<option value='+element.id_model+' >').text(element.description);
@@ -286,7 +281,7 @@ function searchTypeModelo(industria){
               // Limpiar las opciones existentes
               selectElement1.empty(); 
                 // Agregar la opción por defecto
-              var defaultOption1 = $('<option value"0">').prop('selected', true).text('Modelo*');
+              var defaultOption1 = $('<option>').prop('selected', true).text('Modelo*');
               selectElement1.append(defaultOption1);
               res.data.forEach(function(element) { 
               var option1 = $('<option value='+element.id_model+' >').text(element.description);
@@ -302,20 +297,7 @@ function searchTypeModelo(industria){
 }
 
 </script>
- 
 <script>
-    $('#industria').selectize({ normalize: true });
-    $('#id_machine').selectize({ normalize: true });
-    $('#anios').selectize({ normalize: true });
-    $('#marca').selectize({ normalize: true });
-    $('#modelo').selectize({ normalize: true });
-    $('#region').selectize({ normalize: true });
-    $('#city').selectize({ normalize: true });
-
-    $('#anios5').selectize({ normalize: true });
-    $('#marca5').selectize({ normalize: true });
-    $('#modelo5').selectize({ normalize: true });
-    $('#region5').selectize({ normalize: true });
-    $('#city5').selectize({ normalize: true });
-    
-</script>
+         $('#industria').selectize({ normalize: true });
+          $('#id_machine').selectize({ normalize: true });
+        </script>

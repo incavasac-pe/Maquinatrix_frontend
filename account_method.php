@@ -1,18 +1,10 @@
 <?php include 'header.php' ?>
-<?php include 'menu.php' ?>
-<?php include 'config.php' ?>
- 
+<?php include 'menu2.php' ?>
 <?php 
  
     if (isset($_GET['type']) && $_GET['type']!='') {
        echo $type  = $_GET['type']; 
-       if($type =='Particular'){
-          $_SESSION['type'] = 1;
-        }else{
-          $_SESSION['type'] = 2;
-        }
     }  
-    $login_button = '<a href="'.$google_client->createAuthUrl().'" class="google"><img src="./assets/img/google.png" alt="google" />  Registro con Google</a>';
   ?>
 
 
@@ -24,8 +16,9 @@
     <div class="acc-btn"> 
     <a href="./user_info.php?type=<?=$type?>" class="email"> <img src="./assets/img/email.png" alt="email" /> Registro con Correo</a>
     </div>
-    
-    <?php  echo '  <div class="acc-btn"> '.$login_button . '</div>';   ?>
+    <div class="acc-btn"> 
+    <a href="./user_info.php?type=<?=$type?>" class="google"> <img src="./assets/img/google.png" alt="google" /> Registro con Google</a>
+    </div>
     <div class="acc-btn"> 
         <a class="facebook" href="./user_info.php?type=<?=$type?>"><i class="fa-brands fa-facebook"></i> Registro con Facebook </a>
     </div>

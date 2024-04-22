@@ -256,29 +256,18 @@ if ($responseimg !== false) {
                                 <td>Año</td>
                                 <td><?= $detalle['product_details']['year']; ?></td>
                             </tr>
-                            <?php if (!empty($detalle['product_details']['condition'])): ?>
-                                <tr>
-                            <td>Condición</td>
+                            <tr>
+                                <td>Condición</td>
                                 <td><?= $detalle['product_details']['condition']; ?></td>
-                                </tr>
-                            <?php else: ?>
-                                <?php endif; ?> 
-                        
-                            <?php if (!empty($detalle['product_technical_characteristics']['km_traveled'])): ?>
-                                <tr>
-                            <td>Kilometraje</td>
+                            </tr>
+                            <tr>
+                                <td>Kilometraje</td>
                                 <td><?= $detalle['product_technical_characteristics']['km_traveled']; ?></td>
-                                </tr>
-                            <?php else: ?>
-                                <?php endif; ?>
-                                <?php if (!empty($detalle['product_details']['engine_number'])): ?>
-                                <tr>
-                                    <td>N° de Motor</td>
-                                     <td><?= $detalle['product_details']['engine_number']; ?></td>
-                                </tr>
-                            <?php else: ?>     
-                                <?php endif; ?>
-                         
+                            </tr>
+                            <tr>
+                                <td>N° de Motor</td>
+                                <td><?= $detalle['product_details']['engine_number']; ?></td>
+                            </tr>
                             <tr>
                                 <td>Ubicación</td>
                                 <td><?= $detalle['product_details']['region'];   ?>   </td>
@@ -328,10 +317,11 @@ if ($responseimg !== false) {
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                            <?= isset($detalle['product_details']["facipay"]) &&  $detalle['product_details']["facipay"] == 'C' ? 'Cotizar':"CLP ". $detalle['product_details']["price"]." ". "/ hora" ;?>
-                               <span class="font-family-Roboto-Regular"></span>
+                                 <?= isset($detalle['product_details']["price"])? $detalle['product_details']["price"]:'0' ?>  <span class="font-family-Roboto-Regular"></span>
                             </h3>
+
                         </div>
+
                         <div class="location-tx-wrapper">
                             <img src="./assets/img/location.png" alt="location">
                             <p><?= $detalle['product_details']['region'];   ?>, <?= $detalle['product_details']['city'];   ?></p>
@@ -346,10 +336,10 @@ if ($responseimg !== false) {
                         </div>
                         <p class="cotiza-grey-text">Al enviar estoy aceptando los Términos y Condiciones de Maquinatrix
                         </p>
-                        <button class="whatsapp-btn"><img src="./assets/img/whatsapp.png" alt="whatsapp">Contactar</button>
-                                
-                                <!--button class="consult-yellow-btn">Consulta por financiamiento</button>
-                        <button class="consult-yellow-btn">Conoce las facilidades de pago</button-->
+                        <button class="whatsapp-btn"><img src="./assets/img/whatsapp.png"
+                                alt="whatsapp">Contactar</button>
+                                <button class="consult-yellow-btn">Consulta por financiamiento</button>
+                        <button class="consult-yellow-btn">Conoce las facilidades de pago</button>
                         <p class="grey-heading">Sujeto a factibilidad</p>
                        
                         <div class="cotiza-grey-box">
@@ -715,9 +705,11 @@ function countVisibleColumns(sliderWrapper, columnContainer) {
 </script>
 
 <script>
-$(document).ready(function() {  
-   
- var url = '<?=$baseUrl?>/visity_public?type=1&id_product='+<?=$id?>;  
+$(document).ready(function() { 
+ 
+  
+       console.log("se visita", )
+       var url = '<?=$baseUrl?>/visity_public?id_product = '+<?=$id?>;  
    $.ajax({
       url: url,
       method: 'PUT', 
@@ -733,40 +725,4 @@ $(document).ready(function() {
 
 });
 
-$('.whatsapp-btn').click(function () { 
-    alert("asoqwieoqwe");
-
-    var type ='<?=$tpublicacion?>';
-    var id = '<?=$id?>';
-    var name = '<?=$detalle['title'] ?>';
-    var url = '<?=$url_publi?>';
-    alert("whatswhatswhats");
-    <?php $baseUrl = getenv('URL_API'); ?>
-    <?php $contact = getenv('WHATSAPP');   
-    
-    ?>
-    var url = '<?=$baseUrl?>/visity_public?id_product='+id;  
-            $.ajax({
-                url: url,
-                method: 'PUT', 
-                contentType: "application/json",    
-                success: function(res) { 
-                },
-                error: function(error) { 
-                console.error('Error al enviar los datos actualizados');
-                }
-            });
-  
-      var url1 = url+"/detalle.php?typep="+type+"&id=" + encodeURIComponent(id) + "&" + encodeURIComponent(name); 
-      var text = document.getElementById("mensaje")?.value; 
-      var text_ini = '¡Hola! Estoy interesado en el anuncio que vi en  Maquinatrix.';
-      
-      if(text!=='' && text){
-          text_ini= text;
-      }
-      var redir = 'https://api.whatsapp.com/send?phone=<?=$contact?>&text=' + encodeURIComponent(text_ini) + ' ' + id + ' ' + encodeURIComponent(name) +
-        '%20aquí:%20' + encodeURIComponent(url1);
-        window.open(redir, '_blank');
-    });
- 
 </script>

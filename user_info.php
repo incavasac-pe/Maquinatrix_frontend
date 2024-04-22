@@ -1,5 +1,5 @@
 <?php include 'header.php' ?>
-<?php include 'menu.php' ?>
+<?php include 'menu2.php' ?>
 <?php 
  
     if (isset($_GET['type']) && $_GET['type']!='') {
@@ -39,9 +39,10 @@
           <div class="col-sm-3 col-md-3 col-lg-3">
             <div class="mb-3"> 
               <select id="exampleInputTypeDoc" name="exampleInputTypeDoc" required>
-                <option value="" selected disabled hidden>Documento</option>
+                <option value="" selected disabled hidden>RUT</option>
                 <option value="1">RUT</option>
-                <option value="2">Pasaporte</option> 
+                <option value="2">Two</option>
+                <option value="3">Three</option>
               </select>
 
             </div>
@@ -81,8 +82,7 @@
         </div>
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Estoy de acuerdo con nuestros <span>Términos de
-              Servicio</span> y <span> Políticas de Privacidad </span></label>
+          <label class="form-check-label" for="exampleCheck1">Estoy de acuerdo con nuestros  <a href="./term_conditions.php"> Politicas y Condiciones</a></label>
         </div>
       <button type="submit" id="continueButton" class="btn btn-primary ">Continuar</button>
     </form>

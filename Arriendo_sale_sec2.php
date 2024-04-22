@@ -1,7 +1,7 @@
 <div class="container">
       <div class="category-product">
         <h1>Sube fotos del producto</h1>
-        <p class="sm-title">Carga entre 1 y 14 fotos. Una vez cargadas, arrastra y suelta para cambiarlas de orden. Se
+        <p class="sm-title">Carga entre 1 y 14fotos. Una vez cargadas, arrastra y suelta para cambiarlas de orden. Se
           admiten los formatos jpg, jpeg y png desde 500 x 500px para adelante..</p>
           <div class="row">
             <div class="col-sm-12 col-md-8 col-lg-8">
@@ -34,7 +34,7 @@
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn">Cancelar</button></div>
-            <div><button type="button" class="grey-btn" id="save_public2">Guardar y salir </button><button type="button"
+            <div><button type="button" class="grey-btn">Guardar y salir </button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" step_number="3">Continuar</button></div>
         </div>
     </div>

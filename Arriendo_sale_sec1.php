@@ -1,5 +1,4 @@
 <?php 
-
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
 $host = $_SERVER['HTTP_HOST']; 
 $uri = $_SERVER['REQUEST_URI']; 
@@ -17,7 +16,6 @@ $url_publi = $protocol . '://' . $host;
        if (!$data['error']) {
            // Obtener la lista de $categories
            $industry = $data['data'];
-
            $count_industry = $data['count'];
        } else {
            echo 'Error: ' . $data['msg'];
@@ -26,62 +24,7 @@ $url_publi = $protocol . '://' . $host;
         echo 'Error al realizar la solicitud a la API';
     }
 
-    $count_m = 0;
-    $url99 = $baseUrl.'/list_machine'; 
-    $response599= file_get_contents($url99);
-    if ($response599 !== false) {
-       // Decodificar la respuesta JSON
-       $data = json_decode($response599, true);
-       if (!$data['error']) {
-           // Obtener la lista de $categories
-           $maquina = $data['data'];
-
-           $count_m = $data['count'];
-       } else {
-           echo 'Error: ' . $data['msg'];
-       }
-    } else {
-        echo 'Error al realizar la solicitud a la API';
-    }
-
-    $count_marca = 0;
-    $url965 = $baseUrl.'/list_marca'; 
-    $response965= file_get_contents($url965);
-    if ($response965 !== false) {
-       // Decodificar la respuesta JSON
-       $data = json_decode($response965, true);
-       if (!$data['error']) {
-           // Obtener la lista de $categories
-           $marca = $data['data'];
-
-           $count_marca = $data['count'];
-       } else {
-           echo 'Error: ' . $data['msg'];
-       }
-    } else {
-        echo 'Error al realizar la solicitud a la API';
-    }
     
-
-
-    $count_modelo= 0;
-    $url33 = $baseUrl.'/list_model'; 
-    $response33= file_get_contents($url33);
-    if ($response33 !== false) {
-       // Decodificar la respuesta JSON
-       $data = json_decode($response33, true);
-       if (!$data['error']) {
-           // Obtener la lista de $categories
-           $modelo = $data['data'];
-
-           $count_modelo = $data['count'];
-       } else {
-           echo 'Error: ' . $data['msg'];
-       }
-    } else {
-        echo 'Error al realizar la solicitud a la API';
-    }
-
     $count_regiones= 0;
     $url13 = $baseUrl.'/list_regiones';
     $response = file_get_contents($url13);
@@ -122,10 +65,10 @@ $url_publi = $protocol . '://' . $host;
             <div class="row">
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                  <?php  
+                <!-- <?php  
                       if ($count_industry > 0) { 
-                          echo '<select required  id="industria" name="industria"  >';
-                          echo '<option value="0">Seleccionar industria*</option>'; 
+                          echo '<select required   id="industria" name="industria"  onchange="searchTypeMachine(this.value)">';
+                          echo '<option value="">Seleccionar industria*</option>'; 
                           foreach ($industry as $field) {
                               $id = $field['id_product_type'];
                               $industryName = $field['description'];
@@ -137,50 +80,47 @@ $url_publi = $protocol . '://' . $host;
                           }
                           echo '</select> ';
                 
-                        }  ?>   
-                       
+                        }  ?>   -->
+                         <select id="industria" name="industria">
+  <option value=""></option>
+  <option value="1">Awesome</option>
+  <option value="2">Beast</option>
+  <option value="3">Compatible</option>
+  <option value="4">Thomas Edison</option>
+  <option value="5">Nikola</option>
+  <option value="6">Selectize</option>
+  <option value="7">Javascript</option>
+</select> 
 
                 </div>
               </div>
               <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">                
-              
-                <?php  
-                      if ($count_m > 0) { 
-                          echo '<select required  id="id_machine" name="id_machine" >';
-                          echo '<option value="0"> Tipo Maquinas*</option>'; 
-                          foreach ($maquina as $field) {
-                              $id = $field['id_machine'];
-                              $maquinaName = $field['description'];
-                              echo '<option value="' . $id . '"'; 
-                              if ($id == $maquinaName) {
-                                  echo ' selected';
-                              }  
-                              echo '>' . $maquinaName. '</option>';
-                          }
-                          echo '</select> ';
+                <div class="mb-3">
                 
-                        }  ?>   
-                  
+                <select id="id_machine" name="id_machine">
+  <option value=""></option>
+  <option value="1">Awesome</option>
+  <option value="2">Beast</option>
+  <option value="3">Compatible</option>
+  <option value="4">Thomas Edison</option>
+  <option value="5">Nikola</option>
+  <option value="6">Selectize</option>
+  <option value="7">Javascript</option>
+
+
+                 </select>  
                 </div>
               </div>
-            </div> 
-             <div class="warning-wrapper" id="error-container-tipo">
-             <i class="fa-solid fa-circle-exclamation"></i>
-                    <div>
-                        <p class="error-heading">Campos faltan completar</p>
-                        <p class="sm-text">Campos requeridos faltan completar: CATEGORIA O TIPO DE PRODUCTO.</p>
-                    </div>
-           </div>
+            </div>
           </div>
-        
+         
         </div>
        
 
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade " id="pills-publish1" role="tabpanel" aria-labelledby="pills-publish1-tab"
             tabindex="0">
-        
+            <?php// include 'Arriendo_sale1.php' ?>
          <div class="container">
                         <div class="category-product">
                             <h1>Título y descripción de publicación</h1>
@@ -196,45 +136,15 @@ $url_publi = $protocol . '://' . $host;
                             <h1>Información de producto</h1>
                             <div class="row">
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="mb-3">          
-
-                                    <?php  
-                                    if ($count_marca > 0) { 
-                                        echo '<select required  id="marca" name="marca" >';
-                                        echo '<option value="0">Marca*</option>'; 
-                                        foreach ($marca as $field) {
-                                            $id = $field['id_marca'];
-                                            $marcaName = $field['description'];
-                                            echo '<option value="' . $id . '"'; 
-                                            if ($id == $marca) {
-                                                echo ' selected';
-                                            }  
-                                            echo '>' . $marcaName. '</option>';
-                                        }
-                                        echo '</select> ';
-                                
-                                        }  ?>   
-                       
+                                    <div class="mb-3">
+                                        <select required id="marca" name="marca">  
+                                        </select> 
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
-                                    <?php  
-                                    if ($count_modelo > 0) { 
-                                        echo '<select required  id="modelo" name="modelo" >';
-                                        echo '<option value="0">Modelo*</option>'; 
-                                        foreach ($modelo as $field) {
-                                            $id = $field['id_model'];
-                                            $modeloName = $field['description'];
-                                            echo '<option value="' . $id . '"'; 
-                                            if ($id == $modelo) {
-                                                echo ' selected';
-                                            }  
-                                            echo '>' . $modeloName. '</option>';
-                                        }
-                                        echo '</select> ';
-                                
-                                        }  ?> 
+                                        <select required  id="modelo" name="modelo"> 
+                                        </select> 
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
@@ -243,7 +153,7 @@ $url_publi = $protocol . '://' . $host;
                                         <?php
                                         // Obtener el año actual
                                         $anioActual = date("Y");
-                                        echo '<option value="0">Año*</option>';
+                                        echo '<option value="">Año</option>';
                                         // Crear opciones para los últimos 50 años
                                             for ($i = $anioActual; $i >= ($anioActual - 50); $i--) {
                                             echo '<option value="' . $i . '">' . $i . '</option>';
@@ -253,32 +163,26 @@ $url_publi = $protocol . '://' . $host;
 
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-6 col-lg-6 engine_number" >
+                                <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
                                         <input type="text" class="form-control" name="engine_number"  id="engine_number"  placeholder="N°. de Motor">
                                         <p class="text-grey">Ej. de N°. de Motor: X123123124123</p>
 
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-6 col-lg-6 chasis_number" >
+                                <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
                                         <input type="text" class="form-control"  name="chasis_number" id="chasis_number" placeholder="N°. de Chasis/VIN">
                                         <p class="text-grey">Ej. de VIN: 1G1RC6E42BUXXXXXX</p>
 
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-6 col-lg-6 patente"  >
+                                <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
                                         <input type="text" class="form-control"  name="patente" id="patente" placeholder="Patente">
-                                  </div>
+
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="warning-wrapper" id="error-container-title">
-                            <i class="fa-solid fa-circle-exclamation"></i>
-                                        <div>
-                                            <p class="error-heading">Campos faltan completar</p>
-                                            <p class="sm-text">Campos requeridos faltan completar: INFORMACION DE PRODUCTO.</p>
-                                        </div>
                             </div>
                         </div>
                         <div class="category-product">
@@ -287,6 +191,8 @@ $url_publi = $protocol . '://' . $host;
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
                                         <input type="text" class="form-control" id="PesoNeto"  name="PesoNeto" placeholder="Peso Neto">
+
+
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
@@ -436,14 +342,14 @@ $url_publi = $protocol . '://' . $host;
                             </div>
                         </div>
                         <div class="category-product">
-                          <h1>Precio </h1>
+                        <h1>Precio </h1>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="price_type" id="price_type1" value="H">
                                 <label class="form-check-label" for="price_type1">Precio por hora</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="price_type" id="price_type2" value="C">
-                                <label class="form-check-label" for="price_type2">Cotizar</label>
+                                <label class="form-check-label" for="maintenprice_type2ance_suppy2">Cotizar</label>
                             </div>
                         
                             <p class="sm-title">Ingresa la tarifa que cobrarás por hora</p>
@@ -458,13 +364,6 @@ $url_publi = $protocol . '://' . $host;
                                 </div>
 
                             </div>
-                            <div class="warning-wrapper" id="error-container-price">
-                            <i class="fa-solid fa-circle-exclamation"></i>
-                                        <div>
-                                            <p class="error-heading">Campos faltan completar</p>
-                                            <p class="sm-text">Campos requeridos faltan completar: PRECIO.</p>
-                                        </div>
-                            </div>
                         </div>
                         <div class="category-product">
                             <h1>Ubicación</h1>
@@ -474,7 +373,7 @@ $url_publi = $protocol . '://' . $host;
                                     <?php                                            
                                     if ($count_regiones > 0) { 
                                             echo '<select required id="region" name="region">';
-                                            echo '<option value="0" selected >Región*</option>'; 
+                                            echo '<option value="" selected disabled hidden>Región*</option>'; 
                                             foreach ($regiones as $reg) { 
                                                 echo '<option value="' . $reg . '"'; 
                                                 if (isset($region) && $region == $reg) {
@@ -486,30 +385,19 @@ $url_publi = $protocol . '://' . $host;
                                         }  
                                     ?> 
 
-                                 </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
-                                    <?php 
-                                        require 'comunas.php';
-                                        // Generar el select de comunas
-                                        echo '<select required  id="city" name="city">';
-                                        echo '<option value="0" selected >Comunas*</option>'; 
-                                        foreach ($comunas as $comuna) {
-                                            echo '<option value="' . $comuna . '">' . $comuna . '</option>';
-                                        }
-                                        echo '</select>';
-                                        ?> 
+                                        <select required  id="city" name="city">
+                                            <option value="" selected disabled hidden>Ciudad</option>
+                                            <option value="1">Coquimbo</option>
+                                            <option value="2">El Melón</option>
+                                            <option value="3">Gultro</option>
+                                        </select>
 
                                     </div>
                                 </div>
-                            </div>
-                            <div class="warning-wrapper" id="error-container-ubicacion">
-                            <i class="fa-solid fa-circle-exclamation"></i>
-                                        <div>
-                                            <p class="error-heading">Campos faltan completar</p>
-                                            <p class="sm-text">Campos requeridos faltan completar: UBICACION.</p>
-                                        </div>
                             </div>
                         </div>
 
@@ -598,18 +486,18 @@ $url_publi = $protocol . '://' . $host;
                                 </div>
 
                             </div>
-                            <!--div class="warning-wrapper hidden">
+                            <div class="warning-wrapper hidden">
                                 <i class="fa-solid fa-circle-exclamation"></i>
                                 <div>
                                     <p class="error-heading">Campos faltan completar</p>
                                     <p class="sm-text">Campos requeridos faltan completar: Información de vehículo, Facilidad de entrega,
                                         Contrato de Arriendo Maquinatrix, Garantía de Arriendo.</p>
                                 </div>
-                            </div-->
+                            </div>
                         </div>
 
                         <div class="category-product">
-                            <h1>Póliza de seguro</h1>
+                            <h1>Opciones de Arriendo</h1>
                             <div class="grey-border-wrapper" style="margin-bottom:20px;">
 
 
@@ -672,7 +560,10 @@ $url_publi = $protocol . '://' . $host;
                         </div>
 
                     </div>
-                
+                    <div class="pdf-container">
+                        <img src="./assets/img/pdf.png" alt="pdf">
+                        <a href="#">Descargar muestra.</a>
+                    </div>
 
                     </div>
                     <div class="grey-border-wrapper" >  
@@ -692,22 +583,27 @@ $url_publi = $protocol . '://' . $host;
                             </div>
                         </div>
 
-                    </div> 
+                    </div>
+                    <div class="pdf-container">
+                        <img src="./assets/img/pdf.png" alt="pdf">
+                        <a href="#">Descargar muestra.</a>
+                    </div>
 
                    </div>
                 </div>
 
-                <div class="error-container" id="error-container">
+                <div class="error-container hidden">
                     <i class="fa-solid fa-circle-xmark"></i>
                     <div>
                         <p class="error-heading">Campos faltan completar</p>
-                        <p class="sm-text text-msg-error">Campos requeridos faltan completar.</p>
+                        <p class="sm-text">Campos requeridos faltan completar: Información de vehículo, Facilidad de entrega,
+                            Contrato de Arriendo Maquinatrix, Garantía de Arriendo.</p>
                     </div>
                 </div>
                 <div class="category-product2">
                     <div class="category-btns-wrapper">
                         <div><button type="button" class="grey-btn">Cancelar</button></div>
-                        <div><button type="button" class="grey-btn" id="save_public1">Guardar y salir</button><button type="button"
+                        <div><button type="button" class="grey-btn">Guardar y salir</button><button type="button"
                            class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
                     </div>
                 </div>
@@ -726,14 +622,12 @@ function setCategory(value,text) {
   id_categoria = value;
   categoria = text;
   console.log("la categoria es",id_categoria)
-    if (id_categoria==5) {
-       $('.engine_number, .chasis_number, .patente').hide(); // Ocultar los elementos de entrada
-    }else{
-        $('.engine_number, .chasis_number, .patente').show();
-    }
- 
+  if (id_categoria==5) {
+    $('#engine_number, #chasis_number, #patente').hide(); // Ocultar los elementos de entrada
+ }
 }
-  function searchTypeMachine(industria){   
+  function searchTypeMachine(industria){
+   
    var url = '<?=$baseUrl?>/list_machine?id_product_type=' + industria;  
    $.ajax({
       url: url,
@@ -746,7 +640,7 @@ function setCategory(value,text) {
               // Limpiar las opciones existentes
               selectElement.empty(); 
                 // Agregar la opción por defecto
-              var defaultOption = $('<option value="0">').prop('selected', true).text('Tipo de Máquina *');
+              var defaultOption = $('<option>').prop('selected', true).text('Tipo de Máquina *');
               selectElement.append(defaultOption);
               res.data.forEach(function(element) { 
               var option = $('<option value='+element.id_machine+' >').text(element.description);
@@ -772,7 +666,7 @@ function searchTypeMarca(industria){
       success: function(res) {
           var selectElement = $('#marca'); 
               selectElement.empty();  
-              var defaultOption = $('<option value="0">').prop('selected', true).text('Marca*');
+              var defaultOption = $('<option>').prop('selected', true).text('Marca*');
               selectElement.append(defaultOption);
               res.data.forEach(function(element) { 
               var option = $('<option value='+element.description+' >').text(element.description);
@@ -781,7 +675,7 @@ function searchTypeMarca(industria){
           });  
           var selectElement1 = $('#marca1'); 
               selectElement1.empty();  
-              var defaultOption1 = $('<option value="0">').prop('selected', true).text('Marca*');
+              var defaultOption1 = $('<option>').prop('selected', true).text('Marca*');
               selectElement1.append(defaultOption1);
               res.data.forEach(function(element) { 
               var option1 = $('<option value='+element.description+' >').text(element.description);
@@ -807,7 +701,7 @@ function searchTypeModelo(industria){
               // Limpiar las opciones existentes
               selectElement.empty(); 
                 // Agregar la opción por defecto
-              var defaultOption = $('<option value="0">').prop('selected', true).text('Modelo*');
+              var defaultOption = $('<option>').prop('selected', true).text('Modelo*');
               selectElement.append(defaultOption);
               res.data.forEach(function(element) { 
               var option = $('<option value='+element.description+' >').text(element.description);
@@ -817,7 +711,7 @@ function searchTypeModelo(industria){
               // Limpiar las opciones existentes
               selectElement1.empty(); 
                 // Agregar la opción por defecto
-              var defaultOption1 = $('<option value="0">').prop('selected', true).text('Modelo*');
+              var defaultOption1 = $('<option>').prop('selected', true).text('Modelo*');
               selectElement1.append(defaultOption1);
               res.data.forEach(function(element) { 
               var option1 = $('<option value='+element.description+' >').text(element.description);
@@ -832,12 +726,6 @@ function searchTypeModelo(industria){
 
 </script>
 <script>
-    $('#industria').selectize({ normalize: true });
-    $('#id_machine').selectize({ normalize: true });
-    $('#anios').selectize({ normalize: true });
-    $('#marca').selectize({ normalize: true });
-    $('#modelo').selectize({ normalize: true });
-    $('#region').selectize({ normalize: true });
-    $('#city').selectize({ normalize: true });
-    
-</script>
+          $('#industria').selectize({ normalize: true });
+          $('#id_machine').selectize({ normalize: true });
+        </script>

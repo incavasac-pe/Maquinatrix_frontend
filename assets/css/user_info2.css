@@ -111,3 +111,52 @@ opacity: 1;
     border: none;
   }
   
+  .pwd-modal .form-control {
+    padding: 15px 20px;
+  }
+
+  .pwd-modal form {
+    width: 100%;
+  }
+
+  .pwd-modal .pwd-title {
+    font: normal normal normal 14px/22px Roboto;
+letter-spacing: 0px;
+color: #000000;
+margin-bottom: 15px;
+  }
+
+  .pwd-modal .edit-pwd-cancel-btn {
+    font: normal normal 500 15px/22px Roboto;
+letter-spacing: 0px;
+color: #000000;
+background: #EEF0F3 0% 0% no-repeat padding-box;
+border-radius: 27px;
+padding: 10px 25px;
+border: 0;
+  }
+
+
+  .pwd-modal .edit-pwd-continue-btn {
+    font: normal normal 500 15px/22px Roboto;
+letter-spacing: 0px;
+padding: 10px 30px;
+color: #000000;
+background: #FFD140 0% 0% no-repeat padding-box;
+border-radius: 21px;
+border: 0;
+
+  }
+
+  .pwd-modal .edit-pwd-continue-btn:hover {
+    padding: 10px 30px;
+    color: #000000;
+    background: #feae02 0% 0% no-repeat padding-box;
+    border-radius: 21px;
+    opacity: 1;
+    border: 0;
+  }
+
+  .pwd-modal .modal-header {
+    padding: 20px;
+  }

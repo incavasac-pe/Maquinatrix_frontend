@@ -68,11 +68,12 @@ select:invalid {
   letter-spacing: 0px;
   color: #000000;
 }
-.user-info-container .form-check-label > span {
+.user-info-container .form-check-label > a {
   text-align: left;
   font: normal normal bold 14px/22px Roboto;
   letter-spacing: 0px;
   color: #000000;
+  text-decoration: none;
 }
 .form-check {
   margin-top: 35px;

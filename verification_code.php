@@ -1,7 +1,7 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
 <?php  $baseUrl = getenv('URL_API'); ?>
-<?php  $email = $_POST['email'];?>
+<?php echo $email = $_POST['email'];?>
 
 <div class="verification-code-main">
     <div class="verification-code-container">
@@ -21,7 +21,7 @@
             </div>
         </form> 
 <div class="resend-btn-wrapper">
-    <a class="resend-btn" id="resend-btn" href="javascript:void(0);">Reenviar Código </a>
+    <a class="resend-btn" href="./index.php">Reenviar Código </a>
 
 </div>
     </div>
@@ -118,33 +118,6 @@
                     var statusCode = xhr.status;  
                         $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
                         $('#validate_code').prop('disabled', false);
-                }
-            });
-           
-        });  
-
-
-        $('#resend-btn').click(function(e) {  
-              e.preventDefault();   
-            var email =  '<?=$email?>';
-
-            $.ajax({
-            type: "POST",
-            url: '<?=$baseUrl?>/generateDigPassword',
-            data: JSON.stringify({email:email}),
-             contentType: "application/json",
-            success: function(response, textStatus, xhr)
-            {
-                var statusCode = xhr.status; 
-                if (statusCode === 200 && !response.error)  {     
-                    $("#Msg").html("<div class='alert alert-danger' role='alert'>" + response.msg  + "</div>");  
-                  } else {
-                    $("#Msg").html("<div class='alert alert-danger' role='alert'>" + response.msg  + "</div>");            
-                }
-           },
-                error: function(response,xhr, textStatus, errorThrown) {
-                    var statusCode = xhr.status;  
-                     
                 }
             });
            
