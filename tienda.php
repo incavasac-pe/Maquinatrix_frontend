@@ -702,7 +702,9 @@ function searchPublication(params,type) {
                 var divCol7 = $('<div>').addClass('col-md-7');
                 var h2 = $('<h2>').addClass('font-family-Roboto-Regular').text(element.title);
                 var h3 = $('<h3>').addClass('mb-3');
-                var strong = $('<strong>').addClass('font-family-Roboto-Bold').text(element.product_details?.price ?? '');
+                
+                var price = element.product_details?.facipay == 'C' ? 'Cotizar' : 'CLP ' +element.product_details?.price + '/ hora';
+                var strong = $('<strong>').addClass('font-family-Roboto-Bold').text(price ?? '');
                 var spanPrice = $('<span>').addClass('font-family-Roboto-Medium').text('');
                 h3.append(strong, spanPrice);
 

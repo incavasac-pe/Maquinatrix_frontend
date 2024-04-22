@@ -328,12 +328,10 @@ if ($responseimg !== false) {
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                            <?= isset($detalle['product_details']["facipay"]) &&  $detalle['product_details']["facipay"] == 'C' ? 'Cotizar': $detalle['product_details']["price"];  ?>
+                            <?= isset($detalle['product_details']["facipay"]) &&  $detalle['product_details']["facipay"] == 'C' ? 'Cotizar':"CLP ". $detalle['product_details']["price"]." ". "/ hora" ;?>
                                <span class="font-family-Roboto-Regular"></span>
                             </h3>
-
                         </div>
-
                         <div class="location-tx-wrapper">
                             <img src="./assets/img/location.png" alt="location">
                             <p><?= $detalle['product_details']['region'];   ?>, <?= $detalle['product_details']['city'];   ?></p>
