@@ -232,10 +232,4 @@ window.initAutocomplete = initAutocomplete;
       });
   }
   
-</script>
-<script>
-    
-    document.getElementById('continueButtonLocation').addEventListener('click', function () {
-    window.location.href = 'verification_email.php';
-  });
-</script>
+</script> 

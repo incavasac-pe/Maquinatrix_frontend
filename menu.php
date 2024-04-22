@@ -1,6 +1,5 @@
 <?php 
 session_start(); 
-//print_r($_SESSION); 
 if (isset($_SESSION['loggedIn'])) {
     $token = $_SESSION['token'];
     $email = $_SESSION['email'];
@@ -30,7 +29,9 @@ if (isset($_SESSION['loggedIn'])) {
         <?php if (!isset($_SESSION['loggedIn'])) { ?>
             <a class="login-link" href="./login.php"> INICIAR SESIÓN </a>
         <?php } ?> 
-       
+        <?php if (!isset($_SESSION['loggedIn'])) { ?>
+            <a class="login-link" href="./login.php"> PUBLICA TU MAQUINARIA </a>
+        <?php } ?> 
         <?php if (isset($_SESSION['loggedIn'])) { ?>
             <div class="publish-btn-wrapper">
                 <a class="publish-btn" data-bs-toggle="modal" data-bs-target="#exampleModalPublication" >PUBLICA TU MAQUINARIA </a>

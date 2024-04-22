@@ -35,18 +35,18 @@
         <td>Año</td>
         <td class="r_anio"></td>
       </tr>
-      <tr>
+      <tr id="r_condicion">
         <td>Condición</td>
         <td class="r_condicion"></td>
       </tr>
-      <tr>
+      <tr id="r_km">
         <td>Kilometraje</td>
         <td class="r_km">km</td>
       </tr>
-      <tr>
+      <tr id="r_motor">
         <td>N° de Motor</td>
         <td class="r_motor"></td>
-      </tr>
+      </tr> 
       <tr>
         <td>Ubicación</td>
         <td class="r_ubicacion"></td>

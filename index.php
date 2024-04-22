@@ -1,6 +1,43 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
 <?php 
+ 
+include('config.php'); 
+
+if(isset($_GET["code"]))
+{
+
+$token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);//print_r($token);
+
+ if(!isset($token['error'])) {
+ 
+  $google_client->setAccessToken($token['access_token']);
+  $_SESSION['token'] = $token['access_token'];
+  $google_service = new Google_Service_Oauth2($google_client); 
+  $response = $google_service->userinfo->get();
+   
+        if(isset($_SESSION['type']) && ($_SESSION['type'] == 1 || $_SESSION['type'] == 2)){
+            //para registro
+            $_SESSION['email']= $response['email']; 
+            $_SESSION['firstname']= urlencode($response['given_name']);
+            $_SESSION['lastname'] = urlencode($response['family_name']); 
+        
+            $urlRegister = 'create_session_portal_redes.php?register=true'; 
+            echo '<meta http-equiv="refresh" content="0; url=' . $urlRegister . '">';
+    
+    }else{
+                 //para login
+        if(!empty($response['email']))
+            {
+             $_SESSION['email'] = $response['email'];
+              $url = 'create_session_portal_redes.php?validate=true&email='.$response['email'];
+             echo '<meta http-equiv="refresh" content="0; url=' . $url . '">';
+            } 
+        }
+ }
+}
+
+ 
 $baseUrl = getenv('URL_API');
  
 
@@ -44,7 +81,7 @@ function cortarString($texto) {
 
      
       $count_pub = 0;
-      $url = $baseUrl.'/list_publications?limit=5'; 
+      $url = $baseUrl.'/list_publications?limit=5&status_id=6'; 
     
       $response1 = file_get_contents($url);
       if ($response1 !== false) {
@@ -267,7 +304,7 @@ function cortarString($texto) {
                                     <?= cortarString($pub['title'])  ?> 
                                 </p>
                             </span> 
-                                <strong class="font-family-Roboto-Medium"> <?= isset($pub['product_details']["price"])? $pub['product_details']["price"]:'0' ?></strong>
+                            <strong class="font-family-Roboto-Medium"> <?= isset($pub['product_details']["facipay"]) &&  $pub['product_details']["facipay"] == 'C' ? 'Cotizar': $pub['product_details']["price"];  ?></strong>
                             </div>
                         </div>
                     </div>
