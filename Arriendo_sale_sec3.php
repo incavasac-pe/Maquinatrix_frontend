@@ -5,7 +5,7 @@
           <h1>Resumen publicación</h1>
           <p class="text-grey">Paso 3 de 3</p>
           <div class="excavator-box-wrapper">
-            <img src="./assets/img/detalle-pro.png" alt="producto">
+          <img  id="image-preview" width="200px" src="./assets/img/detalle-pro.png" alt="producto">
             <div class="excavator-right-box" >
             <p class="sm-title r_title" style="margin-top:0px !important;"></p>
               <p class="text-lg-bold r_price"></p>
@@ -35,15 +35,15 @@
         <td>Año</td>
         <td class="r_anio"></td>
       </tr>
-      <tr>
+      <tr id="r_condicion">
         <td>Condición</td>
         <td class="r_condicion"></td>
       </tr>
-      <tr>
+      <tr id="r_km">
         <td>Kilometraje</td>
         <td class="r_km">km</td>
       </tr>
-      <tr>
+      <tr id="r_motor">
         <td>N° de Motor</td>
         <td class="r_motor"></td>
       </tr>

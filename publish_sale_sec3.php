@@ -5,7 +5,7 @@
           <h1>Resumen publicación</h1>
           <p class="text-grey">Paso 3 de 3</p>
           <div class="excavator-box-wrapper">
-            <img src="./assets/img/detalle-pro.png" alt="producto">
+          <img  id="image-preview" width="200px" src="./assets/img/detalle-pro.png" alt="producto">
             <div class="excavator-right-box" >
               <p class="sm-title r_title" style="margin-top:0px !important;"></p>
               <p class="text-lg-bold r_price"></p>

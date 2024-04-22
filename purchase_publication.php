@@ -320,13 +320,13 @@
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                            CLP  <?= isset($detalle['product_details']["price"])? $detalle['product_details']["price"]:'0' ?>  <span class="font-family-Roboto-Regular"></span>
-                            </h3>
+                             <?= isset($detalle['product_details']["facipay"]) &&  $detalle['product_details']["facipay"] == 'C' ? 'Cotizar':"CLP ". $detalle['product_details']["price"]." ". "/ hora" ;?>
+                             </h3>
 
                         </div>
 
                         <div class="location-tx-wrapper">
-                            <img src="./assets/img/location.png" alt="loc ation">
+                            <img src="./assets/img/location.png" alt="location">
                             <p><?= $detalle['product_details']['region']; ?></p>
                         </div>
                         <p class="cotiza-md-text">Contáctate con el propietario de este anuncio para realizar la

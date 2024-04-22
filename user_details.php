@@ -219,11 +219,11 @@ if (isset($_SESSION['loggedIn'])) {
         <div class="filter-wrapper">
           <div class="filter-btns">
             <p class="filter-text">Filtrar por:</p>
-            <button type="button" class="filter-active-btn">Todos</button>
-            <button type="button" class="filter-btn">Ventas</button>
-            <button type="button" class="filter-btn">Arriendos</button>
-            <button type="button" class="filter-btn">Borradores</button>
-            <button type="button" class="filter-btn">Suspendidos</button>
+            <button type="button" id="0" class="filter-btn filter-active-btn">Todos</button>
+            <button type="button" id="2" class="filter-btn">Ventas</button>
+            <button type="button" id="1" class="filter-btn">Arriendos</button>
+            <button type="button" id="10" class="filter-btn">Borradores</button>
+            <button type="button" id="7" class="filter-btn">Suspendidos</button>         
           </div>
           <button type="button" class="publication-create-btn" data-bs-toggle="modal" data-bs-target="#exampleModalPublication">+ Crear
             Publicación</button>
@@ -300,7 +300,21 @@ function getQueryParam(name) {
 
 $(document).ready(function() { 
   datosBasicos();
-  construirEstructuraHTML();
+  construirEstructuraHTML('0');
+  
+  $('.filter-btn').click(function() {
+    // Remover la clase 'activo' de todos los botones
+    $('.filter-btn').removeClass('filter-active-btn');
+    
+    // Agregar la clase 'activo' al botón seleccionado
+    $(this).addClass('filter-active-btn');
+    var buttonId = $(this).attr('id');
+    
+      construirEstructuraHTML(buttonId);
+   
+    console.log('ID del botón presionado:', buttonId);
+     
+  });
 
 //editar la data "Datos de cuenta"
 $('.user-detail-table button').click(function() {
@@ -491,17 +505,25 @@ function enviarActualizacionInformacionAdicional(type, value = '') {
     }
   });
 }
- 
 //javascript de las publicaciones
-function construirEstructuraHTML() {
+function construirEstructuraHTML(value) {
+  var url;
+  if(value == '0'){
+   url= '<?=$baseUrl?>/list_publications_byuser?limit=100&id_user=' + <?=$id_user?>;
+  }else if(value == '7' || value == '10' ) {
+    url='<?=$baseUrl?>/list_publications_byuser?limit=100&id_user=' + <?=$id_user?>+'&status_id='+value;
+  }else{
+    url= '<?=$baseUrl?>/list_publications_byuser?limit=100&id_user=' + <?=$id_user?>+'&tpublicacion='+value;
+  }
   // Realizar la llamada AJAX para obtener los datos
   $.ajax({
-    url: '<?=$baseUrl?>/list_publications_byuser?limit=10&id_user=' + <?=$id_user?>,
+    url: url,
     method: 'GET',
     beforeSend: function(xhr) {
       xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
     },
     success: function(res) {
+      $('.list_publi').empty();
      if(!res.error){ 
           res.data.forEach(function(element) {
             console.log("element",element);
@@ -638,10 +660,10 @@ function construirEstructuraHTML() {
                     var publicationDraftWrapper = $('<div>').addClass('publication-draft-wrapper');
                     var pubContainer1 = $('<div>').addClass('pub-container');
                     var greyMdText1 = $('<p>').addClass('grey-md-text').text('Visitas');
-                    var boldPubText1 = $('<p>').addClass('bold-pub-text').text(element.visitt);
+                    var boldPubText1 = $('<p>').addClass('bold-pub-text').text(element.visitt ? element.visitt :0 );
                     var pubContainer2 = $('<div>').addClass('pub-container');
                     var greyMdText2 = $('<p>').addClass('grey-md-text').text('Interacción');
-                    var boldPubText2 = $('<p>').addClass('bold-pub-text').text(element.interaction);
+                    var boldPubText2 = $('<p>').addClass('bold-pub-text').text(element.interaction ? element.interaction :0 );
 
                     // Agregar elementos al contenedor de publicación y borrador
                     pubContainer1.append(greyMdText1);
@@ -668,6 +690,9 @@ function construirEstructuraHTML() {
                 $('.list_publi').append(idDetail);
           }
         });
+        
+      }   else {
+        $('.list_publi').text(res?.msg);
       }
     }
   });
