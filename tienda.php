@@ -40,6 +40,23 @@ $url_publi = $protocol . '://' . $host;
     }
 
 
+    $count_maq = 0;
+    $url9985 = $baseUrl.'/list_machine'; 
+    $response9985= file_get_contents($url9985);
+    if ($response9985 !== false) {
+       // Decodificar la respuesta JSON
+       $data = json_decode($response9985, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $maquinaria = $data['data'];
+           $count_maq = $data['count'];
+       } else {
+           echo 'Error: ' . $data['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
+
 
     $count_category = 0;
     $url12 = $baseUrl.'/list_category'; 
@@ -72,6 +89,45 @@ $url_publi = $protocol . '://' . $host;
             echo 'Error: ' . $dataRegion['msg'];
         }
     }  
+
+    
+    $count_marca = 0;
+    $url965 = $baseUrl.'/list_marca'; 
+    $response965= file_get_contents($url965);
+    if ($response965 !== false) {
+       // Decodificar la respuesta JSON
+       $data = json_decode($response965, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $marca = $data['data'];
+
+           $count_marca = $data['count'];
+       } else {
+           echo 'Error: ' . $data['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
+
+    
+    $count_modelo= 0;
+    $url33 = $baseUrl.'/list_model'; 
+    $response33= file_get_contents($url33);
+    if ($response33 !== false) {
+       // Decodificar la respuesta JSON
+       $data = json_decode($response33, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $modelo = $data['data'];
+
+           $count_modelo = $data['count'];
+       } else {
+           echo 'Error: ' . $data['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
+
      $url_final='';
      $param='';
      $search=''; 
@@ -226,7 +282,7 @@ $url_publi = $protocol . '://' . $host;
                 <p class="mb-0 font-family-Roboto-Regular titulo-principal-adorno">              
                 </p>
             </div>
-            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-4">
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-4">
                 <div class="busqueda">
                     <div class="">
                         <h3 class="font-family-Roboto-Medium">Filtros de Búsqueda</h3>
@@ -234,38 +290,23 @@ $url_publi = $protocol . '://' . $host;
                             Selecciona el tipo de búsqueda para que se desplieguen todos los filtros.
                         </p>
                     </div>
+                    <a href="javascript:void('0');" id="Arrendar" onclick="filtroFooter('1')"
+                        class="font-family-Roboto-Medium mb-3 <?= ($tpublicacion == '1') ? 'activo' :''; ?> titulo-filter-btn">Arrendar</a>
+                        <a href="javascript:void('0');" id="Comprar" onclick="filtroFooter('2')"
+                        class="font-family-Roboto-Medium mb-3 <?= ($tpublicacion == '2') ? 'activo' :''; ?> titulo-filter-btn">Comprar</a>
                     
-                        <a  href="javascript:void('0');" onclick="filtroFooter('1')" class="font-family-Roboto-Medium mb-3 titulo-filter-btn titulo-tienda <?= ($tpublicacion == '1') ? 'activo' :''; ?>">Arrendar</a>
-                        <a  href="javascript:void('0');" onclick="filtroFooter('2')" class="font-family-Roboto-Medium mb-3 titulo-filter-btn titulo-tienda <?= ($tpublicacion == '2') ? 'activo' :''; ?>">Comprar</a>
-                  
        
                     <div class="formulario-busqueda">
                         <div class="form-group">
                             <input onblur type="text" name="buscar" id="buscar" value="<?=$search?>" placeholder="¿Qué buscas?">
                         </div>
-                        <!--div class="form-group">
-                        <?php                                            
-                              /*  if ($count_regiones > 0) {
- 
-                                    echo '<select class="form-control font-family-Inter-Medium"  id="region" name="region">';
-                                    echo '<option value="">¿En qué región?</option>'; 
-                                    foreach ($regiones as $reg) { 
-                                        echo '<option value="' . $reg . '"'; 
-                                        if (isset($region) && $region == $reg) {
-                                            echo ' selected';
-                                        }  
-                                        echo '>' . $reg. '</option>';
-                                    }
-                                    echo '</select>';
-                                }  */
-                            ?>
-                         </div-->
+                       
                         
-                        <div class="form-group group">
+                     <div class="form-group group">
                     <?php
                       if ($count_category > 0) {
-                        echo '<select class="form-control font-family-Inter-Medium" id="category" name="category">';
-                        echo '<option value="">---Seleccione---</option>';
+                        echo '<select  id="category" name="category">';
+                        echo '<option value="0">Categoria</option>';
                         foreach ($categories as $categorie) {
                             $id = $categorie['id_category'];
                             $categoryName = $categorie['category'];
@@ -292,8 +333,8 @@ $url_publi = $protocol . '://' . $host;
                         <div class="form-group group">
                         <?php  
                                 if ($count_industry > 0) { 
-                                    echo '<select class="form-control font-family-Inter-Medium"  id="industria" name="industria"  onchange="searchTypeMachine(this.value)">';
-                                    echo '<option value="">Industria</option>'; 
+                                    echo '<select   id="industria" name="industria"  >';
+                                    echo '<option value="0">Industria</option>'; 
                                     foreach ($industry as $field) {
                                         $id = $field['id_product_type'];
                                         $industryName = $field['description'];
@@ -310,8 +351,23 @@ $url_publi = $protocol . '://' . $host;
                            
                         </div>
                         <div class="form-group group">
-                        <select class="form-control" id="maquinaria" name="maquinaria">
-                          </select>
+                        <?php  
+                                if ($count_maq > 0) { 
+                                    echo '<select   id="maquinaria" name="maquinaria" >';
+                                    echo '<option value="0">Tipo Maquinaria</option>'; 
+                                    foreach ($maquinaria as $field) {
+                                        $id = $field['id_machine'];
+                                        $maqName = $field['description'];
+                                        echo '<option value="' . $id . '"'; 
+                                        if ($id == $maquinaria) {
+                                            echo ' selected';
+                                        }  
+                                        echo '>' . $maqName. '</option>';
+                                    }
+                                    echo '</select>
+                                    <i class="fa-solid fa-caret-down"></i>';
+                         
+                        }  ?> 
                         
                         </div>
                     </div>
@@ -321,12 +377,41 @@ $url_publi = $protocol . '://' . $host;
                     </div>
                     <div class="formulario-busqueda">
                         <div class="form-group group">
-                          <select class="form-control" id="marca" name="marca" >
-                          </select>                           
+                         
+                        <?php  
+                                    if ($count_marca > 0) { 
+                                        echo '<select id="marca" name="marca" >';
+                                        echo '<option value="0">Marca</option>'; 
+                                        foreach ($marca as $field) {
+                                            $id = $field['id_marca'];
+                                            $marcaName = $field['description'];
+                                            echo '<option value="' . $id . '"'; 
+                                            if ($id == $marca) {
+                                                echo ' selected';
+                                            }  
+                                            echo '>' . $marcaName. '</option>';
+                                        }
+                                        echo '</select> ';
+                                
+                                        }  ?>                           
                         </div>
                         <div class="form-group group">
-                            <select class="form-control" id="modelo" name="modelo">                              
-                            </select>
+                        <?php  
+                                    if ($count_modelo > 0) { 
+                                        echo '<select id="modelo" name="modelo" >';
+                                        echo '<option value="0">Modelo</option>'; 
+                                        foreach ($modelo as $field) {
+                                            $id = $field['id_model'];
+                                            $modeloName = $field['description'];
+                                            echo '<option value="' . $id . '"'; 
+                                            if ($id == $modelo) {
+                                                echo ' selected';
+                                            }  
+                                            echo '>' . $modeloName. '</option>';
+                                        }
+                                        echo '</select> ';
+                                
+                                        }  ?> 
                             <i class="fa-solid fa-caret-down"></i>
                         </div>
                     </div>
@@ -393,9 +478,9 @@ $url_publi = $protocol . '://' . $host;
                     </div>  
                 </div>
             </div>
-            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
                 <div class="row">
-                    <div class="col-md-12 comprar-space">
+                    <div class="col-md-12">
                         <p class="titulo-tienda text-right" id="">
                             <span class="mr-3">Ordenar por:</span> 
 
@@ -431,16 +516,8 @@ $url_publi = $protocol . '://' . $host;
 <?php include 'footer.php' ?>
 
 <script>
-$(document).ready(function() { 
-
- 
-    $('#visity').on('click', function() {
-       console.log("se")
-    });
-  //  alert("busca las publicaciones");
-    searchPublication('<?=$param?>','1')   
-    searchTypeMarca('1');
-    searchTypeModelo('1');
+$(document).ready(function() {   
+    searchPublication('<?=$param?>','1')    
     
     //filtros search
     $('#buscar').on('blur', function() { 
@@ -557,91 +634,7 @@ $(document).ready(function() {
 
     createPagination();
 
-
-    //catalogos de los select 
-
-  function searchTypeMachine(industria){
    
-     var url = '<?=$baseUrl?>/list_machine?id_product_type=' + industria;  
-     $.ajax({
-        url: url,
-        method: 'GET', 
-        contentType: "application/json",
-      
-        success: function(res) {
-            var selectElement = $('#maquinaria');
-
-                // Limpiar las opciones existentes
-                selectElement.empty(); 
-                  // Agregar la opción por defecto
-                var defaultOption = $('<option>').prop('selected', true).text('Tipo de Maquinaria');
-                selectElement.append(defaultOption);
-                res.data.forEach(function(element) { 
-                var option = $('<option value='+element.id_machine+' >').text(element.description);
-                selectElement.append(option);             
-                  });
-             searchTypeMarca(industria);
-             searchTypeModelo(industria);
-        },
-        error: function(error) {
-        console.error('Error al enviar los datos actualizados');
-        }
-    });
-}
-
-function searchTypeMarca(industria){
-   
-   var url = '<?=$baseUrl?>/list_marca';  
-   $.ajax({
-      url: url,
-      method: 'GET', 
-      contentType: "application/json",
-    
-      success: function(res) {
-          var selectElement = $('#marca');
-
-              // Limpiar las opciones existentes
-              selectElement.empty(); 
-                // Agregar la opción por defecto
-              var defaultOption = $('<option>').prop('selected', true).text('Marca');
-              selectElement.append(defaultOption);
-              res.data.forEach(function(element) { 
-              var option = $('<option value='+element.id_marca+' >').text(element.description);
-              selectElement.append(option);             
-          });
-  
-      },
-      error: function(error) {
-
-      console.error('Error al enviar los datos actualizados');
-      }
-  });
-}
-
-function searchTypeModelo(industria){   
-   var url = '<?=$baseUrl?>/list_model?id_product_type=' + industria;  
-   $.ajax({
-      url: url,
-      method: 'GET', 
-      contentType: "application/json",    
-      success: function(res) {
-          var selectElement = $('#modelo'); 
-              // Limpiar las opciones existentes
-              selectElement.empty(); 
-                // Agregar la opción por defecto
-              var defaultOption = $('<option>').prop('selected', true).text('Modelo');
-              selectElement.append(defaultOption);
-              res.data.forEach(function(element) { 
-              var option = $('<option value='+element.id_model+' >').text(element.description);
-              selectElement.append(option);             
-          });  
-      },
-      error: function(error) {
-        
-      console.error('Error al enviar los datos actualizados');
-      }
-  });
-}
 
 function updateFilterParam(paramName, paramValue, filter) {
   var regex = new RegExp(paramName + '=([^&#]*)');
@@ -675,15 +668,18 @@ function searchPublication(params,type) {
     method: 'GET',  
     success: function(res) {
       $('.list_publi_owner').empty();
+      var i = 0;
      if(!res.error){ 
+      
           res.data.forEach(function(element) {
             console.log("element",element)
         // Obtener el nuevo valor para count_pub utilizando jQuery
            var nuevoValor = res.count;  
                 // Actualizar el contenido del elemento <p> con el nuevo valor
-           $('.titulo-principal-adorno').text(nuevoValor + ' resultados de búsqueda'); 
+        
            
            if(element.status_id == 6 ) { 
+            i++;
             var imagen_url = element?.product_images[0] ? element.product_images[0]['image_name'] :'';
             var imagen = '<?=$baseUrl?>/see_image?image='+ imagen_url;
                // Crear el elemento <a> y establecer el atributo href
@@ -709,7 +705,9 @@ function searchPublication(params,type) {
                 var divCol7 = $('<div>').addClass('col-md-7');
                 var h2 = $('<h2>').addClass('font-family-Roboto-Regular').text(element.title);
                 var h3 = $('<h3>').addClass('mb-3');
-                var strong = $('<strong>').addClass('font-family-Roboto-Bold').text(element.product_details?.price ?? '');
+                
+                var price = element.product_details?.facipay == 'C' ? 'Cotizar' : 'CLP ' +element.product_details?.price + '/ hora';
+                var strong = $('<strong>').addClass('font-family-Roboto-Bold').text(price ?? '');
                 var spanPrice = $('<span>').addClass('font-family-Roboto-Medium').text('');
                 h3.append(strong, spanPrice);
 
@@ -756,6 +754,7 @@ function searchPublication(params,type) {
 
                 $('.list_publi_owner').append(link);  
              }
+             $('.titulo-principal-adorno').text(i + ' resultados de búsqueda'); 
         });
       } else {
         $('.list_publi_owner').text(res?.msg);
@@ -764,4 +763,13 @@ function searchPublication(params,type) {
   });  
     
 }
+</script>
+
+<script>
+    $('#category').selectize({ normalize: true });
+    $('#industria').selectize({ normalize: true });
+    $('#maquinaria').selectize({ normalize: true });
+    $('#marca').selectize({ normalize: true });
+    $('#modelo').selectize({ normalize: true }); 
+    
 </script>
