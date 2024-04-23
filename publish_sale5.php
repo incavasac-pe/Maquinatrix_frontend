@@ -28,7 +28,7 @@ $url_publi = $protocol . '://' . $host;
         <h1>Título y descripción de publicación</h1>
         <p class="sm-title">Arma el título para tu publicación. Indica el producto, marca y modelo.</p>
         <input type="text" class="form-control" id="title5"  name="title5"  placeholder="Título de publicación*">
-        <p class="text-grey">Ej: Construcción Excavadora de las mejores del mundo</p>
+        <p class="text-grey"></p>
         <p class="sm-title">Describe tu publicación</p>
         <textarea class="form-control text-container"  id="descrip5" name="descrip5"  rows="3"></textarea>
         <div id="charCount" class="char-count">Caracteres (0/10000)</div>
@@ -59,8 +59,22 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select required  id="modelo5" name="modelo5"> 
-                 </select> 
+                <?php  
+                    if ($count_modelo > 0) { 
+                        echo '<select id="modelo5" name="modelo5" >';
+                        echo '<option value="0">Modelo*</option>'; 
+                        foreach ($modelo as $field) {
+                            $id = $field['id_model'];
+                            $modeloName = $field['description'];
+                            echo '<option value="' . $id . '"'; 
+                            if ($id == $modelo) {
+                                echo ' selected';
+                            }  
+                            echo '>' . $modeloName. '</option>';
+                        }
+                        echo '</select> ';
+                
+                        }  ?> 
 
                 </div>
             </div>
@@ -70,7 +84,7 @@ $url_publi = $protocol . '://' . $host;
                         <?php
                         // Obtener el año actual
                         $anioActual = date("Y");
-                        echo '<option value="">Año</option>';
+                        echo '<option value="0">Año</option>';
                         // Crear opciones para los últimos 50 años
                             for ($i = $anioActual; $i >= ($anioActual - 50); $i--) {
                             echo '<option value="' . $i . '">' . $i . '</option>';
@@ -79,7 +93,7 @@ $url_publi = $protocol . '://' . $host;
                   </select>
                 </div>
             </div>
-            <div class="warning-wrapper" id="error-container-title5">
+            <div class="warning-wrapper" id="error-container-title5"> 
                 <i class="fa-solid fa-circle-exclamation"></i> 
                     <div>
                         <p class="error-heading">Campos faltan completar</p>
@@ -214,7 +228,7 @@ $url_publi = $protocol . '://' . $host;
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="type_of_service" name="type_of_service" placeholder="Tipo de servicio">
+                    <input type="text" class="form-control" id="type_of_service" name="type_of_service" placeholder="Tipo de servicio">
             </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
@@ -277,7 +291,7 @@ $url_publi = $protocol . '://' . $host;
                 <?php                                            
                     if ($count_regiones > 0) { 
                             echo '<select required id="region5" name="region5">';
-                            echo '<option value="" selected disabled hidden>Región*</option>'; 
+                            echo '<option value="0">Región*</option>'; 
                             foreach ($regiones as $reg) { 
                                 echo '<option value="' . $reg . '"'; 
                                 if (isset($region) && $region == $reg) {
@@ -293,12 +307,16 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <select required  id="city5" name="city5">
-                        <option value="" selected disabled hidden>Ciudad</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                <?php 
+                    require 'comunas.php';
+                    // Generar el select de comunas
+                    echo '<select required  id="city5" name="city5">';
+                    echo '<option value="0" selected >Comunas*</option>'; 
+                    foreach ($comunas as $comuna) {
+                        echo '<option value="' . $comuna . '">' . $comuna . '</option>';
+                    }
+                    echo '</select>';
+                    ?> 
 
                 </div>
             </div>
@@ -358,10 +376,8 @@ $url_publi = $protocol . '://' . $host;
     </div>
     <div class="error-container hidden">
         <i class="fa-solid fa-circle-xmark"></i>
-        <div>
-            <p class="error-heading">Campos faltan completar</p>
-            <p class="sm-text">Campos requeridos faltan completar
-                Contrato de Arriendo Maquinatrix, Garantía de Arriendo.</p>
+        <div> 
+            <p class="sm-text">Campos requeridos faltan completar </p>
         </div>
     </div>
     <div class="category-product2">

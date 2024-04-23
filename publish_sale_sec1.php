@@ -69,22 +69,22 @@
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(5,'Equipos y herramientas')" class="nav-link" id="pills-publish2-tab" data-bs-toggle="pill" data-bs-target="#pills-publish2"
-                  type="button" role="tab" aria-controls="pills-publish2" aria-selected="false"><img
+                <button  onclick="setCategory(5,'Equipos y herramientas')" class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
+                  type="button" role="tab" aria-controls="pills-publish1" aria-selected="false"><img
                     src="./assets/img/hand-drill.png" alt="hand-drill" />
                   <p>Equipos y<br /> herramientas </p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(4,'Productos y accesorios')"  class="nav-link" id="pills-publish3-tab" data-bs-toggle="pill" data-bs-target="#pills-publish3"
-                  type="button" role="tab" aria-controls="pills-publish3" aria-selected="false"><img
+                <button  onclick="setCategory(4,'Productos y accesorios')"  class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
+                  type="button" role="tab" aria-controls="pills-publish1" aria-selected="false"><img
                     src="./assets/img/helmet.png" alt="helmet" />
                   <p>Productos y<br /> accesorios </p>
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button  onclick="setCategory(2,'Repuestos')" class="nav-link" id="pills-publish4-tab" data-bs-toggle="pill" data-bs-target="#pills-publish4"
-                  type="button" role="tab" aria-controls="pills-publish4" aria-selected="false"><img
+                <button  onclick="setCategory(2,'Repuestos')" class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
+                  type="button" role="tab" aria-controls="pills-publish1" aria-selected="false"><img
                     src="./assets/img/timing-belt.png" alt="timing-belt" />
                   <p>Repuestos</p>
                 </button>
@@ -142,12 +142,12 @@
                 </div>
               </div>
             </div>
-            <div class="error-container" id="error-container-tipo">
-                <i class="fa-solid fa-circle-xmark"></i>
-                <div>
-                    <p class="error-heading">Campos faltan completar</p>
-                    <p class="sm-text">Campos requeridos faltan completar: Categoría ó tipo de producto.</p>
-                </div>
+            <div class="warning-wrapper" id="error-container-tipo">
+             <i class="fa-solid fa-circle-exclamation"></i>
+                    <div>
+                        <p class="error-heading">Campos faltan completar</p>
+                        <p class="sm-text">Campos requeridos faltan completar: CATEGORIA O TIPO DE PRODUCTO.</p>
+                    </div>
            </div>
           </div>
           
@@ -160,18 +160,18 @@
             <?php include 'publish_sale1.php' ?>
           </div>
 
-          <div class="tab-pane fade" id="pills-publish2" role="tabpanel" aria-labelledby="pills-publish2-tab"
+          <!--div class="tab-pane fade" id="pills-publish2" role="tabpanel" aria-labelledby="pills-publish2-tab"
             tabindex="0">
-            <?php include 'publish_sale1.php' ?>
+            <?php //include 'publish_sale1.php' ?>
           </div>
           <div class="tab-pane fade" id="pills-publish3" role="tabpanel" aria-labelledby="pills-publish3-tab"
             tabindex="0">
-            <?php include 'publish_sale1.php' ?>
+            <?php //include 'publish_sale1.php' ?>
           </div>
           <div class="tab-pane fade" id="pills-publish4" role="tabpanel" aria-labelledby="pills-publish4-tab"
             tabindex="0">
-            <?php include 'publish_sale1.php' ?>
-          </div>
+            <?php //include 'publish_sale1.php' ?>
+          </div-->
           <div class="tab-pane fade" id="pills-publish5" role="tabpanel" aria-labelledby="pills-publish5-tab"
             tabindex="0">
             <?php include 'publish_sale5.php' ?>>
@@ -210,110 +210,8 @@
   }else{
     $('#category-product, #t-combustible,#kilometer-box-wrapper').show(); 
   }
-}
-  function searchTypeMachine(industria){
-   
-   var url = '<?=$baseUrl?>/list_machine?id_product_type=' + industria;  
-   $.ajax({
-      url: url,
-      method: 'GET', 
-      contentType: "application/json",
-    
-      success: function(res) {
-          var selectElement = $('#id_machine');
-
-              // Limpiar las opciones existentes
-              selectElement.empty(); 
-                // Agregar la opción por defecto
-                  var defaultOption = $('<option value="0">').prop('selected', true).text('Tipo de Máquina *');
-                  selectElement.append(defaultOption);
-                  res.data.forEach(function(element) { 
-                  var option = $('<option value='+element.id_machine+' >').text(element.description);
-                  selectElement.append(option);             
-               });
-           searchTypeMarca(industria);
-           searchTypeModelo(industria);
-      },
-      error: function(error) {
-      console.error('Error al enviar los datos actualizados');
-      }
-  });
-}
-
-function searchTypeMarca(industria){
-   
-   var url = '<?=$baseUrl?>/list_marca?id_product_type=' + industria;  
-   $.ajax({
-      url: url,
-      method: 'GET', 
-      contentType: "application/json",
-    
-      success: function(res) {
-          var selectElement = $('#marca');
-
-              // Limpiar las opciones existentes
-              selectElement.empty(); 
-                // Agregar la opción por defecto
-              var defaultOption = $('<option value"0">').prop('selected', true).text('Marca*'); 
-              selectElement.append(defaultOption);
-              res.data.forEach(function(element) { 
-              var option = $('<option value='+element.id_marca+' >').text(element.description);
-              selectElement.append(option);             
-          });
-             var selectElement1 = $('#marca5'); 
-              selectElement1.empty();  
-              var defaultOption1 = $('<option value"0">').prop('selected', true).text('Marca*'); 
-              selectElement1.append(defaultOption1);
-              res.data.forEach(function(element) { 
-              var option1 = $('<option value='+element.id_marca+' >').text(element.description);
-              selectElement1.append(option1);   
-                        
-          }); 
-  
-      },
-      error: function(error) {
-
-      console.error('Error al enviar los datos actualizados');
-      }
-  });
-}
-
-function searchTypeModelo(industria){
-   
-   var url = '<?=$baseUrl?>/list_model?id_product_type=' + industria;  
-   $.ajax({
-      url: url,
-      method: 'GET', 
-      contentType: "application/json",    
-      success: function(res) {
-          var selectElement = $('#modelo'); 
-              // Limpiar las opciones existentes
-              selectElement.empty(); 
-                // Agregar la opción por defecto
-              var defaultOption = $('<option value"0">').prop('selected', true).text('Modelo*');
-              selectElement.append(defaultOption);
-              res.data.forEach(function(element) { 
-              var option = $('<option value='+element.id_model+' >').text(element.description);
-              selectElement.append(option);             
-          });
-          var selectElement1 = $('#modelo5'); 
-              // Limpiar las opciones existentes
-              selectElement1.empty(); 
-                // Agregar la opción por defecto
-              var defaultOption1 = $('<option value"0">').prop('selected', true).text('Modelo*');
-              selectElement1.append(defaultOption1);
-              res.data.forEach(function(element) { 
-              var option1 = $('<option value='+element.id_model+' >').text(element.description);
-              selectElement1.append(option1);             
-          });
-  
-      },
-      error: function(error) {
-        
-      console.error('Error al enviar los datos actualizados');
-      }
-  });
-}
+}  
+ 
 
 </script>
  

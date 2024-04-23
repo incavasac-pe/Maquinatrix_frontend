@@ -1,9 +1,56 @@
+<?php 
+
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
+$host = $_SERVER['HTTP_HOST']; 
+$uri = $_SERVER['REQUEST_URI']; 
+$url_publi = $protocol . '://' . $host; 
+  
+   $baseUrl = getenv('URL_API'); 
+
+   
+   $count_marca = 0;
+   $url965 = $baseUrl.'/list_marca'; 
+   $response965= file_get_contents($url965);
+   if ($response965 !== false) {
+      // Decodificar la respuesta JSON
+      $data = json_decode($response965, true);
+      if (!$data['error']) {
+          // Obtener la lista de $categories
+          $marca = $data['data'];
+
+          $count_marca = $data['count'];
+      } else {
+          echo 'Error: ' . $data['msg'];
+      }
+   } else {
+       echo 'Error al realizar la solicitud a la API';
+   }
+   
+
+   $count_modelo= 0;
+    $url33 = $baseUrl.'/list_model'; 
+    $response33= file_get_contents($url33);
+    if ($response33 !== false) {
+       // Decodificar la respuesta JSON
+       $data = json_decode($response33, true);
+       if (!$data['error']) {
+           // Obtener la lista de $categories
+           $modelo = $data['data'];
+
+           $count_modelo = $data['count'];
+       } else {
+           echo 'Error: ' . $data['msg'];
+       }
+    } else {
+        echo 'Error al realizar la solicitud a la API';
+    }
+    ?>
 <div class="container">
     <div class="category-product">
         <h1>Título y descripción de publicación</h1>
         <p class="sm-title">Arma el título para tu publicación. Indica el producto, marca y modelo.</p>
         <input type="text" class="form-control" id="title" name="title" placeholder="Título de publicación*">
-        <p class="text-grey">Ej: Construcción Excavadora de las mejores del mundo</p>
+        <p class="text-grey"></p>
         <p class="sm-title">Describe tu publicación</p>
         <textarea id="descrip" name="descrip"  class="form-control text-container"  rows="3"></textarea>
         <div id="charCount" class="char-count">Caracteres (0/10000)</div>
@@ -14,15 +61,45 @@
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select required id="marca" name="marca">  
-                   </select> 
+                <?php  
+                    
+                    if ($count_marca > 0) { 
+                        echo '<select  id="marca" name="marca" required>';
+                        echo '<option value="0">Marca*</option>'; 
+                        foreach ($marca as $field) {
+                            $id = $field['id_marca'];
+                            $marcaName = $field['description'];
+                            echo '<option value="' . $id . '"'; 
+                            if ($id == $marca) {
+                                echo ' selected';
+                            }  
+                            echo '>' . $marcaName. '</option>';
+                        }
+                        echo '</select> ';
+                
+                        }  ?>   
+                  
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select required  id="modelo" name="modelo"> 
-                 </select> 
+                <?php  
+                    if ($count_modelo > 0) { 
+                        echo '<select id="modelo" name="modelo" >';
+                        echo '<option value="0">Modelo*</option>'; 
+                        foreach ($modelo as $field) {
+                            $id = $field['id_model'];
+                            $modeloName = $field['description'];
+                            echo '<option value="' . $id . '"'; 
+                            if ($id == $modelo) {
+                                echo ' selected';
+                            }  
+                            echo '>' . $modeloName. '</option>';
+                        }
+                        echo '</select> ';
+                
+                        }  ?> 
 
                 </div>
             </div>
@@ -32,7 +109,7 @@
                         <?php
                         // Obtener el año actual
                         $anioActual = date("Y");
-                        echo '<option value="">Año</option>';
+                        echo '<option value="0">Año*</option>';
                         // Crear opciones para los últimos 50 años
                             for ($i = $anioActual; $i >= ($anioActual - 50); $i--) {
                             echo '<option value="' . $i . '">' . $i . '</option>';
@@ -44,27 +121,27 @@
                 
             </div> 
           
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
+            <div class="col-sm-6 col-md-6 col-lg-6 engine_number" >
+                <div class="mb-3" >
                     <input type="text" class="form-control" name="engine_number"  id="engine_number"  placeholder="N°. de Motor">
-                    <p class="text-grey">Ej. de N°. de Motor: X123123124123</p>
+                    <p class="text-grey" >Ej. de N°. de Motor: X123123124123</p>
 
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
+            <div class="col-sm-6 col-md-6 col-lg-6 chasis_number" >
+                <div class="mb-3" >
                     <input type="text"  class="form-control"  name="chasis_number" id="chasis_number" placeholder="N°. de Chasis/VIN">
                     <p class="text-grey">Ej. de VIN: 1G1RC6E42BUXXXXXX</p>
 
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="col-sm-6 col-md-6 col-lg-6 patente" >
                 <div class="mb-3">
                     <input type="text" class="form-control"  name="patente" id="patente" placeholder="Patente">
 
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="col-sm-6 col-md-6 col-lg-6 factory_code" >
                 <div class="mb-3">
                 <input type="hidden"  class="form-control" id="factory_code" name="factory_code"
                         placeholder="Número de Parte (código de fábrica producto)">
@@ -72,13 +149,13 @@
                 </div>
             </div>
         </div>
-        <div class="warning-wrapper" id="error-container-title">
-           <i class="fa-solid fa-circle-exclamation"></i>
-        <div>
-            <p class="error-heading">Campos faltan completar</p>
-            <p class="sm-text">Campos requeridos faltan completar: INFORMACION DE PRODUCTO.</p>
-        </div>
-    </div>
+        <div class="warning-wrapper" id="error-container-title"> 
+            <i class="fa-solid fa-circle-exclamation"></i> 
+                <div>
+                    <p class="error-heading">Campos faltan completar</p>
+                    <p class="sm-text">Campos requeridos faltan completar: Información de producto.</p>
+                </div>
+            </div>
     </div>
     <div class="category-product">
         <h1 id="category-product">Características Técnicas</h1>
@@ -206,41 +283,45 @@
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
                 <?php                                            
-                                    if ($count_regiones > 0) { 
-                                            echo '<select required id="region" name="region">';
-                                            echo '<option value="" selected disabled hidden>Región*</option>'; 
-                                            foreach ($regiones as $reg) { 
-                                                echo '<option value="' . $reg . '"'; 
-                                                if (isset($region) && $region == $reg) {
-                                                    echo ' selected';
-                                                }  
-                                                echo '>' . $reg. '</option>';
-                                            }
-                                            echo '</select>';
-                                        }  
-                                    ?> 
+                    if ($count_regiones > 0) { 
+                            echo '<select required id="region" name="region">';
+                            echo '<option value="0" selected >Región*</option>'; 
+                            foreach ($regiones as $reg) { 
+                                echo '<option value="' . $reg . '"'; 
+                                if (isset($region) && $region == $reg) {
+                                    echo ' selected';
+                                }  
+                                echo '>' . $reg. '</option>';
+                            }
+                            echo '</select>';
+                        }  
+                    ?> 
 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <select required  id="city" name="city">
-                    <option value="" selected disabled hidden>Ciudad</option>
-                    <option value="1">Coquimbo</option>
-                    <option value="2">El Melón</option>
-                    <option value="3">Gultro</option>
-                </select>
+                <?php 
+                    require 'comunas.php';
+                    // Generar el select de comunas
+                    echo '<select required  id="city" name="city">';
+                    echo '<option value="0" selected >Comunas*</option>'; 
+                    foreach ($comunas as $comuna) {
+                        echo '<option value="' . $comuna . '">' . $comuna . '</option>';
+                    }
+                    echo '</select>';
+                    ?> 
 
                 </div>
             </div>
 </div>   
 <div class="warning-wrapper" id="error-container-ubicacion">
-    <i class="fa-solid fa-circle-exclamation"></i> 
-    <div>
-        <p class="error-heading">Campos faltan completar</p>
-        <p class="sm-text">Campos requeridos faltan completar: UBICACION.</p>
-    </div>
-</div>
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                                    <div>
+                                        <p class="error-heading">Campos faltan completar</p>
+                                        <p class="sm-text">Campos requeridos faltan completar: UBICACION.</p>
+                                    </div>
+                            </div>
     </div>
     <div class="category-product">
         <h1>Precio</h1>
@@ -255,8 +336,8 @@
             </div>
 
         </div>
-   <div class="warning-wrapper" id="error-container-price">
-       <i class="fa-solid fa-circle-exclamation"></i> 
+        <div class="warning-wrapper" id="error-container-price">
+                <i class="fa-solid fa-circle-exclamation"></i> 
             <div>
                 <p class="error-heading">Campos faltan completar</p>
                 <p class="sm-text">Campos requeridos faltan completar: Precio.</p>
@@ -283,18 +364,17 @@
             </div>
         </div>
     </div>
-    <div class="error-container hidden">
-        <i class="fa-solid fa-circle-xmark"></i>
-        <div>
-            <p class="error-heading">Campos faltan completar</p>
-            <p class="sm-text">Campos requeridos faltan completar: Información de vehículo, Facilidad de entrega,
-                Contrato de Arriendo Maquinatrix, Garantía de Arriendo.</p>
-        </div>
-    </div>
+    <div class="error-container" id="error-container">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                    <div>
+                        <p class="error-heading">Campos faltan completar</p>
+                        <p class="sm-text text-msg-error">Campos requeridos faltan completar .</p>
+                    </div>
+                </div>
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn">Cancelar</button></div>
-            <div><button type="button" class="grey-btn" id="save_public1">Guardar y salir</button><button type="button"
+            <div><button type="button" class="grey-btn">Guardar y salir</button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
         </div>
     </div>

@@ -211,17 +211,8 @@ $(document).ready(function() {
       }else{
         $("#error-container-ubicacion").show();
       }
-    }); 
-    
-
-  
-    $('#pdfFile').change(function() {
-      console.log("subir doc", $(this)[0].files[0]); 
-    });
-
-    $('#pdfFile1').change(function() {
-      console.log("subir doc11", $(this)[0].files[0]); 
-    });
+    });  
+ 
   });  
 </script>
  

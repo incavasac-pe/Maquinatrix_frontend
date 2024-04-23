@@ -506,10 +506,10 @@ $url_publi = $protocol . '://' . $host;
                             </div>
                             <div class="warning-wrapper" id="error-container-ubicacion">
                             <i class="fa-solid fa-circle-exclamation"></i>
-                                        <div>
-                                            <p class="error-heading">Campos faltan completar</p>
-                                            <p class="sm-text">Campos requeridos faltan completar: UBICACION.</p>
-                                        </div>
+                                    <div>
+                                        <p class="error-heading">Campos faltan completar</p>
+                                        <p class="sm-text">Campos requeridos faltan completar: UBICACION.</p>
+                                    </div>
                             </div>
                         </div>
 
