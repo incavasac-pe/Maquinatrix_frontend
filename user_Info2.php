@@ -1,7 +1,7 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
 <?php 
- 
+   $baseUrl = getenv('URL_API'); 
     if (isset($_GET['type']) && $_GET['type']!='') {
           $type_user  = $_GET['type']; 
     }  
@@ -9,8 +9,9 @@
 
 <div class="user-info-main">
     <div class="user-info-container">
+    <span class="text-success align-middle" id="Msg"></span>
         <h1>Hola Empresa, ingresa tus datos</h1>
-        <form action="location.php" method="POST">
+        <form id="myForm" action="location.php" method="POST">
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-6">
                     <div class="mb-3">
@@ -92,7 +93,7 @@
                         Servicio</span> y <span> Políticas de Privacidad </span></label>
             </div>
 
-            <button type="submit" id="continue-btn" class="btn btn-primary ">Continuar</button>
+            <button type="button" id="continue-btn" class="btn btn-primary ">Continuar</button>
         </form>
     </div>
 </div>
@@ -130,4 +131,55 @@
         });
     });
  
+    $(document).ready(function () {
+    $('#continue-btn').click(function() {
+         // event.preventDefault(); 
+         var form = $(this).closest('form');
+          $("#Msg").html("");    
+          if(  $('#exampleInputRazonSocial').val() =='' ||  $('#exampleInputRutEmpresa').val() =='' || $('#exampleInputName').val() =='' ||  $('#exampleInputSurname').val()  =='' ||    $('#exampleInputEmail1').val()  =='' 
+          || $('#exampleInputRutRP').val() ==''  ){
+              $("#Msg").html("<div class='alert alert-danger' role='alert'>Debe completar todos los campos.</div>");
+              return;
+          } 
+          if( $('#exampleInputPassword1').val() != $('#exampleInputPassword2').val() ){
+              $("#Msg").html("<div class='alert alert-danger' role='alert'>Las contraseñas no coinciden.</div>");
+              return;
+          } 
+       
+          var isChecked = $('#exampleCheck1').is(":checked");
+          if(!isChecked){
+            $("#Msg").html("<div class='alert alert-danger' role='alert'>Debe aceptar los Términos y Políticas.</div>");
+              return;
+          }
+        
+            $('#continue-btn').prop('disabled', true); 
+            var data = { 
+                email: $('#exampleInputEmail1').val()  
+            };
+            $.ajax({
+            type: "POST",
+            url: '<?=$baseUrl?>/validateEmail',
+            data: JSON.stringify(data),
+             contentType: "application/json",
+            success: function(response, textStatus, xhr)
+            {
+                var statusCode = xhr.status; 
+                if (statusCode === 200 && !response.error) {    
+                  console.log("se envia formulario")
+                  form.submit(); // Enviar el formulario utilizando la referencia almacenada
+                  } else {
+                   $("#Msg").html("<div class='alert alert-danger' role='alert'>" + response.msg  + "</div>");  
+                   $('#continue-btn').prop('disabled', false);              
+                }
+           },
+                error: function(response,xhr, textStatus, errorThrown) {
+                    console.log(response.responseJSON.msg)
+                    var statusCode = xhr.status;  
+                        $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
+                        $('#continue-btn').prop('disabled', false);
+                }
+            });
+           
+        });  
+      });
 </script>

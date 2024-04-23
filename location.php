@@ -212,6 +212,7 @@ window.initAutocomplete = initAutocomplete;
         RutRepreLegal: '<?=$RutRepreLegal?>',
         address: inputValue,
         status_id:status,
+        razon_social:'<?=$razon_social?>',
         credencials:credencials
       };
   

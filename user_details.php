@@ -112,9 +112,9 @@ if (isset($_SESSION['loggedIn'])) {
 
             </div>
             <div class="verify-btns-wrapper">
-              <button type="button" class="profile-edit-btn">Editar Perfil</button>
+              <!--button type="button" class="profile-edit-btn">Editar Perfil</button>
               <button type="button" class="verify-btn"> <img src="./assets/img/verify.png" alt="verify"> Verificar mi
-                cuenta</button>
+                cuenta</button-->
             </div>
           </div>
           <ul class="nav user-detail-tab nav-pills mb-3" id="pills-tab" role="tablist">
@@ -135,9 +135,9 @@ if (isset($_SESSION['loggedIn'])) {
                 <div class="user-detail-box">
                   <div class="table-title-2">
                     <p class="top-title2">Información adicional</p>
-                    <button type="button"  class="profile-edit-btn">Editar Perfil</button>
+                    <button type="button"  class=" profile-edit-btn profile-edit-btn1">Editar Perfil</button>
                   </div>
-                  <div class="user-detail-table">
+                  <div class="user-detail-table1">
                     <table class="additional-table">
                     <tr>
                         <td>ID Usuario</td>
