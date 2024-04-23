@@ -3,7 +3,7 @@
 <?php  
 $baseUrl = getenv('URL_API');
 
-//print_r($_POST);
+print_r($_POST);
  
 if (isset($_POST['exampleInputName'])) {
   $firstname = $_POST['exampleInputName'];
@@ -186,7 +186,8 @@ window.initAutocomplete = initAutocomplete;
     var inputValue = inputElement.value; 
     var id_type_user = '<?=$id_type_user?>';
     var status = 4;
-
+    var credencials = 1;
+    
     var formData = {
       id_type_user: id_type_user,
       email: '<?=$email?>',
@@ -196,7 +197,8 @@ window.initAutocomplete = initAutocomplete;
       type_doc: '<?=$type_doc?>',
       num_doc: '<?=$num_doc?>',
       address: inputValue,
-      status_id: status
+      status_id: status,
+      credencials:credencials
     };
 
     var formDataCompany = {
@@ -209,7 +211,8 @@ window.initAutocomplete = initAutocomplete;
         rutCompany: '<?=$rutCompany?>',
         RutRepreLegal: '<?=$RutRepreLegal?>',
         address: inputValue,
-        status_id:status
+        status_id:status,
+        credencials:credencials
       };
   
       $.ajax({

@@ -14,14 +14,16 @@ if (isset($_GET['email']) || isset($_GET['token']) || isset($_GET['loggin']) ) {
      header('location: index.php');
 }
 if (isset($_GET['logout']) ) {
+   if (isset($_SESSION['token'])) {
+      // Obtener el token de acceso almacenado en la sesión
+         $accessToken = $_SESSION['token'] ?? null;
 
-// Obtener el token de acceso almacenado en la sesión
-$accessToken = $_SESSION['token'];
+      // Verificar si hay un token de acceso válido
+      if ($accessToken  ) { 
+        // $client->revokeToken($accessToken);
+      }
+   }
 
-// Verificar si hay un token de acceso válido
-if ($accessToken) { 
-   $client->revokeToken($accessToken);
-}
 
  // Borrar la información de la sesión
   session_unset(); 
