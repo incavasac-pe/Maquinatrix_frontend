@@ -568,6 +568,7 @@ function registerPublication5(){
     },
     success: function(response) {
       // Manejar la respuesta del servidor en 'response'
+      uploadPDF();
       uploadImagen();
       console.log(response);    
     },
@@ -599,8 +600,65 @@ function deleteImagenAll() {
           }
       });
  }         
-       
+     
+ function uploadPDF() {  
+  var input = document.getElementById('pdfFile');
+  var archivos = input.files;
+      if(archivos.length > 0){  
+       var token = '<?= $_SESSION["token"]  ?? ''?>';         
+ 
+          var archivo = archivos[0];
+            var formData = new FormData();
+            formData.append('file',archivo);   
+            $.ajax({
+                type: "POST",
+                processData: false,  // tell jQuery not to process the data
+                contentType: false ,  // tell jQuery not to set contentType
+                url: '<?= $baseUrl ?>/upload_pdf?id_product='+id_product+'&orden=1&type=1',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                data: formData, 
+                success: function (response, textStatus, xhr)
+                {
+                
+                },
+                error: function (response) { 
+                    if (response.status === 401 || response.status === 403) {
+           
+                     window.location.href = 'create_session_portal.php?logout=true';
+                    }
+              }
+              });
+            }  
+      var input_other = document.getElementById('pdfFile-other');
+      var archivos__other = input_other.files; 
+            if(archivos__other.length > 0){       
+              var archivo_other = archivos__other[0];
+                var formData = new FormData();
+                formData.append('file',archivo_other);   
+                $.ajax({
+                    type: "POST",
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false ,  // tell jQuery not to set contentType
+                    url: '<?= $baseUrl ?>/upload_pdf?id_product='+id_product+'&orden=1&type=2',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    data: formData, 
+                    success: function (response, textStatus, xhr)
+                    {
+                    
+                    },
+                    error: function (response) { 
+                      
+              }
+              });
+            }   
+
+      }  
  function uploadImagen() {  
+ 
   var input = document.getElementById('file-input');
   var archivos = input.files;
       if(archivos.length > 0){
@@ -637,7 +695,7 @@ function deleteImagenAll() {
                     if(save_public){
                       sendDataResume(archivo[0]);
                     }else{
-                      window.location.href = 'user_details.php?tab=profile'; 
+                      window.location.href = 'user_details.php?tab=publication'; 
                     }
                   }
                 },
@@ -651,7 +709,7 @@ function deleteImagenAll() {
             }, 1000); // 3000 milisegundos = 3 segundos
         }  else{
           if(!save_public){ 
-            window.location.href = 'user_details.php?tab=profile'; 
+            window.location.href = 'user_details.php?tab=publication'; 
            }
         }
       }

@@ -631,7 +631,7 @@ function deleteImagenAll() {
                     if(save_public){
                       sendDataResume(archivo[0]);
                     }else{
-                      window.location.href = 'user_details.php?tab=profile'; 
+                      window.location.href = 'user_details.php?tab=publication'; 
                     }
                   }
                 },
@@ -645,7 +645,7 @@ function deleteImagenAll() {
             }, 1000); // 3000 milisegundos = 3 segundos
         }  else{
           if(!save_public){ 
-            window.location.href = 'user_details.php?tab=profile'; 
+            window.location.href = 'user_details.php?tab=publication'; 
            }
         }
       }

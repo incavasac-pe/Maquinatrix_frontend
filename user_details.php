@@ -691,8 +691,8 @@ function construirEstructuraHTML(value) {
           }
         });
         
-      }   else {
-        $('.list_publi').text(res?.msg);
+      }  else {
+        $('.list_publi').text('No tienes publicaciones creadas, para crear la primera presiona el botón "Crear Publicación".');
       }
     }
   });

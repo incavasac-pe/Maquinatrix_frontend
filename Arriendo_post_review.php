@@ -50,7 +50,7 @@ if (!$dataimg['error']) {
 
     <script> 
         function goPublication(){
-            window.location.href = 'user_details.php?tab=profile';
+            window.location.href = 'user_details.php?tab=publication';
         }
         
         function seePublication(id){

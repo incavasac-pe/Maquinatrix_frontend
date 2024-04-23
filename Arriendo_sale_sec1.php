@@ -548,12 +548,18 @@ $url_publi = $protocol . '://' . $host;
                                     <label for="exampleFormControlInput11" class="form-label dark-grey-text">Adjuntar Archivo</label>
                                     <div class="input-group mb-3">
 
-                                        <input type="file" id="pdfFile" name="pdfFile" class="form-control input-addon" 
-                                            placeholder="Adjuntar certificado" aria-label="Adjuntar certificado"
-                                            aria-describedby="basic-addon2">
+                                    <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" class="form-control input-addon" 
+                                        placeholder="Adjuntar certificado" aria-label="Adjuntar certificado"
+                                        aria-describedby="basic-addon2" >
                                         <span class="input-group-text input-addon-symbol" id="basic-addon2">@</span>
                                     </div>
-                                    <p class="dark-grey-text-sm">Se admiten los formatos PDF, JPG Y PNG.</p>
+                                    <p class="dark-grey-text-sm">Se admiten los formatos PDF. Máx 20 MB</p>
+                                    <div class="warning-wrapper" style="display: none;" id="error-container-pdf">
+                                      <i class="fa-solid fa-circle-exclamation"></i>
+                                        <div>                                            
+                                            <p class="sm-text">El formato debe ser PDF ó el archivo excede el tamaño máximo permitido (20 MB).</p>
+                                        </div>
+                                  </div>
                                 </div>
                             </div>
                         </div>
@@ -588,13 +594,19 @@ $url_publi = $protocol . '://' . $host;
                                 <p class="dark-grey-text-md">Adjunta la Póliza de Seguro de la maquinaria que estás publicando. Descuida, no
                                     compartiremos con nadie este documento, lo validaremos para marcar su autenticidad en tu publicación.
                                 </p>
-                                <p class="dark-grey-text-md">Se admiten los formatos PDF, JPG Y PNG.</p>
+                                <p class="dark-grey-text-md">Se admiten los formatos PDF. Máx 20 MB</p>
                                 <div class="input-group mb-3" style="width: 223px;">
 
-                                    <input type="file" id="pdfFile1" name="pdfFile1"  class="form-control input-addon" 
+                                    <input type="file"  accept=".pdf"  id="pdfFile-other" name="pdfFile-other"  class="form-control input-addon" 
                                         placeholder="Adjuntar certificado" aria-label="Adjuntar certificado"
                                         aria-describedby="basic-addon2">
                                     <span class="input-group-text input-addon-symbol" id="basic-addon2">@</span>
+                                    <div class="warning-wrapper" style="display: none;" id="error-container-pdf-other">
+                                      <i class="fa-solid fa-circle-exclamation"></i>
+                                        <div>                                            
+                                            <p class="sm-text">El formato debe ser PDF ó el archivo excede el tamaño máximo permitido (20 MB).</p>
+                                        </div>
+                                  </div>
                                 </div>
 
                             </div>
@@ -714,8 +726,7 @@ $url_publi = $protocol . '://' . $host;
             </div>
           </div>
           
-        </div>
-      
+        </div> 
  
  <script>   
  var id_categoria = 0;
@@ -830,6 +841,64 @@ function searchTypeModelo(industria){
   });
 }
 
+</script>
+<script>
+$(document).ready(function() {
+  $('#pdfFile').change(function() {
+    var file = $(this).prop('files')[0];
+
+    // Verificar si se seleccionó un archivo
+    if (file) {
+      // Verificar la extensión del archivo
+      var fileName = file.name;
+      var fileExtension = fileName.split('.').pop().toLowerCase();
+      if (fileExtension !== 'pdf') {
+         $("#error-container-pdf").show();      
+        $(this).val(''); // Limpiar el valor del campo de archivo
+        return;
+      }
+    
+      // Verificar el tamaño del archivo
+      var fileSizeInBytes = file.size;
+      var fileSizeInMB = fileSizeInBytes / (1024 * 1024); // Convertir a MB
+      var maxFileSizeInMB = 20;
+      if (fileSizeInMB > maxFileSizeInMB) {
+        $("#error-container-pdf").show(); 
+        alert('El archivo excede el tamaño máximo permitido (20 MB).');
+        $(this).val(''); // Limpiar el valor del campo de archivo
+        return;
+      }
+      $("#error-container-pdf").hide();  
+    }
+  });
+   $('#pdfFile-other').change(function() {
+    var file = $(this).prop('files')[0];
+
+    // Verificar si se seleccionó un archivo
+    if (file) {
+      // Verificar la extensión del archivo
+      var fileName = file.name;
+      var fileExtension = fileName.split('.').pop().toLowerCase();
+      if (fileExtension !== 'pdf') {
+         $("#error-container-pdf-other").show();      
+        $(this).val(''); // Limpiar el valor del campo de archivo
+        return;
+      }
+    
+      // Verificar el tamaño del archivo
+      var fileSizeInBytes = file.size;
+      var fileSizeInMB = fileSizeInBytes / (1024 * 1024); // Convertir a MB
+      var maxFileSizeInMB = 20;
+      if (fileSizeInMB > maxFileSizeInMB) {
+        $("#error-container-pdf-other").show(); 
+        alert('El archivo excede el tamaño máximo permitido (20 MB).');
+        $(this).val(''); // Limpiar el valor del campo de archivo
+        return;
+      }
+      $("#error-container-pdf-other").hide();  
+    }
+  });
+});
 </script>
 <script>
     $('#industria').selectize({ normalize: true });
