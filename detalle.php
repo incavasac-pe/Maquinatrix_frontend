@@ -24,6 +24,7 @@ if ($response !== false) {
    if (!$data['error']) {
        // Obtener la lista de $categories
        $detalle = $data['data'][0];
+       print_r( $detalle );
        $count_category = $data['count'];
    }  
 } else {
@@ -347,7 +348,7 @@ if ($responseimg !== false) {
                         </p>
                         <button class="whatsapp-btn"><img src="./assets/img/whatsapp.png" alt="whatsapp">Contactar</button>
                                 
-                                <!--button class="consult-yellow-btn">Consulta por financiamiento</button>
+                        <!--button class="consult-yellow-btn">Consulta por financiamiento</button>
                         <button class="consult-yellow-btn">Conoce las facilidades de pago</button-->
                         <p class="grey-heading">Sujeto a factibilidad</p>
                        
@@ -732,8 +733,7 @@ $(document).ready(function() {
 
 });
 
-$('.whatsapp-btn').click(function () { 
-    alert("asoqwieoqwe");
+$('.whatsapp-btn').click(function () {  
 
     var type ='<?=$tpublicacion?>';
     var id = '<?=$id?>';

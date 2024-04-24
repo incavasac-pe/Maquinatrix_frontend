@@ -519,18 +519,18 @@ $url_publi = $protocol . '://' . $host;
                                 <h1>Certificado de Operatividad</h1>
                                 <div class="shipping-wrapper">
                                     <div class="shipping-main">
-                                        <p class="sm-title">Despacho incluido</p>
-                                        <p class="sm-text">Es un hecho establecido hace demasiado tiempo que un lector se disaerá con el
-                                            contenido del texto de <br /> un sitio mientras.</p>
+                                        <p class="sm-title"><strong>¿Incluye Certificado de Operatividad?</strong></p>
+                                        <p class="sm-text">El certificado de operatividad se adquiere después de una revisión exhaustiva del representate de la 
+                                          <br />mar o vehículo, o bien, mediante un taller certificado.</p>
                                     </div>
                                     <div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                            <input class="form-check-input" type="radio" name="certificadoP" id="inlineRadio1"
                                                 value="Y">
                                             <label class="form-check-label" for="inlineRadio1">Sí</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                            <input class="form-check-input" type="radio" name="certificadoP" id="inlineRadio2"
                                                 value="N">
                                             <label class="form-check-label" for="inlineRadio2">No</label>
                                         </div>
@@ -621,10 +621,8 @@ $url_publi = $protocol . '://' . $host;
                         </div>
 
                         <div class="category-product">
-                            <h1>Póliza de seguro</h1>
-                            <div class="grey-border-wrapper" style="margin-bottom:20px;">
-
-
+                            <h1>Opciones de Arriendo</h1>
+                            <div class="grey-border-wrapper" style="margin-bottom:20px;"> 
 
                                 <div class="shipping-wrapper">
                                     <div class="shipping-main">

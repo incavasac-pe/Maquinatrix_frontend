@@ -48,8 +48,8 @@ if (isset($_SESSION['loggedIn'])) {
             <p class="profile-identity">ID usuario:  <?= $id_user_ext ?? ''; ?> </p>
         </div>
                 <li><a class="dropdown-item" href="./user_details.php?tab=publication">Mis Publicaciones</a></li>
-                <li><a class="dropdown-item" href="#">Solicitudes Hechas</a></li>
-                <li><a class="dropdown-item" href="#">Solicitudes Recibidas</a></li>
+                <!--li><a class="dropdown-item" href="#">Solicitudes Hechas</a></li>
+                <li><a class="dropdown-item" href="#">Solicitudes Recibidas</a></li-->
                 <li><a class="dropdown-item" href="./user_details.php?tab=profile">Mi Cuenta</a></li>
                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ayuda">Ayuda</a></li> 
                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#signOut">Cerrar sesión</a></li>

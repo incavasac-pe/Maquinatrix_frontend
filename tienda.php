@@ -735,19 +735,26 @@ function searchPublication(params,type) {
                 var li1 = $('<li>').html('<i class="fa-regular fa-circle-check"></i> Contrato Maquinatrix');
                 var li2 = $('<li>').html('<i class="fa-regular fa-circle-check"></i>Garantía Maquinatrix');
                 var li3 = $('<li>').html('<i class="fa-regular fa-circle-check"></i> Despacho');
+                var a = 0;
 
                 if(element.product_details?.delivery=='Y' || element.product_details?.delivery=='S' ){
                     ul.append(li1);
+                    a++;
                 } 
                  if(element.product_details?.warranty=='Y' || element.product_details?.warranty=='S' ){
                     ul.append(li2);
+                   a++;
                 }
                  if(element.product_details?.delivery=='Y' || element.product_details?.delivery=='S' ){
                     ul.append(li3);
+                    a++;
                 }
-                
-                divCol5.append(pIncludes, ul); 
-                divRow.append(divCol7, divCol5); 
+                if(a > 0){ divCol5.append(pIncludes, ul);
+                    divRow.append(divCol7, divCol5); 
+                }else{
+                    divRow.append(divCol7); 
+                }
+               
                 divDescription.append(divRow); 
                 divContainer.append(divImage, divDescription); 
                 link.append(divContainer); 

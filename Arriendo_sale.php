@@ -311,7 +311,7 @@ bottomStrip.appendChild(pTag);
       "warranty": $('input[name="rental"]:checked').val(),
       "condition": $('input[name="flexRadioDefault"]:checked').val() ?? '',
       "owner": "",
-      "delivery": $('input[name="inlineRadioOptions"]:checked').val() ?? '',
+      "delivery": $('input[name="shipping"]:checked').val() ?? '',
       "pay_now_delivery": "N",
       "facipay": $('input[name="price_type"]:checked').val() ?? '',
       "contact_me": "",
@@ -361,7 +361,7 @@ bottomStrip.appendChild(pTag);
       "Scheduled_Maintenance": $('input[name="maintenance"]:checked').val(),
       "Supply_Maintenance": $('input[name="maintenance_suppy"]:checked').val(),
       "Technical_Visit": $('input[name="technical"]:checked').val(),
-      "operational_certificate": $('input[name="technical"]:checked').val(),
+      "operational_certificate": $('input[name="certificadoP"]:checked').val(),
       "operational_certificate_date": $("#dateCerti").val(),  
       "operational_certificate_attachment": "certificate.pdf",
       "Insurance_Policy": $('input[name="insurance"]:checked').val(),
@@ -393,7 +393,7 @@ bottomStrip.appendChild(pTag);
     $('.r_price').text( value);
 
     $('.r_tipo_vendedor').text(categoria);
-    $('.r_delivery').text($('input[name="inlineRadioOptions"]:checked').val() == 'Y' ? 'Sí' : 'No');
+    $('.r_delivery').text($('input[name="shipping"]:checked').val() == 'Y' ? 'Sí' : 'No');
 
     $('.r_delivery1').text($('input[name="shipping"]:checked').val() == 'Y' ? 'Sí' : 'No');
     $('.r_operator').text($('input[name="operator"]:checked').val() == 'Y' ? 'Sí' : 'No');
