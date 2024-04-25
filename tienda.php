@@ -554,6 +554,29 @@ $(document).ready(function() {
         var filter = updateFilterParam('recent', 1, '<?=$param?>');
         searchPublication(filter,2);
     });
+
+  
+    $('#hasta').on('blur', function() {     
+        var hasta =  $('#desde').val() +'-'+$('#hasta').val();
+        var filter = updateFilterParam('yearstart', hasta, '<?=$param?>');
+        searchPublication(filter,2);
+    });
+    $('#category').on('change', function() { 
+        var value =  $('#category').val(); 
+        var filter = updateFilterParam('category', value, '<?=$param?>');
+        searchPublication(filter,2);
+    });
+    $('#industria').on('change', function() { 
+        var value =  $('#industria').val(); 
+        var filter = updateFilterParam('id_product_type', value, '<?=$param?>');
+        searchPublication(filter,2);
+    });
+    $('#maquinaria').on('change', function() { 
+        var value =  $('#maquinaria').val(); 
+        var filter = updateFilterParam('id_machine', value, '<?=$param?>');
+        searchPublication(filter,2);
+    });
+ 
  });
 
     $('#all').click(function () {

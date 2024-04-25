@@ -200,7 +200,6 @@ if (isset($_SESSION['loggedIn'])) {
                       <tr>
                         <td>Contraseña actual</td>
                         <td><input disabled type="password" value="current_password"></td>
-
                       </tr>
                       
                     </table>
@@ -331,9 +330,9 @@ $('.user-detail-table button').click(function() {
       td.empty().text(newValue);
       $(this).text('Editar');
       if(tr.attr('id')=='password-field'){
-           enviarActualizacionDatosBasicos(1, newValue); 
+          // enviarActualizacionDatosBasicos(1, newValue); 
       }else if(tr.attr('id')=='email'){
-           enviarActualizacionDatosBasicos(2, newValue);
+        //   enviarActualizacionDatosBasicos(2, newValue);
       }else{        
         enviarActualizacionInformacionAdicional(2, newValue);
       }
@@ -450,8 +449,10 @@ function enviarActualizacionDatosBasicos(type, newValue) {
       xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
     },
     success: function(response) {
-      $("#Msg").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
-      location.reload();
+      if (type == 1) {
+      $("#Msg2").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
+      }
+      //location.reload();
     },
     error: function(error) {
       console.error('Error al enviar los datos actualizados');
@@ -498,7 +499,7 @@ function enviarActualizacionInformacionAdicional(type, value = '') {
     },
     success: function(response) {
       $("#Msg").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
-      location.reload();
+      //location.reload();
     },
     error: function(error) {
       console.error('Error al enviar los datos actualizados');
@@ -698,7 +699,22 @@ function construirEstructuraHTML(value) {
   });
 }
 
-function setValue(id){
+function setValuePassword(id){ 
+  var old_password = $("#exampleInputPasswordold").val();
+  var new_password = $("#exampleInputPassword1").val();
+  var conf_password = $("#exampleInputPassword2").val();
+  if(new_password=='' || new_password=='' || conf_password=='' ){
+    $("#Msg2").html("<div class='alert alert-danger' role='alert'>Debe completar todos los campos.</div>"); 
+    return
+  }
+  if(new_password!=conf_password ){
+    $("#Msg2").html("<div class='alert alert-danger' role='alert'>Las contraseñas deben coincidir.</div>"); 
+    return
+  }
+  enviarActualizacionDatosBasicos(1, new_password); 
+}
+
+function setValue(id){ 
   $('#id_product').val(id);
 }
 
@@ -710,18 +726,18 @@ function  statusBorrador(id){
 function seePublicacion(id){
   $('#id_product').val(id);
   var form = document.createElement('form');
-          form.method = 'POST';
-          form.action = 'purchase_publication.php';
+      form.method = 'POST';
+      form.action = 'purchase_publication.php';
 
-          var input3= document.createElement('input');
-          input3.type = 'hidden';
-          input3.name = 'id';
-          input3.value = id;
-          form.appendChild(input3); 
+      var input3= document.createElement('input');
+      input3.type = 'hidden';
+      input3.name = 'id';
+      input3.value = id;
+      form.appendChild(input3); 
 
-          document.body.appendChild(form);
-          form.submit();
-  
+      document.body.appendChild(form);
+      form.submit();
+
 }
 
 function deletePublic(status){
@@ -729,8 +745,7 @@ function deletePublic(status){
   var data = {};
 
   $("#Msg").html("");
-  var id_product = $("#id_product").val();
- 
+  var id_product = $("#id_product").val(); 
     url = '<?=$baseUrl?>/update_publication_status?id_user=' + <?=$id_user?>;
     data.id_product = id_product;
     data.status_id = status;

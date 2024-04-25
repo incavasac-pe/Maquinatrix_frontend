@@ -194,17 +194,36 @@
  
   console.log("la categoria de venta es",id_categoria)
 
-  if (id_categoria!=1) {
-    $('.engine_number, .chasis_number, .patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').hide(); 
-    $('#title-transmission,#t-transmission,#t-tranx').hide(); // Ocultar los elementos de entrada// Ocultar los elementos de entrada
-  }else{
+  if (id_categoria==1 || id_categoria==2) {
     $('.engine_number, .chasis_number, .patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').show(); 
     $('#title-transmission,#t-transmission,#t-tranx').show(); 
+  }else{
+    
+    $('.engine_number, .chasis_number, .patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').hide(); 
+    $('#title-transmission,#t-transmission,#t-tranx').hide(); // Ocultar los elementos de entrada// Ocultar los elementos de entrada
   }
-   
+
+  if(id_categoria==1){ 
+     $('.factory_code').hide(); 
+  }  
+  
+  if(id_categoria==2){
+     $('.patente').hide(); 
+     $('.factory_code').show(); 
+  }  
+  if(id_categoria==5){
+     $('.factory_code').hide(); 
+  }  
+  if(id_categoria==4){
+    $('.factory_code').show(); 
+  }
+
+
   if (id_categoria==4 || id_categoria==2 ) {
      $('#factory_code').prop('type', 'number'); 
   }
+
+  
   if (id_categoria==4   || id_categoria==2) {    
     $('#category-product, #t-combustible,#kilometer-box-wrapper').hide(); 
   }else{

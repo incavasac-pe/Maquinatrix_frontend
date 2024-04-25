@@ -14,13 +14,13 @@ if (isset($_GET['email']) || isset($_GET['token']) || isset($_GET['loggin']) ) {
      header('location: index.php');
 }
 if (isset($_GET['logout']) ) {
-   if (isset($_SESSION['token'])) {
+   if (isset($_SESSION['token'])  ) {
       // Obtener el token de acceso almacenado en la sesión
          $accessToken = $_SESSION['token'] ?? null;
-
+      
       // Verificar si hay un token de acceso válido
-      if ($accessToken  ) { 
-        // $client->revokeToken($accessToken);
+      if ($accessToken &&  isset($_SESSION['google']) ) {  
+         $google_client->revokeToken(); 
       }
    }
 
@@ -28,6 +28,6 @@ if (isset($_GET['logout']) ) {
  // Borrar la información de la sesión
   session_unset(); 
   session_destroy();  
-  header('location: index.php'); 
+ header('location: index.php'); 
 }
 ?>

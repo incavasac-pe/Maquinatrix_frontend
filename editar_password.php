@@ -1,17 +1,13 @@
 
 <?php include 'header.php' ?>
 
-
-
-
-
-
+ 
 
 <div class="modal fade pwd-modal" id="pwd-editar-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg  modal-dialog-centered ">
     <div class="modal-content">
     <div class="modal-header ">
-    <span class="text-success align-middle" id="Msg"></span>
+   
         <h1 class="dir-heading">Cambiar contraseña</h1>  
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -23,7 +19,7 @@
             <div class="mb-3">
 
               <div class="input-group" id="show_hide_password">
-                <input type="password" class="form-control" placeholder="Crear contraseña" id="exampleInputPassword1" name="exampleInputPassword1">
+                <input type="password" class="form-control" placeholder="Crear contraseña" id="exampleInputPasswordold" name="exampleInputPasswordold">
                 <div class="input-group-addon">
                   <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                 </div>
@@ -33,6 +29,7 @@
         </div>
     
       <div class="row">
+
       <p class="pwd-title">Ahora, Ingresa una contraseña nueva.</p>
           <div class="col-sm-6 col-md-6 col-lg-6">
             <div class="mb-3">
@@ -57,12 +54,12 @@
 
             </div>
           </div>
-        </div>
+        </div>      <span class="text-danger align-middle" id="Msg2"></span>
       </form>
       </div>
       <div class="modal-footer ">
       <button type="button" id="continueButtonLocation" class="btn btn-primary edit-pwd-cancel-btn" >Cancelar</button>
-      <button type="button" id="continueButtonLocation" class="btn btn-primary edit-pwd-continue-btn" >Guardar Cambios</button>
+      <button type="button" id="continueButtonLocation" class="btn btn-primary edit-pwd-continue-btn" onclick="setValuePassword(8)" >Guardar Cambios</button>
 
       </div>
     </div>
