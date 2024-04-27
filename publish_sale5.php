@@ -59,22 +59,7 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <?php  
-                    if ($count_modelo > 0) { 
-                        echo '<select id="modelo5" name="modelo5" >';
-                        echo '<option value="0">Modelo*</option>'; 
-                        foreach ($modelo as $field) {
-                            $id = $field['id_model'];
-                            $modeloName = $field['description'];
-                            echo '<option value="' . $id . '"'; 
-                            if ($id == $modelo) {
-                                echo ' selected';
-                            }  
-                            echo '>' . $modeloName. '</option>';
-                        }
-                        echo '</select> ';
-                
-                        }  ?> 
+                <input type="text"  class="form-control" id="modelo5" name="modelo5" placeholder="Modelo*"/>
 
                 </div>
             </div>

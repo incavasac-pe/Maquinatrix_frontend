@@ -49,9 +49,8 @@ if (isset($_SESSION['loggedIn'])) {
         </svg>
         Mi cuenta
       </button>
-
-      <button onclick="updateQueryParam('tab', 'publication')" class="nav-link" id="v-pills-profile-tab" type="button" role="tab" data-bs-toggle="pill"
-        data-bs-target="#v-pills-profile" aria-controls="v-pills-profile" aria-selected="false">
+      <button  onclick="updateQueryParam('tab', 'publication')" class="nav-link " id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button"
+        role="tab" aria-controls="v-pills-profile" aria-selected="false">      
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"
           viewBox="0 0 24 24">
           <defs>

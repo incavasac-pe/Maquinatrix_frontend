@@ -239,13 +239,11 @@
     $('#id_machine').selectize({ normalize: true });
     $('#anios').selectize({ normalize: true });
     $('#marca').selectize({ normalize: true });
-    $('#modelo').selectize({ normalize: true });
     $('#region').selectize({ normalize: true });
     $('#city').selectize({ normalize: true });
 
     $('#anios5').selectize({ normalize: true });
     $('#marca5').selectize({ normalize: true });
-    $('#modelo5').selectize({ normalize: true });
     $('#region5').selectize({ normalize: true });
     $('#city5').selectize({ normalize: true });
     

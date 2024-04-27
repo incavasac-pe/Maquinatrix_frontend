@@ -28,7 +28,6 @@
         if (!$data['error']) {
             // Obtener la lista de $categories
             $detalle = $data['data'][0];
-            print_r($detalle);
             $count_category = $data['count'];
         }  
         } else {
@@ -191,7 +190,7 @@
                 <div class="perfil">
                     <div class="row" style="padding-bottom: 35px;">
                         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 datos">
-                            <h5 class="font-family-Roboto-Medium">Publicación creada por:  <?= $detalle['User']['Profile']['full_name'] ?? ''  ?> <?= $detalle['User']['Profile']['last_name'] ?? ''  ?></h5>
+                            <h5 class="font-family-Roboto-Medium">Publicación creada por:  <?= $detalle['User']['Profile']['full_name'] ?? $detalle['User']['Profile']['razon_social']  ?> <?= $detalle['User']['Profile']['last_name'] ?? ''  ?></h5>
 
                         </div>
                         <div

@@ -87,7 +87,7 @@
     formNavigationBtn.addEventListener("click", () => {
       const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
       console.log("*****stepNumber***",stepNumber) 
-      resumePublication(); 
+      resumePublication(stepNumber,true);  
       navigateToFormStep(stepNumber);
     });
   });
@@ -215,7 +215,7 @@ $(document).ready(function() {
     }); 
 
     $("#anios").on('change', function(event) {
-    if( $("#title").val()!='' && $("#marca").val()!='0' &&  $("#modelo").val()!='0' &&  $("#anios").val()!='0'){
+    if( $("#title").val()!='' && $("#marca").val()!='0' &&  $("#modelo").val()!='' &&  $("#anios").val()!='0'){
         $("#error-container-title").hide();
       }else{
         $("#error-container-title").show();
@@ -223,7 +223,7 @@ $(document).ready(function() {
     }); 
 
     $("#anios5").on('change', function(event) {
-    if( $("#title5").val()!='' && $("#marca5").val()!='0' &&  $("#modelo5").val()!='0' &&  $("#anios5").val()!='0'){
+    if( $("#title5").val()!='' && $("#marca5").val()!='0' &&  $("#modelo5").val()!='' &&  $("#anios5").val()!='0'){
         $("#error-container-title5").hide();
       }else{
         $("#error-container-title5").show();
@@ -354,7 +354,7 @@ function resumePublication(step,save){
       "region": id_categoria!='3' ? $("#region").val():$("#region5").val(),
       "city": id_categoria!='3' ? $("#city").val():$("#city5").val(),
       "price": id_categoria!='3' ? $("#price").val():$("#price5").val(),
-      "brand": id_categoria!='3' ? $("#marca").val():$("#marca5").val(),
+      "brand": id_categoria!='3' ? $("#marca").text():$("#marca5").text(),
       "model": id_categoria!='3' ? $("#modelo").val():$("#modelo5").val(),
       "year":  id_categoria!='3' ? $("#anios").val():$("#anios5").val(),
       "factory_code": "Factory Code",
@@ -367,7 +367,9 @@ function resumePublication(step,save){
       "delivery": id_categoria!='3' ? $('input[name="inlineRadioOptions"]:checked').val() : $('input[name="inlineRadioOptions5"]:checked').val(),
       "pay_now_delivery": "N",
       "facipay":"N",
-      "contact_me": "Contact Me PRUEBA" 
+      "contact_me": "Contact Me PRUEBA" ,
+      "id_marca": id_categoria!='3' ? $("#marca").val():$("#marca5").val(),
+      "id_model": '1',
     };
 
     publicacion3 = {   
@@ -419,7 +421,7 @@ function resumePublication(step,save){
   $('.btn_2').text(categoria);
  
   $('.r_marca').text( id_categoria!='3' ?  $("#marca option:selected").text(): $("#marca5 option:selected").text()); 
-  $('.r_modelo').text(  id_categoria!='3' ? $("#modelo option:selected").text(): $("#modelo5 option:selected").text());
+  $('.r_modelo').text(  id_categoria!='3' ? $("#modelo").val(): $("#modelo5").val());
   $('.r_anio').text( publicacion2.year);
   $('.r_condicion').text(publicacion2.condition);
   

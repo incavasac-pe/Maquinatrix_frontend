@@ -109,25 +109,7 @@ $url_publi = $protocol . '://' . $host;
         echo 'Error al realizar la solicitud a la API';
     }
 
-    
-    $count_modelo= 0;
-    $url33 = $baseUrl.'/list_model'; 
-    $response33= file_get_contents($url33);
-    if ($response33 !== false) {
-       // Decodificar la respuesta JSON
-       $data = json_decode($response33, true);
-       if (!$data['error']) {
-           // Obtener la lista de $categories
-           $modelo = $data['data'];
-
-           $count_modelo = $data['count'];
-       } else {
-           echo 'Error: ' . $data['msg'];
-       }
-    } else {
-        echo 'Error al realizar la solicitud a la API';
-    }
-
+     
      $url_final='';
      $param='';
      $search=''; 
@@ -396,23 +378,7 @@ $url_publi = $protocol . '://' . $host;
                                         }  ?>                           
                         </div>
                         <div class="form-group group">
-                        <?php  
-                                    if ($count_modelo > 0) { 
-                                        echo '<select id="modelo" name="modelo" >';
-                                        echo '<option value="0">Modelo</option>'; 
-                                        foreach ($modelo as $field) {
-                                            $id = $field['id_model'];
-                                            $modeloName = $field['description'];
-                                            echo '<option value="' . $id . '"'; 
-                                            if ($id == $modelo) {
-                                                echo ' selected';
-                                            }  
-                                            echo '>' . $modeloName. '</option>';
-                                        }
-                                        echo '</select> ';
-                                
-                                        }  ?> 
-                            <i class="fa-solid fa-caret-down"></i>
+                         <input type="text" id="modelo" name="modelo"  placeholder="Modelo*"/>
                         </div>
                     </div>
                     <div class="mt-4">
@@ -498,14 +464,14 @@ $url_publi = $protocol . '://' . $host;
                    
                     
                         <div class="pagination-container">
-    <button class="pagination-button prevNext" id="prev" disabled="">
-    <i class="fa-solid fa-chevron-left"></i>
-    </button>
-    <div class="pagination-links"></div>
-    <button class="pagination-button prevNext" id="next">
-    <i class="fa-solid fa-chevron-right"></i>
-    </button>
-</div>
+                    <button class="pagination-button prevNext" id="prev" disabled="">
+                    <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <div class="pagination-links"></div>
+                    <button class="pagination-button prevNext" id="next">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
                     </div>
                 </div>
             </div>
@@ -530,7 +496,7 @@ $(document).ready(function() {
         var filter = updateFilterParam('brand', value, '<?=$param?>');
         searchPublication(filter,2);
     });
-    $('#modelo').on('change', function() { 
+    $('#modelo').on('blur', function() { 
         var value =  $('#modelo').val();
         var filter = updateFilterParam('model', value, '<?=$param?>');
         searchPublication(filter,2);
@@ -783,7 +749,7 @@ function searchPublication(params,type) {
                 link.append(divContainer); 
 
                 $('.list_publi_owner').append(link);  
-             }
+           }
              $('.titulo-principal-adorno').text(i + ' resultados de búsqueda'); 
         });
       } else {
@@ -799,7 +765,5 @@ function searchPublication(params,type) {
     $('#category').selectize({ normalize: true });
     $('#industria').selectize({ normalize: true });
     $('#maquinaria').selectize({ normalize: true });
-    $('#marca').selectize({ normalize: true });
-    $('#modelo').selectize({ normalize: true }); 
-    
+    $('#marca').selectize({ normalize: true });    
 </script>

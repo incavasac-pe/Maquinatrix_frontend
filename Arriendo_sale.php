@@ -81,7 +81,7 @@
     formNavigationBtn.addEventListener("click", () => {
       const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
       console.log("*****stepNumber***",stepNumber) 
-      if(stepNumber==2 & ($("#industria").val()=='0' || $("#id_machine").val()=='0' || $("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' 
+      if(stepNumber==2 & ($("#industria").val()=='0' || $("#id_machine").val()=='0' || $("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='' 
           || $("#price").val()=='' || $("#region").val()=='0' || $("#city").val() == '0' || $("#anios").val() == '0' )){
         console.log("se validan los campos no están completos.");
 
@@ -91,7 +91,7 @@
           $("#error-container-tipo").hide();
         }
 
-        if($("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='0' || $("#anios").val() == '0'){
+        if($("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='' || $("#anios").val() == '0'){
           $("#error-container-title").show();
         }else{
           $("#error-container-title").hide();
@@ -177,7 +177,7 @@ $(document).ready(function() {
     }); 
 
     $("#anios").on('change', function(event) {
-    if( $("#title").val()!='' && $("#marca").val()!='0' &&  $("#modelo").val()!='0' &&  $("#anios").val()!='0'){
+    if( $("#title").val()!='' && $("#marca").val()!='0' &&  $("#modelo").val()!='' &&  $("#anios").val()!='0'){
         $("#error-container-title").hide();
       }else{
         $("#error-container-title").show();
@@ -318,7 +318,7 @@ function handleImageUpload() {
       "city":  $("#city").val(),
       "price":  $("#price").val(),
       "brand": $("#marca").text(),
-      "model": $("#modelo").text(),
+      "model": $("#modelo").val(),
       "year": $("#anios").val(),
       "factory_code": "Factory Code",
       "mileage": $("#KilometrosRecorridos").val() == '', 
@@ -333,7 +333,7 @@ function handleImageUpload() {
       "facipay": $('input[name="price_type"]:checked').val() ?? '',
       "contact_me": "",
       "id_marca": $("#marca").val(),
-      "id_model": $("#modelo").val(),
+      "id_model": '1',
     };
 
     publicacion3 = {   
@@ -398,7 +398,7 @@ function handleImageUpload() {
     if(save){
     $('.btn_2').text(categoria);
     $('.r_marca').text(  $("#marca option:selected").text()); 
-    $('.r_modelo').text(  $("#modelo option:selected").text());
+    $('.r_modelo').text(  $("#modelo").val());
     $('.r_anio').text($("#anios").val());
     $('.r_condicion').text($('input[name="flexRadioDefault"]:checked').val());
     

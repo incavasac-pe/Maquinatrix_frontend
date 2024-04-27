@@ -26,24 +26,7 @@ $url_publi = $protocol . '://' . $host;
        echo 'Error al realizar la solicitud a la API';
    }
    
-
-   $count_modelo= 0;
-    $url33 = $baseUrl.'/list_model'; 
-    $response33= file_get_contents($url33);
-    if ($response33 !== false) {
-       // Decodificar la respuesta JSON
-       $data = json_decode($response33, true);
-       if (!$data['error']) {
-           // Obtener la lista de $categories
-           $modelo = $data['data'];
-
-           $count_modelo = $data['count'];
-       } else {
-           echo 'Error: ' . $data['msg'];
-       }
-    } else {
-        echo 'Error al realizar la solicitud a la API';
-    }
+ 
     ?>
 <div class="container">
     <div class="category-product">
@@ -84,23 +67,7 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                <?php  
-                    if ($count_modelo > 0) { 
-                        echo '<select id="modelo" name="modelo" >';
-                        echo '<option value="0">Modelo*</option>'; 
-                        foreach ($modelo as $field) {
-                            $id = $field['id_model'];
-                            $modeloName = $field['description'];
-                            echo '<option value="' . $id . '"'; 
-                            if ($id == $modelo) {
-                                echo ' selected';
-                            }  
-                            echo '>' . $modeloName. '</option>';
-                        }
-                        echo '</select> ';
-                
-                        }  ?> 
-
+                 <input type="text"  class="form-control" id="modelo" name="modelo" placeholder="Modelo*"/>
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
