@@ -15,7 +15,8 @@ if(!isset($_SESSION['token']))
 
 <div class="login">
 <div class="one-color">  
-        <img id="start" src="./assets/img/logo.svg" alt="logo">     
+    <img class="nav-logo" src="./assets/img/logo.svg" alt="logo">
+ 
 </div>
 <div class="two-color"></div>
 <div class="login-main">
@@ -67,7 +68,7 @@ if (isset($_GET['register'] ) ) {
 </div>
 <div class="social-btns">
     <div class="linkedin-btn"> 
-        <a class="linkedin" href="./index.php"><i class="fa-brands fa-facebook"></i> Con Facebook </a>
+        <!--a class="linkedin" href="./index.php"><i class="fa-brands fa-facebook"></i> Con Facebook </a-->
     </div>
     <?php  echo '  <div class="google-btn"> '.$login_button . '</div>';   ?>
     

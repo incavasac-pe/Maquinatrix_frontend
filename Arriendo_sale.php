@@ -217,58 +217,75 @@ $(document).ready(function() {
 </script>
  
 <script>
-  const fileInput = document.getElementById('file-input');
-  const imageContainer = document.getElementById('image-container');
 
-  fileInput.addEventListener('change', handleImageUpload);
+const fileInput = document.getElementById('file-input');
+const imageContainer = document.getElementById('image-container');
+const uploadInputContainer = document.getElementById('upload-input-container');
 
-  function handleImageUpload() {
-    const files = fileInput.files;
+fileInput.addEventListener('change', handleImageUpload);
 
-    for (const file of files) {
-      const reader = new FileReader();
+function handleImageUpload() {
+  const files = fileInput.files;
 
-      reader.onload = function (e) {
-        const imageUrl = e.target.result;
-        const imgContainer = document.createElement('div');
-        imgContainer.classList.add('uploaded-image');
+  // Calculate the index to insert the new image container
+  const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
 
-        const imgElement = document.createElement('img');
-        imgElement.src = imageUrl;
-        imgElement.alt = 'Uploaded Image';
+  for (const file of files) {
+    const reader = new FileReader();
 
-        const heartIcon = document.createElement('div');
-        heartIcon.classList.add('heart-icon');
-        const heartIconImg = document.createElement('img');
-      
-        heartIcon.appendChild(heartIconImg);
+    reader.onload = function (e) {
+      const imageUrl = e.target.result;
+      const imgContainer = document.createElement('div');
+      imgContainer.classList.add('uploaded-image');
 
-        const galleryIcon = document.createElement('div');
-        galleryIcon.classList.add('gallery-icon');
-        const galleryIconImg = document.createElement('img');
-       
-        galleryIcon.appendChild(galleryIconImg);
+      const imgElement = document.createElement('img');
+      imgElement.src = imageUrl;
+      imgElement.alt = 'Uploaded Image';
 
-        const bottomStrip = document.createElement('div');
-        bottomStrip.classList.add('bottom-strip');
-        const pTag = document.createElement('p');
-pTag.textContent = 'Imagen de portada';
-bottomStrip.appendChild(pTag);
-        heartIcon.addEventListener('click', function () {
-          imgContainer.remove();
-        });
+      const heartIcon = document.createElement('div');
+      heartIcon.classList.add('heart-icon');
+      const heartIconImg = document.createElement('img');
+      heartIcon.appendChild(heartIconImg);
 
+      const galleryIcon = document.createElement('div');
+      galleryIcon.classList.add('gallery-icon');
+      const galleryIconImg = document.createElement('img');
+      galleryIcon.appendChild(galleryIconImg);
 
-        imgContainer.appendChild(imgElement);
-        imgContainer.appendChild(heartIcon);
-        imgContainer.appendChild(galleryIcon);
-        imgContainer.appendChild(bottomStrip);
-        imageContainer.insertBefore(imgContainer, imageContainer.firstChild);
-      };
+      const bottomStrip = document.createElement('div');
+      bottomStrip.classList.add('bottom-strip');
+      const pTag = document.createElement('p');
+      pTag.textContent = 'Imagen de portada';
+      bottomStrip.appendChild(pTag);
 
-      reader.readAsDataURL(file);
-    }
+      heartIcon.addEventListener('click', function () {
+        imgContainer.remove();
+      });
+
+      galleryIcon.addEventListener('click', function () {
+        // Store the first child image
+        const firstChild = imageContainer.firstChild;
+        // Replace the first child image with the clicked image
+        imageContainer.insertBefore(imgContainer, firstChild);
+        // Move the first child image to the location of the clicked image
+        imgContainer.parentNode.insertBefore(firstChild, imgContainer.nextSibling);
+      });
+
+      imgContainer.appendChild(imgElement);
+      imgContainer.appendChild(heartIcon);
+      imgContainer.appendChild(galleryIcon);
+      imgContainer.appendChild(bottomStrip);
+
+      // Insert the new image container at the calculated index
+      imageContainer.insertBefore(imgContainer, imageContainer.children[insertIndex]);
+      // Move the file input container after the last uploaded image
+      imageContainer.parentNode.insertBefore(uploadInputContainer, null);
+    };
+
+    reader.readAsDataURL(file);
   }
+}
+
 
   var id_product;
   var publicacion1;

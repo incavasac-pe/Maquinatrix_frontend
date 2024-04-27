@@ -8,12 +8,12 @@ if(isset($_GET["code"]))
 {
 
 $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);//print_r($token);
-
+ 
  if(!isset($token['error'])) {
  
   $google_client->setAccessToken($token['access_token']);
   $_SESSION['token'] = $token['access_token'];
-  $_SESSION['google'] = true;
+  $_SESSION['google'] = $token;
   $google_service = new Google_Service_Oauth2($google_client); 
   $response = $google_service->userinfo->get();
    

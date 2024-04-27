@@ -20,7 +20,7 @@ if (isset($_GET['logout']) ) {
       
       // Verificar si hay un token de acceso válido
       if ($accessToken &&  isset($_SESSION['google']) ) {  
-         $google_client->revokeToken(); 
+         $google_client->revokeToken($_SESSION['google']); 
       }
    }
 

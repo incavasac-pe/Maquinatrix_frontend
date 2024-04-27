@@ -48,7 +48,7 @@ class Google_AccessToken_Revoke
    * @param string|null $token The token (access token or a refresh token) that should be revoked.
    * @return boolean Returns True if the revocation was successful, otherwise False.
    */
-  public function revokeToken(array $token)
+  public function revokeToken($token)
   {
     if (isset($token['refresh_token'])) {
       $tokenString = $token['refresh_token'];

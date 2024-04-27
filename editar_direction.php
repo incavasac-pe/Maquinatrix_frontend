@@ -47,76 +47,106 @@
 </div>
 
 <script>
- 
-function initAutocomplete() {
-  const map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -33.8688, lng: 151.2195 },
-    zoom: 13,
-    mapId: "67f00e4f77c30c63",
-  });
-  // Create the search box and link it to the UI element.
-  const input = document.getElementById("pac-input");
-  const input_search = document.getElementById("pac-input-loc");
-  const searchBox = new google.maps.places.SearchBox(input_search);
-
-  
-  // Bias the SearchBox results towards current map's viewport.
-  map.addListener("bounds_changed", () => {
-    searchBox.setBounds(map.getBounds());
-  });
-
+  let map;
   let markers = [];
 
-  searchBox.addListener("places_changed", () => {
-    const places = searchBox.getPlaces();
+  function initAutocomplete() {
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: -33.8688, lng: 151.2195 },
+      zoom: 13,
+      mapId: "67f00e4f77c30c63",
+    });
 
-    if (places.length == 0) {
-      return;
-    }
+    const input = document.getElementById("pac-input");
+    const input_search = document.getElementById("pac-input-loc");
+    const searchBox = new google.maps.places.SearchBox(input_search);
 
-    // Clear out the old markers.
+    map.addListener("bounds_changed", () => {
+      searchBox.setBounds(map.getBounds());
+    });
+
+    map.addListener("click", (event) => {
+      placeMarker(event.latLng);
+      getAddressFromCoordinates(event.latLng);
+    });
+
+    searchBox.addListener("places_changed", () => {
+      const places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+        return;
+      }
+      markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+      markers = [];
+      const bounds = new google.maps.LatLngBounds();
+
+      places.forEach((place) => {
+        if (!place.geometry || !place.geometry.location) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+
+        const icon = {
+          url: "https://raw.githubusercontent.com/Akpansheriya/post-images/main/public/placeholder_149060%20(2).png", // Blue icon URL
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25),
+        };
+
+        const marker = new google.maps.Marker({
+          map,
+          icon,
+          title: place.name,
+          position: place.geometry.location,
+        });
+
+        markers.push(marker);
+
+        if (place.geometry.viewport) {
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      map.fitBounds(bounds);
+    });
+  }
+
+  function getAddressFromCoordinates(latLng) {
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ location: latLng }, (results, status) => {
+      if (status === "OK") {
+        if (results[0]) {
+          const address = results[0].formatted_address;
+          document.getElementById("pac-input-loc").value = address;
+        } else {
+          console.error("No results found");
+        }
+      } else {
+        console.error("Geocoder failed due to: " + status);
+      }
+    });
+  }
+
+  function placeMarker(location) {
+    // Clear previous markers
     markers.forEach((marker) => {
       marker.setMap(null);
     });
     markers = [];
 
-    // For each place, get the icon, name and location.
-    const bounds = new google.maps.LatLngBounds();
-
-    places.forEach((place) => {
-      if (!place.geometry || !place.geometry.location) {
-        console.log("Returned place contains no geometry");
-        return;
-      }
-
-      const icon = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25),
-      };
-
-      // Create a marker for each place.
-      markers.push(
-        new google.maps.Marker({
-          map,
-          icon,
-          title: place.name,
-          position: place.geometry.location,
-        }),
-      );
-      if (place.geometry.viewport) {
-        // Only geocodes have viewport.
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
-      }
+    // Place a marker on the map
+    const marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      icon: "https://raw.githubusercontent.com/Akpansheriya/post-images/main/public/placeholder_149060%20(2).png", // Blue icon URL
     });
-    map.fitBounds(bounds);
-  });
-}
 
-window.initAutocomplete = initAutocomplete;
- 
+    markers.push(marker);
+  }
+
+  window.initAutocomplete = initAutocomplete;
 </script>

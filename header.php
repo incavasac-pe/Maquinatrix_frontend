@@ -25,9 +25,9 @@
     <link rel="stylesheet" href="./assets/css/post_review.css?v=<?php echo (rand()); ?>">
     <link rel="stylesheet" href="./assets/css/publication_type.css?v=<?php echo (rand()); ?>">
     <link rel="stylesheet" href="./assets/css/user_detail.css?v=<?php echo (rand()); ?>">
+    <link rel="stylesheet" href="./assets/css/term_conditions.css?v=<?php echo (rand()); ?>">
         <script src="./assets/js/jquery-3.2.1.min.js"></script>
     <script src="./assets/js/bootstrap.min.js"></script>
-    <script src="./assets/js/create_password.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

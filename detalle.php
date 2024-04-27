@@ -24,7 +24,7 @@ if ($response !== false) {
    if (!$data['error']) {
        // Obtener la lista de $categories
        $detalle = $data['data'][0];
-       print_r( $detalle );
+       //print_r( $detalle );
        $count_category = $data['count'];
    }  
 } else {
@@ -187,7 +187,7 @@ if ($responseimg !== false) {
                 <div class="perfil">
                     <div class="row" style="padding-bottom: 35px;">
                         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 datos">
-                            <h5 class="font-family-Roboto-Medium">Publicación creada por:  <?= $detalle['User']['Profile']['full_name'] ?? ''  ?> <?= $detalle['User']['Profile']['last_name'] ?? ''  ?></h5>
+                            <h5 class="font-family-Roboto-Medium">Publicación creada por:  <?= $detalle['User']['Profile']['full_name'] ?? $detalle['User']['Profile']['razon_social']  ?> </h5>
 
                         </div>
                         <div
@@ -307,17 +307,26 @@ if ($responseimg !== false) {
                     <p class="font-family-Roboto-Regular">Esta publicación incluye para ti los siguientes servicios:
                     </p>
                     <div class="service-box-wrapper">
+                    <?php if (!empty($detalle['product_rental']['rental_contract'])): ?>
                         <div class="col-1"><i class="fa-regular fa-circle-check"></i>
                             <p>Contrato Maquinatrix </p><img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
+                        <?php else: ?>
+                        <?php endif; ?>
+                        <?php if (!empty($detalle['product_rental']['delivery'])): ?>
                         <div class="col-2"><i class="fa-regular fa-circle-check"></i>
                             <p>Despacho</p> <img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
+                        <?php else: ?>
+                        <?php endif; ?>
                     </div>
                     <div class="service-box-wrapper mt-3">
+                    <?php if (!empty($detalle['product_rental']['rental_guarantee'])): ?>
                         <div class="col-1"><i class="fa-regular fa-circle-check"></i>
                             <p>Garantía Maquinatrix</p> <img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
+                        <?php else: ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

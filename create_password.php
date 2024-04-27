@@ -1,7 +1,7 @@
 <?php include 'header.php' ?>
 <?php include 'menu.php' ?>
 <?php  $baseUrl = getenv('URL_API'); ?>
-<?php echo $email = $_POST['email'];?>
+<?php  $email = $_POST['email'];?>
 
 <div class="create-pwd-main">
     <div class="create-pwd-container">
@@ -68,11 +68,21 @@ $(document).ready(function() {
         $('#passwordform').submit(function(e) {  
               e.preventDefault();  
             $("#Msg").html("");   
+
+            
+            var new_password = $("#exampleInputPassword1").val();
+            var conf_password = $("#exampleInputPassword2").val();
+ 
+            if(new_password!=conf_password ){
+                $("#Msg").html("<div class='alert alert-danger' role='alert'>Las contraseñas deben coincidir.</div>"); 
+                return
+            }
+
             $('#new_password').prop('disabled', true); 
             var data = {
                 email:'<?= $email?>',
-                new_password: $('#exampleInputPassword1').val(),
-                password: $('#exampleInputPassword2').val() 
+                new_password: new_password,
+                password: conf_password
             };
 
             $.ajax({

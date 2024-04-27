@@ -26,7 +26,7 @@ if (isset($_SESSION['loggedIn'])) {
       <!-- <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"> <img src="./assets/img/profile2.png" alt="profile2">  Mi cuenta</button>
     <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"> <img src="./assets/img/note.png" alt="note">  Mis Publicaciones</button> -->
 
-      <button class="nav-link " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
+    <button  onclick="updateQueryParam('tab', 'profile')" class="nav-link " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
         role="tab" aria-controls="v-pills-home" aria-selected="true">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"
           viewBox="0 0 24 24">
@@ -50,7 +50,7 @@ if (isset($_SESSION['loggedIn'])) {
         Mi cuenta
       </button>
 
-      <button class="nav-link" id="v-pills-profile-tab" type="button" role="tab" data-bs-toggle="pill"
+      <button onclick="updateQueryParam('tab', 'publication')" class="nav-link" id="v-pills-profile-tab" type="button" role="tab" data-bs-toggle="pill"
         data-bs-target="#v-pills-profile" aria-controls="v-pills-profile" aria-selected="false">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"
           viewBox="0 0 24 24">
@@ -137,7 +137,7 @@ if (isset($_SESSION['loggedIn'])) {
                     <p class="top-title2">Información adicional</p>
                     <button type="button"  class=" profile-edit-btn profile-edit-btn1">Editar Perfil</button>
                   </div>
-                  <div class="user-detail-table1">
+                  <div class="user-detail-table  user-detail-table1">
                     <table class="additional-table">
                     <tr>
                         <td>ID Usuario</td>
@@ -262,7 +262,14 @@ if (isset($_SESSION['loggedIn'])) {
 <?php include 'footer.php' ?>
 <?php include 'editar_direction.php' ?>
 <?php include 'editar_password.php' ?>
-
+<script>
+  function updateQueryParam(key, value) {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set(key, value);
+    const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+    window.history.pushState({ path: newUrl }, '', newUrl);
+  }
+</script>
 <script>
 function getQueryParam(name) {
     const urlParams = new URLSearchParams(window.location.search);
@@ -703,7 +710,7 @@ function setValuePassword(id){
   var old_password = $("#exampleInputPasswordold").val();
   var new_password = $("#exampleInputPassword1").val();
   var conf_password = $("#exampleInputPassword2").val();
-  if(new_password=='' || new_password=='' || conf_password=='' ){
+  if(old_password=='' || new_password=='' || conf_password=='' ){
     $("#Msg2").html("<div class='alert alert-danger' role='alert'>Debe completar todos los campos.</div>"); 
     return
   }

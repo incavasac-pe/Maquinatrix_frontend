@@ -28,6 +28,7 @@
         if (!$data['error']) {
             // Obtener la lista de $categories
             $detalle = $data['data'][0];
+            print_r($detalle);
             $count_category = $data['count'];
         }  
         } else {
@@ -259,18 +260,28 @@
                                 <td>Año</td>
                                 <td><?= $detalle['product_details']['year']; ?></td>
                             </tr>
-                            <tr>
-                                <td>Condición</td>
+                            <?php if (!empty($detalle['product_details']['condition'])): ?>
+                                <tr>
+                            <td>Condición</td>
                                 <td><?= $detalle['product_details']['condition']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Kilometraje</td>
+                                </tr>
+                            <?php else: ?>
+                                <?php endif; ?>
+                                <?php if (!empty($detalle['product_technical_characteristics']['km_traveled'])): ?>
+                                <tr>
+                            <td>Kilometraje</td>
                                 <td><?= $detalle['product_technical_characteristics']['km_traveled']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>N° de Motor</td>
-                                <td><?= $detalle['product_details']['engine_number']; ?></td>
-                            </tr>
+                                </tr>
+                              <?php else: ?>
+                                <?php endif; ?>
+                                <?php if (!empty($detalle['product_details']['engine_number'])): ?>
+                                <tr>
+                                    <td>N° de Motor</td>
+                                     <td><?= $detalle['product_details']['engine_number']; ?></td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?>
+                          
                             <tr>
                                 <td>Ubicación</td>
                                 <td><?= $detalle['product_details']['region']; ?></td>
@@ -299,17 +310,26 @@
                     <p class="font-family-Roboto-Regular">Esta publicación incluye para ti los siguientes servicios:
                     </p>
                     <div class="service-box-wrapper">
+                    <?php if (!empty($detalle['product_rental']['rental_contract'])): ?>
                         <div class="col-1"><i class="fa-regular fa-circle-check"></i>
                             <p>Contrato Maquinatrix </p><img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
+                        <?php else: ?>
+                        <?php endif; ?>
+                        <?php if (!empty($detalle['product_rental']['delivery'])): ?>
                         <div class="col-2"><i class="fa-regular fa-circle-check"></i>
                             <p>Despacho</p> <img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
+                        <?php else: ?>
+                        <?php endif; ?>
                     </div>
                     <div class="service-box-wrapper mt-3">
+                    <?php if (!empty($detalle['product_rental']['rental_guarantee'])): ?>
                         <div class="col-1"><i class="fa-regular fa-circle-check"></i>
                             <p>Garantía Maquinatrix</p> <img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
+                        <?php else: ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

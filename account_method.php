@@ -27,7 +27,7 @@
     <?php  echo '  <div class="acc-btn"> '.$login_button . '</div>';   ?>
     </div>
     <div class="acc-btn"> 
-        <a class="facebook" href="./user_info.php?type=<?=$type?>"><i class="fa-brands fa-facebook"></i> Registro con Facebook </a>
+        <!--a class="facebook" href="./user_info.php?type=<?=$type?>"><i class="fa-brands fa-facebook"></i> Registro con Facebook </a-->
     </div>
     
 </div>

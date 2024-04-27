@@ -16,7 +16,7 @@
 </div>
     <div class="custom-option" onclick="selectOption(this,'Company')">
     <img src="./assets/img/Company.png" alt="Company">
-<p>Company</p>
+<p>Empresa</p>
 </div>
    
 </div>
