@@ -461,17 +461,16 @@ $url_publi = $protocol . '://' . $host;
                     <div class="col-md-12 mt-3">
                         <div class="all list_publi_owner">  
                         </div>
-                   
                     
                         <div class="pagination-container">
-                    <button class="pagination-button prevNext" id="prev" disabled="">
-                    <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-                    <div class="pagination-links"></div>
-                    <button class="pagination-button prevNext" id="next">
-                    <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                </div>
+                                <button class="pagination-button prevNext" id="prev" disabled="">
+                                <i class="fa-solid fa-chevron-left"></i>
+                                 </button>
+                                <div class="pagination-links"></div>
+                                <button class="pagination-button prevNext" id="next">
+                                 <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                         </div>
                     </div>
                 </div>
             </div>
@@ -520,7 +519,6 @@ $(document).ready(function() {
         var filter = updateFilterParam('recent', 1, '<?=$param?>');
         searchPublication(filter,2);
     });
-
   
     $('#hasta').on('blur', function() {     
         var hasta =  $('#desde').val() +'-'+$('#hasta').val();
@@ -573,11 +571,11 @@ $(document).ready(function() {
 </script>
  
 <script>
-    const prevBtn = document.querySelector("#prev");
+    /*const prevBtn = document.querySelector("#prev");
     const nextBtn = document.querySelector("#next");
     const linksContainer = document.querySelector(".pagination-links");
 
-    const totalPages = 5; // Adjust this to the total number of pages
+    var totalPages = 5; // Adjust this to the total number of pages
     let currentStep = 0;
 
     const updatePagination = () => {
@@ -622,8 +620,13 @@ $(document).ready(function() {
     };
 
     createPagination();
-
+*/
    
+ 
+var totalRecords = 0;  // Número total de registros
+var recordsPerPage = 5; // Número de registros por página
+var totalPages = 0;
+let currentStep = 0;
 
 function updateFilterParam(paramName, paramValue, filter) {
   var regex = new RegExp(paramName + '=([^&#]*)');
@@ -642,14 +645,17 @@ function updateFilterParam(paramName, paramValue, filter) {
   }
 }
 
-function searchPublication(params,type) {
+function searchPublication(params,type,page=false) {
     console.log("parameetros",params);
+  
+    var offset = page && currentStep > 0  ? currentStep * recordsPerPage : 0;
     var url;
     if(type=='1'){
-        url = '<?=$baseUrl?>/list_publications?limit=10'+params;
+        params = '<?=$param?>'
+        url = '<?=$baseUrl?>/list_publications?status_id=6&limit=5&offset='+offset+params;
     }else{
         params = params + ''
-        url = '<?=$baseUrl?>/list_publications?limit=10&'+params;
+        url = '<?=$baseUrl?>/list_publications?status_id=6&limit=5&offset='+offset+params;
     }
 
     $.ajax({   
@@ -657,20 +663,20 @@ function searchPublication(params,type) {
     method: 'GET',  
     success: function(res) {
       $('.list_publi_owner').empty();
-      var i = 0;
-     if(!res.error){ 
+      $('.pagination-links').empty(); 
+   
+      $('.titulo-principal-adorno').text(res.count + ' resultados de búsqueda');  
+      if(!res.error){ 
       
           res.data.forEach(function(element) {
             console.log("element",element)
         // Obtener el nuevo valor para count_pub utilizando jQuery
            var nuevoValor = res.count;  
                 // Actualizar el contenido del elemento <p> con el nuevo valor
-        
+         
            
-           if(element.status_id == 6 ) { 
-            i++;
             var imagen_url = element?.product_images[0] ? element.product_images[0]['image_name'] :'';
-            var imagen = '<?=$baseUrl?>/see_image?image='+ imagen_url;
+             var imagen = '<?=$baseUrl?>/see_image?image='+ imagen_url;
                // Crear el elemento <a> y establecer el atributo href
                 var typep = element.PublicationType.id_publication_type;
                 var id = element.id_product;
@@ -748,10 +754,22 @@ function searchPublication(params,type) {
                 divContainer.append(divImage, divDescription); 
                 link.append(divContainer); 
 
-                $('.list_publi_owner').append(link);  
-           }
-             $('.titulo-principal-adorno').text(i + ' resultados de búsqueda'); 
+                $('.list_publi_owner').append(link);   
+             
+
         });
+        totalRecords = res.count; 
+        totalPages =  Math.ceil(totalRecords / recordsPerPage);
+        
+        // Generar los enlaces de paginación
+    for (var c = 0; c < totalPages; c++) {
+        const pageNum = c ;
+      const isActive = currentStep === c ? 'active' : '';
+
+        var link = $('<a href="#" onclick="updatePrevNextButtons('+c+')" class="pagination-link '+isActive+'" data-index="' + (c) + '">' + (c+1) + '</a>');
+        $('.pagination-links').append(link);
+     }
+  
       } else {
         $('.list_publi_owner').text(res?.msg);
       }
@@ -759,6 +777,64 @@ function searchPublication(params,type) {
   });  
     
 }
+$(document).ready(function() { 
+
+    // Manejar el evento de clic en el botón "prev"
+    $('#prev').click(function(e) {
+        e.preventDefault();
+        var activeLink = $('.pagination-link.active');
+        var pageIndex = parseInt(activeLink.data('index')) - 1;
+      
+
+        // Realizar acciones según la página seleccionada
+        // ...
+
+        // Actualizar estado de los botones "prev" y "next"
+        updatePrevNextButtons(pageIndex);
+    });
+
+    // Manejar el evento de clic en el botón "next"
+    $('#next').click(function(e) {
+        e.preventDefault();
+        var activeLink = $('.pagination-link.active');
+        var pageIndex = parseInt(activeLink.data('index')) + 1;
+
+        // Realizar acciones según la página seleccionada
+        // ...
+
+        // Actualizar estado de los botones "prev" y "next"
+        updatePrevNextButtons(pageIndex);
+    });
+}); 
+// Función para actualizar el estado de los botones "prev" y "next"
+function updatePrevNextButtons(pageIndex) {
+    console.log("pageIndex",pageIndex);
+        var prevButton = $('#prev');
+        var nextButton = $('#next');
+
+        // Habilitar o deshabilitar el botón "prev"
+        if (pageIndex <= 0) {
+            prevButton.prop('disabled', true);
+        } else {
+            prevButton.prop('disabled', false);
+        }
+
+        // Habilitar o deshabilitar el botón "next"
+        if (pageIndex >= totalPages - 1) {
+            nextButton.prop('disabled', true);
+        } else {
+            nextButton.prop('disabled', false);
+        }
+
+        // Actualizar clase "active" en el enlace de paginación correspondiente
+        $('.pagination-link').removeClass('active');
+        $('.pagination-link[data-index="' + pageIndex + '"]').addClass('active');
+
+      
+        var filter = updateFilterParam('limit','5', '<?=$param?>');
+        currentStep = pageIndex  
+        searchPublication(filter,1,true);  
+    }
 </script>
 
 <script>
