@@ -1,20 +1,14 @@
 
-<?php include 'header.php' ?>
-
-
-
-
-
-
-
+<?php include 'header.php' ?> 
 <div class="modal fade direction-modal" id="direction" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg  modal-dialog-centered ">
     <div class="modal-content">
     <div class="modal-header base-modal-header">
-    <span class="text-success align-middle" id="Msg"></span>
+    
         <h1 class="dir-heading">Selecciona tu dirección actual</h1>  
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <span class="text-success align-middle" id="Msg5"></span>
       <div class="modal-body base-modal-body">
      
     <div class="location-container location-container2">
@@ -45,7 +39,39 @@
     </div>
   </div>
 </div>
+<script>
+    
+    document.getElementById('continueButtonLocation').addEventListener('click', function () {
 
+      var inputElement = document.getElementById("pac-input-loc");
+      var inputValue = inputElement.value; 
+      if(inputValue==''){
+        return
+      }
+     let data = {
+        address: inputValue
+      };
+ 
+      var id_profile = $('#id_profile').val();
+
+        $.ajax({
+          url: '<?=$baseUrl?>/profile_basic_update?id_profile=' + id_profile,
+          method: 'PATCH',
+          data: JSON.stringify(data),
+          contentType: "application/json",
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
+          },
+          success: function(response) { 
+            $("#Msg5").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
+          //  location.reload();
+          },
+          error: function(error) {
+            console.error('Error al enviar los datos actualizados');
+          }
+        });
+      });
+  </script>
 <script>
   let map;
   let markers = [];

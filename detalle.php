@@ -281,7 +281,7 @@ if ($responseimg !== false) {
                          
                             <tr>
                                 <td>Ubicación</td>
-                                <td><?= $detalle['product_details']['region'];   ?>   </td>
+                                <td><?= $detalle['location'] ??  $detalle['product_details']['region']; ?></td>
                             </tr>
                             <tr>
                                 <td>Garantía Maquinatrix</td>
@@ -343,7 +343,7 @@ if ($responseimg !== false) {
                         </div>
                         <div class="location-tx-wrapper">
                             <img src="./assets/img/location.png" alt="location">
-                            <p><?= $detalle['product_details']['region'];   ?>, <?= $detalle['product_details']['city'];   ?></p>
+                            <p><?=  $detalle['location'];  $detalle['product_details']['region']; ?>, <?= $detalle['product_details']['city']; ?></p>
                         </div>
                         <p class="cotiza-md-text">Contáctate con el propietario de este anuncio para realizar la
                             solicitud de cotización del producto.</p>
@@ -496,7 +496,6 @@ if ($responseimg !== false) {
          
      </div>
  </div>
-
     </div>
 </div>
 
@@ -566,9 +565,6 @@ if ($responseimg !== false) {
 
 
 </script>
-
-
-
 
 <script>
 let slideIndex1 = 1;
@@ -647,9 +643,6 @@ function showSlides2(n) {
 }
 
 </script>
-
-
-
 
 <script>
     let isDown = false;

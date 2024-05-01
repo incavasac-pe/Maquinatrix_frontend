@@ -364,10 +364,11 @@ function resumePublication(step,save){
       "patent": $("#patente").val() ?? '',     
       "condition": id_categoria!='3' ? $('input[name="flexRadioDefault"]:checked').val() : $('input[name="flexRadioDefault5"]:checked').val(),
       "owner": "Owner",
+      "warranty": 'N',
       "delivery": id_categoria!='3' ? $('input[name="inlineRadioOptions"]:checked').val() : $('input[name="inlineRadioOptions5"]:checked').val(),
       "pay_now_delivery": "N",
-      "facipay":"N",
-      "contact_me": "Contact Me PRUEBA" ,
+      "facipay":"H",
+      "contact_me": "Contact Me" ,
       "id_marca": id_categoria!='3' ? $("#marca").val():$("#marca5").val(),
       "id_model": '1',
     };
@@ -411,11 +412,6 @@ function resumePublication(step,save){
   };
  
 
-  console.log("PUBLICACION 1 ",publicacion1)
-  console.log("PUBLICACION 2 DETALLE ",publicacion2)
-  console.log("PUBLICACION 3 TECNICA ",publicacion3)
-  console.log("PUBLICACION 4 DIMENSIONES",publicacion4)
-
   //agrega los valores en el resumen paso 3 
   if(save){
   $('.btn_2').text(categoria);
@@ -435,6 +431,18 @@ function resumePublication(step,save){
   $('.r_tipo_vendedor').text(categoria); 
   $('.r_delivery').text(publicacion2.delivery == 'Y' ? 'Sí' : 'No');
   $('.r_title').text(publicacion1.title);
+
+  if($("#KilometrosRecorridos").val()==''){   
+      $("#r_km").hide();
+    }
+    if($("#engine_number").val()==''){   
+      $("#r_motor").hide();
+    }
+    if(publicacion2.condition==''){   
+      $("#r_condicion").hide();
+    }
+
+
   if(step==3){
 
       var imgPreview = document.getElementById('image-preview');

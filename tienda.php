@@ -482,63 +482,78 @@ $url_publi = $protocol . '://' . $host;
 
 <script>
 $(document).ready(function() {   
-    searchPublication('<?=$param?>','1')    
+    searchPublication(1)    
     
     //filtros search
     $('#buscar').on('blur', function() { 
         var value =  $('#buscar').val();
-        var filter = updateFilterParam('search', value, '<?=$param?>'); 
-        searchPublication(filter,2);
+        if(value!='')  {
+        var params1 = { 'search': value };
+        var newUrl = addQueryParams(url_final, params1); 
+        searchPublication(2);
+    }
     }); 
     $('#marca').on('change', function() { 
-        var value =  $('#marca').val(); 
-        var filter = updateFilterParam('brand', value, '<?=$param?>');
-        searchPublication(filter,2);
+        var value =  $('#marca').text();  
+        var params1 = { 'brand': value };
+        var newUrl = addQueryParams(url_final, params1);  
+        searchPublication(2);
     });
     $('#modelo').on('blur', function() { 
-        var value =  $('#modelo').val();
-        var filter = updateFilterParam('model', value, '<?=$param?>');
-        searchPublication(filter,2);
+        var value =  $('#modelo').val();        
+        var params1 = { 'model': value };
+        var newUrl = addQueryParams(url_final, params1);  
+        searchPublication(2);
     });
     $('#condition').on('click', function() {
-        var selectedValue = $('input[name="condition"]:checked').val();  
-        var filter = updateFilterParam('condition', selectedValue, '<?=$param?>');
-        searchPublication(filter,2);
+        var selectedValue = $('input[name="condition"]:checked').val();        
+        var params1 = { 'condition': selectedValue };
+        var newUrl = addQueryParams(url_final, params1);   
+        searchPublication(2);
     });
     $('#condition1').on('click', function() {
         var selectedValue = $('input[name="condition"]:checked').val(); 
-        var filter = updateFilterParam('condition', selectedValue, '<?=$param?>');
-        searchPublication(filter,2);
+        var params1 = { 'condition': selectedValue };
+        var newUrl = addQueryParams(url_final, params1);        
+        searchPublication(2);
     });
-    $('#price-min-filter').on('click', function() { 
-        var filter = updateFilterParam('price_min', 1, '<?=$param?>');
-        searchPublication(filter,2);
+    $('#price-min-filter').on('click', function() {      
+        var params1 = { 'price_min': 1 };
+        var newUrl = addQueryParams(url_final, params1);
+        searchPublication(2);
     });
   
-    $('#recent').on('click', function() {
-        var filter = updateFilterParam('recent', 1, '<?=$param?>');
-        searchPublication(filter,2);
+    $('#recent').on('click', function() { 
+        var params1 = { 'recent': 1 };
+        var newUrl = addQueryParams(url_final, params1);
+        searchPublication(2);
     });
   
     $('#hasta').on('blur', function() {     
         var hasta =  $('#desde').val() +'-'+$('#hasta').val();
-        var filter = updateFilterParam('yearstart', hasta, '<?=$param?>');
-        searchPublication(filter,2);
+        var params1 = { 'yearstart': hasta };
+        var newUrl = addQueryParams(url_final, params1);
+        searchPublication(2);
     });
     $('#category').on('change', function() { 
         var value =  $('#category').val(); 
-        var filter = updateFilterParam('category', value, '<?=$param?>');
-        searchPublication(filter,2);
+        if(value!='0') { 
+            var params1 = { 'category': value };
+            var newUrl = addQueryParams(url_final, params1);
+        }
+        searchPublication(2);
     });
     $('#industria').on('change', function() { 
-        var value =  $('#industria').val(); 
-        var filter = updateFilterParam('id_product_type', value, '<?=$param?>');
-        searchPublication(filter,2);
+        var value =  $('#industria').val();  
+        var params1 = { 'id_product_type': value };
+        var newUrl = addQueryParams(url_final, params1);
+        searchPublication(2);
     });
     $('#maquinaria').on('change', function() { 
-        var value =  $('#maquinaria').val(); 
-        var filter = updateFilterParam('id_machine', value, '<?=$param?>');
-        searchPublication(filter,2);
+        var value =  $('#maquinaria').val();  
+        var params1 = { 'id_machine': value };
+        var newUrl = addQueryParams(url_final, params1);
+        searchPublication(2);
     });
  
  });
@@ -624,9 +639,11 @@ $(document).ready(function() {
    
  
 var totalRecords = 0;  // Número total de registros
-var recordsPerPage = 5; // Número de registros por página
+var recordsPerPage = 10; // Número de registros por página
 var totalPages = 0;
 let currentStep = 0;
+let params = '<?=$param?>';
+let url_final = '<?=$baseUrl?>/list_publications?'+params;
 
 function updateFilterParam(paramName, paramValue, filter) {
   var regex = new RegExp(paramName + '=([^&#]*)');
@@ -644,20 +661,45 @@ function updateFilterParam(paramName, paramValue, filter) {
     }
   }
 }
+function addQueryParams(url, params) {
+  // Verificar si la URL ya tiene parámetros de consulta
+  const hasQueryParams = url.includes('?');
+  
+  // Crear un array con los parámetros existentes (si los hay)
+  const existingParams = hasQueryParams ? url.split('?')[1].split('&') : [];
+  
+  // Convertir los parámetros existentes en un objeto
+  const existingParamsObj = existingParams.reduce((acc, param) => {
+    const [key, value] = param.split('=');
+    acc[key] = value;
+    return acc;
+  }, {});
+  
+  // Fusionar los parámetros existentes con los nuevos parámetros
+  const mergedParams = { ...existingParamsObj, ...params };
+  
+  // Crear un array de cadenas de consulta con el formato clave=valor
+  const queryParams = Object.entries(mergedParams).map(([key, value]) => `${key}=${value}`);
+  
+  // Construir la URL final con los parámetros de consulta
+  url_final = hasQueryParams
+    ? `${url_final.split('?')[0]}?${queryParams.join('&')}`
+    : `${url_final}?${queryParams.join('&')}`;
+  
+  return url_final;
+}
 
-function searchPublication(params,type,page=false) {
+function searchPublication(type,page=false) {
     console.log("parameetros",params);
   
     var offset = page && currentStep > 0  ? currentStep * recordsPerPage : 0;
-    var url;
-    if(type=='1'){
-        params = '<?=$param?>'
-        url = '<?=$baseUrl?>/list_publications?status_id=6&limit=5&offset='+offset+params;
-    }else{
-        params = params + ''
-        url = '<?=$baseUrl?>/list_publications?status_id=6&limit=5&offset='+offset+params;
-    }
-
+ 
+    var params1 = { 'limit': '10', 'offset': offset,'status_id':6 };
+    var newUrl = addQueryParams(url_final, params1);
+    console.log("rleeee",url_final)
+   
+    
+    url = url_final
     $.ajax({   
     url: url,
     method: 'GET',  
@@ -713,7 +755,7 @@ function searchPublication(params,type,page=false) {
                 var divCol6_2 = $('<div>').addClass('col-md-6');
                 var pLocation = $('<p>').addClass('font-family-Roboto-Regular detalles-grey mb-1').html('<img src="./assets/img/location-grey.png" alt="location"> Ubicado en');
                 var pBus = $('<p>').addClass('font-family-Roboto-Regular detalles-grey mb-1').html('<img src="./assets/img/bus.png" alt="bus"> Marca');
-                var pKm = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element.product_details?.region);
+                var pKm = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element?.location ?? element.product_details?.region);
               //  var pKm = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element.product_details?.region +' ' +element.product_details?.city);
                 var pDate = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element.product_details?.brand);
 
@@ -754,8 +796,7 @@ function searchPublication(params,type,page=false) {
                 divContainer.append(divImage, divDescription); 
                 link.append(divContainer); 
 
-                $('.list_publi_owner').append(link);   
-             
+                $('.list_publi_owner').append(link);    
 
         });
         totalRecords = res.count; 
@@ -830,10 +871,9 @@ function updatePrevNextButtons(pageIndex) {
         $('.pagination-link').removeClass('active');
         $('.pagination-link[data-index="' + pageIndex + '"]').addClass('active');
 
-      
-        var filter = updateFilterParam('limit','5', '<?=$param?>');
-        currentStep = pageIndex  
-        searchPublication(filter,1,true);  
+         currentStep = pageIndex ;
+     
+        searchPublication(2,true);  
     }
 </script>
 

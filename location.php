@@ -3,7 +3,7 @@
 <?php  
 $baseUrl = getenv('URL_API');
 
-print_r($_POST);
+//print_r($_POST);
  
 if (isset($_POST['exampleInputName'])) {
   $firstname = $_POST['exampleInputName'];
@@ -65,8 +65,7 @@ if (isset($_POST['type_user'])) {
     $id_type_user = 1;
   }else{
     $id_type_user = 2;
-  }
-//  echo "El valor enviado es: " . $type_user ;
+  } 
 }
  
 ?>
@@ -215,6 +214,9 @@ if (isset($_POST['type_user'])) {
 
     var inputElement = document.getElementById("pac-input-loc");
     var inputValue = inputElement.value; 
+    if(inputValue==''){
+      return
+    }
     var id_type_user = '<?=$id_type_user?>';
     var status = 4;
     var credencials = 1;

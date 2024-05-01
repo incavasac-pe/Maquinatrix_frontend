@@ -97,9 +97,9 @@ $(document).ready(function() {
         }
     });  
 
-    ('#start').submit(function(e) {  
-        window.location.href = './index.php';
-    }); 
+    $('#start').submit(function(e) {  
+       // window.location.href = './index.php';
+    });
  
     $('#loginform').submit(function(e) {  
         console.log("se inicia sesion")     

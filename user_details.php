@@ -1,4 +1,4 @@
-<?php include 'header.php' ?>
+<?php //include 'header.php' ?>
 <?php include 'menu.php' ?>
 <?php  
 if (!isset($_SESSION['loggedIn'])) { 
@@ -179,7 +179,7 @@ if (isset($_SESSION['loggedIn'])) {
                   <div class="user-detail-table">
 
                     <table class="additional-table">
-                      <tr>
+                      <tr id="address">
                         <td>Dirección</td>
                         <td>Av. República de Venezuela 1829, Lima 15083</td>
 
@@ -381,9 +381,9 @@ function datosBasicos(){
        //num publicaciones
        $('#num_pub').text(response.data.num_publications);
         //email 
-        var addressFieldValue = response.data.email;
-        var addressFieldTd = $('#email td:nth-child(2)');
-        addressFieldTd.text(addressFieldValue); 
+        var addressFieldValue1 = response.data.email;
+        var addressFieldTd1 = $('#email td:nth-child(2)');
+        addressFieldTd1.text(addressFieldValue1); 
 
        //direccion 
         var addressFieldValue = response.data.address;
@@ -456,7 +456,7 @@ function enviarActualizacionDatosBasicos(type, newValue) {
     },
     success: function(response) {
       if (type == 1) {
-      $("#Msg2").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
+        $("#Msg2").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
       }
       //location.reload();
     },
@@ -513,7 +513,7 @@ function enviarActualizacionInformacionAdicional(type, value = '') {
   });
 }
 //javascript de las publicaciones
-function construirEstructuraHTML(value) {
+function construirEstructuraHTML(value) { 
   var url;
   if(value == '0'){
    url= '<?=$baseUrl?>/list_publications_byuser?limit=100&id_user=' + <?=$id_user?>;

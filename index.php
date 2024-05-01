@@ -82,7 +82,7 @@ function cortarString($texto) {
 
      
       $count_pub = 0;
-      $url = $baseUrl.'/list_publications?limit=5&status_id=6'; 
+      $url = $baseUrl.'/list_publications?limit=10&status_id=6'; 
     
       $response1 = file_get_contents($url);
       if ($response1 !== false) {
@@ -132,11 +132,14 @@ function cortarString($texto) {
                                 <?php
                                 if ($count_category > 0) {
                                     echo '<select class="form-control font-family-Roboto-Regular"  id="category" name="category">';
-                                    echo '<option value="">Seleccionar</option>';
+                                    echo '<option value="">Seleccionar</option>'; 
+                                    
                                     foreach ($categories as $categorie) {
                                         $id = $categorie['id_category'];
                                         $category = $categorie['category'];
-                                        echo '<option value="' . $id . '">' . $category . '</option>';
+                                         if (  ($id == 1 || $id == 5)) {
+                                               echo '<option value="' . $id . '">' . $category . '</option>';
+                                            }
                                     }
                                     echo '</select>';
                                 }

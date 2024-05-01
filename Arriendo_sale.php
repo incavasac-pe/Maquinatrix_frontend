@@ -1,5 +1,9 @@
 <?php include 'header.php' ?>
-<?php include 'menu.php' ?>
+<?php include 'menu.php'  ?>
+
+<?php print($_SESSION); ?>
+
+?>
 <div>
 
   <div id="multi-step-form-container">
@@ -321,7 +325,7 @@ function handleImageUpload() {
       "model": $("#modelo").val(),
       "year": $("#anios").val(),
       "factory_code": "Factory Code",
-      "mileage": $("#KilometrosRecorridos").val() == '', 
+      "mileage": $("#KilometrosRecorridos").val() ?? '', 
       "engine_number": $("#engine_number").val() ?? '',
       "chasis_number":$("#chasis_number").val() ?? '',
       "patent": $("#patente").val() ?? '',
@@ -331,7 +335,7 @@ function handleImageUpload() {
       "delivery": $('input[name="shipping"]:checked').val() ?? '',
       "pay_now_delivery": "N",
       "facipay": $('input[name="price_type"]:checked').val() ?? '',
-      "contact_me": "",
+      "contact_me":"Contact Me" ,
       "id_marca": $("#marca").val(),
       "id_model": '1',
     };

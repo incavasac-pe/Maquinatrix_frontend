@@ -74,7 +74,7 @@ if (isset($_GET['validate']) &&  $_GET['validate']=== 'true') {
                             if (statusCode === 200 && !response.error)  {             
                            window.location.href = 'create_session_portal.php?email=' + response.data.email_User+'&token='+response.data.token+'&loggin=true&username='+response.data.full_name+'&photo='+response.data?.photo+'&id_user_ext='+response.data?.id_user_ext+'&id_user='+response.data?.id_user;
                              } else{
-                            window.location.href ='login777.php';
+                            window.location.href ='login.php';
                              }
                         },
                         error: function(xhr, status, error) {
