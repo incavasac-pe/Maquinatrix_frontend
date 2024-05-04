@@ -15,10 +15,11 @@
     if (isset($_GET['id'])&& $_GET['id']!='') {
         $id = $_GET['id'];
     }
+    echo $id;
     $tpublicacion =  '1';
     $mov = ($tpublicacion == '2') ? 'comprar' :' arrendar'; 
 
-        $count_category = 0;
+        $count_detalle = 0;
         $url12 = $baseUrl.'/list_publications_panel_details?id='.$id;
 
         $response = file_get_contents($url12);
@@ -28,7 +29,7 @@
         if (!$data['error']) {
             // Obtener la lista de $categories
             $detalle = $data['data'][0];
-            $count_category = $data['count'];
+            $count_detalle = $data['count'];
         }  
         } else {
             echo 'Error al realizar la solicitud a la API';
@@ -245,6 +246,7 @@
                     <h2 class="font-family-Roboto-Medium mb-3">
                         Características
                     </h2>
+                    <?php if (!empty($detalle['product_details']['id_product_details'])): ?>
                     <table class="table table-striped font-family-Roboto-Medium table-bordered">
                         <tbody>
                             <tr>
@@ -299,6 +301,8 @@
                             </tr>
                         </tbody>
                     </table>
+                    <?php else: ?>
+                        <?php endif; ?>
                 </div>
                 <div class="linea mt-5 mb-5"></div>
 
@@ -339,14 +343,14 @@
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                             <?= isset($detalle['product_details']["facipay"]) &&  $detalle['product_details']["facipay"] == 'C' ? 'Cotizar':"CLP ". $detalle['product_details']["price"]." ". "/ hora" ;?>
-                             </h3>
+                            <?= isset($detalle['product_details']["facipay"]) && isset($detalle['product_details']["price"]) ? ($detalle['product_details']["facipay"] == 'C' ? 'Cotizar' : "CLP " . $detalle['product_details']["price"] . " / hora") : ''; ?>
+                         </h3>
 
                         </div>
 
                         <div class="location-tx-wrapper">
                             <img src="./assets/img/location.png" alt="location">
-                            <p><?= $detalle['product_details']['region']; ?></p>
+                            <p><?= isset($detalle['product_details']['region']) ? $detalle['product_details']['region'] : ''; ?></p>
                         </div>
                         <p class="cotiza-md-text">Contáctate con el propietario de este anuncio para realizar la
                             solicitud de cotización del producto.</p>

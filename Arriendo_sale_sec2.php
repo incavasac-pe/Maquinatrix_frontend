@@ -1,3 +1,4 @@
+
 <div class="container">
       <div class="category-product">
         <h1>Sube fotos del producto</h1>
@@ -6,18 +7,18 @@
           <div class="row">
             <div class="col-sm-12 col-md-8 col-lg-8">
             <div class="upload-container">
-    <div id="image-container" class="image-row">
-    
-      <div class="upload-input-container">
-        <input type="file" id="file-input" class="upload-input" accept="image/*" multiple>
-        <label for="file-input" class="label-text">
-          <img src="./assets/img/camera.png" alt="Camera Icon">
-          Select Images
-        
-        </label>
-      </div>
-    </div>
-  </div>
+              <div id="image-container" class="image-row">
+              
+                <div class="upload-input-container">
+                  <input type="file" id="file-input" class="upload-input" accept="image/*" multiple>
+                  <label for="file-input" class="label-text">
+                    <img src="./assets/img/camera.png" alt="Camera Icon">
+                    Select Images
+                  
+                  </label>
+                </div>
+              </div>
+            </div>
             
           </div>
           <div class="col-sm-12 col-md-4 col-lg-4">
@@ -38,4 +39,4 @@
                     class="yellow-btn btn-navigate-form-step" type="button" step_number="3">Continuar</button></div>
         </div>
     </div>
-    </div>
+ </div>

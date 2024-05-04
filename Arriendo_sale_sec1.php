@@ -4,7 +4,8 @@ $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : '
 $host = $_SERVER['HTTP_HOST']; 
 $uri = $_SERVER['REQUEST_URI']; 
 $url_publi = $protocol . '://' . $host; 
-  
+
+
    $baseUrl = getenv('URL_API'); 
     //list industria
     
@@ -60,8 +61,7 @@ $url_publi = $protocol . '://' . $host;
        }
     } else {
         echo 'Error al realizar la solicitud a la API';
-    }
-    
+    }    
  
 
     $count_regiones= 0;
@@ -160,8 +160,7 @@ $url_publi = $protocol . '://' . $host;
        
 
         <div class="tab-content" id="pills-tabContent">
-          <div class="tab-pane fade " id="pills-publish1" role="tabpanel" aria-labelledby="pills-publish1-tab"
-            tabindex="0">
+          <div class="tab-pane fade " id="pills-publish1" role="tabpanel" aria-labelledby="pills-publish1-tab"  tabindex="0">
         
          <div class="container">
                         <div class="category-product">
@@ -178,10 +177,9 @@ $url_publi = $protocol . '://' . $host;
                             <h1>Información de producto</h1>
                             <div class="row">
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="mb-3">          
-
+                                    <div class="mb-3">    
                                     <?php  
-                                    if ($count_marca > 0) { 
+                                      if ($count_marca > 0) { 
                                         echo '<select required  id="marca" name="marca" >';
                                         echo '<option value="0">Marca*</option>'; 
                                         foreach ($marca as $field) {
@@ -242,10 +240,10 @@ $url_publi = $protocol . '://' . $host;
                             </div>
                             <div class="warning-wrapper" id="error-container-title">
                             <i class="fa-solid fa-circle-exclamation"></i>
-                                        <div>
-                                            <p class="error-heading">Campos faltan completar</p>
-                                            <p class="sm-text">Campos requeridos faltan completar: INFORMACION DE PRODUCTO.</p>
-                                        </div>
+                                <div>
+                                    <p class="error-heading">Campos faltan completar</p>
+                                    <p class="sm-text">Campos requeridos faltan completar: INFORMACION DE PRODUCTO.</p>
+                                </div>
                             </div>
                         </div>
                         <div class="category-product">
@@ -269,7 +267,6 @@ $url_publi = $protocol . '://' . $host;
                                     </div>
                                 </div>
 
-
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
                                         <input type="text" class="form-control" id="Torque"  name="Torque"  placeholder="Torque (NM)">
@@ -280,7 +277,6 @@ $url_publi = $protocol . '://' . $host;
                                     <div class="mb-3">
                                         <input type="text" class="form-control" id="mixed_consumption" name="mixed_consumption"  placeholder="Consumo Mixto">
 
-
                                     </div>
                                 </div>
                             </div>
@@ -289,7 +285,6 @@ $url_publi = $protocol . '://' . $host;
                                 <input class="form-check-input" type="radio" name="transmission" id="inlineRadio1" value="Manual">
                                 <label class="form-check-label" for="inlineRadio1">Manual</label>
                             </div>
-
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="transmission" id="inlineRadio2" value="Automática">
                                 <label class="form-check-label" for="inlineRadio2">Automática</label>
@@ -300,17 +295,16 @@ $url_publi = $protocol . '://' . $host;
                             </div>
                             <p class="sm-title">Combustible</p>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="combustible" id="inlineRadio1" value="Diésel">
-                                <label class="form-check-label" for="inlineRadio1">Diésel</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="combustible" id="inlineRadio2" value="Bencina">
-                                <label class="form-check-label" for="inlineRadio2">Bencina</label>
+                                <input class="form-check-input" type="radio" name="combustible" id="inlineRadioFuel1" value="Diésel">
+                                <label class="form-check-label" for="inlineRadioFuel1">Diésel</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="combustible" id="inlineRadio3" value="NoClasifica">
-                                <label class="form-check-label" for="inlineRadio3">No Clasifica</label>
+                                <input class="form-check-input" type="radio" name="combustible" id="inlineRadioFuel2" value="Bencina">
+                                <label class="form-check-label" for="inlineRadioFuel2">Bencina</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="combustible" id="inlineRadioFuel3" value="NoClasifica">
+                                <label class="form-check-label" for="inlineRadioFuel3">No Clasifica</label>
                             </div>
                             <p class="sm-title">Tracción</p>
                             <div class="traction-wrapper">
@@ -352,8 +346,6 @@ $url_publi = $protocol . '://' . $host;
                                     </div>
                                 </div>
                             </div>
-
-
                             <p class="sm-title">Mantenciones incluyen suministro</p>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="maintenance_suppy" id="maintenance_suppy1" value="Y">
@@ -385,11 +377,9 @@ $url_publi = $protocol . '://' . $host;
                                         <div class="input-group-addon-km">
                                             Km.
                                         </div>
-
                                     </div>
                                     <p class="text-grey">Ej. Kilómetros recorridos: 8 000 km.</p>
                                 </div>
-
                                 <div class="hourometer">
                                     <div class="input-group" id="km_input">
                                         <input type="number" class="form-control input-control-km" placeholder="Horómetro" name="Horometro" id="Horometro">
@@ -411,8 +401,7 @@ $url_publi = $protocol . '://' . $host;
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="price_type" id="price_type2" value="C">
                                 <label class="form-check-label" for="price_type2">Cotizar</label>
-                            </div>
-                        
+                            </div>                        
                             <p class="sm-title">Ingresa la tarifa que cobrarás por hora</p>
                             <div class="kilometer" style="margin-right:20px !important;">
                                 <div class="input-group " id="km_input" style="width: 273px;">
@@ -421,16 +410,14 @@ $url_publi = $protocol . '://' . $host;
                                     <div class="input-group-addon-km">
                                         CLP
                                     </div>
-
                                 </div>
-
                             </div>
                             <div class="warning-wrapper" id="error-container-price">
-                            <i class="fa-solid fa-circle-exclamation"></i>
-                                        <div>
-                                            <p class="error-heading">Campos faltan completar</p>
-                                            <p class="sm-text">Campos requeridos faltan completar: PRECIO.</p>
-                                        </div>
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                <div>
+                                    <p class="error-heading">Campos faltan completar</p>
+                                    <p class="sm-text">Campos requeridos faltan completar: PRECIO.</p>
+                                </div>
                             </div>
                         </div>
                         <div class="category-product">
@@ -452,7 +439,6 @@ $url_publi = $protocol . '://' . $host;
                                             echo '</select>';
                                         }  
                                     ?> 
-
                                  </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
@@ -467,7 +453,6 @@ $url_publi = $protocol . '://' . $host;
                                         }
                                         echo '</select>';
                                         ?> 
-
                                     </div>
                                 </div>
                             </div>
@@ -482,7 +467,6 @@ $url_publi = $protocol . '://' . $host;
 
                         <div class="category-product">
                             <div class="grey-border-wrapper">
-
                                 <h1>Certificado de Operatividad</h1>
                                 <div class="shipping-wrapper">
                                     <div class="shipping-main">
@@ -492,21 +476,20 @@ $url_publi = $protocol . '://' . $host;
                                     </div>
                                     <div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="certificadoP" id="inlineRadio1"
+                                            <input class="form-check-input" type="radio" name="certificadoP" id="inlineRadio1Cert"
                                                 value="Y">
-                                            <label class="form-check-label" for="inlineRadio1">Sí</label>
+                                            <label class="form-check-label" for="inlineRadio1Cert">Sí</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="certificadoP" id="inlineRadio2"
+                                            <input class="form-check-input" type="radio" name="certificadoP" id="inlineRadio2Cert"
                                                 value="N">
-                                            <label class="form-check-label" for="inlineRadio2">No</label>
+                                            <label class="form-check-label" for="inlineRadio2Cert">No</label>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="grey-box-wrapper">
-
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label dark-grey-text">Fecha de Certificado</label>
                                     <input type="text" class="form-control"  name="dateCerti"  id="dateCerti" placeholder="DD/MM/AAAA">
@@ -532,8 +515,6 @@ $url_publi = $protocol . '://' . $host;
                         </div>
                         <div class="category-product">
                             <div class="grey-border-wrapper">
-
-
                                 <h1>Póliza de seguro</h1>
                                 <div class="shipping-wrapper">
                                     <div class="shipping-main">
@@ -575,22 +556,12 @@ $url_publi = $protocol . '://' . $host;
                                         </div>
                                   </div>
                                 </div>
-
-                            </div>
-                            <!--div class="warning-wrapper hidden">
-                                <i class="fa-solid fa-circle-exclamation"></i>
-                                <div>
-                                    <p class="error-heading">Campos faltan completar</p>
-                                    <p class="sm-text">Campos requeridos faltan completar: Información de vehículo, Facilidad de entrega,
-                                        Contrato de Arriendo Maquinatrix, Garantía de Arriendo.</p>
-                                </div>
-                            </div-->
+                            </div>                          
                         </div>
 
                         <div class="category-product">
                             <h1>Opciones de Arriendo</h1>
                             <div class="grey-border-wrapper" style="margin-bottom:20px;"> 
-
                                 <div class="shipping-wrapper">
                                     <div class="shipping-main">
                                         <p class="sm-title" style="margin-top:0px !important;">Despacho incluido</p>
@@ -606,8 +577,7 @@ $url_publi = $protocol . '://' . $host;
                                             <label class="form-check-label" for="shipping2">No</label>
                                         </div>
                                     </div>
-                                </div>
-                                
+                                </div>                                
 
                             </div>
                             <div class="grey-border-wrapper" style="height:114px; margin-bottom:20px;">
@@ -628,28 +598,24 @@ $url_publi = $protocol . '://' . $host;
                                     </div>
                                 </div>
                             </div>
-                            <div class="grey-border-wrapper" style="margin-bottom:20px;">
+                            <div class="grey-border-wrapper" style="margin-bottom:20px;"> 
 
-
-
-                    <div class="shipping-wrapper">
-                        <div class="shipping-main">
-                            <p class="sm-title" style="margin-top:0px !important;">Contrato de Arriendo Maquinatrix</p>
-                            <p class="sm-text">Siempre es bueno formalizar los negocios y resguardarse. Indica si te gustaría recibir este servicio.</p>
-                        </div>
-                        <div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="Machinery" id="Machinery1" value="Y">
-                                <label class="form-check-label" for="Machinery1">Sí</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="Machinery" id="Machinery2" value="N">
-                                <label class="form-check-label" for="Machinery2">No</label>
-                            </div>
-                        </div>
-
-                    </div>
-                
+                            <div class="shipping-wrapper">
+                                <div class="shipping-main">
+                                    <p class="sm-title" style="margin-top:0px !important;">Contrato de Arriendo Maquinatrix</p>
+                                    <p class="sm-text">Siempre es bueno formalizar los negocios y resguardarse. Indica si te gustaría recibir este servicio.</p>
+                                </div>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Machinery" id="Machinery1" value="Y">
+                                        <label class="form-check-label" for="Machinery1">Sí</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Machinery" id="Machinery2" value="N">
+                                        <label class="form-check-label" for="Machinery2">No</label>
+                                    </div>
+                                </div>
+                            </div>                
 
                     </div>
                     <div class="grey-border-wrapper" >  
@@ -668,19 +634,10 @@ $url_publi = $protocol . '://' . $host;
                                 <label class="form-check-label" for="rental2">No</label>
                             </div>
                         </div>
-
                     </div> 
-
                    </div>
                 </div>
 
-                <!--div class="error-container" id="error-container">
-                    <i class="fa-solid fa-circle-xmark"></i>
-                    <div>
-                        <p class="error-heading">Campos faltan completar</p>
-                        <p class="sm-text text-msg-error">Campos requeridos faltan completar: Información de vehículo.</p>
-                    </div>
-                </div-->
                 <div class="category-product2">
                     <div class="category-btns-wrapper">
                         <div><button type="button" class="grey-btn">Cancelar</button></div>
@@ -689,8 +646,7 @@ $url_publi = $protocol . '://' . $host;
                     </div>
                 </div>
             </div>
-          </div>
-          
+          </div>          
         </div> 
  
  <script>   

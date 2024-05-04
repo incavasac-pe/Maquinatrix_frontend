@@ -334,15 +334,8 @@ $('.user-detail-table button').click(function() {
     $(this).click(function() {
       var newValue = input.val();
       td.empty().text(newValue);
-      $(this).text('Editar');
-      if(tr.attr('id')=='password-field'){
-          // enviarActualizacionDatosBasicos(1, newValue); 
-      }else if(tr.attr('id')=='email'){
-        //   enviarActualizacionDatosBasicos(2, newValue);
-      }else{        
-        enviarActualizacionInformacionAdicional(2, newValue);
-      }
-        
+      $(this).text('Editar');            
+        enviarActualizacionInformacionAdicional(2, newValue);      
     });
   });
   
@@ -590,7 +583,9 @@ function construirEstructuraHTML(value) {
               var dropdown = $('<div>').addClass('dropdown');
               var dropdownToggle = $('<a>').addClass('btn btn-secondary dropdown-toggle').attr('href', '#').attr('role', 'button').attr('data-bs-toggle', 'dropdown').attr('aria-expanded', 'false').text('Opciones').append($('<i>').addClass('fa-solid fa-chevron-down'));
               var dropdownMenu = $('<ul>').addClass('dropdown-menu');
-              var editOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Editar'));
+             // var editOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Editar'));
+              var url_edit = element.PublicationType.id_publication_type == '1' ? 'Arriendo_sale.php?id=' : 'publish_sale.php?id=';
+              var editOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', url_edit + element.id_product).text('Editar'));
 
               var publishOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Publicar').click(function() {
                 var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
@@ -617,7 +612,7 @@ function construirEstructuraHTML(value) {
                       break;
                     case 7:
                      //Suspendida
-                      dropdownMenu.append(editOption); //editar
+                     // dropdownMenu.append(editOption); //editar
                       dropdownMenu.append(publishOption1); //ver pub
                       break;
                     case 8:

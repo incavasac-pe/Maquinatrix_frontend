@@ -1,9 +1,31 @@
 <?php include 'header.php' ?>
-<?php include 'menu.php'  ?>
+<?php include 'menu.php'  ?> 
+<?php  
+  $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 
+  $host = $_SERVER['HTTP_HOST']; 
+  $uri = $_SERVER['REQUEST_URI']; 
+  $url_publi = $protocol . '://' . $host; 
 
-<?php print($_SESSION); ?>
+  $baseUrl = getenv('URL_API'); 
+  $count_detalle = 0;
+  
+  if (isset($_GET['id']) &&  $_GET['id']!== ''){
+      echo "ID RECIBIDO ". $id= $_GET['id']; 
+      $url12 = $baseUrl.'/list_publications_panel_details?id='.$id;
 
-?>
+      $response = file_get_contents($url12);
+      if ($response !== false) {
+        // Decodificar la respuesta JSON
+        $data = json_decode($response, true);
+        if (!$data['error']) {
+            // Obtener el detalle
+            $detalle_edit = $data['data'][0]; 
+            print_r($detalle_edit);
+        echo  $count_detalle = $data['count'];
+        }  
+      } 
+    }  
+?> 
 <div>
 
   <div id="multi-step-form-container">
@@ -12,30 +34,30 @@
     <!-- Step Wise Form Content -->
     <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
       <!-- Step 1 Content -->
-
-      <section id="step-1" class="form-step">  
-        <?php include 'Arriendo_sale_sec1.php' ?>  
-      </section>
+ 
+      <section id="step-1" class="form-step">
+      <?php
+       // $id = "555"; // Reemplaza "tu_id_aqui" con el ID que deseas pasar
+        include 'Arriendo_sale_sec1.php';
+      ?>
+    </section>
       <!-- Step 2 Content, default hidden on page load. -->
       <section id="step-2" class="form-step d-none">
-        <?php include 'Arriendo_sale_sec2.php' ?> 
+        <?php 
+         // $id = "555"; // Reemplaza "tu_id_aqui" con el ID que deseas pasar
+        include 'Arriendo_sale_sec2.php' ?> 
       </section>
       <!-- Step 3 Content, default hidden on page load. -->
       <section id="step-3" class="form-step d-none">
-        <?php include 'Arriendo_sale_sec3.php' ?> 
+        <?php
+        //  $id = "555"; // Reemplaza "tu_id_aqui" con el ID que deseas pasar
+          include 'Arriendo_sale_sec3.php' ?> 
       </section>
     </form>
   </div>
 </div>
 <?php include 'footer.php' ?>
-<script>
-  document.getElementById('Cancelar_continue-btn').addEventListener('click', function () {
-    var formData = $('#userAccountSetupForm').serialize();
-    console.log("*****form*****",formData);
-    window.location.href = 'Arriendo_post_review.php';
-  });
-</script>
-
+ 
 
 <script>
    var save_public = false;
@@ -69,12 +91,10 @@
     formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed");
     formStepCircle.classList.add("form-stepper-active");
   
-    for (let index = 0; index < stepNumber; index++) {
-    
+    for (let index = 0; index < stepNumber; index++) {    
       const formStepCircle = document.querySelector('li[step="' + index + '"]');
     
-      if (formStepCircle) {
-       
+      if (formStepCircle) {       
         formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-active");
         formStepCircle.classList.add("form-stepper-completed");
       }
@@ -83,12 +103,10 @@
 
   document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
     formNavigationBtn.addEventListener("click", () => {
-      const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
-      console.log("*****stepNumber***",stepNumber) 
+      const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number")); 
       if(stepNumber==2 & ($("#industria").val()=='0' || $("#id_machine").val()=='0' || $("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='' 
           || $("#price").val()=='' || $("#region").val()=='0' || $("#city").val() == '0' || $("#anios").val() == '0' )){
-        console.log("se validan los campos no están completos.");
-
+       
         if(id_categoria=='' || $("#industria").val()=='0' || $("#id_machine").val()=='0' ){
           $("#error-container-tipo").show();          
         }else{
@@ -138,8 +156,6 @@
   document.getElementById('descrip').addEventListener('input', function () {
     var maxLength = 10000; // Set your maximum character count
     var currentLength = this.value.length;
-
-    // Update the character count inside brackets
     document.getElementById('charCount').innerText = 'Caracteres (' + currentLength + '/' + maxLength + ')';
   });
  
@@ -148,6 +164,7 @@
   
 $(document).ready(function() {
     console.log( "ready publication!" ); 
+    edit_publi();
     $("#error-container").hide();
      $("#confirm_public").on('click', function(event) {
       save_public = true;
@@ -164,6 +181,10 @@ $(document).ready(function() {
       resumePublication(3,false);  
     });   
 
+    $(".traction-text").click(function() {
+      $(".traction-text").removeClass("active_tracc");
+      $(this).addClass("active_tracc");
+    });
 
     $("#industria").on('change', function(event) {
     if( $("#id_machine").val()!='0' &&  $("#industria").val()!='0' ){
@@ -290,7 +311,6 @@ function handleImageUpload() {
   }
 }
 
-
   var id_product;
   var publicacion1;
   var publicacion2;
@@ -302,11 +322,12 @@ function handleImageUpload() {
   function setTraccion(valor){
     traxion = valor;  
   }
-
+ 
 
  function resumePublication(step,save){  
 
     publicacion1 = {  
+      "id_product": <?= $_GET['id']!='' ? $_GET['id']: null; ?>,
       "id_publication_type": 1,
       "id_category": id_categoria,
       "id_product_type": $("#industria").val(),
@@ -483,8 +504,7 @@ function handleImageUpload() {
     
   });
 }
-
-
+ 
 function registerPublication2(id){ 
  var url = '<?=$baseUrl?>/register_product_details';    
   publicacion2.id_product = id;
@@ -541,8 +561,7 @@ function registerPublication3(){
 }
 
 function registerPublication4(){ 
- var url = '<?=$baseUrl?>/register_product_dimensions';  
- console.log("PUBLICACION 4 DIMENSIONES",publicacion4)
+ var url = '<?=$baseUrl?>/register_product_dimensions';   
  var token = '<?= $_SESSION["token"]  ?? ''?>';
   $.ajax({
     url: url,
@@ -567,8 +586,7 @@ function registerPublication4(){
 }
 
 function registerPublication5(){ 
- var url = '<?=$baseUrl?>/register_product_rental';  
- console.log("PUBLICACION 5 RENTAL",publicacion5)
+ var url = '<?=$baseUrl?>/register_product_rental';   
  var token = '<?= $_SESSION["token"]  ?? ''?>';
   $.ajax({
     url: url,
@@ -613,7 +631,9 @@ function deleteImagenAll() {
       });
  }         
      
- function uploadPDF() {  
+
+
+function uploadPDF() {  
   var input = document.getElementById('pdfFile');
   var archivos = input.files;
       if(archivos.length > 0){  
@@ -668,8 +688,9 @@ function deleteImagenAll() {
               });
             }   
 
-      }  
- function uploadImagen() {  
+}  
+
+function uploadImagen() {  
  
   var input = document.getElementById('file-input');
   var archivos = input.files;
@@ -724,7 +745,7 @@ function deleteImagenAll() {
             window.location.href = 'user_details.php?tab=publication'; 
            }
         }
-      }
+}
 
 function sendDataResume(imagen){
   var form = document.createElement('form');
@@ -753,5 +774,171 @@ function sendDataResume(imagen){
   form.submit();
 }
 
+function edit_publi(){ 
+ 
+   var url= '<?=$baseUrl?>/list_publications_panel_details?id=' + <?=$_GET['id']?>;
+ 
+  // Realizar la llamada AJAX para obtener los datos
+  $.ajax({
+    url: url,
+    method: 'GET',    
+    success: function(res) {      
+     if(!res.error){ 
+          res.data.forEach(function(element) {
+            console.log("element edit",element);
+     
+          if(element.status_id == '10') { 
+            setCategory(element.id_category,element.mainCategory?.category); 
+            $("#pills-publish1-tab").click();
+       
+             // Establecer el valor seleccionado
+            var selectize = $('#industria')[0].selectize;
+            selectize.setValue(element.id_product_type);
+            var selectize = $('#id_machine')[0].selectize;
+            selectize.setValue(element.id_machine);
+ 
+            $("#title").val(element.title);
+            $("#descrip").val(element.description);
 
+            var selectize = $('#marca')[0].selectize;
+            selectize.setValue(element.product_details.id_marca);
+            var selectize = $('#anios')[0].selectize;
+            selectize.setValue(element.product_details.year);  
+
+             $("#modelo").val(element.product_details.model);
+             $("#engine_number").val(element.product_details.engine_number);
+             $("#chasis_number").val(element.product_details.chasis_number);
+             $("#patente").val(element.product_details.patent);
+             $("#patent").val(element.product_details.patent)
+            
+             $("#PesoNeto").val(element.product_technical_characteristics.weight);
+             $("#Potencia").val(element.product_technical_characteristics.power);
+             $("#Cilindrada").val(element.product_technical_characteristics.displacement);
+             $("#Torque").val(element.product_technical_characteristics.torque);
+             $("#mixed_consumption").val(element.product_technical_characteristics.mixed_consumption);
+              
+             if(element.product_details.condition == 'Nuevo'){
+               $("#flexRadioDefault1").prop("checked", true);
+             }else{
+              $("#flexRadioDefault2").prop("checked", true);
+             }
+         
+             $("#KilometrosRecorridos").val(element.product_technical_characteristics.km_traveled);
+             $("#Horometro").val(element.product_technical_characteristics.hrs_traveled);
+             
+             if(element.product_details.facipay == 'C'){  
+              $("#price_type2").prop("checked", true);
+             }else{
+              $("#price_type1").prop("checked", true);
+             }
+             $("#price").val(element.product_details.price);
+
+            var selectize = $('#region')[0].selectize;
+            selectize.setValue(element.product_details.region);
+            var selectize = $('#city')[0].selectize;
+            selectize.setValue(element.product_details.city);
+
+            if(element.product_technical_characteristics.transmission == 'Manual'){  
+              $("#inlineRadio1").prop("checked", true);
+             }else if(element.product_technical_characteristics.transmission == 'Automática'){
+              $("#inlineRadio2").prop("checked", true);
+             }else{
+              $("#inlineRadio3").prop("checked", true);
+             }
+             
+             if(element.product_technical_characteristics.fuel == 'Diésel'){  
+              $("#inlineRadioFuel1").prop("checked", true);
+             }else if(element.product_technical_characteristics.fuel == 'Bencina'){
+              $("#inlineRadioFuel2").prop("checked", true);
+             }else{
+              $("#inlineRadioFuel3").prop("checked", true);
+             }
+      
+             setTraccion(element.product_technical_characteristics.traction) 
+             $(".traction-text").removeClass("active_tracc"); 
+             $(".traction-text:contains(" + element.product_technical_characteristics.traction + ")").addClass("active_tracc");
+            
+             if(element.product_rental.Scheduled_Maintenance == 'Y'){  
+              $("#maintenance1").prop("checked", true);
+             } else{
+              $("#maintenance2").prop("checked", true);
+             }
+
+             if(element.product_rental.Technical_Visit == 'Y'){  
+              $("#technical1").prop("checked", true);
+             } else{
+              $("#technical2").prop("checked", true);
+             }
+             if(element.product_rental.Supply_Maintenance == 'Y'){  
+              $("#maintenance_suppy1").prop("checked", true);
+             } else{
+              $("#maintenance_suppy2").prop("checked", true);
+             }
+
+             if(element.product_rental.operational_certificate == 'Y'){  
+              $("#inlineRadio1Cert").prop("checked", true);
+             } else{
+              $("#inlineRadio2Cert").prop("checked", true);
+             }
+             $("#dateCerti").val(element.product_rental.operational_certificate_date);
+           
+             if(element.product_rental.Insurance_Policy == 'Y'){  
+              $("#insurance1").prop("checked", true);
+             } else{
+              $("#insurance2").prop("checked", true);
+             }
+
+             if(element.product_rental.delivery == 'Y'){  
+              $("#shipping1").prop("checked", true);
+             } else{
+              $("#shipping2").prop("checked", true);
+             }
+             if(element.product_rental.operator_included == 'Y'){  
+              $("#operator1").prop("checked", true);
+             } else{
+              $("#operator2").prop("checked", true);
+             }
+             if(element.product_rental.rental_contract == 'Y'){  
+              $("#Machinery1").prop("checked", true);
+             } else{
+              $("#Machinery2").prop("checked", true);
+             }
+             if(element.product_rental.rental_guarantee == 'Y'){  
+              $("#rental1").prop("checked", true);
+             } else{
+              $("#rental2").prop("checked", true);
+             }
+             
+ /*
+
+        publicacion4 = {  
+        "id_product": id_product,
+          "section_width": "",
+          "aspect_ratio": "",
+          "rim_diameter": "",
+          "extern_diameter": "",
+          "load_index": "L",
+          "speed_index": "",
+          "maximum_load": "",
+          "maximum_speed": "",
+          "utqg": "",
+          "wear_rate": "",
+          "traction_index": "",
+          "temperature_index": "",
+          "runflat": "",
+          "terrain_type": "",
+          "tread_design": "",
+          "type_of_service": "",
+          "vehicle_type": "",
+          "season": "",
+          "land_type": "",
+          "others": ""
+      };
+     */
+      }
+    })
+      }
+    }
+    })
+}
  </script>
