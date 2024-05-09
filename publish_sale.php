@@ -114,21 +114,24 @@
   const uploadInputContainer = document.getElementById('upload-input-container');
 
   fileInput.addEventListener('change', handleImageUpload);
-
+  var idImg= 0;
   function handleImageUpload() {
     const files = fileInput.files;
 
     // Calculate the index to insert the new image container
     const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
-
+   
     for (const file of files) {
+     
+      imgArray.push(file);
       const reader = new FileReader();
 
       reader.onload = function (e) {
         const imageUrl = e.target.result;
         const imgContainer = document.createElement('div');
         imgContainer.classList.add('uploaded-image');
-
+        imgContainer.id = file.name;
+        idImg++;
         const imgElement = document.createElement('img');
         imgElement.src = imageUrl;
         imgElement.alt = 'Uploaded Image';
@@ -149,9 +152,16 @@
         pTag.textContent = 'Imagen de portada';
         bottomStrip.appendChild(pTag);
 
-        heartIcon.addEventListener('click', function () {
-          imgContainer.remove();
-        });
+        heartIcon.addEventListener('click', function () {  
+          for (var i = 0; i < imgArray.length; i++) { 
+              if (imgArray[i].name === file.name) {  
+                  idImg--;
+                  imgArray.splice(i, 1);   
+                  break;
+              }
+            } 
+            imgContainer.remove();
+          });
 
         galleryIcon.addEventListener('click', function () {
           // Store the first child image
@@ -182,7 +192,12 @@
 <script>
   
 $(document).ready(function() {
-    console.log( "ready publication sale!" ); 
+    console.log( "ready publication sale!" );  
+    var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
+      if(product_old!=''){
+        edit_publi_sale();
+    }
+    
     $("#error-container").hide();
      $("#confirm_public_sale").on('click', function(event) {
       save_public = true;
@@ -331,15 +346,26 @@ var id_product;
   var traxion;
 function setTipoT(valor){
   tipoterreno=valor;
+  if(valor!=''){
+    $(".st").removeClass("active_tracc"); 
+    $(".st:contains(" + valor + ")").addClass("active_tracc");
+  }
 }
 function setTraccion(valor){
   traxion = valor;  
+  if(valor!=''){
+    $(".traction-text").removeClass("active_tracc"); 
+    $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
+  }
 }
-
+var idPreview = '';
+ var aaa = 0;
 function resumePublication(step,save){  
   console.log("resumePublication sale",id_categoria);
+  var id_product_old = '<?= isset($_GET['id']) &&  $_GET['id']!== '' ? $_GET['id'] :  null; ?>';
 
     publicacion1 = {  
+      "id_product": id_product_old,
       "id_publication_type": 2,
       "id_category": id_categoria,
       "id_product_type": $("#industria").val(),
@@ -442,18 +468,23 @@ function resumePublication(step,save){
       $("#r_condicion").hide();
     }
 
-
-  if(step==3){
-
+  if(step==3){ 
       var imgPreview = document.getElementById('image-preview');
-      var input = document.getElementById('file-input');
-      var file = input.files[0];
-
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        imgPreview.src = e.target.result;
-      }
-      reader.readAsDataURL(file); 
+    
+      $('.upload-container .uploaded-image').each(function() {
+        if(aaa==0){
+          idPreview = $(this).attr('id');
+        } 
+        aaa++;
+      });  
+        for (var i = 0; i < imgArray.length; i++) { 
+            if (imgArray[i].name === idPreview) {  
+                var blobURLPreview = URL.createObjectURL(imgArray[i]);  
+                imgPreview.src = blobURLPreview 
+                break;
+            }
+          } 
+    
       }
   }else{
     registerPublication(step);
@@ -463,7 +494,7 @@ function resumePublication(step,save){
 
  function registerPublication(step_public){ 
   if(step_public <= 3 ){
-    publicacion1.status_id = 10;
+    publicacion1.status_id = 9;
   }
     var url = '<?=$baseUrl?>/register_publication'; 
     var token = '<?= $_SESSION["token"]; ?>';
@@ -496,7 +527,6 @@ function resumePublication(step,save){
 
 
 function registerPublication2(id){ 
-
  var url = '<?=$baseUrl?>/register_product_details'; 
    
   publicacion2.id_product = id;
@@ -606,24 +636,23 @@ function deleteImagenAll() {
         
  function uploadImagen() {  
   var input = document.getElementById('file-input');
-  var archivos = input.files;
-      if(archivos.length > 0){
+ // var archivos = input.files;
+      if(imgArray.length > 0){
       deleteImagenAll();
        var token = '<?= $_SESSION["token"]  ?? ''?>';    
         setTimeout(function() {
-       // var files = input.files; 
         var loading = 0;
-        for (var i = 0; i < archivos.length; i++) {
-          var archivo = archivos[i];
-            var formData = new FormData();
-            formData.append('file',archivo);  
-           
-            var orden = i +1; 
-            if(orden==1){
-              cover = true;
-            } else{
+        var bbb = ''
+        for (var i = 0; i < imgArray.length; i++) {
+      
+          var formData = new FormData();
+              formData.append('file', imgArray[i]); 
               cover = false;
-            }
+              if (imgArray[i].name === idPreview) { 
+                bbb = i; 
+                cover = true;
+               }
+            var orden = i +1;   
             $.ajax({
                 type: "POST",
                 processData: false,  // tell jQuery not to process the data
@@ -636,10 +665,11 @@ function deleteImagenAll() {
                 success: function (response, textStatus, xhr)
                 {
                   loading++;
-                  if(loading == archivos.length){
+                  if(loading == imgArray.length){
                 
-                    if(save_public){
-                      sendDataResume(archivo[0]);
+                    if(save_public){                      
+                        sendDataResume(imgArray[bbb]);  
+                      
                     }else{
                       window.location.href = 'user_details.php?tab=publication'; 
                     }
@@ -688,5 +718,258 @@ function deleteImagenAll() {
     
     form.submit();
 }
+var imgArray = [];
+function edit_publi_sale(){ 
+  console.log("edicion de publicacion salee...")
+   
+  var id_='<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
+  var url= '<?=$baseUrl?>/list_publications_panel_details?id=' + id_;
 
+$.ajax({
+  url: url,
+  method: 'GET',    
+  success: function(res) {      
+   if(!res.error){ 
+        res.data.forEach(function(element) { 
+        if(element.status_id == '10') {  
+          setCategorySale(element.id_category,element.mainCategory?.category); 
+          if(element.id_category==3){
+            $("#pills-publish3-tab").click();
+          }else{
+            $("#pills-publish1-tab").click();
+          }
+         
+           // Establecer el valor seleccionado
+          var selectize = $('#industria')[0].selectize;
+          selectize.setValue(element.id_product_type);
+          var selectize = $('#id_machine')[0].selectize;
+          selectize.setValue(element.id_machine);
+
+          var titleSelector, descripSelector;
+
+            if (element.id_category == 3) {
+              titleSelector = "#title5";
+              descripSelector = "#descrip5";
+            } else {
+              titleSelector = "#title";
+              descripSelector = "#descrip";
+            }
+
+            $(titleSelector).val(element.title);
+            $(descripSelector).val(element.description);
+
+            if (element.id_category == 3) {                
+                var selectize = $('#marca5')[0].selectize;
+                selectize.setValue(element.product_details.id_marca);
+                var selectize = $('#anios5')[0].selectize;
+                selectize.setValue(element.product_details.year);  
+                $("#modelo5").val(element.product_details.model);
+                $("#price5").val(element.product_details.price);
+            } else {
+                var selectize = $('#marca')[0].selectize;
+                selectize.setValue(element.product_details.id_marca);
+                var selectize = $('#anios')[0].selectize;
+                selectize.setValue(element.product_details.year); 
+                $("#modelo").val(element.product_details.model);
+                $("#price").val(element.product_details.price);
+            }
+
+           
+           $("#engine_number").val(element.product_details.engine_number);
+           $("#chasis_number").val(element.product_details.chasis_number);
+           $("#patente").val(element.product_details.patent);
+           $("#patent").val(element.product_details.patent)
+          
+           $("#PesoNeto").val(element.product_technical_characteristics.weight);
+           $("#Potencia").val(element.product_technical_characteristics.power);
+           $("#Cilindrada").val(element.product_technical_characteristics.displacement);
+           $("#Torque").val(element.product_technical_characteristics.torque);
+           $("#mixed_consumption").val(element.product_technical_characteristics.mixed_consumption);
+                
+           if (element.id_category == 3) {  
+              if(element.product_details.condition == 'Nuevo'){
+                $("#flexRadioDefault15").prop("checked", true);
+              }else{
+                $("#flexRadioDefault25").prop("checked", true);
+              }
+            }else{
+              if(element.product_details.condition == 'Nuevo'){
+                $("#flexRadioDefault1").prop("checked", true);
+              }else{
+                $("#flexRadioDefault2").prop("checked", true);
+              }
+            }
+           
+       
+           $("#KilometrosRecorridos").val(element.product_technical_characteristics.km_traveled);
+           $("#Horometro").val(element.product_technical_characteristics.hrs_traveled);
+           
+       
+           if (element.id_category == 3) {  
+          var selectize = $('#region5')[0].selectize;
+          selectize.setValue(element.product_details.region);
+          var selectize = $('#city5')[0].selectize;
+          selectize.setValue(element.product_details.city);
+           }else{
+            var selectize = $('#region')[0].selectize;
+          selectize.setValue(element.product_details.region);
+          var selectize = $('#city')[0].selectize;
+          selectize.setValue(element.product_details.city);
+           }
+           if (element.id_category == 3) {  
+            if(element.product_details.delivery == 'Y'){  
+              $("#inlineRadioOptions5").prop("checked", true);          
+            }else{
+              $("#inlineRadioOptions5").prop("checked", true);
+            }
+          }else{
+            if(element.product_details.delivery == 'Y'){  
+              $("#inlineRadioDelivery1").prop("checked", true);          
+            }else{
+              $("#inlineRadioDelivery2").prop("checked", true);
+            }
+          }
+
+          if(element.product_technical_characteristics.transmission == 'Manual'){  
+            $("#inlineRadio1").prop("checked", true);
+           }else if(element.product_technical_characteristics.transmission == 'Automática'){
+            $("#inlineRadio2").prop("checked", true);
+           }else{
+            $("#inlineRadio3").prop("checked", true);
+           }
+           
+           if(element.product_technical_characteristics.fuel == 'Diésel'){  
+            $("#inlineRadioFuel1").prop("checked", true);
+           }else if(element.product_technical_characteristics.fuel == 'Bencina'){
+            $("#inlineRadioFuel2").prop("checked", true);
+           }else{
+            $("#inlineRadioFuel3").prop("checked", true);
+           }
+    
+           setTraccion(element.product_technical_characteristics.traction) 
+           if(element.product_technical_characteristics.traction!=""){
+             $(".traction-text").removeClass("active_tracc"); 
+             $(".traction-text:contains(" + element.product_technical_characteristics.traction + ")").addClass("active_tracc");
+          } 
+          if (element.id_category == 3) {   
+          $("#section_width").val(element.product_dimension.section_width);
+          $("#aspect_ratio").val(element.product_dimension.aspect_ratio);
+          $("#rim_diameter").val(element.product_dimension.rim_diameter);
+          $("#land_type").val(element.product_dimension.land_type);
+          $("#load_index").val(element.product_dimension.load_index);
+          $("#speed_index").val(element.product_dimension.speed_index);
+          $("#maximum_load").val(element.product_dimension.maximum_load);
+          $("#maximum_speed").val(element.product_dimension.maximum_speed); 
+          $("#utgc").val(element.product_dimension.utgc); 
+          $("#tread_design").val(element.product_dimension.tread_design);  
+          $("#type_of_service").val(element.product_dimension.type_of_service);  
+          $("#vehicle_type").val(element.product_dimension.vehicle_type);  
+          
+          $("#temperature_index").val(element.product_dimension.temperature_index);   
+          $("#traction_index").val(element.product_dimension.traction_index);   
+          $("#wear_rate").val(element.product_dimension.wear_rate);   
+          $("#extern_diameter").val(element.product_dimension.extern_diameter);   
+
+          if(element.product_dimension.runflat == 'Y'){  
+            $("#inlineRadio11").prop("checked", true);
+           }else {
+            $("#inlineRadio22").prop("checked", true);
+           }
+
+           if(element.product_dimension.season == 'InviernoY'){  
+            $("#inlineRadio1s").prop("checked", true);
+           }else if(element.product_dimension.season == 'Verano') {
+            $("#inlineRadio2s").prop("checked", true);
+           }else{
+            $("#inlineRadio3s").prop("checked", true);
+           }
+          }
+         
+
+  //step 2 imagen edit
+    const imageContainer = document.getElementById('image-container');
+  const uploadInputContainer = document.getElementById('upload-input-container');
+
+
+// Calculate the index to insert the new image container
+const insertIndex = imageContainer.children.length > 1 ? 1 : 0; 
+  for (var i = 0; i < element.product_images.length; i++) {
+
+          var imageUrlEdit = element.product_images[i].image_name; 
+          
+          const imgContainer = document.createElement('div');
+          imgContainer.classList.add('uploaded-image');
+          imgContainer.id = imageUrlEdit;
+          idImg++;
+          var ulr_imagen = '<?=$baseUrl?>/see_image?image='+imageUrlEdit;  
+              fetch(ulr_imagen)
+                .then(function(response) {
+                  return response.blob();
+                })
+                .then(function(blob) {
+                  var file = new File([blob], imgContainer.id);
+                  imgArray.push(file);  
+                  var blobURL = URL.createObjectURL(blob);                    
+
+                  const imgElement = document.createElement('img');
+                  imgElement.src = blobURL;
+                  imgElement.alt = 'Uploaded Image';
+
+                  const heartIcon = document.createElement('div');
+                  heartIcon.classList.add('heart-icon');
+                  const heartIconImg = document.createElement('img');
+                  heartIcon.appendChild(heartIconImg);
+
+                  const galleryIcon = document.createElement('div');
+                  galleryIcon.classList.add('gallery-icon');
+                  const galleryIconImg = document.createElement('img');
+                  galleryIcon.appendChild(galleryIconImg);
+
+                  const bottomStrip = document.createElement('div');
+                  bottomStrip.classList.add('bottom-strip');
+                  const pTag = document.createElement('p');
+                  pTag.textContent = 'Imagen de portada';
+                  bottomStrip.appendChild(pTag);
+
+                 heartIcon.addEventListener('click', function () {                 
+                  var containerId = $(this).closest('.uploaded-image').attr('id');
+                  for (var i = 0; i < imgArray.length; i++) { 
+                      if (imgArray[i].name === containerId) {  
+                          idImg--;
+                          imgArray.splice(i, 1);   
+                          break;
+                      }
+                    }  
+                    imgContainer.remove();
+                  }) 
+
+                 galleryIcon.addEventListener('click', function () {
+                    // Store the first child image
+                    const firstChild = imageContainer.firstChild;
+                    // Replace the first child image with the clicked image
+                    imageContainer.insertBefore(imgContainer, firstChild);
+                    // Move the first child image to the location of the clicked image
+                    imgContainer.parentNode.insertBefore(firstChild, imgContainer.nextSibling);
+                  }); 
+
+                  imgContainer.appendChild(imgElement);
+                  imgContainer.appendChild(heartIcon);
+                  imgContainer.appendChild(galleryIcon);
+                  imgContainer.appendChild(bottomStrip);
+
+                  // Insert the new image container at the calculated index
+                  imageContainer.insertBefore(imgContainer, imageContainer.children[insertIndex]);
+                  // Move the file input container after the last uploaded image
+                  imageContainer.parentNode.insertBefore(uploadInputContainer, null);
+                })
+                .catch(function(error) {
+                  console.log('Error al descargar la imagen:', error);
+                });  
+             }  
+          }  
+        })
+      }
+    }
+ })
+}
 </script>

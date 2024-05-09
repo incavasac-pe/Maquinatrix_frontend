@@ -10,7 +10,7 @@
   $count_detalle = 0;
   
   if (isset($_GET['id']) &&  $_GET['id']!== ''){
-      echo "ID RECIBIDO ". $id= $_GET['id']; 
+      //echo "ID RECIBIDO ". $id= $_GET['id']; 
       $url12 = $baseUrl.'/list_publications_panel_details?id='.$id;
 
       $response = file_get_contents($url12);
@@ -20,8 +20,8 @@
         if (!$data['error']) {
             // Obtener el detalle
             $detalle_edit = $data['data'][0]; 
-            print_r($detalle_edit);
-        echo  $count_detalle = $data['count'];
+           // print_r($detalle_edit);
+           $count_detalle = $data['count'];
         }  
       } 
     }  
@@ -164,7 +164,11 @@
   
 $(document).ready(function() {
     console.log( "ready publication!" ); 
-    edit_publi();
+    var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
+      if(product_old!=''){
+        edit_publi();
+    }
+  
     $("#error-container").hide();
      $("#confirm_public").on('click', function(event) {
       save_public = true;
@@ -248,68 +252,78 @@ const imageContainer = document.getElementById('image-container');
 const uploadInputContainer = document.getElementById('upload-input-container');
 
 fileInput.addEventListener('change', handleImageUpload);
+  var idImg= 0;
+  function handleImageUpload() {
+    const files = fileInput.files;
 
-function handleImageUpload() {
-  const files = fileInput.files;
+    // Calculate the index to insert the new image container
+    const insertIndex = imageContainer.children.length > 1 ? 1 : 0;   
+    for (const file of files) {
+     
+      imgArray.push(file);
+      const reader = new FileReader();
 
-  // Calculate the index to insert the new image container
-  const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
+      reader.onload = function (e) {
+        const imageUrl = e.target.result;
+        const imgContainer = document.createElement('div');
+        imgContainer.classList.add('uploaded-image');
+        imgContainer.id = file.name;
+        idImg++;
+        const imgElement = document.createElement('img');
+        imgElement.src = imageUrl;
+        imgElement.alt = 'Uploaded Image';
 
-  for (const file of files) {
-    const reader = new FileReader();
+        const heartIcon = document.createElement('div');
+        heartIcon.classList.add('heart-icon');
+        const heartIconImg = document.createElement('img');
+        heartIcon.appendChild(heartIconImg);
 
-    reader.onload = function (e) {
-      const imageUrl = e.target.result;
-      const imgContainer = document.createElement('div');
-      imgContainer.classList.add('uploaded-image');
+        const galleryIcon = document.createElement('div');
+        galleryIcon.classList.add('gallery-icon');
+        const galleryIconImg = document.createElement('img');
+        galleryIcon.appendChild(galleryIconImg);
 
-      const imgElement = document.createElement('img');
-      imgElement.src = imageUrl;
-      imgElement.alt = 'Uploaded Image';
+        const bottomStrip = document.createElement('div');
+        bottomStrip.classList.add('bottom-strip');
+        const pTag = document.createElement('p');
+        pTag.textContent = 'Imagen de portada';
+        bottomStrip.appendChild(pTag);
 
-      const heartIcon = document.createElement('div');
-      heartIcon.classList.add('heart-icon');
-      const heartIconImg = document.createElement('img');
-      heartIcon.appendChild(heartIconImg);
+        heartIcon.addEventListener('click', function () {                 
+          var containerId = $(this).closest('.uploaded-image').attr('id');
+          for (var i = 0; i < imgArray.length; i++) { 
+              if (imgArray[i].name === containerId) {  
+                  idImg--;
+                  imgArray.splice(i, 1);   
+                  break;
+              }
+            }  
+            imgContainer.remove();
+          })
 
-      const galleryIcon = document.createElement('div');
-      galleryIcon.classList.add('gallery-icon');
-      const galleryIconImg = document.createElement('img');
-      galleryIcon.appendChild(galleryIconImg);
+        galleryIcon.addEventListener('click', function () {
+          // Store the first child image
+          const firstChild = imageContainer.firstChild;
+          // Replace the first child image with the clicked image
+          imageContainer.insertBefore(imgContainer, firstChild);
+          // Move the first child image to the location of the clicked image
+          imgContainer.parentNode.insertBefore(firstChild, imgContainer.nextSibling);
+        });
 
-      const bottomStrip = document.createElement('div');
-      bottomStrip.classList.add('bottom-strip');
-      const pTag = document.createElement('p');
-      pTag.textContent = 'Imagen de portada';
-      bottomStrip.appendChild(pTag);
+        imgContainer.appendChild(imgElement);
+        imgContainer.appendChild(heartIcon);
+        imgContainer.appendChild(galleryIcon);
+        imgContainer.appendChild(bottomStrip);
 
-      heartIcon.addEventListener('click', function () {
-        imgContainer.remove();
-      });
+        // Insert the new image container at the calculated index
+        imageContainer.insertBefore(imgContainer, imageContainer.children[insertIndex]);
+        // Move the file input container after the last uploaded image
+        imageContainer.parentNode.insertBefore(uploadInputContainer, null);
+      };
 
-      galleryIcon.addEventListener('click', function () {
-        // Store the first child image
-        const firstChild = imageContainer.firstChild;
-        // Replace the first child image with the clicked image
-        imageContainer.insertBefore(imgContainer, firstChild);
-        // Move the first child image to the location of the clicked image
-        imgContainer.parentNode.insertBefore(firstChild, imgContainer.nextSibling);
-      });
-
-      imgContainer.appendChild(imgElement);
-      imgContainer.appendChild(heartIcon);
-      imgContainer.appendChild(galleryIcon);
-      imgContainer.appendChild(bottomStrip);
-
-      // Insert the new image container at the calculated index
-      imageContainer.insertBefore(imgContainer, imageContainer.children[insertIndex]);
-      // Move the file input container after the last uploaded image
-      imageContainer.parentNode.insertBefore(uploadInputContainer, null);
-    };
-
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+    }
   }
-}
 
   var id_product;
   var publicacion1;
@@ -321,13 +335,18 @@ function handleImageUpload() {
  
   function setTraccion(valor){
     traxion = valor;  
+    if(valor!=''){
+      $(".traction-text").removeClass("active_tracc"); 
+      $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
+    }
   }
  
-
+  var idPreview = '';
+ var aaa = 0;
  function resumePublication(step,save){  
-
+    var id_product_old = '<?= isset($_GET['id']) &&  $_GET['id']!== '' ? $_GET['id'] : null; ?>';
     publicacion1 = {  
-      "id_product": <?= $_GET['id']!='' ? $_GET['id']: null; ?>,
+      "id_product": id_product_old,
       "id_publication_type": 1,
       "id_category": id_categoria,
       "id_product_type": $("#industria").val(),
@@ -381,7 +400,7 @@ function handleImageUpload() {
       "aspect_ratio": "",
       "rim_diameter": "",
       "extern_diameter": "",
-      "load_index": "L",
+      "load_index": "",
       "speed_index": "",
       "maximum_load": "",
       "maximum_speed": "",
@@ -413,12 +432,7 @@ function handleImageUpload() {
       "rental_contract":  $('input[name="Machinery"]:checked').val(), 
       "rental_guarantee": $('input[name="rental"]:checked').val(), 
     }
-
-  console.log("PUBLICACION 1 ",publicacion1)
-  console.log("PUBLICACION 2 DETALLE ",publicacion2)
-  console.log("PUBLICACION 3 TECNICA ",publicacion3)
-  console.log("PUBLICACION 4 DIMENSIONES",publicacion4)
-  console.log("PUBLICACION 5 RENTAL",publicacion5)
+ 
   //agrega los valores en el resumen paso 3 
     if(save){
     $('.btn_2').text(categoria);
@@ -456,15 +470,20 @@ function handleImageUpload() {
 
     if(step==3){
 
-      var imgPreview = document.getElementById('image-preview');
-      var input = document.getElementById('file-input');
-      var file = input.files[0];
-      
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        imgPreview.src = e.target.result;
-      }
-      reader.readAsDataURL(file); 
+    var imgPreview = document.getElementById('image-preview'); 
+    $('.upload-container .uploaded-image').each(function() {
+      if(aaa==0){
+        idPreview = $(this).attr('id');
+      } 
+      aaa++;
+    });   
+      for (var i = 0; i < imgArray.length; i++) { 
+          if (imgArray[i].name === idPreview) {  
+              var blobURLPreview = URL.createObjectURL(imgArray[i]);  
+              imgPreview.src = blobURLPreview 
+              break;
+          }
+        } 
     }
   }else{
     registerPublication(step);
@@ -473,7 +492,7 @@ function handleImageUpload() {
 
  function registerPublication(step_public){ 
   if(step_public <= 3 ){
-    publicacion1.status_id = 10;
+    publicacion1.status_id = 9;
   }
  
     var url = '<?=$baseUrl?>/register_publication'; 
@@ -488,7 +507,7 @@ function handleImageUpload() {
       },
       success: function(response) {
         // Manejar la respuesta del servidor en 'response'
-        console.log(response);
+    
         id_product = response.data.id_product;
           registerPublication2(response.data.id_product)
       },
@@ -496,7 +515,7 @@ function handleImageUpload() {
         if (response.status === 401 || response.status === 403) {
               window.location.href = 'create_session_portal.php?logout=true';
               }
-          console.log(response.responseJSON.msg)
+        
           var statusCode = xhr.status;  
               $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
               $('#new_password').prop('disabled', false);
@@ -522,7 +541,7 @@ function registerPublication2(id){
     },
     success: function(response) {
       // Manejar la respuesta del servidor en 'response'
-      console.log(response);
+    
         registerPublication3()
     },
     error: function(response,xhr, textStatus, errorThrown) {
@@ -548,7 +567,7 @@ function registerPublication3(){
     },
     success: function(response) {
       // Manejar la respuesta del servidor en 'response'
-      console.log(response);
+    
       registerPublication4()
     },
     error: function(response,xhr, textStatus, errorThrown) {
@@ -573,11 +592,9 @@ function registerPublication4(){
     },
     success: function(response) {
       // Manejar la respuesta del servidor en 'response'
-      registerPublication5()
-      console.log(response);    
+      registerPublication5()  
     },
-    error: function(response,xhr, textStatus, errorThrown) {
-        console.log(response.responseJSON.msg)
+    error: function(response,xhr, textStatus, errorThrown) { 
         var statusCode = xhr.status;  
             $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
             $('#new_password').prop('disabled', false);
@@ -599,8 +616,7 @@ function registerPublication5(){
     success: function(response) {
       // Manejar la respuesta del servidor en 'response'
       uploadPDF();
-      uploadImagen();
-      console.log(response);    
+      uploadImagen();    
     },
     error: function(response,xhr, textStatus, errorThrown) {
         console.log(response.responseJSON.msg)
@@ -689,28 +705,26 @@ function uploadPDF() {
             }   
 
 }  
-
-function uploadImagen() {  
- 
+  
+ function uploadImagen() {  
   var input = document.getElementById('file-input');
-  var archivos = input.files;
-      if(archivos.length > 0){
+ // var archivos = input.files;
+      if(imgArray.length > 0){
       deleteImagenAll();
        var token = '<?= $_SESSION["token"]  ?? ''?>';    
         setTimeout(function() {
-       // var files = input.files; 
         var loading = 0;
-        for (var i = 0; i < archivos.length; i++) {
-          var archivo = archivos[i];
-            var formData = new FormData();
-            formData.append('file',archivo);  
-           
-            var orden = i +1; 
-            if(orden==1){
-              cover = true;
-            } else{
+        var bbb = ''
+        for (var i = 0; i < imgArray.length; i++) {
+      
+          var formData = new FormData();
+              formData.append('file', imgArray[i]); 
               cover = false;
-            }
+              if (imgArray[i].name === idPreview) { 
+                bbb = i; 
+                cover = true;
+               }
+            var orden = i +1;   
             $.ajax({
                 type: "POST",
                 processData: false,  // tell jQuery not to process the data
@@ -723,10 +737,11 @@ function uploadImagen() {
                 success: function (response, textStatus, xhr)
                 {
                   loading++;
-                  if(loading == archivos.length){
+                  if(loading == imgArray.length){
                 
-                    if(save_public){
-                      sendDataResume(archivo[0]);
+                    if(save_public){                      
+                        sendDataResume(imgArray[bbb]);  
+                      
                     }else{
                       window.location.href = 'user_details.php?tab=publication'; 
                     }
@@ -745,7 +760,7 @@ function uploadImagen() {
             window.location.href = 'user_details.php?tab=publication'; 
            }
         }
-}
+      }
 
 function sendDataResume(imagen){
   var form = document.createElement('form');
@@ -773,22 +788,22 @@ function sendDataResume(imagen){
   document.body.appendChild(form);
   form.submit();
 }
-
+var imgArray = [];
 function edit_publi(){ 
- 
-   var url= '<?=$baseUrl?>/list_publications_panel_details?id=' + <?=$_GET['id']?>;
- 
-  // Realizar la llamada AJAX para obtener los datos
+ console.log("edicion de publicacion...")
+   var id_='<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
+   var url= '<?=$baseUrl?>/list_publications_panel_details?id=' + id_;
+  
   $.ajax({
     url: url,
     method: 'GET',    
     success: function(res) {      
      if(!res.error){ 
-          res.data.forEach(function(element) {
-            console.log("element edit",element);
+          res.data.forEach(function(element) { 
      
           if(element.status_id == '10') { 
             setCategory(element.id_category,element.mainCategory?.category); 
+            
             $("#pills-publish1-tab").click();
        
              // Establecer el valor seleccionado
@@ -855,9 +870,10 @@ function edit_publi(){
              }
       
              setTraccion(element.product_technical_characteristics.traction) 
-             $(".traction-text").removeClass("active_tracc"); 
-             $(".traction-text:contains(" + element.product_technical_characteristics.traction + ")").addClass("active_tracc");
-            
+             if(element.product_technical_characteristics.traction!=""){
+               $(".traction-text").removeClass("active_tracc"); 
+               $(".traction-text:contains(" + element.product_technical_characteristics.traction + ")").addClass("active_tracc");
+             }
              if(element.product_rental.Scheduled_Maintenance == 'Y'){  
               $("#maintenance1").prop("checked", true);
              } else{
@@ -909,36 +925,90 @@ function edit_publi(){
               $("#rental2").prop("checked", true);
              }
              
- /*
+//step 2 imagen edit
+const imageContainer = document.getElementById('image-container');
+  const uploadInputContainer = document.getElementById('upload-input-container');
 
-        publicacion4 = {  
-        "id_product": id_product,
-          "section_width": "",
-          "aspect_ratio": "",
-          "rim_diameter": "",
-          "extern_diameter": "",
-          "load_index": "L",
-          "speed_index": "",
-          "maximum_load": "",
-          "maximum_speed": "",
-          "utqg": "",
-          "wear_rate": "",
-          "traction_index": "",
-          "temperature_index": "",
-          "runflat": "",
-          "terrain_type": "",
-          "tread_design": "",
-          "type_of_service": "",
-          "vehicle_type": "",
-          "season": "",
-          "land_type": "",
-          "others": ""
-      };
-     */
-      }
-    })
+
+// Calculate the index to insert the new image container
+const insertIndex = imageContainer.children.length > 1 ? 1 : 0; 
+  for (var i = 0; i < element.product_images.length; i++) {
+
+          var imageUrlEdit = element.product_images[i].image_name; 
+          
+          const imgContainer = document.createElement('div');
+          imgContainer.classList.add('uploaded-image');
+          imgContainer.id = imageUrlEdit;
+          idImg++;
+          var ulr_imagen = '<?=$baseUrl?>/see_image?image='+imageUrlEdit;  
+              fetch(ulr_imagen)
+                .then(function(response) {
+                  return response.blob();
+                })
+                .then(function(blob) {
+                  var file = new File([blob], imgContainer.id);
+                  imgArray.push(file);  
+                  var blobURL = URL.createObjectURL(blob);                    
+
+                  const imgElement = document.createElement('img');
+                  imgElement.src = blobURL;
+                  imgElement.alt = 'Uploaded Image';
+
+                  const heartIcon = document.createElement('div');
+                  heartIcon.classList.add('heart-icon');
+                  const heartIconImg = document.createElement('img');
+                  heartIcon.appendChild(heartIconImg);
+
+                  const galleryIcon = document.createElement('div');
+                  galleryIcon.classList.add('gallery-icon');
+                  const galleryIconImg = document.createElement('img');
+                  galleryIcon.appendChild(galleryIconImg);
+
+                  const bottomStrip = document.createElement('div');
+                  bottomStrip.classList.add('bottom-strip');
+                  const pTag = document.createElement('p');
+                  pTag.textContent = 'Imagen de portada';
+                  bottomStrip.appendChild(pTag);
+
+                 heartIcon.addEventListener('click', function () {                 
+                  var containerId = $(this).closest('.uploaded-image').attr('id');
+                  for (var i = 0; i < imgArray.length; i++) { 
+                      if (imgArray[i].name === containerId) {  
+                          idImg--;
+                          imgArray.splice(i, 1);   
+                          break;
+                      }
+                    }  
+                    imgContainer.remove();
+                  }) 
+
+                 galleryIcon.addEventListener('click', function () {
+                    // Store the first child image
+                    const firstChild = imageContainer.firstChild;
+                    // Replace the first child image with the clicked image
+                    imageContainer.insertBefore(imgContainer, firstChild);
+                    // Move the first child image to the location of the clicked image
+                    imgContainer.parentNode.insertBefore(firstChild, imgContainer.nextSibling);
+                  }); 
+
+                  imgContainer.appendChild(imgElement);
+                  imgContainer.appendChild(heartIcon);
+                  imgContainer.appendChild(galleryIcon);
+                  imgContainer.appendChild(bottomStrip);
+
+                  // Insert the new image container at the calculated index
+                  imageContainer.insertBefore(imgContainer, imageContainer.children[insertIndex]);
+                  // Move the file input container after the last uploaded image
+                  imageContainer.parentNode.insertBefore(uploadInputContainer, null);
+                })
+                .catch(function(error) {
+                  console.log('Error al descargar la imagen:', error);
+                });  
+             }  
+          }  
+        })
       }
     }
-    })
+ })
 }
  </script>

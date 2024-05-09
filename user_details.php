@@ -181,8 +181,7 @@ if (isset($_SESSION['loggedIn'])) {
                     <table class="additional-table">
                       <tr id="address">
                         <td>Dirección</td>
-                        <td>Av. República de Venezuela 1829, Lima 15083</td>
-
+                        <td></td>
                       </tr>
                       
                     </table>
@@ -509,11 +508,11 @@ function enviarActualizacionInformacionAdicional(type, value = '') {
 function construirEstructuraHTML(value) { 
   var url;
   if(value == '0'){
-   url= '<?=$baseUrl?>/list_publications_byuser?limit=100&id_user=' + <?=$id_user?>;
+   url= '<?=$baseUrl?>/list_publications_byuser?limit=1000&id_user=' + <?=$id_user?>;
   }else if(value == '7' || value == '10' ) {
-    url='<?=$baseUrl?>/list_publications_byuser?limit=100&id_user=' + <?=$id_user?>+'&status_id='+value;
+    url='<?=$baseUrl?>/list_publications_byuser?limit=1000&id_user=' + <?=$id_user?>+'&status_id='+value;
   }else{
-    url= '<?=$baseUrl?>/list_publications_byuser?limit=100&id_user=' + <?=$id_user?>+'&tpublicacion='+value;
+    url= '<?=$baseUrl?>/list_publications_byuser?limit=1000&id_user=' + <?=$id_user?>+'&tpublicacion='+value;
   }
   // Realizar la llamada AJAX para obtener los datos
   $.ajax({
@@ -586,23 +585,19 @@ function construirEstructuraHTML(value) {
              // var editOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Editar'));
               var url_edit = element.PublicationType.id_publication_type == '1' ? 'Arriendo_sale.php?id=' : 'publish_sale.php?id=';
               var editOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', url_edit + element.id_product).text('Editar'));
-
+              var id = element.id_product; 
               var publishOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Publicar').click(function() {
-                var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
-                Publicar(id);
+                             Publicar(id);
               }));
 
               var publishOption1 = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Ver publicación').click(function() {
-                var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
                 seePublicacion(id);
               }));
               var borradorOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Volver borrador').click(function() {
-              var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
-                 statusBorrador(id);
+                   statusBorrador(id);
               }));
             var deleteOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').attr('data-bs-toggle', 'modal').attr('data-bs-target', '#confirmation').text('Eliminar').click(function() {
-                var id = element.id_product; // Reemplaza 'valor_del_id' con el ID real que deseas utilizar
-                setValue(id);
+               setValue(id);
               }));
               switch (element.status_id) {
                     case 6:
@@ -629,11 +624,7 @@ function construirEstructuraHTML(value) {
                     default:
                       
                   }
-              // Agregar elementos al contenedor de detalles del borrador
-          
-              /*dropdownMenu.append(publishOption1); //ver pub
-              dropdownMenu.append(borradorOption); //borrador
-              dropdownMenu.append(publishOption); // publicar*/
+         
               dropdownMenu.append(deleteOption); //eliminar
               
               dropdown.append(dropdownToggle);

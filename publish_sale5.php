@@ -225,27 +225,27 @@ $url_publi = $protocol . '://' . $host;
         </div>
         <p class="sm-title">Temporada</p>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="season" id="inlineRadio1" value="Invierno">
+            <input class="form-check-input" type="radio" name="season" id="inlineRadio1s" value="Invierno">
             <label class="form-check-label" for="inlineRadio1">Invierno</label>
         </div>
 
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="season" id="inlineRadio2" value="Verano">
+            <input class="form-check-input" type="radio" name="season" id="inlineRadio2s" value="Verano">
             <label class="form-check-label" for="inlineRadio2">Verano</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="season" id="inlineRadio3" value="All Season">
+            <input class="form-check-input" type="radio" name="season" id="inlineRadio3s" value="All Season">
             <label class="form-check-label" for="inlineRadio3">All Season</label>
         </div>
        
         <p class="sm-title">Tipo de terreno</p>
         <div class="traction-wrapper" >
             <div class="traction-left-section">
-                <div class="traction-text" onclick="setTipoT('HT')">HT</div>
-                <div class="traction-text" onclick="setTipoT('AT')">AT</div>
-                <div class="traction-text" onclick="setTipoT('MT')">MT</div>
-                <div class="traction-text" onclick="setTipoT('ST')">ST</div>
-                <div class="traction-text" onclick="setTipoT('Otros')">Otros</div>
+                <div class="traction-text st" onclick="setTipoT('HT')">HT</div>
+                <div class="traction-text st" onclick="setTipoT('AT')">AT</div>
+                <div class="traction-text st" onclick="setTipoT('MT')">MT</div>
+                <div class="traction-text st" onclick="setTipoT('ST')">ST</div>
+                <div class="traction-text st" onclick="setTipoT('Otros')">Otros</div>
                
             </div>
             <div class="traction-right-section">
@@ -255,14 +255,14 @@ $url_publi = $protocol . '://' . $host;
         <p class="sm-title" style="margin-top:40px; margin-bottom:10px !important;">Condición actual del producto</p>
         <p class="sm-text" style="margin-top:0px !important;">Selecciona la condición actual de tu producto</p>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
+            <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault15" value="Nuevo">
+            <label class="form-check-label" for="flexRadioDefault15">
                 Nuevo
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault2">
-            <label class="form-check-label" for="flexRadioDefault2">
+            <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault25" value="Usado">
+            <label class="form-check-label" for="flexRadioDefault25">
                 Usado
             </label>
         </div>
@@ -341,11 +341,11 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="inlineRadio1" value="Y">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="inlineRadioOptions5" value="Y">
                     <label class="form-check-label" for="inlineRadio1">Sí</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="inlineRadio2" value="N">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="inlineRadioOptions5" value="N">
                     <label class="form-check-label" for="inlineRadio2">No</label>
                 </div>
             </div>

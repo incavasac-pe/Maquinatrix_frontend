@@ -7,7 +7,7 @@ if (isset($_GET['email']) && isset($_GET['token']) &&  isset($_GET['loggin']) ) 
     $_SESSION['username'] =  $_GET['username'];   
     $_SESSION['photo'] =  $_GET['photo'] ?? '';   
     $_SESSION['token'] =  $_GET['token'];   
-  print_r($_SESSION); 
+ 
      header('location: panel.php');
 }
 if (isset($_GET['logout']) ) {

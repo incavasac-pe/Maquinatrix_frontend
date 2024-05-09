@@ -177,29 +177,29 @@ $url_publi = $protocol . '://' . $host;
         </div>
         <p class="sm-title"  id="t-combustible">Combustible</p>
         <div class="form-check form-check-inline" id="t-combustible">
-            <input class="form-check-input" type="radio" name="combustible" id="inlineRadio1" value="Diésel">
-            <label class="form-check-label" for="inlineRadio1">Diésel</label>
+            <input class="form-check-input" type="radio" name="combustible" id="inlineRadioFuel1" value="Diésel">
+            <label class="form-check-label" for="inlineRadioFuel1">Diésel</label>
         </div>
 
         <div class="form-check form-check-inline" id="t-combustible">
-            <input class="form-check-input" type="radio" name="combustible" id="inlineRadio1" value="Bencina">
-            <label class="form-check-label" for="inlineRadio2">Bencina</label>
+            <input class="form-check-input" type="radio" name="combustible" id="inlineRadioFuel2" value="Bencina">
+            <label class="form-check-label" for="inlineRadioFuel2">Bencina</label>
         </div>
         <div class="form-check form-check-inline" id="t-combustible">
-            <input class="form-check-input" type="radio" name="combustible" id="inlineRadio3" value="NoClasifica">
-            <label class="form-check-label" for="inlineRadio3">No Clasifica</label>
+            <input class="form-check-input" type="radio" name="combustible" id="inlineRadioFuel3" value="NoClasifica">
+            <label class="form-check-label" for="inlineRadioFuel3">No Clasifica</label>
         </div>
         <p class="sm-title"  id="t-tranx">Tracción</p>
         <div class="traction-wrapper"  id="t-tranx">
             <div class="traction-left-section">
-                <div class="traction-text">4X2</div>
-                <div class="traction-text">2X2</div>
-                <div class="traction-text">6X4</div>
-                <div class="traction-text">4X4</div>
-                <div class="traction-text">6X6</div>
-                <div class="traction-text">8X4</div>
-                <div class="traction-text">Otros</div>
-                <div class="traction-text">No clasifica</div>
+                <div class="traction-text" onclick="setTraccion('4X2')">4X2</div>
+                <div class="traction-text" onclick="setTraccion('4X4')">2X2</div>
+                <div class="traction-text" onclick="setTraccion('6X4')">6X4</div>
+                <div class="traction-text" onclick="setTraccion('4X4')">4X4</div>
+                <div class="traction-text" onclick="setTraccion('6X6')">6X6</div>
+                <div class="traction-text" onclick="setTraccion('8X4')">8X4</div>
+                <div class="traction-text" onclick="setTraccion('Otros')">Otros</div>
+                <div class="traction-text"onclick="setTraccion('No clasifica')">No clasifica</div>
             </div>
             <div class="traction-right-section"  id="t-tranx">
                 <input class="traction-btn" placeholder="Escribir otro" id="traction_index1"  />
@@ -227,7 +227,6 @@ $url_publi = $protocol . '://' . $host;
                     <div class="input-group-addon-km">
                         Km.
                     </div>
-
                 </div>
                 <p class="text-grey">Ej. Kilómetros recorridos: 8 000 km.</p>
             </div>
@@ -321,12 +320,12 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Y">
-                    <label class="form-check-label" for="inlineRadio1">Sí</label>
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadioDelivery1" value="Y">
+                    <label class="form-check-label" for="inlineRadioDelivery1">Sí</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="N">
-                    <label class="form-check-label" for="inlineRadio2">No</label>
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadioDelivery2" value="N">
+                    <label class="form-check-label" for="inlineRadioDelivery2">No</label>
                 </div>
             </div>
         </div>
