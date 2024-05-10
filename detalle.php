@@ -193,10 +193,10 @@ if ($responseimg !== false) {
                         <div
                             class="align-items-center col-xl-2 col-lg-2  col-md-2 col-sm-2 col-2 d-flex justify-content-center perfil-verificado position-relative">
                             <div class="position-relative">
-                                <img src="./assets/img/user.png" alt="user">
-                                <div class="abs">
-                                    <img src="./assets/img/verificar.png" alt="verificar">
-                                </div>
+                                <img src="./assets/img/profile.png" alt="user">
+                                <!--div class="abs">
+                                    <img src="./assets/img/profile.png" alt="verificar">
+                                </div-->
                             </div>
                         </div>
                     </div>
@@ -740,8 +740,7 @@ $('.whatsapp-btn').click(function () {
     var type ='<?=$tpublicacion?>';
     var id = '<?=$id?>';
     var name = '<?=$detalle['title'] ?>';
-    var url = '<?=$url_publi?>';
-    alert("whatswhatswhats");
+    var url = '<?=$url_publi?>'; 
     <?php $baseUrl = getenv('URL_API'); ?>
     <?php $contact = getenv('WHATSAPP');   
     

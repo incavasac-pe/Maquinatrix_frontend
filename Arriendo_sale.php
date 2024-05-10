@@ -469,14 +469,13 @@ fileInput.addEventListener('change', handleImageUpload);
     }
 
     if(step==3){
-
-    var imgPreview = document.getElementById('image-preview'); 
-    $('.upload-container .uploaded-image').each(function() {
-      if(aaa==0){
-        idPreview = $(this).attr('id');
-      } 
-      aaa++;
-    });   
+      var imgPreview = document.getElementById('image-preview'); 
+      $('.upload-container .uploaded-image').each(function() {
+        if(aaa==0){
+          idPreview = $(this).attr('id');
+        } 
+        aaa++;
+      });   
       for (var i = 0; i < imgArray.length; i++) { 
           if (imgArray[i].name === idPreview) {  
               var blobURLPreview = URL.createObjectURL(imgArray[i]);  
@@ -491,9 +490,9 @@ fileInput.addEventListener('change', handleImageUpload);
  }
 
  function registerPublication(step_public){ 
-  if(step_public <= 3 ){
-    publicacion1.status_id = 9;
-  }
+    if(step_public <= 3 ){
+      publicacion1.status_id = 9;
+    }
  
     var url = '<?=$baseUrl?>/register_publication'; 
     var token = '<?= $_SESSION["token"]  ?? ''?>';
@@ -506,16 +505,13 @@ fileInput.addEventListener('change', handleImageUpload);
         xhr.setRequestHeader('Authorization', 'Bearer ' + token);
       },
       success: function(response) {
-        // Manejar la respuesta del servidor en 'response'
-    
         id_product = response.data.id_product;
-          registerPublication2(response.data.id_product)
+        registerPublication2(response.data.id_product)
       },
       error: function(response,xhr, textStatus, errorThrown) {
         if (response.status === 401 || response.status === 403) {
               window.location.href = 'create_session_portal.php?logout=true';
-              }
-        
+            } 
           var statusCode = xhr.status;  
               $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
               $('#new_password').prop('disabled', false);
@@ -539,9 +535,7 @@ function registerPublication2(id){
     beforeSend: function(xhr) {
       xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
-    success: function(response) {
-      // Manejar la respuesta del servidor en 'response'
-    
+    success: function(response) { 
         registerPublication3()
     },
     error: function(response,xhr, textStatus, errorThrown) {
@@ -565,9 +559,7 @@ function registerPublication3(){
     beforeSend: function(xhr) {
       xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
-    success: function(response) {
-      // Manejar la respuesta del servidor en 'response'
-    
+    success: function(response) {  
       registerPublication4()
     },
     error: function(response,xhr, textStatus, errorThrown) {
@@ -590,8 +582,7 @@ function registerPublication4(){
     beforeSend: function(xhr) {
       xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
-    success: function(response) {
-      // Manejar la respuesta del servidor en 'response'
+    success: function(response) { 
       registerPublication5()  
     },
     error: function(response,xhr, textStatus, errorThrown) { 
@@ -613,8 +604,7 @@ function registerPublication5(){
     beforeSend: function(xhr) {
       xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
-    success: function(response) {
-      // Manejar la respuesta del servidor en 'response'
+    success: function(response) { 
       uploadPDF();
       uploadImagen();    
     },
@@ -636,47 +626,39 @@ function deleteImagenAll() {
           'Authorization': 'Bearer ' + token
       },
       success: function (response, textStatus, xhr)
-          {
-            
-          },
+          { },
       error: function (response) { 
           if (response.status === 401 || response.status === 403) {
               window.location.href = 'create_session_portal.php?logout=true';
-              }
+            }
           }
       });
- }         
-     
-
+ }          
 
 function uploadPDF() {  
   var input = document.getElementById('pdfFile');
   var archivos = input.files;
       if(archivos.length > 0){  
-       var token = '<?= $_SESSION["token"]  ?? ''?>';         
- 
+        var token = '<?= $_SESSION["token"]  ?? ''?>'; 
           var archivo = archivos[0];
             var formData = new FormData();
             formData.append('file',archivo);   
             $.ajax({
                 type: "POST",
-                processData: false,  // tell jQuery not to process the data
-                contentType: false ,  // tell jQuery not to set contentType
+                processData: false,
+                contentType: false ,
                 url: '<?= $baseUrl ?>/upload_pdf?id_product='+id_product+'&orden=1&type=1',
                 headers: {
                     'Authorization': 'Bearer ' + token
                 },
                 data: formData, 
                 success: function (response, textStatus, xhr)
-                {
-                
-                },
+                { },
                 error: function (response) { 
-                    if (response.status === 401 || response.status === 403) {
-           
+                    if (response.status === 401 || response.status === 403) { 
                      window.location.href = 'create_session_portal.php?logout=true';
                     }
-              }
+                }
               });
             }  
       var input_other = document.getElementById('pdfFile-other');
@@ -695,12 +677,8 @@ function uploadPDF() {
                     },
                     data: formData, 
                     success: function (response, textStatus, xhr)
-                    {
-                    
-                    },
-                    error: function (response) { 
-                      
-              }
+                    { },
+                    error: function (response) { }
               });
             }   
 
@@ -789,8 +767,7 @@ function sendDataResume(imagen){
   form.submit();
 }
 var imgArray = [];
-function edit_publi(){ 
- console.log("edicion de publicacion...")
+function edit_publi(){  
    var id_='<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
    var url= '<?=$baseUrl?>/list_publications_panel_details?id=' + id_;
   
@@ -925,22 +902,19 @@ function edit_publi(){
               $("#rental2").prop("checked", true);
              }
              
-//step 2 imagen edit
-const imageContainer = document.getElementById('image-container');
-  const uploadInputContainer = document.getElementById('upload-input-container');
-
-
-// Calculate the index to insert the new image container
-const insertIndex = imageContainer.children.length > 1 ? 1 : 0; 
-  for (var i = 0; i < element.product_images.length; i++) {
-
+  //step 2 imagen edit
+  const imageContainer = document.getElementById('image-container');
+  const uploadInputContainer = document.getElementById('upload-input-container'); 
+  
+  const insertIndex = imageContainer.children.length > 1 ? 1 : 0; 
+     for (var i = 0; i < element.product_images.length; i++) { 
           var imageUrlEdit = element.product_images[i].image_name; 
           
           const imgContainer = document.createElement('div');
           imgContainer.classList.add('uploaded-image');
           imgContainer.id = imageUrlEdit;
           idImg++;
-          var ulr_imagen = '<?=$baseUrl?>/see_image?image='+imageUrlEdit;  
+            var ulr_imagen = '<?=$baseUrl?>/see_image?image='+imageUrlEdit;  
               fetch(ulr_imagen)
                 .then(function(response) {
                   return response.blob();
@@ -970,24 +944,21 @@ const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
                   pTag.textContent = 'Imagen de portada';
                   bottomStrip.appendChild(pTag);
 
-                 heartIcon.addEventListener('click', function () {                 
+                  heartIcon.addEventListener('click', function () {                 
                   var containerId = $(this).closest('.uploaded-image').attr('id');
-                  for (var i = 0; i < imgArray.length; i++) { 
-                      if (imgArray[i].name === containerId) {  
-                          idImg--;
-                          imgArray.splice(i, 1);   
-                          break;
-                      }
-                    }  
+                    for (var i = 0; i < imgArray.length; i++) { 
+                        if (imgArray[i].name === containerId) {  
+                            idImg--;
+                            imgArray.splice(i, 1);   
+                            break;
+                        }
+                      }  
                     imgContainer.remove();
                   }) 
 
-                 galleryIcon.addEventListener('click', function () {
-                    // Store the first child image
-                    const firstChild = imageContainer.firstChild;
-                    // Replace the first child image with the clicked image
-                    imageContainer.insertBefore(imgContainer, firstChild);
-                    // Move the first child image to the location of the clicked image
+                  galleryIcon.addEventListener('click', function () { 
+                    const firstChild = imageContainer.firstChild; 
+                    imageContainer.insertBefore(imgContainer, firstChild); 
                     imgContainer.parentNode.insertBefore(firstChild, imgContainer.nextSibling);
                   }); 
 
@@ -995,10 +966,8 @@ const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
                   imgContainer.appendChild(heartIcon);
                   imgContainer.appendChild(galleryIcon);
                   imgContainer.appendChild(bottomStrip);
-
-                  // Insert the new image container at the calculated index
-                  imageContainer.insertBefore(imgContainer, imageContainer.children[insertIndex]);
-                  // Move the file input container after the last uploaded image
+ 
+                  imageContainer.insertBefore(imgContainer, imageContainer.children[insertIndex]); 
                   imageContainer.parentNode.insertBefore(uploadInputContainer, null);
                 })
                 .catch(function(error) {
@@ -1009,6 +978,6 @@ const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
         })
       }
     }
- })
+  })
 }
- </script>
+</script>

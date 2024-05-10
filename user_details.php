@@ -90,7 +90,7 @@ if (isset($_SESSION['loggedIn'])) {
                 <input type="hidden" id="id_profile">
                
                 <p class="top-title">  <?= $username; ?></p>
-                <p class="verify-warning"><i class="fa-solid fa-circle-exclamation"></i>Verificación pendiente</p>
+                <!--p class="verify-warning"><i class="fa-solid fa-circle-exclamation"></i>Verificación pendiente</p-->
                 <div class="company-wrapper">
                   <div class="company-detail">
                     <p class="main-title" id="type_user"></p>
@@ -524,10 +524,20 @@ function construirEstructuraHTML(value) {
     success: function(res) {
       $('.list_publi').empty();
      if(!res.error){ 
-          res.data.forEach(function(element) {
-            console.log("element",element);
+          res.data.forEach(function(element) { 
           if(element.status_id != '8') { 
-            var imagen_url = element?.product_images[0] ? element.product_images[0]['image_name'] :'';
+            var imagen_url = '';
+              if(element?.product_images.length > 0 ){
+                imagen_url =   $.grep(element?.product_images, function(item) {
+                    return item.cover === true;
+                }); 
+                if(imagen_url.length > 0 ){
+                    console.log("imagen /*/*/*", imagen_url[0].image_name);
+                imagen_url = imagen_url[0]?.image_name;
+                }else{
+                  imagen_url = element?.product_images[0].image_name;
+                } 
+              }              
               var imagen = '<?=$baseUrl?>/see_image?image='+ imagen_url;
               // Construir la estructura HTML con los datos obtenidos
               var constructionContainer = $('<div>').addClass('contruction-main-container');

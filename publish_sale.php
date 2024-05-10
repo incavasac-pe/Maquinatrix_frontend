@@ -119,7 +119,7 @@
     const files = fileInput.files;
 
     // Calculate the index to insert the new image container
-    const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
+    const insertIndex = imageContainer.children.length > 1 ? imageContainer.children.length +1 : 0;
    
     for (const file of files) {
      
@@ -860,10 +860,11 @@ $.ajax({
           $("#speed_index").val(element.product_dimension.speed_index);
           $("#maximum_load").val(element.product_dimension.maximum_load);
           $("#maximum_speed").val(element.product_dimension.maximum_speed); 
-          $("#utgc").val(element.product_dimension.utgc); 
+          $("#utqg").val(element.product_dimension.utqg); 
           $("#tread_design").val(element.product_dimension.tread_design);  
           $("#type_of_service").val(element.product_dimension.type_of_service);  
-          $("#vehicle_type").val(element.product_dimension.vehicle_type);  
+          $("#vehicle_type").val(element.product_dimension.vehicle_type);
+          $("#terrain_type").val(element.product_dimension.terrain_type); 
           
           $("#temperature_index").val(element.product_dimension.temperature_index);   
           $("#traction_index").val(element.product_dimension.traction_index);   

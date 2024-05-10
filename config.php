@@ -13,7 +13,7 @@ $google_client->setClientId('873526772906-nu9so6k10nilitq1qtf1dd63tlooo1up.apps.
 $google_client->setClientSecret('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');
 
 //Set the OAuth 2.0 Redirect URI
-$google_client->setRedirectUri('http://localhost/Maquinatrix_frontend/index.php');
+$google_client->setRedirectUri('https://maquinatrix.com/index.php');
 
 // to get the email and profile 
 $google_client->addScope('email');

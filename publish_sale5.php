@@ -145,7 +145,7 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="utgc" name="utqg" placeholder="UTQG">  
+                    <input type="number" class="form-control" id="utqg" name="utqg" placeholder="UTQG">  
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">

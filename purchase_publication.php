@@ -15,13 +15,11 @@
     if (isset($_GET['id'])&& $_GET['id']!='') {
         $id = $_GET['id'];
     }
-    echo $id;
+    
     $tpublicacion =  '1';
-    $mov = ($tpublicacion == '2') ? 'comprar' :' arrendar'; 
-
+    $mov = ($tpublicacion == '2') ? 'comprar' :' arrendar';  
         $count_detalle = 0;
-        $url12 = $baseUrl.'/list_publications_panel_details?id='.$id;
-
+        $url12 = $baseUrl.'/list_publications_panel_details?id='.$id; 
         $response = file_get_contents($url12);
         if ($response !== false) {
         // Decodificar la respuesta JSON
@@ -36,8 +34,7 @@
         }
 
         $count_imagen = 0;
-        $url  = $baseUrl.'/list_publications_imagen?id='.$id;
-
+        $url  = $baseUrl.'/list_publications_imagen?id='.$id; 
         $responseimg = file_get_contents($url);
         if ($responseimg !== false) {
         // Decodificar la respuesta JSON
@@ -49,8 +46,7 @@
         }  
         } else {
             echo 'Error al realizar la solicitud a la API';
-        }
- 
+        } 
    ?>  
 <section class="bg-carrucel mb-5">
     <div class="container">

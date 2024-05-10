@@ -585,58 +585,7 @@ $(document).ready(function() {
     })
 </script>
  
-<script>
-    /*const prevBtn = document.querySelector("#prev");
-    const nextBtn = document.querySelector("#next");
-    const linksContainer = document.querySelector(".pagination-links");
-
-    var totalPages = 5; // Adjust this to the total number of pages
-    let currentStep = 0;
-
-    const updatePagination = () => {
-        const startBtn = currentStep === 0;
-        const endBtn = currentStep === totalPages - 1;
-
-        prevBtn.disabled = startBtn;
-        nextBtn.disabled = endBtn;
-
-        const linksHTML = Array.from({ length: totalPages }, (_, index) => {
-            const pageNum = index + 1;
-            const isActive = currentStep === index ? 'active' : '';
-            return `<a href="#" class="pagination-link ${isActive}" data-index="${index}">${pageNum}</a>`;
-        }).join('');
-
-        linksContainer.innerHTML = linksHTML;
-    };
-
-    const setPage = (index) => {
-        currentStep = index;
-        updatePagination();
-    };
-
-    const handlePageClick = (e) => {
-        e.preventDefault();
-        const index = parseInt(e.target.getAttribute('data-index'));
-        setPage(index);
-    };
-
-    const handlePrevNextClick = (e) => {
-        e.preventDefault();
-        currentStep += e.target.id === "next" ? 1 : -1;
-        setPage(currentStep);
-    };
-
-    const createPagination = () => {
-        updatePagination();
-
-        linksContainer.addEventListener('click', handlePageClick);
-        prevBtn.addEventListener('click', handlePrevNextClick);
-        nextBtn.addEventListener('click', handlePrevNextClick);
-    };
-
-    createPagination();
-*/
-   
+<script>  
  
 var totalRecords = 0;  // Número total de registros
 var recordsPerPage = 10; // Número de registros por página
@@ -689,15 +638,11 @@ function addQueryParams(url, params) {
   return url_final;
 }
 
-function searchPublication(type,page=false) {
-    console.log("parameetros",params);
-  
+function searchPublication(type,page=false) { 
     var offset = page && currentStep > 0  ? currentStep * recordsPerPage : 0;
  
     var params1 = { 'limit': '10', 'offset': offset,'status_id':6 };
     var newUrl = addQueryParams(url_final, params1);
-    console.log("rleeee",url_final)
-   
     
     url = url_final
     $.ajax({   
@@ -711,11 +656,7 @@ function searchPublication(type,page=false) {
       if(!res.error){ 
       
           res.data.forEach(function(element) {
-            console.log("element",element)
-        // Obtener el nuevo valor para count_pub utilizando jQuery
            var nuevoValor = res.count;  
-                // Actualizar el contenido del elemento <p> con el nuevo valor
-         
            
             var imagen_url = element?.product_images[0] ? element.product_images[0]['image_name'] :'';
              var imagen = '<?=$baseUrl?>/see_image?image='+ imagen_url;
@@ -731,7 +672,6 @@ function searchPublication(type,page=false) {
                 var divImage = $('<div>').addClass('box-img position-relative');
                 var image = $('<img>').attr('src', imagen).attr('alt', 'producto');
                 var divAbs = $('<div>').addClass('abs');
-
               
                 divImage.append(image, divAbs);
 
@@ -755,8 +695,7 @@ function searchPublication(type,page=false) {
                 var divCol6_2 = $('<div>').addClass('col-md-6');
                 var pLocation = $('<p>').addClass('font-family-Roboto-Regular detalles-grey mb-1').html('<img src="./assets/img/location-grey.png" alt="location"> Ubicado en');
                 var pBus = $('<p>').addClass('font-family-Roboto-Regular detalles-grey mb-1').html('<img src="./assets/img/bus.png" alt="bus"> Marca');
-                var pKm = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element?.location ?? element.product_details?.region);
-              //  var pKm = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element.product_details?.region +' ' +element.product_details?.city);
+                var pKm = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element?.location!='location' ? element?.location : element.product_details?.region  +' ' +element.product_details?.city);
                 var pDate = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element.product_details?.brand);
 
                 // Agregar los elementos de los detalles dentro del div de la columna 1 y columna 2
@@ -805,7 +744,7 @@ function searchPublication(type,page=false) {
         // Generar los enlaces de paginación
     for (var c = 0; c < totalPages; c++) {
         const pageNum = c ;
-      const isActive = currentStep === c ? 'active' : '';
+        const isActive = currentStep === c ? 'active' : '';
 
         var link = $('<a href="#" onclick="updatePrevNextButtons('+c+')" class="pagination-link '+isActive+'" data-index="' + (c) + '">' + (c+1) + '</a>');
         $('.pagination-links').append(link);
@@ -826,11 +765,6 @@ $(document).ready(function() {
         var activeLink = $('.pagination-link.active');
         var pageIndex = parseInt(activeLink.data('index')) - 1;
       
-
-        // Realizar acciones según la página seleccionada
-        // ...
-
-        // Actualizar estado de los botones "prev" y "next"
         updatePrevNextButtons(pageIndex);
     });
 
@@ -840,16 +774,10 @@ $(document).ready(function() {
         var activeLink = $('.pagination-link.active');
         var pageIndex = parseInt(activeLink.data('index')) + 1;
 
-        // Realizar acciones según la página seleccionada
-        // ...
-
-        // Actualizar estado de los botones "prev" y "next"
         updatePrevNextButtons(pageIndex);
     });
 }); 
-// Función para actualizar el estado de los botones "prev" y "next"
 function updatePrevNextButtons(pageIndex) {
-    console.log("pageIndex",pageIndex);
         var prevButton = $('#prev');
         var nextButton = $('#next');
 
