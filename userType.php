@@ -43,7 +43,7 @@
         if (value === 'Particular') {
             loginRedirect.href = 'account_method.php?type=Particular';
         } else if (value === 'Company') {
-            loginRedirect.href = 'user_info2.php?type=Company';
+            loginRedirect.href = 'user_Info2.php?type=Company';
         }
        
     }
