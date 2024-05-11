@@ -37,7 +37,7 @@ if (isset($_GET['register']) &&  $_GET['register']=== 'true') {
                         credencials:credencials
                         };
                 $.ajax({
-                    url: 'http://localhost:3500/register_account',
+                    url: 'https://maquinatrix.com/api/register_account',
                     type: 'POST',
                     data: id_type_user == 1 ? formData:formDataCompany,
                     success: function(response, textStatus, xhr){
@@ -61,7 +61,7 @@ if (isset($_GET['validate']) &&  $_GET['validate']=== 'true') {
         echo "<script>
                 $(document).ready(function() {
                     $.ajax({
-                        url: 'http://localhost:3500/login_account',
+                        url: 'https://maquinatrix.com/api/login_account',
                         type: 'POST',
                         data: { 
                             email: '{$_GET['email']}',
