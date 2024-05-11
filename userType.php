@@ -11,7 +11,7 @@
  
   
     <div class="custom-option" onclick="selectOption(this,'Particular')">
-<img src="./assets/img/particular.png" alt="particular">
+<img src="./assets/img/Particular.png" alt="particular">
 <p>Particular</p>
 </div>
     <div class="custom-option" onclick="selectOption(this,'Company')">

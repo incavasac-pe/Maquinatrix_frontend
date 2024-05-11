@@ -8,7 +8,7 @@ if (isset($_GET['register']) &&  $_GET['register']=== 'true') {
     echo "<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>";
     echo "<script>
             $(document).ready(function() { 
-                var id_type_user = '{$_SESSION['type']}';
+                var id_type_user = '1';
                 var credencials = 0;
                  var formData = {
                         email: '{$_SESSION['email']}',
