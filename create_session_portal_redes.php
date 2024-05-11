@@ -19,7 +19,7 @@ if (isset($_GET['register']) &&  $_GET['register']=== 'true') {
                         type_doc: '1',
                         num_doc: '-',
                         address:'-',
-                        status_id : 6,
+                        status_id : 3,
                         credencials:credencials
                     };
                 
@@ -33,7 +33,7 @@ if (isset($_GET['register']) &&  $_GET['register']=== 'true') {
                         rutCompany: '-',
                         RutRepreLegal: '-',
                         address: '-',
-                        status_id:6,
+                        status_id:3,
                         credencials:credencials
                         };
                 $.ajax({
@@ -43,9 +43,9 @@ if (isset($_GET['register']) &&  $_GET['register']=== 'true') {
                     success: function(response, textStatus, xhr){
                         var statusCode = xhr.status; 
                         if (statusCode === 201 && !response.error)  {             
-                          window.location.href = 'login.php?register=true';
+                          window.location.href = 'https://maquinatrix.com/login.php?register=true';
                          } else{
-                            window.location.href ='login.php?register=false';
+                            window.location.href ='https://maquinatrix.com/login.php?register=false';
                          }
                     },
                     error: function(xhr, status, error) {
