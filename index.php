@@ -1,12 +1,11 @@
 <?php// include 'header.php' ?>
 <?php include 'menu.php' ?>
 <?php 
- 
+ @session_start();
 include('config.php'); 
 
 if(isset($_GET["code"]))
 {
-
 $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);//print_r($token);
  
  if(!isset($token['error'])) {
