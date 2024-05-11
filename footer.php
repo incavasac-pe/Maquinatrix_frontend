@@ -40,7 +40,7 @@
                         <ul class="font-family-Roboto-Regular">
                         
                         <li>
-                                <a target="_blank" href="https://empresa.maquinatrix.com/servicios/" >Términos y Condiciones</a>
+                                <a target="_blank" href="https://maquinatrix.com/term_conditions.php" >Términos y Condiciones</a>
                             </li>
                             <li>
                                 <a target="_blank" href="https://maquinatrix.com/tienda.php?page=1&typep=1&arrendar" >Políticas de Privacidad</a>
