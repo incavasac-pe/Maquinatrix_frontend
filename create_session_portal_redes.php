@@ -19,7 +19,7 @@ if (isset($_GET['register']) &&  $_GET['register']=== 'true') {
                         type_doc: '1',
                         num_doc: '-',
                         address:'-',
-                        status_id : 6,
+                        status_id : 3,
                         credencials:credencials
                     };
                 
@@ -33,7 +33,7 @@ if (isset($_GET['register']) &&  $_GET['register']=== 'true') {
                         rutCompany: '-',
                         RutRepreLegal: '-',
                         address: '-',
-                        status_id:6,
+                        status_id:3,
                         credencials:credencials
                         };
                 $.ajax({
