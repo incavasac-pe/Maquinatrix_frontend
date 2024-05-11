@@ -43,9 +43,9 @@ if (isset($_GET['register']) &&  $_GET['register']=== 'true') {
                     success: function(response, textStatus, xhr){
                         var statusCode = xhr.status; 
                         if (statusCode === 201 && !response.error)  {             
-                          window.location.href = 'login.php?register=true';
+                          window.location.href = 'https://maquinatrix.com/login.php?register=true';
                          } else{
-                            window.location.href ='login.php?register=false';
+                            window.location.href ='https://maquinatrix.com/login.php?register=false';
                          }
                     },
                     error: function(xhr, status, error) {
