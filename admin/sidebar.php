@@ -2,7 +2,7 @@
     <a href="javascript:void(0)" id="cerrarnav" class="mobil">
         <i class="far fa-times"></i>
     </a>
-    <img src="../img/logo.svg" alt="logo">
+    <img src="../assets/img/logo.svg" alt="logo">
 </div>
 <ul class="font-family-Roboto-Regular">
     <li>
