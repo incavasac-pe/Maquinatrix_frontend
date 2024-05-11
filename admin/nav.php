@@ -36,7 +36,7 @@ if (isset($_SESSION['loggedIn'])) {
                             </div>
                             <div class="">
                                 <span class="font-family-Inter-Bold">   <?= $username; ?> </span>
-                                <p class="font-family-Inter-Regular m-0">  </p>
+                                <p class="font-family-Inter-Regular m-0">    </p>
                                 <a href="#" class="font-family-Inter-SemiBold">Ver mi perfil</a>
                             </div>
                         </div>
