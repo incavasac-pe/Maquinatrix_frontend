@@ -5,19 +5,19 @@
 
 @font-face {
     font-family: 'Roboto-Medium';
-    src: url(../../fonts/Roboto-Medium.ttf);
+    src: url(../../assets/fonts/Roboto-Medium.ttf);
 }
 @font-face {
     font-family: 'Roboto-Black';
-    src: url(../../fonts/Roboto-Black.ttf);
+    src: url(../../assets/fonts/Roboto-Black.ttf);
 }
 @font-face {
     font-family: 'Roboto-Bold';
-    src: url(../../fonts/Roboto-Bold.ttf);
+    src: url(../../assets/fonts/Roboto-Bold.ttf);
 }
 @font-face {
     font-family: 'Roboto-Regular';
-    src: url(../../fonts/Roboto-Regular.ttf);
+    src: url(../../assets/fonts/Roboto-Regular.ttf);
 }
 .font-family-Roboto-Medium{
     font-family: 'Roboto-Medium', arial, sans-serif;
@@ -33,31 +33,31 @@
 }
 @font-face {
     font-family: 'Inter-Black';
-    src: local('Inter-Black'), url('../../fonts/inter/Inter-Black.ttf');
+    src: local('Inter-Black'), url('../../assets/fonts/inter/Inter-Black.ttf');
 }
 @font-face {
     font-family: 'Inter-Bold';
-    src: local('Inter-Bold'), url('../../fonts/inter/Inter-Bold.ttf');
+    src: local('Inter-Bold'), url('../../assets/fonts/inter/Inter-Bold.ttf');
 }
 @font-face {
     font-family: 'Inter-ExtraBold';
-    src: local('Inter-ExtraBold'), url('../../fonts/inter/Inter-ExtraBold.ttf');
+    src: local('Inter-ExtraBold'), url('../../assets/fonts/inter/Inter-ExtraBold.ttf');
 }
 @font-face {
     font-family: 'Inter-Light';
-    src: local('Inter-Light'), url('../../fonts/inter/Inter-Light.ttf');
+    src: local('Inter-Light'), url('../../assets/fonts/inter/Inter-Light.ttf');
 }
 @font-face {
     font-family: 'Inter-Medium';
-    src: local('Inter-Medium'), url('../../fonts/inter/Inter-Medium.ttf');
+    src: local('Inter-Medium'), url('../../assets/fonts/inter/Inter-Medium.ttf');
 }
 @font-face {
     font-family: 'Inter-Regular';
-    src: local('Inter-Regular'), url('../../fonts/inter/Inter-Regular.ttf');
+    src: local('Inter-Regular'), url('../../assets/fonts/inter/Inter-Regular.ttf');
 }
 @font-face {
     font-family: 'Inter-SemiBold';
-    src: local('Inter-SemiBold'), url('../../fonts/inter/Inter-SemiBold.ttf');
+    src: local('Inter-SemiBold'), url('../../assets/fonts/inter/Inter-SemiBold.ttf');
 }
 
 .font-family-Inter-Black{

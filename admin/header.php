@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Maquinatrix</title>  
-    <link rel="icon" type="image/png" href="../img/favicon_admin.png"/>
+    <link rel="icon" type="image/png" href="../assets/img/favicon_admin.png"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css" />
  
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

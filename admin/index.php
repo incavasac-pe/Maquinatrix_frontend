@@ -18,7 +18,7 @@
                 <div class="box_login">
                     <div class="cuadro_login" id="cuadro_login">
                         <div class="text-center mb-3">
-                            <img src="../img/logo-black.svg" alt="logo" class="logo">
+                            <img src="../assets/img/logo-black.svg" alt="logo" class="logo">
                         </div>
                         <span class="text-danger align-middle" id="Msg"></span>
                         <h1 class="font-family-Inter-SemiBold">
@@ -28,6 +28,7 @@
                         <form action="" id="loginform" method="POST">
                             <div class="form-group">
                                 <label for="correo">Correo</label>
+                                <input type="hidden" name="credencials" id="credencials" value='0'>
                                 <input type="email" name="email" id="email" placeholder="ejemplo@gmail.com">
                             </div>
                             <div class="form-group position-relative">
@@ -115,7 +116,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none !important;">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <img src="../img/confirma.png" alt="confirma" class="mt-5">
+                <img src="../assets/img/confirma.png" alt="confirma" class="mt-5">
                 <p class="font-family-Inter-Regular text-center mt-3">
                     Contraseña reenviada
                 </p>

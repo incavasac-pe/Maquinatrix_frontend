@@ -109,7 +109,7 @@ $baseUrl = getenv('URL_API');
                 <div class="col-md-3">
                     <div class="box-white">
                         <div class="box-perfil text-center">
-                            <img src="../img/profile.jpeg" alt="perfil">
+                            <img src="../assets/img/profile.jpeg" alt="perfil">
                             <h3 class="font-family-Inter-Medium">
                               <?=$details_publications['title'] ?>
                             </h3>
@@ -133,7 +133,7 @@ $baseUrl = getenv('URL_API');
                         <div class="box-lista">
                             <div>
                                 <p class="font-family-Inter-Regular">Fecha Creación</p>
-                                <h4 class="font-family-Inter-Medium"><?=$details_publications['create_at_formatted'] ?></h4>
+                                <h4 class="font-family-Inter-Medium"><?=$details_publications['create_at']?? '' ?></h4>
                             </div>
                         </div>
                         <div class="box-lista">
