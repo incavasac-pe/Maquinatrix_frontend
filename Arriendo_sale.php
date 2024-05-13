@@ -1,4 +1,3 @@
-<?php include 'header.php' ?>
 <?php include 'menu.php'  ?> 
 <?php  
   $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http'; 

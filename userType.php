@@ -1,4 +1,3 @@
-<?php include 'header.php' ?>
 <?php include 'menu2.php' ?>
 
 
@@ -11,7 +10,7 @@
  
   
     <div class="custom-option" onclick="selectOption(this,'Particular')">
-<img src="./assets/img/particular.png" alt="particular">
+<img src="./assets/img/Particular.png" alt="particular">
 <p>Particular</p>
 </div>
     <div class="custom-option" onclick="selectOption(this,'Company')">
@@ -43,7 +42,7 @@
         if (value === 'Particular') {
             loginRedirect.href = 'account_method.php?type=Particular';
         } else if (value === 'Company') {
-            loginRedirect.href = 'user_info2.php?type=Company';
+            loginRedirect.href = 'user_Info2.php?type=Company';
         }
        
     }

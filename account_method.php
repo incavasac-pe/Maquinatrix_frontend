@@ -1,11 +1,10 @@
-<?php include 'header.php' ?>
+<?php  session_start();?> 
 <?php include 'menu2.php' ?>
 <?php include 'config.php' ?>
  
 <?php 
- 
     if (isset($_GET['type']) && $_GET['type']!='') {
-        $type  = $_GET['type']; 
+         $type  = $_GET['type']; 
        if($type =='Particular'){
           $_SESSION['type'] = 1;
         }else{

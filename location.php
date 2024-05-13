@@ -1,4 +1,3 @@
-<?php include 'header.php' ?>
 <?php include 'menu2.php' ?>
 <?php  
 $baseUrl = getenv('URL_API');
@@ -270,3 +269,4 @@ if (isset($_POST['type_user'])) {
   }
   
 </script> 
+<script src="./assets/js/maps.js"></script>

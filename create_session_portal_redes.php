@@ -8,7 +8,7 @@ if (isset($_GET['register']) &&  $_GET['register']=== 'true') {
     echo "<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>";
     echo "<script>
             $(document).ready(function() { 
-                var id_type_user = '{$_SESSION['type']}';
+                var id_type_user = '1';
                 var credencials = 0;
                  var formData = {
                         email: '{$_SESSION['email']}',
@@ -19,7 +19,7 @@ if (isset($_GET['register']) &&  $_GET['register']=== 'true') {
                         type_doc: '1',
                         num_doc: '-',
                         address:'-',
-                        status_id : 6,
+                        status_id : 3,
                         credencials:credencials
                     };
                 
@@ -33,19 +33,19 @@ if (isset($_GET['register']) &&  $_GET['register']=== 'true') {
                         rutCompany: '-',
                         RutRepreLegal: '-',
                         address: '-',
-                        status_id:6,
+                        status_id:3,
                         credencials:credencials
                         };
                 $.ajax({
-                    url: 'http://localhost:3500/register_account',
+                    url: 'https://maquinatrix.com/api/register_account',
                     type: 'POST',
                     data: id_type_user == 1 ? formData:formDataCompany,
                     success: function(response, textStatus, xhr){
                         var statusCode = xhr.status; 
                         if (statusCode === 201 && !response.error)  {             
-                          window.location.href = 'login.php?register=true';
+                          window.location.href = 'https://maquinatrix.com/login.php?register=true';
                          } else{
-                            window.location.href ='login.php?register=false';
+                            window.location.href ='https://maquinatrix.com/login.php?register=false';
                          }
                     },
                     error: function(xhr, status, error) {
@@ -61,7 +61,7 @@ if (isset($_GET['validate']) &&  $_GET['validate']=== 'true') {
         echo "<script>
                 $(document).ready(function() {
                     $.ajax({
-                        url: 'http://localhost:3500/login_account',
+                        url: 'https://maquinatrix.com/api/login_account',
                         type: 'POST',
                         data: { 
                             email: '{$_GET['email']}',
