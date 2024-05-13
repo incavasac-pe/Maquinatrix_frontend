@@ -5,7 +5,7 @@ include('config.php');
 
 if(isset($_GET["code"]))
 {
-$token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);//print_r($token);
+$token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
  
  if(!isset($token['error'])) {
  
@@ -318,90 +318,7 @@ function cortarString($texto) {
         </div>
     </div>
 </section>
-
-<!--section class="interest">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 title-wrapper">
-                <h5 class="font-family-Roboto-Medium titulo">
-                    Te puede interesar
-                </h5>
-                <a href="./tienda.php?page=1" class="sub-title">Ver más</a>
-            </div>
-        </div>
-        <div class="interest-card-container">
-            <div class="card" style="width: 18rem;">
-            <div class="heart">
-            <i class="fa-regular fa-heart"></i>
-            </div>
-                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
-                <div class="card-body">
-                    <div class="status-wrapper">
-                        <div class="dot"></div>
-                        <h5 class="card-title">Arriendo</h5>
-                    </div>
-                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
-                    <p class="card-text2">CLP 84.000</p>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-            <div class="heart">
-            <i class="fa-regular fa-heart"></i>
-            </div>
-                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
-                <div class="card-body">
-                    <div class="status-wrapper">
-                        <div class="dot"></div>
-                        <h5 class="card-title">Arriendo</h5>
-                    </div>
-                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
-                    <p class="card-text2">CLP 84.000</p>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-            <div class="heart">
-            <i class="fa-regular fa-heart"></i>
-            </div>
-                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
-                <div class="card-body">
-                    <div class="status-wrapper">
-                        <div class="dot"></div>
-                        <h5 class="card-title">Arriendo</h5>
-                    </div>
-                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
-                    <p class="card-text2">CLP 84.000</p>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-            <div class="heart">
-            <i class="fa-regular fa-heart"></i>
-            </div>
-                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
-                <div class="card-body">
-                    <div class="status-wrapper">
-                        <div class="dot"></div>
-                        <h5 class="card-title">Arriendo</h5>
-                    </div>
-                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
-                    <p class="card-text2">CLP 84.000</p>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-            <div class="heart">
-            <i class="fa-regular fa-heart"></i>
-            </div>
-                <img src="./assets/img/producto.png" class="card-img-top" alt="producto">
-                <div class="card-body">
-                    <div class="status-wrapper">
-                        <div class="dot"></div>
-                        <h5 class="card-title">Arriendo</h5>
-                    </div>
-                    <p class="card-text">Construcción Excavadora de las mejores del mundo</p>
-                    <p class="card-text2">CLP 84.000</p>
-                </div>
-            </div>
-        </div>
-</section-->
+ 
 <section class="Discover">
     <div class="container">
         <div class="row ">

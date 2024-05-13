@@ -23,7 +23,7 @@ if (isset($_SESSION['loggedIn'])) {
                 <div class="perfil position-relative">
                     <!-- cuadro para hacer click ocultar / aparecer -->
                     <div class="" id="abrirperfil">
-                        <img src="../assets/img/profile.jpeg" alt="perfil">
+                        <img src="../assets/assets/img/profile.jpeg" alt="perfil">
                         <span class="font-family-Roboto-Regular">
                            <?= $username; ?> <i class="fas fa-angle-down"></i>
                         </span>
@@ -32,7 +32,7 @@ if (isset($_SESSION['loggedIn'])) {
                     <div class="perfil_abs" id="perfil_abs">
                         <div class="d-flex align-items-center justify-content-between con_perfil">
                             <div class="">
-                                <img src="../assets/img/profile.jpeg" alt="perfil">
+                                <img src="../assets/assets/img/profile.jpeg" alt="perfil">
                             </div>
                             <div class="">
                                 <span class="font-family-Inter-Bold">   <?= $username; ?> </span>

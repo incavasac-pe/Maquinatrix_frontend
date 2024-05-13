@@ -2,9 +2,8 @@
 <?php  
 if (!isset($_SESSION['loggedIn'])) { 
   header('location: index.php'); 
-}
-  
-?>
+}  
+?> 
 <?php
 
 $baseUrl = getenv('URL_API');
@@ -238,7 +237,7 @@ if (isset($_SESSION['loggedIn'])) {
 <?php include 'publication_type.php' ?>
 
 
-<div class="modal fade" id="confirmation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmation" tabindex="-1" aria-labelledby="exampleModalLabel11" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered ">
     <div class="modal-content">
       <div class="modal-header base-modal-header">
@@ -530,8 +529,7 @@ function construirEstructuraHTML(value) {
                 imagen_url =   $.grep(element?.product_images, function(item) {
                     return item.cover === true;
                 }); 
-                if(imagen_url.length > 0 ){
-                    console.log("imagen /*/*/*", imagen_url[0].image_name);
+                if(imagen_url.length > 0 ){ 
                 imagen_url = imagen_url[0]?.image_name;
                 }else{
                   imagen_url = element?.product_images[0].image_name;

@@ -1,4 +1,4 @@
-<?php  session_start();?>
+<?php  session_start();?> 
 <?php include 'menu2.php' ?>
 <?php include 'config.php' ?>
  

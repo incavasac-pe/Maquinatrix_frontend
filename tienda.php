@@ -286,7 +286,8 @@ $url_publi = $protocol . '://' . $host;
                      <div class="form-group group">
                     <?php
                       if ($count_category > 0) {
-                        echo '<select  id="category" name="category">';
+                      
+                        echo '<select  id="category" name="category" aria-label="Selecciona una categoría">';
                         echo '<option value="0">Categoria</option>';
                         foreach ($categories as $categorie) {
                             $id = $categorie['id_category'];

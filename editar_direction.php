@@ -1,6 +1,6 @@
 
 <?php include 'header.php' ?> 
-<div class="modal fade direction-modal" id="direction" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade direction-modal" id="direction" tabindex="-1" aria-labelledby="exampleModalLabel55" aria-hidden="true">
   <div class="modal-dialog modal-lg  modal-dialog-centered ">
     <div class="modal-content">
     <div class="modal-header base-modal-header">
