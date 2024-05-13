@@ -356,8 +356,9 @@
 
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink" style="will-change: transform;">
                                                         <a class="dropdown-item font-family-Roboto-Regular" href="detalle-publicaciones.php?id=' . $id . '">Ver detalles</a>
-                                                        <a class="dropdown-item font-family-Roboto-Regular"  onclick="eliminarPub('.$id.')" >Eliminar publicación</a>
-                                                    </div>
+                                                        <a class="dropdown-item font-family-Roboto-Regular"  onclick="statusPub('.$id.',8)" >Eliminar publicación</a>
+                                                        <a class="dropdown-item font-family-Roboto-Regular"  onclick="statusPub('.$id.',6)" >Activar publicación</a>
+                                                        </div>
                                                 </div>
                                              </td>';
                                         echo '</tr>';
@@ -448,12 +449,12 @@
         }
     });
     
-    function eliminarPub(id) {   
+    function statusPub(id,status) {   
         var token = '<?= $_SESSION["token"]; ?>';
       
         var postData = {
             "id_product": id,
-            "status_id": 8        
+            "status_id": status        
          };
         $.ajax({
             type: "PUT",

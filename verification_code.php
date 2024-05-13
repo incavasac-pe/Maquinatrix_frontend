@@ -1,4 +1,3 @@
-<?php include 'header.php' ?>
 <?php include 'menu.php' ?>
 <?php  $baseUrl = getenv('URL_API'); ?>
 <?php  $email = $_POST['email'];?>

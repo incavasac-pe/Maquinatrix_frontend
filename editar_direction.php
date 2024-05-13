@@ -176,3 +176,4 @@
 
   window.initAutocomplete = initAutocomplete;
 </script>
+<script src="./assets/js/maps.js"></script>

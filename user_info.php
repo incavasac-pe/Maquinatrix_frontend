@@ -1,4 +1,3 @@
-<?php include 'header.php' ?>
 <?php include 'menu2.php' ?>
 <?php 
     $baseUrl = getenv('URL_API'); 

@@ -1,7 +1,4 @@
-<?php include 'header.php' ?>
 <?php include 'menu.php' ?>
-
-
 
 <section class="post-view">
     <div class="container">
