@@ -55,7 +55,7 @@ if (isset($_SESSION['loggedIn'])) {
             <li><a class="dropdown-item" href="#">Solicitudes Recibidas</a></li> -->
             <li><a class="dropdown-item" href="./user_details.php?tab=profile">Mi Cuenta</a></li>
             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ayuda">Ayuda</a></li> 
-            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#signOut">Cerrar sesión</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signOut">Cerrar sesión</a></li>
             </ul>
       </div>
       <?php } ?>
@@ -63,16 +63,14 @@ if (isset($_SESSION['loggedIn'])) {
    
 </div>
 
-
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
 <script>
     function showMwnu(){
         var dropdownMenu = $(".main-menu");
         if (!dropdownMenu.hasClass("show")) {
-            console.log("shoe mey");
             dropdownMenu.addClass("show");
         }else{
-            console.log("noooshoe mey");
             dropdownMenu.removeClass("show");
         }
     }

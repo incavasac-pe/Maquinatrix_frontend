@@ -1,7 +1,7 @@
 <?php include 'header.php' ?>
 
 
-<div class="modal fade" id="signOut" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="signOut" tabindex="-1" aria-labelledby="exampleModalLabel88" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered ">
     <div class="modal-content">
       <div class="modal-header base-modal-header">
