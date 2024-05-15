@@ -54,8 +54,8 @@ if (isset($_SESSION['loggedIn'])) {
             <!-- <li><a class="dropdown-item" href="#">Solicitudes Hechas</a></li>
             <li><a class="dropdown-item" href="#">Solicitudes Recibidas</a></li> -->
             <li><a class="dropdown-item" href="./user_details.php?tab=profile">Mi Cuenta</a></li>
-            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ayuda">Ayuda</a></li> 
-            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signOut">Cerrar sesión</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signOut">Cerrar sesión</a></li> 
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ayuda">Ayuda</a></li>  
             </ul>
       </div>
       <?php } ?>
@@ -66,11 +66,23 @@ if (isset($_SESSION['loggedIn'])) {
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-  // Abre el modal cuando se hace clic en el enlace
-  $('[data-bs-toggle="modal"]').on('click', function() {
-    var target = $(this).data('bs-target');
-    $(target).modal('show');
+$(document).ready(function() { 
+    var modal = $("#signOut");
+  var btn = $("#openModal");
+  var span = $(".close-button");
+
+  btn.click(function() {
+    modal.fadeIn();
+  });
+
+  span.click(function() {
+    modal.fadeOut();
+  });
+
+  $(window).click(function(event) {
+    if (event.target == modal[0]) {
+      modal.fadeOut();
+    }
   });
 });
     function showMwnu(){
@@ -87,6 +99,7 @@ if (isset($_SESSION['loggedIn'])) {
     } 
  
 </script>
-<?php include './sign_out.php' ?>
+
 <?php include './ayuda.php' ?>
 <?php include './publication_type.php' ?>
+<?php include './sign_out.php' ?>
