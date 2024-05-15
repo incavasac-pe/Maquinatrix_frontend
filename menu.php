@@ -66,6 +66,13 @@ if (isset($_SESSION['loggedIn'])) {
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <script>
+    $(document).ready(function() {
+  // Abre el modal cuando se hace clic en el enlace
+  $('[data-bs-toggle="modal"]').on('click', function() {
+    var target = $(this).data('bs-target');
+    $(target).modal('show');
+  });
+});
     function showMwnu(){
         var dropdownMenu = $(".main-menu");
         if (!dropdownMenu.hasClass("show")) {
@@ -78,6 +85,7 @@ if (isset($_SESSION['loggedIn'])) {
         var url = "tienda.php?page=1&typep="+type+"&"+mov;  
         window.location.href = url;
     } 
+ 
 </script>
 <?php include './sign_out.php' ?>
 <?php include './ayuda.php' ?>
