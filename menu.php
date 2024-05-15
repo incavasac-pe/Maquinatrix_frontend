@@ -54,37 +54,36 @@ if (isset($_SESSION['loggedIn'])) {
             <!-- <li><a class="dropdown-item" href="#">Solicitudes Hechas</a></li>
             <li><a class="dropdown-item" href="#">Solicitudes Recibidas</a></li> -->
             <li><a class="dropdown-item" href="./user_details.php?tab=profile">Mi Cuenta</a></li>
-            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signOut">Cerrar sesión</a></li> 
             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ayuda">Ayuda</a></li>  
+            <li><a class="dropdown-item"  href="#" data-bs-toggle="modal" data-bs-target="#signout">Cerrar sesión</a></li>
+            <li><a class="dropdown-item"></a></li>
             </ul>
       </div>
       <?php } ?>
     </div>
    
 </div>
-
+<div class="modal fade" id="signout" tabindex="-1" aria-labelledby="exampleModalLabel11" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered ">
+    <div class="modal-content">
+      <div class="modal-header base-modal-header">
+        
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body base-modal-body">
+      <img src="./assets/img/logout.png" alt="logout">
+       <p>¿Deseas Cerrar Sesión y salir de tu cuenta?</p>
+      </div>
+      <div class="modal-footer base-modal-footer">
+        <button type="button" class="grey-btn" data-bs-dismiss="modal">No</button>
+        <a type="button"  href="create_session_portal.php?logout=true"  class="yellow-btn">Sí</a>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
-<script>
-$(document).ready(function() { 
-    var modal = $("#signOut");
-  var btn = $("#openModal");
-  var span = $(".close-button");
-
-  btn.click(function() {
-    modal.fadeIn();
-  });
-
-  span.click(function() {
-    modal.fadeOut();
-  });
-
-  $(window).click(function(event) {
-    if (event.target == modal[0]) {
-      modal.fadeOut();
-    }
-  });
-});
+<script> 
     function showMwnu(){
         var dropdownMenu = $(".main-menu");
         if (!dropdownMenu.hasClass("show")) {
@@ -101,5 +100,4 @@ $(document).ready(function() {
 </script>
 
 <?php include './ayuda.php' ?>
-<?php include './publication_type.php' ?>
-<?php include './sign_out.php' ?>
+<?php include './publication_type.php' ?> 
