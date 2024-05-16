@@ -740,15 +740,16 @@ function searchPublication(type,page=false) {
                 var li3 = $('<li>').html('<i class="fa-regular fa-circle-check"></i> Despacho');
                 var a = 0;
 
-                if(element.product_details?.delivery=='Y' || element.product_details?.delivery=='S' ){
+                if(element.product_rental?.rental_contract=='Y'){
                     ul.append(li1);
                     a++;
                 } 
-                 if(element.product_details?.warranty=='Y' || element.product_details?.warranty=='S' ){
+                 if(element.product_details?.warranty=='Y' || element.product_details?.warranty=='S' || element.product_rental?.rental_guarantee=='Y'){
                     ul.append(li2);
                    a++;
                 }
-                 if(element.product_details?.delivery=='Y' || element.product_details?.delivery=='S' ){
+                    if(element.product_details?.delivery=='Y' || element.product_details?.delivery=='S' || element.product_rental?.delivery=='Y'){
+
                     ul.append(li3);
                     a++;
                 }
