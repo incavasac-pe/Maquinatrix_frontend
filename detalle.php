@@ -306,21 +306,21 @@ if ($responseimg !== false) {
                     <p class="font-family-Roboto-Regular">Esta publicación incluye para ti los siguientes servicios:
                     </p>
                     <div class="service-box-wrapper">
-                    <?php if (!empty($detalle['product_rental']['rental_contract'])): ?>
+                    <?php if (!empty($detalle['product_rental']['rental_contract']) && $detalle['product_rental']['rental_contract']=='Y'): ?>
                         <div class="col-1"><i class="fa-regular fa-circle-check"></i>
                             <p>Contrato Maquinatrix </p><img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
                         <?php else: ?>
                         <?php endif; ?>
-                        <?php if (!empty($detalle['product_rental']['delivery'])): ?>
+                        <?php if ((!empty($detalle['product_rental']['delivery']) && $detalle['product_rental']['delivery']=='Y') || $detalle['product_details']['delivery']=='S'): ?>
                         <div class="col-2"><i class="fa-regular fa-circle-check"></i>
                             <p>Despacho</p> <img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
                         <?php else: ?>
                         <?php endif; ?>
                     </div>
-                    <div class="service-box-wrapper mt-3">
-                    <?php if (!empty($detalle['product_rental']['rental_guarantee'])): ?>
+                    <div class="service-box-wrapper mt-3"> 
+                           <?php if ((!empty($detalle['product_rental']['warranty']) && $detalle['product_rental']['warranty']=='Y') || $detalle['product_details']['delivery']=='S'): ?>
                         <div class="col-1"><i class="fa-regular fa-circle-check"></i>
                             <p>Garantía Maquinatrix</p> <img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
