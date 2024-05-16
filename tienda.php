@@ -420,14 +420,14 @@ $url_publi = $protocol . '://' . $host;
                     <div class="font-family-Roboto-Regular tipo">
                         <div class="form-check-inline">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="kilometraje" name="recorrido">
+                                <input type="radio" class="custom-control-input" id="kilometraje" name="recorrido"  value="km">
                                 <label class="custom-control-label font-family-Roboto-Regular"
                                     for="kilometraje">Kilometraje</label>
                             </div>
                         </div>
                         <div class="form-check-inline">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="horometro" name="recorrido">
+                                <input type="radio" class="custom-control-input" id="horometro" name="recorrido" value="hras">
                                 <label class="custom-control-label font-family-Roboto-Regular" for="horometro">Horómetro
                                     (Hrs)</label>
                             </div>
@@ -505,18 +505,10 @@ $(document).ready(function() {
         var newUrl = addQueryParams(url_final, params1);  
         searchPublication(2);
     });
-    $('#condition').on('click', function() {
-        var selectedValue = $('input[name="condition"]:checked').val();        
-        var params1 = { 'condition': selectedValue };
-        var newUrl = addQueryParams(url_final, params1);   
-        searchPublication(2);
-    });
-    $('#condition1').on('click', function() {
-        var selectedValue = $('input[name="condition"]:checked').val(); 
-        var params1 = { 'condition': selectedValue };
-        var newUrl = addQueryParams(url_final, params1);        
-        searchPublication(2);
-    });
+    
+        $('#condition, #condition1').on('click', function() {
+        updateCondition();
+        });
     $('#price-min-filter').on('click', function() {      
         var params1 = { 'price_min': 1 };
         var newUrl = addQueryParams(url_final, params1);
@@ -555,7 +547,13 @@ $(document).ready(function() {
         var newUrl = addQueryParams(url_final, params1);
         searchPublication(2);
     });
- 
+  
+    $('#khasta').on('blur', function() {     
+        updatePublication();
+    }); 
+    $('#horometro, #kilometraje').on('click', function() {
+      updatePublication();
+    });
  });
 
     $('#all').click(function () {
@@ -583,6 +581,25 @@ $(document).ready(function() {
         $('.recent').css('display', 'none');
         $('.price-min').css('display', 'block');
     })
+    function updatePublication() { 
+        var selectedValue = $('input[name="recorrido"]:checked').val();
+        var khasta = $('#kdesde').val() + '-' + $('#khasta').val();
+            if(khasta!=='-'){
+                var params1 = { typeodo: selectedValue }  
+                var newUrl = addQueryParams(url_final, params1);
+                var params2 = { valueodo: khasta }  
+                var newUrl = addQueryParams(url_final, params2);
+                searchPublication(2);
+            }
+        }
+        function updateCondition() {
+            var selectedValue = $('input[name="condition"]:checked').val();
+            var params1 = { 'condition': selectedValue };
+            var newUrl = addQueryParams(url_final, params1);
+            searchPublication(2);
+            }
+
+
 </script>
  
 <script>  
@@ -657,8 +674,18 @@ function searchPublication(type,page=false) {
       
           res.data.forEach(function(element) {
            var nuevoValor = res.count;  
-           
-            var imagen_url = element?.product_images[0] ? element.product_images[0]['image_name'] :'';
+            
+            var imagen_url = '';
+              if(element?.product_images.length > 0 ){
+                imagen_url =   $.grep(element?.product_images, function(item) {
+                    return item.cover === true;
+                }); 
+                if(imagen_url.length > 0 ){ 
+                imagen_url = imagen_url[0]?.image_name;
+                }else{
+                  imagen_url = element?.product_images[0].image_name;
+                } 
+              } 
              var imagen = '<?=$baseUrl?>/see_image?image='+ imagen_url;
                // Crear el elemento <a> y establecer el atributo href
                 var typep = element.PublicationType.id_publication_type;
@@ -670,7 +697,7 @@ function searchPublication(type,page=false) {
                 var divContainer = $('<div>').addClass('align-items-start box-tienda d-flex justify-content-start mb-3');
 
                 var divImage = $('<div>').addClass('box-img position-relative');
-                var image = $('<img>').attr('src', imagen).attr('alt', 'producto');
+                var image = $('<img>').attr('src', imagen).attr('alt', 'producto').css('object-fit', 'cover');
                 var divAbs = $('<div>').addClass('abs');
               
                 divImage.append(image, divAbs);

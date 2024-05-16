@@ -173,7 +173,7 @@ if ($responseimg !== false) {
             $i++;
             ?>
          <div class="column1"> 
-             <img class="demo1 cursor"  style="width:100%" onclick="currentSlide1(<?=$i;?>)"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" alt="min galeria">
+             <img class="demo1 cursor"  style="width:100%; object-fit: cover;" onclick="currentSlide1(<?=$i;?>)"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" alt="min galeria">
          </div>
          <?php  }  ?>    
          
