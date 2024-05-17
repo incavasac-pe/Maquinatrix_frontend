@@ -31,9 +31,7 @@
 <?php include 'footer.php' ?>
 <script>
   document.getElementById('Cancelar_continue-btn').addEventListener('click', function () {
-    var formData = $('#userAccountSetupForm').serialize();
-    console.log("*****form*****",formData);
-   // window.location.href = 'post_review.php';
+    var formData = $('#userAccountSetupForm').serialize(); 
   });
 </script> 
 
@@ -774,16 +772,16 @@ $.ajax({
             }
 
            
-           $("#engine_number").val(element.product_details.engine_number);
-           $("#chasis_number").val(element.product_details.chasis_number);
-           $("#patente").val(element.product_details.patent);
-           $("#patent").val(element.product_details.patent)
+           $("#engine_number").val(element.product_details?.engine_number);
+           $("#chasis_number").val(element.product_details?.chasis_number);
+           $("#patente").val(element.product_details?.patent);
+           $("#patent").val(element.product_details?.patent)
           
-           $("#PesoNeto").val(element.product_technical_characteristics.weight);
-           $("#Potencia").val(element.product_technical_characteristics.power);
-           $("#Cilindrada").val(element.product_technical_characteristics.displacement);
-           $("#Torque").val(element.product_technical_characteristics.torque);
-           $("#mixed_consumption").val(element.product_technical_characteristics.mixed_consumption);
+           $("#PesoNeto").val(element.product_technical_characteristics?.weight);
+           $("#Potencia").val(element.product_technical_characteristics?.power);
+           $("#Cilindrada").val(element.product_technical_characteristics?.displacement);
+           $("#Torque").val(element.product_technical_characteristics?.torque);
+           $("#mixed_consumption").val(element.product_technical_characteristics?.mixed_consumption);
                 
            if (element.id_category == 3) {  
               if(element.product_details.condition == 'Nuevo'){
@@ -800,8 +798,8 @@ $.ajax({
             }
            
        
-           $("#KilometrosRecorridos").val(element.product_technical_characteristics.km_traveled);
-           $("#Horometro").val(element.product_technical_characteristics.hrs_traveled);
+           $("#KilometrosRecorridos").val(element.product_technical_characteristics?.km_traveled);
+           $("#Horometro").val(element.product_technical_characteristics?.hrs_traveled);
            
        
            if (element.id_category == 3) {  
@@ -829,56 +827,56 @@ $.ajax({
             }
           }
 
-          if(element.product_technical_characteristics.transmission == 'Manual'){  
+          if(element.product_technical_characteristics?.transmission == 'Manual'){  
             $("#inlineRadio1").prop("checked", true);
-           }else if(element.product_technical_characteristics.transmission == 'Automática'){
+           }else if(element.product_technical_characteristics?.transmission == 'Automática'){
             $("#inlineRadio2").prop("checked", true);
            }else{
             $("#inlineRadio3").prop("checked", true);
            }
            
-           if(element.product_technical_characteristics.fuel == 'Diésel'){  
+           if(element.product_technical_characteristics?.fuel == 'Diésel'){  
             $("#inlineRadioFuel1").prop("checked", true);
-           }else if(element.product_technical_characteristics.fuel == 'Bencina'){
+           }else if(element.product_technical_characteristics?.fuel == 'Bencina'){
             $("#inlineRadioFuel2").prop("checked", true);
            }else{
             $("#inlineRadioFuel3").prop("checked", true);
            }
     
-           setTraccion(element.product_technical_characteristics.traction) 
-           if(element.product_technical_characteristics.traction!=""){
+           setTraccion(element.product_technical_characteristics?.traction) 
+           if(element.product_technical_characteristics?.traction!=""){
              $(".traction-text").removeClass("active_tracc"); 
-             $(".traction-text:contains(" + element.product_technical_characteristics.traction + ")").addClass("active_tracc");
+             $(".traction-text:contains(" + element.product_technical_characteristics?.traction + ")").addClass("active_tracc");
           } 
           if (element.id_category == 3) {   
-          $("#section_width").val(element.product_dimension.section_width);
-          $("#aspect_ratio").val(element.product_dimension.aspect_ratio);
-          $("#rim_diameter").val(element.product_dimension.rim_diameter);
-          $("#land_type").val(element.product_dimension.land_type);
-          $("#load_index").val(element.product_dimension.load_index);
-          $("#speed_index").val(element.product_dimension.speed_index);
-          $("#maximum_load").val(element.product_dimension.maximum_load);
-          $("#maximum_speed").val(element.product_dimension.maximum_speed); 
-          $("#utqg").val(element.product_dimension.utqg); 
-          $("#tread_design").val(element.product_dimension.tread_design);  
-          $("#type_of_service").val(element.product_dimension.type_of_service);  
-          $("#vehicle_type").val(element.product_dimension.vehicle_type);
-          $("#terrain_type").val(element.product_dimension.terrain_type); 
+          $("#section_width").val(element.product_dimension?.section_width);
+          $("#aspect_ratio").val(element.product_dimension?.aspect_ratio);
+          $("#rim_diameter").val(element.product_dimension?.rim_diameter);
+          $("#land_type").val(element.product_dimension?.land_type);
+          $("#load_index").val(element.product_dimension?.load_index);
+          $("#speed_index").val(element.product_dimension?.speed_index);
+          $("#maximum_load").val(element.product_dimension?.maximum_load);
+          $("#maximum_speed").val(element.product_dimension?.maximum_speed); 
+          $("#utqg").val(element.product_dimension?.utqg); 
+          $("#tread_design").val(element.product_dimension?.tread_design);  
+          $("#type_of_service").val(element.product_dimension?.type_of_service);  
+          $("#vehicle_type").val(element.product_dimension?.vehicle_type);
+          $("#terrain_type").val(element.product_dimension?.terrain_type); 
           
-          $("#temperature_index").val(element.product_dimension.temperature_index);   
-          $("#traction_index").val(element.product_dimension.traction_index);   
-          $("#wear_rate").val(element.product_dimension.wear_rate);   
-          $("#extern_diameter").val(element.product_dimension.extern_diameter);   
+          $("#temperature_index").val(element.product_dimension?.temperature_index);   
+          $("#traction_index").val(element.product_dimension?.traction_index);   
+          $("#wear_rate").val(element.product_dimension?.wear_rate);   
+          $("#extern_diameter").val(element.product_dimension?.extern_diameter);   
 
-          if(element.product_dimension.runflat == 'Y'){  
+          if(element.product_dimension?.runflat == 'Y'){  
             $("#inlineRadio11").prop("checked", true);
            }else {
             $("#inlineRadio22").prop("checked", true);
            }
 
-           if(element.product_dimension.season == 'InviernoY'){  
+           if(element.product_dimension?.season == 'InviernoY'){  
             $("#inlineRadio1s").prop("checked", true);
-           }else if(element.product_dimension.season == 'Verano') {
+           }else if(element.product_dimension?.season == 'Verano') {
             $("#inlineRadio2s").prop("checked", true);
            }else{
             $("#inlineRadio3s").prop("checked", true);

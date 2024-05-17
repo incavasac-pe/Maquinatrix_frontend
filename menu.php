@@ -47,7 +47,7 @@ if (isset($_SESSION['loggedIn'])) {
             <li>
                 <div class="profile-info">
                 <p class="profile-name"> <?= $username ?? ''; ?> </p>
-                <p class="profile-identity">ID usuario:  <?= $id_user_ext ?? ''; ?></p>
+                <p class="profile-identity">ID usuario:  <?= $id_user_ext!='null' ? $id_user_ext : ''; ?></p>
                 </div>
             </li>
             <li><a class="dropdown-item" href="./user_details.php?tab=publication">Mis Publicaciones</a></li>
@@ -55,8 +55,7 @@ if (isset($_SESSION['loggedIn'])) {
             <li><a class="dropdown-item" href="#">Solicitudes Recibidas</a></li> -->
             <li><a class="dropdown-item" href="./user_details.php?tab=profile">Mi Cuenta</a></li>
             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ayuda">Ayuda</a></li>  
-            <li><a class="dropdown-item"  href="#" data-bs-toggle="modal" data-bs-target="#signout">Cerrar sesión</a></li>
-            <li><a class="dropdown-item"></a></li>
+            <li><a class="dropdown-item"  href="#" data-bs-toggle="modal" data-bs-target="#signout">Cerrar sesión</a></li>           
             </ul>
       </div>
       <?php } ?>

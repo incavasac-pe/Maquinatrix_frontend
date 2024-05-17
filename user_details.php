@@ -587,8 +587,21 @@ function construirEstructuraHTML(value) {
               var greyStatus = $('<div>').addClass(color_status).append($('<i>').addClass('fa-solid fa-circle fa-dot')).text(status);
               
               var dropdown = $('<div>').addClass('dropdown');
-              var dropdownToggle = $('<a>').addClass('btn btn-secondary dropdown-toggle').attr('href', '#').attr('role', 'button').attr('data-bs-toggle', 'dropdown').attr('aria-expanded', 'false').text('Opciones').append($('<i>').addClass('fa-solid fa-chevron-down'));
-              var dropdownMenu = $('<ul>').addClass('dropdown-menu');
+              var dropdownToggle = $('<a class="btn btn-secondary dropdown-toggle" onclick="toggleDropdownMenu('+element.id_product+')" type="button" > Opciones <i class="fa-solid fa-chevron-down"></i> </a>')
+            /*.addClass('btn btn-default')
+            .attr('role', 'button')
+            .attr('type', 'button')
+            .attr('id', 'dropdown-toggle')
+            .on('click', toggleDropdownMenu(element.id_product))
+            .text('Opciones')
+            .append($('<i>').addClass('fa-solid fa-chevron-down'));
+            <button class="btn btn-secondary" onclick="showMwnu()" type="button" >
+            <i class="fa-solid fa-bars"></i> <img class="profile-img" src="./assets/img/profile.png" alt="profile" />
+        </button>*/
+              
+            //  var dropdownToggle = $('<a>').addClass('btn btn-secondary dropdown-toggle').attr('href', '#').attr('role', 'button').attr('data-bs-toggle', 'dropdown').attr('aria-expanded', 'false').text('Opciones').append($('<i>').addClass('fa-solid fa-chevron-down'));
+             // var dropdownMenu = $('<ul>').addClass('dropdown-menu item-product');
+              var dropdownMenu = $('<ul>').addClass('dropdown-menu item-product '+element.id_product);
              // var editOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Editar'));
               var url_edit = element.PublicationType.id_publication_type == '1' ? 'Arriendo_sale.php?id=' : 'publish_sale.php?id=';
               var editOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', url_edit + element.id_product).text('Editar'));
@@ -613,15 +626,12 @@ function construirEstructuraHTML(value) {
                       dropdownMenu.append(borradorOption); //borrador
                       break;
                     case 7:
-                     //Suspendida
-                     // dropdownMenu.append(editOption); //editar
+                     //Suspendida 
                       dropdownMenu.append(publishOption1); //ver pub
                       break;
-                    case 8:
-                      
+                    case 8:                      
                       break;
-                    case 9:
-                     
+                    case 9:                     
                       break;
                     case 10:
                       //borrador
@@ -697,7 +707,20 @@ function construirEstructuraHTML(value) {
     }
   });
 }
+ 
+    function toggleDropdownMenu(id) {
+      var dropdownMenuAlt = $(".item-product "+id);
+      dropdownMenuAlt.removeClass("show");
 
+      console.log("ID del menú:", id);
+      
+      var dropdownMenu = $("." + id);
+      if (!dropdownMenu.hasClass("show")) {
+        dropdownMenu.addClass("show");
+      } else {
+        dropdownMenu.removeClass("show");
+      }
+}
 function setValuePassword(id){ 
   var old_password = $("#exampleInputPasswordold").val();
   var new_password = $("#exampleInputPassword1").val();
