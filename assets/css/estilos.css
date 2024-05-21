@@ -1885,6 +1885,7 @@ margin-right: 8px;
 
 /* Six columns side by side */
 .column1 {
+  object-fit: cover;
   float: left;
   width: 16.66%;
   width: 80px !important;
@@ -1894,6 +1895,7 @@ border-radius: 8px;
 margin-right: 10px;
 }
 .column1 > img {
+  object-fit: cover;
   width: 80px !important;
 height: 80px !important;
 border-radius: 8px;
@@ -2048,6 +2050,7 @@ margin-right: 8px;
 
 /* Six columns side by side */
 .column2 {
+  object-fit: cover;
   flex: 0 0 auto;
         width: 125px;
         height: 125px;
@@ -2057,6 +2060,7 @@ margin-right: 8px;
         scroll-snap-align: start;
 }
 .column2 > img {
+  object-fit: cover;
   width: 125px !important;
   height: 125px !important;
 border-radius: 8px;
