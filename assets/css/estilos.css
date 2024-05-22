@@ -1772,8 +1772,8 @@ color: #000000;
 .slider-img1 {
   vertical-align: middle;
   height: 428px;
-  width: 472px;
-  position: absolute;
+  width: 672px;
+  position: static;
     left: 119px;
 }
 .slider-img-back {
