@@ -1774,6 +1774,7 @@ color: #000000;
   height: 428px;
   width: 705px;
   position: static;
+  object-fit: contain;
     left: 119px;
 }
 .slider-img-back {
