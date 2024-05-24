@@ -26,6 +26,7 @@
         if (!$data['error']) {
             // Obtener la lista de $categories
             $detalle = $data['data'][0];
+            print_r($detalle);
             $count_detalle = $data['count'];
         }  
         } else {
@@ -139,6 +140,7 @@
                 <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migas1">&middot; <?= $detalle['publication_type']['description']; ?></a>
                 <a href="javascript:void(0);" class="font-family-Roboto-Regular migas"> <?= $detalle['mainCategory']['category']; ?></a> 
             </div>
+            <?php if (!empty($detalle['status_id']=='9')): ?>
             <div class="publication-draft-warning detalle-warn">
               <i class="fa-solid fa-circle-exclamation"></i>
               <div>
@@ -146,7 +148,8 @@
                 <p class="draft-warning-text-sub">Te notificaremos tan pronto como tu aviso sea aprobado y esté listo para ser publicado. ¡Gracias por tu paciencia!</p>
               </div>
             </div>
-          
+            <?php else: ?>
+                                <?php endif; ?>
             <div class="col-md-7 col-class">
 
      <div class="slider-container-1">
@@ -192,10 +195,10 @@
                         <div
                             class="align-items-center col-xl-2 col-lg-2  col-md-2 col-sm-2 col-2 d-flex justify-content-center perfil-verificado position-relative">
                             <div class="position-relative">
-                                <img src="./assets/img/user.png" alt="user">
-                                <div class="abs">
-                                    <img src="./assets/img/verificar.png" alt="verificar">
-                                </div>
+                                <img src="./assets/img/profile.png" alt="user">
+                               <!--div class="abs">
+                                    <img src="./assets/img/profile.png" alt="verificar">
+                                </div-->
                             </div>
                         </div>
                     </div>
@@ -338,7 +341,7 @@
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                            <?= isset($detalle['product_details']["facipay"]) && isset($detalle['product_details']["price"]) ? ($detalle['product_details']["facipay"] == 'C' ? 'Cotizar' : "CLP " . $detalle['product_details']["price"] . " / hora") : ''; ?>
+                            <?= isset($detalle['product_details']["facipay"]) && isset($detalle['product_details']["price"]) ? ($detalle['product_details']["facipay"] == 'C' ? 'Cotizar' : "CLP " . $detalle['product_details']["price"] . "") : ''; ?>
                          </h3>
 
                         </div>

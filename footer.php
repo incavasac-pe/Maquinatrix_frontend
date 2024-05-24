@@ -41,13 +41,7 @@
                         
                         <li>
                                 <a target="_blank" href="https://maquinatrix.com/term_conditions.php" >Términos y Condiciones</a>
-                            </li>
-                            <li>
-                                <a target="_blank" href="https://maquinatrix.com/tienda.php?page=1&typep=1&arrendar" >Políticas de Privacidad</a>
-                            </li>
-                            <li>
-                                <a target="_blank" href="https://maquinatrix.com/tienda.php?page=1&typep=2&comprar" >Política de Cookies</a>
-                            </li>
+                            </li> 
                         </ul>
                     </div>
                     <div class="col-md-3 mb-3">

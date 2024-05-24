@@ -336,7 +336,7 @@ if ($responseimg !== false) {
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                            <?= isset($detalle['product_details']["facipay"]) &&  $detalle['product_details']["facipay"] == 'C' ? 'Cotizar':"CLP ". $detalle['product_details']["price"]." ". "/ hora" ;?>
+                            <?= isset($detalle['product_details']["facipay"]) &&  $detalle['product_details']["facipay"] == 'C' ? 'Cotizar':"CLP ". $detalle['product_details']["price"]." ". "" ;?>
                                <span class="font-family-Roboto-Regular"></span>
                             </h3>
                         </div>

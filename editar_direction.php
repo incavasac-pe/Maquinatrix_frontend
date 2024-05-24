@@ -64,8 +64,11 @@
           },
           success: function(response) { 
             $("#Msg5").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
-          //  location.reload();
-          },
+            
+            setTimeout(function() {
+              location.reload();
+            }, 2000);  
+            },
           error: function(error) {
             console.error('Error al enviar los datos actualizados');
           }
@@ -78,7 +81,7 @@
 
   function initAutocomplete() {
     map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: -33.8688, lng: 151.2195 },
+      center: { lat: -33.44889290, lng: -70.66927940  },
       zoom: 13,
       mapId: "67f00e4f77c30c63",
     });
@@ -176,4 +179,7 @@
 
   window.initAutocomplete = initAutocomplete;
 </script>
-<script src="./assets/js/maps.js"></script>
+<!--script src="./assets/js/maps.js"></script-->
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbFChqQf5N-MhbiNjjzR7G-lafKPfuN58&callback=initAutocomplete&libraries=places&v=weekly"
+        defer></script>
