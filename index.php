@@ -307,7 +307,7 @@ function cortarString($texto) {
                                 </p>
                             </span> 
                         
-                            <strong class="font-family-Roboto-Medium"> <?= isset($pub['product_details']["facipay"]) &&  $pub['product_details']["facipay"] == 'C' ? 'Cotizar': "CLP ". $pub['product_details']["price"]." ". "/ hora";  ?></strong>
+                            <strong class="font-family-Roboto-Medium"> <?= isset($pub['product_details']["facipay"]) &&  $pub['product_details']["facipay"] == 'C' ? 'Cotizar': "CLP ". $pub['product_details']["price"]." ". "";  ?></strong>
                             </div>
                         </div>
                     </div>

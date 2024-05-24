@@ -710,7 +710,7 @@ function searchPublication(type,page=false) {
                 var h2 = $('<h2>').addClass('font-family-Roboto-Regular').text(element.title);
                 var h3 = $('<h3>').addClass('mb-3');
                 
-                var price = element.product_details?.facipay == 'C' ? 'Cotizar' : 'CLP ' +element.product_details?.price + '/ hora';
+                var price = element.product_details?.facipay == 'C' ? 'Cotizar' : 'CLP ' +element.product_details?.price + '';
                 var strong = $('<strong>').addClass('font-family-Roboto-Bold').text(price ?? '');
                 var spanPrice = $('<span>').addClass('font-family-Roboto-Medium').text('');
                 h3.append(strong, spanPrice);
