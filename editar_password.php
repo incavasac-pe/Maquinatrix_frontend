@@ -16,10 +16,10 @@
         <div class="col-sm-6 col-md-6 col-lg-6">
             <div class="mb-3">
 
-              <div class="input-group" id="show_hide_password">
-                <input type="password" class="form-control" placeholder="Crear contraseña" id="exampleInputPasswordold" name="exampleInputPasswordold">
+              <div class="input-group" id="show_hide_password_old">
+                <input type="password" class="form-control" placeholder="Contraseña actual" id="exampleInputPasswordold" name="exampleInputPasswordold">
                 <div class="input-group-addon">
-                  <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                  <i class="fa fa-eye-slash see1" aria-hidden="true"></i> 
                 </div>
               </div>
             </div>
@@ -35,7 +35,7 @@
               <div class="input-group" id="show_hide_password">
                 <input type="password" class="form-control" placeholder="Crear contraseña" id="exampleInputPassword1" name="exampleInputPassword1">
                 <div class="input-group-addon">
-                  <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                  <i class="fa fa-eye-slash see2" aria-hidden="true"></i> 
                 </div>
               </div>
             </div>
@@ -46,7 +46,7 @@
               <div class="input-group" id="show_hide_confirm_password">
                 <input type="password" class="form-control" placeholder="Confirmar contraseña" id="exampleInputPassword2">
                 <div class="input-group-addon">
-                  <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                 <i class="fa fa-eye-slash see3" aria-hidden="true"></i> 
                 </div>
               </div>
 

@@ -150,7 +150,7 @@ function cortarString($texto) {
                             </div>
                             <div class="col-md-2">
                                 <button type="button" onclick="buscarInicial('1')"
-                                    class="btn btn-amarillo font-family-Roboto-Medium">
+                                    class="btn-click btn-amarillo font-family-Roboto-Medium">
                                     <i class="fa-solid fa-magnifying-glass"></i> Buscar
                                 </button>
                             </div>
@@ -178,8 +178,8 @@ function cortarString($texto) {
                             </div>
                             <div class="col-md-2">
                                 <button type="button" onclick="buscarInicial('2');"
-                                    class="btn btn-amarillo font-family-Roboto-Medium">
-                                    <i class="far fa-search"></i> Buscar
+                                    class="btn-click btn-amarillo font-family-Roboto-Medium">
+                                    <i class="fa-solid fa-magnifying-glass"></i> Buscar
                                 </button>
                             </div>
                         </form>
@@ -336,7 +336,7 @@ function cortarString($texto) {
                 <p class="first-title">CONOCE SOBRE </p>
                 <p class="sec-title">GARANTÍA MAQUINATRIX Y MUCHO MÁS</p>
 
-                <a href="#" class="Discover-btn"> Conoce más</a>
+                <a target="_blank"  href="https://maquinatrix.company/servicios/" class="Discover-btn"> Conoce más</a>
 
             </div>
         </div>

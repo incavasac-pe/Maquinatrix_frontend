@@ -1226,6 +1226,9 @@
   .fomulario-search [class*="col-"] {
     padding: 0;
   }
+  .btn-click{
+    cursor:crosshair;
+  }
   .btn-amarillo {
     height: 58px;
     width: 100%;
