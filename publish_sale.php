@@ -38,13 +38,22 @@
 
 <script>
   var save_public = false;
+  var isFormValidateSeccion1 = false;
+  var isFormValidateSeccion2 = false;
+  var isFormValidateSeccion3 = false;
+  var isFormValidateSeccion4 = false;
+  var isFormValidateSeccion5 = false;
+  var selectedCurrency = 'CLP';
+
   const navigateBackward = () => {
     const currentStep = getCurrentStep();
     if (currentStep > 1) {
       navigateToFormStep(currentStep - 1);
     }
   };
-
+  const navigateBackwardCancel = () => { 
+      navigateToFormStep(1); 
+  };
   const getCurrentStep = () => {
     const visibleStep = document.querySelector('.form-step:not(.d-none)');
     return parseInt(visibleStep.id.split('-')[1]);
@@ -84,8 +93,73 @@
     formNavigationBtn.addEventListener("click", () => {
       const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
       console.log("*****stepNumber***",stepNumber) 
-      resumePublication(stepNumber,true);  
-      navigateToFormStep(stepNumber);
+      if (stepNumber === 2) { 
+        console.log("validando el paso  ",stepNumber)
+        console.log("validando el paso 1",isFormValidateSeccion1)
+        console.log("validando el paso 1",isFormValidateSeccion2)
+        console.log("validando el paso 1",isFormValidateSeccion3)
+        console.log("validando el paso 1",isFormValidateSeccion4)
+        console.log("validando el paso 1",isFormValidateSeccion5)
+        
+           const $errorContainerTipo = $("#error-container-tipo");
+          const $errorContainerTitle5 = $("#error-container-title5");
+          const $errorContainerTitle = $("#error-container-title");
+          const $errorContainerPrice = $("#error-container-price");
+          const $errorContainerUbicacion = $("#error-container-ubicacion");
+
+          const $errorContainerPrice5 = $("#error-container-price5");
+          const $errorContainerUbicacion5 = $("#error-container-ubicacion5");
+
+          const $errorContainerCondicion = $("#error-container-condicion");  
+
+        
+        if (!isFormValidateSeccion1) {
+            $errorContainerTipo.show();
+            return
+          } else {
+            $errorContainerTipo.hide();
+          }
+
+          if (!isFormValidateSeccion2) {
+            $errorContainerTitle.show();
+            return
+          } else {
+            $errorContainerTitle.hide();
+          }
+
+          if (!isFormValidateSeccion3) {
+            $errorContainerPrice.show();
+            return
+          } else {
+            $errorContainerPrice.hide();
+          }
+
+          if (!isFormValidateSeccion4) {
+            $errorContainerUbicacion.show();
+            return
+          } else {
+            $errorContainerUbicacion.hide();
+          }
+
+          if (!isFormValidateSeccion5) {
+            $errorContainerCondicion.show();
+            return
+          } else {
+            $errorContainerCondicion.hide();
+          }
+
+          console.log("se envia el paso 444444444444")
+          resumePublication(stepNumber,true);      
+          navigateToFormStep(stepNumber);
+      
+        }else{
+          $("#error-container").hide();
+        }
+   
+        if (stepNumber === 3 && idImg > 0) {
+          resumePublication(stepNumber,true);      
+          navigateToFormStep(stepNumber);
+      }
     });
   });
 
@@ -187,7 +261,7 @@
 
 
 <script>
-  
+  var $confirmPublicSaleBtn = $('#confirm_public_sale');
 $(document).ready(function() {
     console.log( "ready publication sale!" );  
     var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
@@ -197,6 +271,11 @@ $(document).ready(function() {
     
     $("#error-container").hide();
      $("#confirm_public_sale").on('click', function(event) {
+    
+      $(this).prop('disabled', true);
+      $(this)
+      .html('<i class="fa fa-spinner fa-spin"></i> Procesando...')
+      .addClass('disabled');
       save_public = true;
       registerPublication(0);
     });  
@@ -211,113 +290,190 @@ $(document).ready(function() {
       resumePublication(3,false);  
     });   
    
-    $("#industria").on('change', function(event) {
-    if( $("#id_machine").val()!='0' &&  $("#industria").val()!='0' ){
-        $("#error-container-tipo").hide();
-      }else{
-        $("#error-container-tipo").show();
-      }
-    }); 
-    $("#id_machine").on('change', function(event) {
-    if( $("#id_machine").val()!='0' &&  $("#industria").val()!='0' ){
-        $("#error-container-tipo").hide();
-      }else{
-        $("#error-container-tipo").show();
-      }
-    }); 
+    //valida maquina y industria
+    var $idMachine = $("#id_machine");
+    var $industria = $("#industria");
+    var $errorContainer = $("#error-container-tipo-cc");
 
-    $("#anios").on('change', function(event) {
-    if( $("#title").val()!='' && $("#marca").val()!='0' &&  $("#modelo").val()!='' &&  $("#anios").val()!='0'){
-        $("#error-container-title").hide();
-      }else{
-        $("#error-container-title").show();
+    function validateFieldsMaquine() {
+      console.log("aaaaaaaaaaaaa")
+      if ($idMachine.val() !== '0' && $idMachine.val() !== '' && $industria.val() !== '0' && $industria.val() !== '') {
+        $errorContainer.hide();
+        isFormValidateSeccion1 = true;
+      } else {
+        $errorContainer.show();
+        isFormValidateSeccion1 = false;
       }
-    }); 
+    }
 
-    $("#anios5").on('change', function(event) {
-    if( $("#title5").val()!='' && $("#marca5").val()!='0' &&  $("#modelo5").val()!='' &&  $("#anios5").val()!='0'){
-        $("#error-container-title5").hide();
-      }else{
-        $("#error-container-title5").show();
-      }
-    }); 
+    $idMachine.on('change', validateFieldsMaquine);
+    $industria.on('change', validateFieldsMaquine);
 
-    $("#price").on('keyup', function(event) { 
-    if( $("#price").val()!=''){
-        $("#error-container-price").hide();
-      }else{
-        $("#error-container-price").show();
+    
+    //valida title y marca,modelo,anios
+    var $title = $("#title");
+    var $marca = $("#marca");
+    var $modelo = $("#modelo");
+    var $anios = $("#anios");
+    var $errorContainerTitle = $("#error-container-title");
+
+    function validateFields() {  
+      if ($title.val() !== '' && $marca.val() !== '' && $modelo.val() !== '' && $anios.val() !== '') {
+        $errorContainerTitle.hide();
+        isFormValidateSeccion2 = true;
+      } else {
+        $errorContainerTitle.show();
+        isFormValidateSeccion2 = false;
       }
-    });  
+    }
+
+    $title.add($marca).add($modelo).add($anios).on('blur', validateFields);
+  // fin valida title y marca,modelo,anios
+  
+
+    //valida title y marca,modelo,anios
+    var $title5 = $("#title5");
+    var $marca5 = $("#marca5");
+    var $modelo5 = $("#modelo5");
+    var $anios5 = $("#anios5");
+    var $errorContainerTitle5 = $("#error-container-title5");
+
+    function validateFields5() {  
+      if ($title5.val() !== '' && $marca5.val() !== '' && $modelo5.val() !== '' && $anios5.val() !== '') {
+        $errorContainerTitle5.hide();
+        isFormValidateSeccion2 = true;
+      } else {
+        $errorContainerTitle5.show();
+        isFormValidateSeccion2 = false;
+      }
+    }
+
+    $title5.add($marca5).add($modelo5).add($anios5).on('blur', validateFields5);
+  // fin valida title y marca,modelo,anios
+  
+
+
+  
+    //valida condicion 
+    var $condicion1 = $("#flexRadioDefault1");
+    var $condicion2 = $("#flexRadioDefault2");
+    var $errorContainerCondicion = $("#error-container-condicion");
+
+    function validateFieldsCondicion() {  
+      if (($condicion1.is(':checked') || $condicion2.is(':checked'))) {
+        $errorContainerCondicion.hide();
+        isFormValidateSeccion5 = true;
+      } else {
+        $errorContainerCondicion.show();
+        isFormValidateSeccion5 = false;
+      }
+    }
+
+    $condicion1.add($condicion2).on('change', validateFieldsCondicion);
+  
+ //valida el precio
+    var $price = $("#price");  
+    var $errorContainerPrice = $("#error-container-price");
+
+    function validatePriceFields() {
+      if ( $price.val() !== '') {
+        $errorContainerPrice.hide();
+        isFormValidateSeccion4 = true;
+      } else {
+        $errorContainerPrice.show();
+        isFormValidateSeccion4 = false;
+      }
+    }
+
+    $price.on('keyup', validatePriceFields);
+  
+    var $priceInput = $("#inputGroupSelect01Price");
+
+    $priceInput.on("change", function() {
+      selectedCurrency = $(this).val();
+      console.log("Selected currency:", selectedCurrency);
+      // Aquí puedes agregar la lógica que desees ejecutar cuando se selecciona un valor
+    });
+//fin valida precio
+ 
 
     $("#price5").on('keyup', function(event) { 
     if( $("#price5").val()!=''){
         $("#error-container-price5").hide();
+        isFormValidateSeccion4 = true;
       }else{
         $("#error-container-price5").show();
+        isFormValidateSeccion4 = false;
       }
     });
+ 
+     //  valida city y region 
+    var $city = $("#city");
+    var $region = $("#region");
+    var $errorContainerUbi = $("#error-container-ubicacion");
 
+    function validateLocationFields() {
+      if ($city.val() !== '0' && $city.val() !== '' && $region.val() !== '0'  && $region.val() !== '') {
+        $errorContainerUbi.hide();
+        isFormValidateSeccion3 = true;
+      } else {
+        $errorContainerUbi.show();
+        isFormValidateSeccion3 = false;
+      }
+    }
 
-    $("#city").on('change', function(event) {
-      if(   $("#city").val()!='0' &&  $("#region").val()!='0'){
-        $("#error-container-ubicacion").hide();
-      }else{
-        $("#error-container-ubicacion").show();
-      }
-    }); 
-    $("#region").on('change', function(event) {
-      if(   $("#city").val()!='0' &&  $("#region").val()!='0'){
-        $("#error-container-ubicacion").hide();
-      }else{
-        $("#error-container-ubicacion").show();
-      }
-    }); 
-     $("#city5").on('change', function(event) {
-      if( $("#city5").val()!='0' &&  $("#region5").val()!='0'){
-        $("#error-container-ubicacion5").hide();
-      }else{
-        $("#error-container-ubicacion5").show();
-      }
-    }); 
-    $("#region5").on('change', function(event) {
-      if( $("#city5").val()!='0' &&  $("#region5").val()!='0'){
-        $("#error-container-ubicacion5").hide();
-      }else{
-        $("#error-container-ubicacion5").show();
-      }
-    }); 
+  $city.add($region).on('change', validateLocationFields);
+  // fin valida city y region  
+  
+     //  valida city y region 
+     var $city5 = $("#city5");
+    var $region5 = $("#region5");
+    var $errorContainerUbi5 = $("#error-container-ubicacion5");
 
-    $("#aspect_ratio").on('keyup', function(event) {
-      if( $("#aspect_ratio").val()!='' &&  $("#section_width").val()!=''){
-        $("#error-container-dimen").hide();
-      }else{
-        $("#error-container-dimen").show();
+    function validateLocationFields5() {
+      if ($city5.val() !== '0' && $city5.val() !== '' && $region5.val() !== '0'  && $region5.val() !== '') {
+        $errorContainerUbi5.hide();
+        isFormValidateSeccion3 = true;
+      } else {
+        $errorContainerUbi5.show();
+        isFormValidateSeccion3 = false;
       }
-    });
-    $("#section_width").on('keyup', function(event) {
-      if( $("#aspect_ratio").val()!='' &&  $("#section_width").val()!=''){
-        $("#error-container-dimen").hide();
-      }else{
-        $("#error-container-dimen").show();
-      }
-    });
+    }
 
-    $("#load_index").on('keyup', function(event) {
-      if( $("#load_index").val()!='' &&  $("#speed_index").val()!=''){
-        $("#error-container-espec").hide();
-      }else{
-        $("#error-container-espec").show();
-      }
-    });
+  $city5.add($region5).on('change', validateLocationFields5);
+  // fin valida city y region 
+    
 
-    $("#speed_index").on('keyup', function(event) {
-      if( $("#load_index").val()!='' &&  $("#speed_index").val()!=''){
-        $("#error-container-espec").hide();
-      }else{
-        $("#error-container-espec").show();
-      }
-    });
+  var $aspectRatio = $("#aspect_ratio");
+  var $sectionWidth = $("#section_width");
+  var $errorContainerDimension = $("#error-container-dimen");
+
+  function toggleErrorContainer() {
+    if ($aspectRatio.val() !== '' && $sectionWidth.val() !== '') {
+      $errorContainerDimension.hide();
+    } else {
+      $errorContainerDimension.show();
+    }
+  }
+
+  $aspectRatio.on('keyup', toggleErrorContainer);
+  $sectionWidth.on('keyup', toggleErrorContainer);
+
+  var $loadIndex = $("#load_index");
+  var $speedIndex = $("#speed_index");
+  var $errorContainer1 = $("#error-container-espec");
+
+  function toggleErrorContainer1() {
+    if ($loadIndex.val() !== '' && $speedIndex.val() !== '') {
+      $errorContainer1.hide();
+    } else {
+      $errorContainer1.show();
+    }
+  }
+
+  $loadIndex.on('keyup', toggleErrorContainer1);
+  $speedIndex.on('keyup', toggleErrorContainer1);
+
 
     $('#pdfFile').change(function() {
       console.log("subir doc", $(this)[0].files[0]); 
@@ -348,13 +504,22 @@ function setTipoT(valor){
     $(".st:contains(" + valor + ")").addClass("active_tracc");
   }
 }
+
 function setTraccion(valor){
-  traxion = valor;  
-  if(valor!=''){
-    $(".traction-text").removeClass("active_tracc"); 
-    $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
-  }
-}
+    traxion = valor;  
+    console.log("aaaaaaaaaaaaaaaaa",valor)
+    if(valor!=''){
+      $(".traction-text").removeClass("active_tracc"); 
+      $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
+    }
+    if(valor == 'Otros'){
+      $('#traction_index1').prop('disabled', false);
+    }else{
+      $('#traction_index1').val("");
+      $('#traction_index1').prop('disabled', true);
+    }
+ }
+
 var idPreview = '';
  var aaa = 0;
 function resumePublication(step,save){  
@@ -376,8 +541,8 @@ function resumePublication(step,save){
       "id_product":id_product,
       "region": id_categoria!='3' ? $("#region").val():$("#region5").val(),
       "city": id_categoria!='3' ? $("#city").val():$("#city5").val(),
-      "price": id_categoria!='3' ? $("#price").val():$("#price5").val(),
-      "brand": id_categoria!='3' ? $("#marca").text():$("#marca5").text(),
+      "price": id_categoria!='3' ?  selectedCurrency + ' '+ $("#price").val(): selectedCurrency + ' '+ $("#price5").val(),  
+      "brand": id_categoria!='3' ? $("#marca").val():$("#marca5").val(),
       "model": id_categoria!='3' ? $("#modelo").val():$("#modelo5").val(),
       "year":  id_categoria!='3' ? $("#anios").val():$("#anios5").val(),
       "factory_code": "Factory Code",
@@ -388,11 +553,11 @@ function resumePublication(step,save){
       "condition": id_categoria!='3' ? $('input[name="flexRadioDefault"]:checked').val() : $('input[name="flexRadioDefault5"]:checked').val(),
       "owner": "Owner",
       "warranty": 'N',
-      "delivery": id_categoria!='3' ? $('input[name="inlineRadioOptions"]:checked').val() : $('input[name="inlineRadioOptions5"]:checked').val(),
+      "delivery": id_categoria!='3' ? $('input[name="inlineRadioOptions"]:checked').val()  ?? '' : $('input[name="inlineRadioOptions5"]:checked').val()  ?? '',
       "pay_now_delivery": "N",
       "facipay":"H",
       "contact_me": "Contact Me" ,
-      "id_marca": id_categoria!='3' ? $("#marca").val():$("#marca5").val(),
+      "id_marca": '1',
       "id_model": '1',
     };
 
@@ -437,19 +602,22 @@ function resumePublication(step,save){
 
   //agrega los valores en el resumen paso 3 
   if(save){
-  $('.btn_2').text(categoria);
+  $('.btn_2').text(categoria); 
  
-  $('.r_marca').text( id_categoria!='3' ?  $("#marca option:selected").text(): $("#marca5 option:selected").text()); 
+  $('.r_marca').text( id_categoria!='3' ? $("#marca").val(): $("#marca5").val()); 
   $('.r_modelo').text(  id_categoria!='3' ? $("#modelo").val(): $("#modelo5").val());
   $('.r_anio').text( publicacion2.year);
   $('.r_condicion').text(publicacion2.condition);
   
   $('.r_km').text( $("#KilometrosRecorridos").val());
   $('.r_motor').text($("#engine_number").val() ?? '');
-  $('.r_ubicacion').text( publicacion2.region);
+  $('.r_ubicacion').text( publicacion2.region + ','+ publicacion2.city);
+  
   $('.location-grey-text').text( publicacion2.region);
-  var value = 'CLP ' + publicacion2.price;
-  $('.r_price').text( value);
+
+  var value =  publicacion2.facipay =='C' ? 'Cotizar' :  publicacion2.price  + ''
+    $('.r_price').text( value);
+ 
 
   $('.r_tipo_vendedor').text(categoria); 
   $('.r_delivery').text(publicacion2.delivery == 'Y' ? 'Sí' : 'No');
@@ -510,6 +678,10 @@ function resumePublication(step,save){
           registerPublication2(response.data.id_product)
       },
       error: function(response,xhr, textStatus, errorThrown) {
+        $confirmPublicSaleBtn
+      .prop('disabled', false)
+      .html('Confirmar y publicar')
+      .removeClass('disabled');
         if (response.status === 401 || response.status === 403) {
               window.location.href = 'create_session_portal.php?logout=true';
               }
@@ -544,6 +716,10 @@ function registerPublication2(id){
         registerPublication3()
     },
     error: function(response,xhr, textStatus, errorThrown) {
+      $confirmPublicSaleBtn
+      .prop('disabled', false)
+      .html('Confirmar y publicar')
+      .removeClass('disabled');
         console.log(response.responseJSON.msg)
         var statusCode = xhr.status;  
             $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
@@ -570,6 +746,10 @@ function registerPublication3(){
       registerPublication4()
     },
     error: function(response,xhr, textStatus, errorThrown) {
+      $confirmPublicSaleBtn
+      .prop('disabled', false)
+      .html('Confirmar y publicar')
+      .removeClass('disabled');
       if (response.status === 401 || response.status === 403) {
               window.location.href = 'create_session_portal.php?logout=true';
               }
@@ -599,6 +779,10 @@ function registerPublication4(){
       console.log(response);    
     },
     error: function(response,xhr, textStatus, errorThrown) {
+      $confirmPublicSaleBtn
+      .prop('disabled', false)
+      .html('Confirmar y publicar')
+      .removeClass('disabled');
         console.log(response.responseJSON.msg)
       
         if (response.status === 401 || response.status === 403) {
@@ -623,6 +807,10 @@ function deleteImagenAll() {
             
           },
       error: function (response) { 
+        $confirmPublicSaleBtn
+      .prop('disabled', false)
+      .html('Confirmar y publicar')
+      .removeClass('disabled');
           if (response.status === 401 || response.status === 403) {
               window.location.href = 'create_session_portal.php?logout=true';
               }
@@ -664,7 +852,11 @@ function deleteImagenAll() {
                   loading++;
                   if(loading == imgArray.length){
                 
-                    if(save_public){                      
+                    if(save_public){   
+                      $confirmPublicSaleBtn
+                  .prop('disabled', false)
+                  .html('Confirmar y publicar')
+                  .removeClass('disabled');                   
                         sendDataResume(imgArray[bbb]);  
                       
                     }else{
@@ -715,6 +907,7 @@ function deleteImagenAll() {
     
     form.submit();
 }
+
 var imgArray = [];
 function edit_publi_sale(){ 
   console.log("edicion de publicacion salee...")
@@ -728,7 +921,7 @@ $.ajax({
   success: function(res) {      
    if(!res.error){ 
         res.data.forEach(function(element) { 
-        if(element.status_id == '10') {  
+       // if(element.status_id != '10') {  
           setCategorySale(element.id_category,element.mainCategory?.category); 
           if(element.id_category==3){
             $("#pills-publish3-tab").click();
@@ -755,20 +948,22 @@ $.ajax({
             $(titleSelector).val(element.title);
             $(descripSelector).val(element.description);
 
-            if (element.id_category == 3) {                
-                var selectize = $('#marca5')[0].selectize;
-                selectize.setValue(element.product_details.id_marca);
-                var selectize = $('#anios5')[0].selectize;
-                selectize.setValue(element.product_details.year);  
+            if (element.id_category == 3) {       
+              $("#marca5").val(element.product_details.brand);         
+              $("#anios5").val(element.product_details.year);  
                 $("#modelo5").val(element.product_details.model);
-                $("#price5").val(element.product_details.price);
+              
+                var parts = element.product_details.price.split(" ")
+                console.log("el precio es ",parts[0])
+                $("#price5").val(parts[1]);
+                selectedCurrency = parts[0];
             } else {
-                var selectize = $('#marca')[0].selectize;
-                selectize.setValue(element.product_details.id_marca);
-                var selectize = $('#anios')[0].selectize;
-                selectize.setValue(element.product_details.year); 
-                $("#modelo").val(element.product_details.model);
-                $("#price").val(element.product_details.price);
+              $("#marca").val(element.product_details.brand);
+              $("#anios").val(element.product_details.year);
+              $("#modelo").val(element.product_details.model);
+              var parts = element.product_details.price.split(" ")
+              $("#price").val(parts[1]); 
+              selectedCurrency = parts[0];
             }
 
            
@@ -803,15 +998,15 @@ $.ajax({
            
        
            if (element.id_category == 3) {  
-          var selectize = $('#region5')[0].selectize;
-          selectize.setValue(element.product_details.region);
-          var selectize = $('#city5')[0].selectize;
-          selectize.setValue(element.product_details.city);
+              var selectize = $('#region5')[0].selectize;
+              selectize.setValue(element.product_details.region);
+              var selectize = $('#city5')[0].selectize;
+              selectize.setValue(element.product_details.city);
            }else{
-            var selectize = $('#region')[0].selectize;
-          selectize.setValue(element.product_details.region);
-          var selectize = $('#city')[0].selectize;
-          selectize.setValue(element.product_details.city);
+              var selectize = $('#region')[0].selectize;
+              selectize.setValue(element.product_details.region);
+              var selectize = $('#city')[0].selectize;
+              selectize.setValue(element.product_details.city);
            }
            if (element.id_category == 3) {  
             if(element.product_details.delivery == 'Y'){  
@@ -964,7 +1159,7 @@ const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
                   console.log('Error al descargar la imagen:', error);
                 });  
              }  
-          }  
+         // }  
         })
       }
     }

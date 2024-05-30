@@ -106,8 +106,9 @@ $url_publi = $protocol . '://' . $host;
                 <div class="mb-3">
                   <?php  
                       if ($count_industry > 0) { 
-                          echo '<select required  id="industria" name="industria"  >';
-                          echo '<option value="0">Seleccionar industria*</option>'; 
+                          echo '<label for="exampleDataList" class="form-label">Tipo industria*</label>
+                          <select required  id="industria" name="industria"  >';
+                          echo '<option value="0"></option>'; 
                           foreach ($industry as $field) {
                               $id = $field['id_product_type'];
                               $industryName = $field['description'];
@@ -129,8 +130,9 @@ $url_publi = $protocol . '://' . $host;
               
                 <?php  
                       if ($count_m > 0) { 
-                          echo '<select required  id="id_machine" name="id_machine" >';
-                          echo '<option value="0"> Tipo Maquinas*</option>'; 
+                          echo '<label for="exampleDataList" class="form-label">Tipo maquinaria*</label>
+                          <select required  id="id_machine" name="id_machine" >';
+                          echo '<option value="0"></option>'; 
                           foreach ($maquina as $field) {
                               $id = $field['id_machine'];
                               $maquinaName = $field['description'];
@@ -177,46 +179,41 @@ $url_publi = $protocol . '://' . $host;
                             <h1>Información de producto</h1>
                             <div class="row">
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="mb-3">    
-                                    <?php  
-                                      if ($count_marca > 0) { 
-                                        echo '<select required  id="marca" name="marca" >';
-                                        echo '<option value="0">Marca*</option>'; 
-                                        foreach ($marca as $field) {
-                                            $id = $field['id_marca'];
-                                            $marcaName = $field['description'];
-                                            echo '<option value="' . $id . '"'; 
-                                            if ($id == $marca) {
-                                                echo ' selected';
-                                            }  
-                                            echo '>' . $marcaName. '</option>';
-                                        }
-                                        echo '</select> ';
-                                
-                                        }  ?>   
-                       
+                                    <div class="mb-3"> 
+                                    <label for="marca" class="form-label">Marca*</label>
+                                    <input class="form-control" autocomplete="off" list="datalistOptions" id="marca" placeholder="">
+                                      <?php  
+                                        if ($count_marca > 0) { 
+                                            echo '<datalist id="datalistOptions">'; 
+                                            foreach ($marca as $field) { 
+                                                $marcaName = $field['description'];
+                                                echo '<option value="' . $marcaName . '">';  
+                                            }
+                                            echo '</datalist>'; 
+                                            }  ?>    
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
-                                     <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Modelo*"/>
+                                    <label for="exampleDataList" class="form-label">Modelo*</label>
+                                     <input type="text" class="form-control" id="modelo" name="modelo" placeholder=""/>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="mb-3"> 
-                                        <select name="anios"  id="anios"   required>
-                                        <?php
-                                        // Obtener el año actual
-                                        $anioActual = date("Y");
-                                        echo '<option value="0">Año*</option>';
-                                        // Crear opciones para los últimos 50 años
-                                            for ($i = $anioActual; $i >= ($anioActual - 50); $i--) {
-                                            echo '<option value="' . $i . '">' . $i . '</option>';
+                                    <div class="mb-3">  
+                                    <label for="anios" class="form-label">Año*</label>
+                                    <input class="form-control" autocomplete="off" list="datalistOptionsA" id="anios" placeholder="">
+                                      <?php  
+                                            $anioActual = date("Y");  
+                                            echo '<datalist id="datalistOptionsA">'; 
+                                            for ($i = $anioActual; $i >= ($anioActual - 100); $i--) {
+                                                $marcaName = $field['description'];
+                                                echo '<option value="' . $i . '">';  
                                             }
-                                        ?>
-                                        </select>
-
-                                    </div>
+                                            echo '</datalist>'; 
+                                            ?>    
+                                     </div> 
+                                  
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6 engine_number" >
                                     <div class="mb-3">
@@ -319,7 +316,7 @@ $url_publi = $protocol . '://' . $host;
                                     <div class="traction-text"  onclick="setTraccion('No clasifica')">No clasifica</div>
                                 </div>
                                 <div class="traction-right-section">
-                                    <input class="traction-btn" placeholder="Escribir otro" id="traction_index1"  />
+                                    <input class="traction-btn" disabled placeholder="Escribir otro" id="traction_index1"  />
                                 </div>
                             </div>
                             <div class="maintenance-wrapper">
@@ -355,7 +352,7 @@ $url_publi = $protocol . '://' . $host;
                                 <input class="form-check-input" type="radio" name="maintenance_suppy" id="maintenance_suppy2" value="N">
                                 <label class="form-check-label" for="maintenance_suppy2">No</label>
                             </div>
-                            <p class="sm-title">Condición actual del producto</p>
+                            <p class="sm-title">Condición actual del producto *</p>
                             <p class="sm-text">Selecciona la condición actual de tu producto</p>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Nuevo">
@@ -369,10 +366,17 @@ $url_publi = $protocol . '://' . $host;
                                     Usado
                                 </label>
                             </div>
+                            <div class="warning-wrapper" id="error-container-condicion">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                <div>
+                                    <p class="error-heading">Campos faltan completar</p>
+                                    <p class="sm-text">Campos requeridos faltan completar: CONDICIÓN DEL PRODUCTO.</p>
+                                </div>
+                        </div>
                             <div class="kilometer-box-wrapper">
                                 <div class="kilometer" style="margin-right:20px !important;">
                                     <div class="input-group" id="km_input">
-                                        <input type="number" class="form-control input-control-km" placeholder="Kilometros recorridos"
+                                        <input type="text" class="form-control input-control-km" placeholder="Kilometros recorridos"
                                         name="KilometrosRecorridos"   id="KilometrosRecorridos">
                                         <div class="input-group-addon-km">
                                             Km.
@@ -382,7 +386,7 @@ $url_publi = $protocol . '://' . $host;
                                 </div>
                                 <div class="hourometer">
                                     <div class="input-group" id="km_input">
-                                        <input type="number" class="form-control input-control-km" placeholder="Horómetro" name="Horometro" id="Horometro">
+                                        <input type="text" class="form-control input-control-km" placeholder="Horómetro" name="Horometro" id="Horometro">
                                         <div class="input-group-addon-km">
                                             Hrs.
                                         </div>
@@ -403,15 +407,15 @@ $url_publi = $protocol . '://' . $host;
                                 <label class="form-check-label" for="price_type2">Cotizar</label>
                             </div>                        
                             <p class="sm-title">Ingresa la tarifa que cobrarás por hora</p>
-                            <div class="kilometer" style="margin-right:20px !important;">
-                                <div class="input-group " id="km_input" style="width: 273px;">
-                                    <input type="number" class="form-control input-control-price" placeholder="En pesos*"
-                                    name="price"  id="price">
-                                    <div class="input-group-addon-km">
-                                        CLP
-                                    </div>
-                                </div>
+                            <div class="input-group mb-3"  id="km_input" style="width: 403px;"> 
+                                <input type="text" for="inputGroupSelect01Price" class="form-control input-control-price"
+                                        name="price"  id="price">
+                                <select class="form-select" id="inputGroupSelect01Price"> 
+                                    <option value="CLP">CLP</option>
+                                    <option value="USD">USD</option> 
+                                </select>
                             </div>
+                            
                             <div class="warning-wrapper" id="error-container-price">
                                 <i class="fa-solid fa-circle-exclamation"></i>
                                 <div>
@@ -425,10 +429,11 @@ $url_publi = $protocol . '://' . $host;
                             <div class="row">
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
+                                    <label for="exampleDataList" class="form-label">Región*</label>
                                     <?php                                            
                                     if ($count_regiones > 0) { 
                                             echo '<select required id="region" name="region">';
-                                            echo '<option value="0" selected >Región*</option>'; 
+                                            echo '<option value="0" selected ></option>'; 
                                             foreach ($regiones as $reg) { 
                                                 echo '<option value="' . $reg . '"'; 
                                                 if (isset($region) && $region == $reg) {
@@ -443,11 +448,12 @@ $url_publi = $protocol . '://' . $host;
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">
+                                    <label for="exampleDataList" class="form-label">Comunas*</label>
                                     <?php 
                                         require 'comunas.php';
                                         // Generar el select de comunas
                                         echo '<select required  id="city" name="city">';
-                                        echo '<option value="0" selected >Comunas*</option>'; 
+                                        echo '<option value="0" selected ></option>'; 
                                         foreach ($comunas as $comuna) {
                                             echo '<option value="' . $comuna . '">' . $comuna . '</option>';
                                         }
@@ -640,7 +646,7 @@ $url_publi = $protocol . '://' . $host;
 
                 <div class="category-product2">
                     <div class="category-btns-wrapper">
-                        <div><button type="button" class="grey-btn">Cancelar</button></div>
+                        <div><button type="button" class="grey-btn" onclick="navigateBackwardCancel()">Cancelar</button></div>
                         <div><button type="button" class="grey-btn">Guardar y salir</button><button type="button"
                            class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
                     </div>
@@ -765,6 +771,13 @@ function searchTypeModelo(industria){
 </script>
 <script>
 $(document).ready(function() {
+    $('#price').on('input', function() {
+        var value = $(this).val().replace(/\D/g, '');
+        var formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        $(this).val(formattedValue);
+  });
+  
+
   $('#pdfFile').change(function() {
     var file = $(this).prop('files')[0];
 
@@ -819,13 +832,13 @@ $(document).ready(function() {
       $("#error-container-pdf-other").hide();  
     }
   });
+
+   
 });
 </script>
 <script>
     $('#industria').selectize({ normalize: true });
-    $('#id_machine').selectize({ normalize: true });
-    $('#anios').selectize({ normalize: true });
-    $('#marca').selectize({ normalize: true }); 
+    $('#id_machine').selectize({ normalize: true }); 
     $('#region').selectize({ normalize: true });
     $('#city').selectize({ normalize: true });
     

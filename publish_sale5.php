@@ -21,7 +21,26 @@ $url_publi = $protocol . '://' . $host;
         } else {
             echo 'Error: ' . $dataRegion['msg'];
         }
-    }  
+    } 
+    
+      
+   $count_marca5 = 0;
+   $url965 = $baseUrl.'/list_marca'; 
+   $response965= file_get_contents($url965);
+   if ($response965 !== false) {
+      // Decodificar la respuesta JSON
+      $data = json_decode($response965, true);
+      if (!$data['error']) {
+          // Obtener la lista de $categories
+          $marca5 = $data['data'];
+
+          $count_marca5 = $data['count'];
+      } else {
+          echo 'Error: ' . $data['msg'];
+      }
+   } else {
+       echo 'Error al realizar la solicitud a la API';
+   }
     ?>
 <div class="container">
     <div class="category-product">
@@ -38,45 +57,40 @@ $url_publi = $protocol . '://' . $host;
         <h1>Información de producto</h1>
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                <?php                      
-                    if ($count_marca > 0) { 
-                        echo '<select required  id="marca5" name="marca5" >';
-                        echo '<option value="0">Marca*</option>'; 
-                        foreach ($marca as $field) {
-                            $id = $field['id_marca'];
+            <div class="mb-3"> 
+                <label for="marca" class="form-label">Marca55*</label>
+                <input class="form-control" autocomplete="off" list="datalistOptions" id="marca5" placeholder="">
+                    <?php  
+                    if ($count_marca5 > 0) { 
+                        echo '<datalist id="datalistOptions">'; 
+                        foreach ($marca5 as $field) { 
                             $marcaName = $field['description'];
-                            echo '<option value="' . $id . '"'; 
-                            if ($id == $marca) {
-                                echo ' selected';
-                            }  
-                            echo '>' . $marcaName. '</option>';
+                            echo '<option value="' . $marcaName . '">';  
                         }
-                        echo '</select> ';
-                
-                        }  ?>  
+                        echo '</datalist>'; 
+                        }  ?>    
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                <input type="text"  class="form-control" id="modelo5" name="modelo5" placeholder="Modelo*"/>
-
-                </div>
+            <div class="mb-3">
+            <label for="exampleDataList" class="form-label">Modelo*</label>
+                <input type="text" class="form-control" id="modelo" name="modelo" placeholder=""/>
+            </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                <select name="anios5" id="anios5" required>
-                        <?php
-                        // Obtener el año actual
-                        $anioActual = date("Y");
-                        echo '<option value="0">Año</option>';
-                        // Crear opciones para los últimos 50 años
-                            for ($i = $anioActual; $i >= ($anioActual - 50); $i--) {
-                            echo '<option value="' . $i . '">' . $i . '</option>';
-                            }
-                        ?>
-                  </select>
-                </div>
+            <div class="mb-3">  
+            <label for="anios" class="form-label">Año*</label>
+            <input class="form-control" autocomplete="off" list="datalistOptionsA5" id="anios5" placeholder="">
+                <?php  
+                    $anioActual = date("Y");  
+                    echo '<datalist id="datalistOptionsA5">'; 
+                    for ($i = $anioActual; $i >= ($anioActual - 100); $i--) {
+                        $marcaName = $field['description'];
+                        echo '<option value="' . $i . '">';  
+                    }
+                    echo '</datalist>'; 
+                    ?>    
+                </div> 
             </div>
             <div class="warning-wrapper" id="error-container-title5"> 
                 <i class="fa-solid fa-circle-exclamation"></i> 
@@ -273,6 +287,7 @@ $url_publi = $protocol . '://' . $host;
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
+                <label for="exampleDataList" class="form-label">Región*</label>
                 <?php                                            
                     if ($count_regiones > 0) { 
                             echo '<select required id="region5" name="region5">';
@@ -292,6 +307,7 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
+                <label for="exampleDataList" class="form-label">Comunas*</label>
                 <?php 
                     require 'comunas.php';
                     // Generar el select de comunas
@@ -367,7 +383,7 @@ $url_publi = $protocol . '://' . $host;
     </div>
     <div class="category-product2">
         <div class="category-btns-wrapper">
-            <div><button type="button" class="grey-btn">Cancelar</button></div>
+            <div><button type="button" class="grey-btn"  onclick="navigateBackwardCancel()" >Cancelar</button></div>
             <div><button type="button" class="grey-btn" id="save_public1">Guardar y salir</button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
         </div>

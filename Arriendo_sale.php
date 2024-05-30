@@ -7,7 +7,7 @@
 
   $baseUrl = getenv('URL_API'); 
   $count_detalle = 0;
-  
+  /*
   if (isset($_GET['id']) &&  $_GET['id']!== ''){
       //echo "ID RECIBIDO ". $id= $_GET['id']; 
       $url12 = $baseUrl.'/list_publications_panel_details?id='.$id;
@@ -23,7 +23,7 @@
            $count_detalle = $data['count'];
         }  
       } 
-    }  
+    }  */
 ?> 
 <div>
 
@@ -59,14 +59,22 @@
  
 
 <script>
-   var save_public = false;
+  var save_public = false;
+ var isFormValidateSeccion1 = false;
+ var isFormValidateSeccion2 = false;
+ var isFormValidateSeccion3 = false;
+ var isFormValidateSeccion4 = false;
+ var isFormValidateSeccion5 = false;
+ var selectedCurrency = 'CLP';
   const navigateBackward = () => {
     const currentStep = getCurrentStep();
     if (currentStep > 1) {
       navigateToFormStep(currentStep - 1);
     }
   };
-
+  const navigateBackwardCancel = () => { 
+      navigateToFormStep(1); 
+  };
   const getCurrentStep = () => {
     const visibleStep = document.querySelector('.form-step:not(.d-none)');
     return parseInt(visibleStep.id.split('-')[1]);
@@ -102,45 +110,75 @@
 
   document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
     formNavigationBtn.addEventListener("click", () => {
-      const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number")); 
-      if(stepNumber==2 & ($("#industria").val()=='0' || $("#id_machine").val()=='0' || $("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='' 
-          || $("#price").val()=='' || $("#region").val()=='0' || $("#city").val() == '0' || $("#anios").val() == '0' )){
-       
-        if(id_categoria=='' || $("#industria").val()=='0' || $("#id_machine").val()=='0' ){
-          $("#error-container-tipo").show();          
-        }else{
-          $("#error-container-tipo").hide();
-        }
+      const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
 
-        if($("#title").val()=='' || $("#marca").val()=='0' || $("#modelo").val()=='' || $("#anios").val() == '0'){
-          $("#error-container-title").show();
-        }else{
-          $("#error-container-title").hide();
-        }
-    
-        if( $('#price_type1').is(':checked') || $('#price_type2').is(':checked') && $("#price").val()!=''){
-          $("#error-container-price").hide();
-        }else{
-          $("#error-container-price").show();
-        }
-
-        if( $("#region").val()=='0' || $("#city").val() == '0'){
-          $("#error-container-ubicacion").show();
-        }else{
-          $("#error-container-ubicacion").hide();
-        }  
-       
-        var info = id_categoria == 1 ? 'Información de maquinaria y vehículos.' : 'Información de equipos.'
+      if (stepNumber === 2) { 
+        console.log("validando el paso  ",stepNumber)
+        console.log("validando el paso 1",isFormValidateSeccion1)
+        console.log("validando el paso 1",isFormValidateSeccion2)
+        console.log("validando el paso 1",isFormValidateSeccion3)
+        console.log("validando el paso 1",isFormValidateSeccion4)
+        console.log("validando el paso 1",isFormValidateSeccion5)
  
-        $('.text-msg-error').text('Campos requeridos faltan completar: '+info);
-        $("#error-container").show();
-       return;
+          const $errorContainerTipo = $("#error-container-tipo");
+          const $errorContainerTitle = $("#error-container-title");
+          const $errorContainerPrice = $("#error-container-price");
+          const $errorContainerUbicacion = $("#error-container-ubicacion");          
+          const $errorContainerCondicion = $("#error-container-condicion");  
+
+          if (!isFormValidateSeccion1) {
+            $errorContainerTipo.show();
+            return
+          } else {
+            $errorContainerTipo.hide();
+          }
+
+          if (!isFormValidateSeccion2) {
+            $errorContainerTitle.show();
+            return
+          } else {
+            $errorContainerTitle.hide();
+          }
+
+          if (!isFormValidateSeccion3) {
+            $errorContainerPrice.show();
+            return
+          } else {
+            $errorContainerPrice.hide();
+          }
+
+          if (!isFormValidateSeccion4) {
+            $errorContainerUbicacion.show();
+            return
+          } else {
+            $errorContainerUbicacion.hide();
+          }
+
+          if (!isFormValidateSeccion5) {
+            $errorContainerCondicion.show();
+            return
+          } else {
+            $errorContainerCondicion.hide();
+          }
+      
+      
+          var info = id_categoria == 1 ? 'Información de maquinaria y vehículos.' : 'Información de equipos.'
+  
+          $('.text-msg-error').text('Campos requeridos faltan completar: '+info);
+          $("#error-container").show();
+          console.log("se envia el paso 22222222222")
+          resumePublication(stepNumber,true);      
+         navigateToFormStep(stepNumber);
+    
       }else{
         $("#error-container").hide();
       }
+      
+      if (stepNumber === 3 && idImg > 0) {
+        resumePublication(stepNumber,true);      
+        navigateToFormStep(stepNumber);
+      }
      
-      resumePublication(stepNumber,true);      
-      navigateToFormStep(stepNumber);
     });
   });
 
@@ -160,7 +198,8 @@
  
 </script>
 <script>
-  
+
+
 $(document).ready(function() {
     console.log( "ready publication!" ); 
     var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
@@ -187,60 +226,95 @@ $(document).ready(function() {
     $(".traction-text").click(function() {
       $(".traction-text").removeClass("active_tracc");
       $(this).addClass("active_tracc");
+    }); 
+
+    //valida maquina y industria
+    var $idMachine = $("#id_machine");
+    var $industria = $("#industria");
+    var $errorContainer = $("#error-container-tipo");
+
+    function validateFieldsMaquine() { 
+      if ($idMachine.val() !== '0' && $idMachine.val() !== '' && $industria.val() !== '0' && $industria.val() !== '') {
+        $errorContainer.hide();
+        isFormValidateSeccion1 = true;
+      } else {
+        $errorContainer.show();
+        isFormValidateSeccion1 = false;
+      }
+    }
+
+    $idMachine.on('change', validateFieldsMaquine);
+    $industria.on('change', validateFieldsMaquine);
+   // fin valida maquina y industria 
+
+    //valida title y marca,modelo,anios
+    var $title = $("#title");
+    var $marca = $("#marca");
+    var $modelo = $("#modelo");
+    var $anios = $("#anios");
+    var $errorContainerTitle = $("#error-container-title");
+
+    function validateFields() {  
+      if ($title.val() !== '' && $marca.val() !== '' && $modelo.val() !== '' && $anios.val() !== '') {
+        $errorContainerTitle.hide();
+        isFormValidateSeccion2 = true;
+      } else {
+        $errorContainerTitle.show();
+        isFormValidateSeccion2 = false;
+      }
+    }
+
+    $title.add($marca).add($modelo).add($anios).on('blur', validateFields);
+  // fin valida title y marca,modelo,anios
+  
+ //valida el precio
+    var $price = $("#price");
+    var $priceType1 = $("#price_type1");
+    var $priceType2 = $("#price_type2"); 
+    var $errorContainerPrice = $("#error-container-price");
+
+    function validatePriceFields() {
+      if (($priceType1.is(':checked') || $priceType2.is(':checked')) && $price.val() !== '') {
+        $errorContainerPrice.hide();
+        isFormValidateSeccion4 = true;
+      } else {
+        $errorContainerPrice.show();
+        isFormValidateSeccion4 = false;
+      }
+    }
+
+    $price.on('keyup', validatePriceFields);
+    $priceType2.on('change', function() {
+      if ($priceType2.is(':checked')) {
+        $price.val('0');
+        isFormValidateSeccion4 = true;
+      }
     });
+    var $priceInput = $("#inputGroupSelect01Price");
 
-    $("#industria").on('change', function(event) {
-    if( $("#id_machine").val()!='0' &&  $("#industria").val()!='0' ){
-        $("#error-container-tipo").hide();
-      }else{
-        $("#error-container-tipo").show();
-      }
-    }); 
-    $("#id_machine").on('change', function(event) {
-    if( $("#id_machine").val()!='0' &&  $("#industria").val()!='0' ){
-        $("#error-container-tipo").hide();
-      }else{
-        $("#error-container-tipo").show();
-      }
-    }); 
+    $priceInput.on("change", function() {
+      selectedCurrency = $(this).val();
+      console.log("Selected currency:", selectedCurrency);
+      // Aquí puedes agregar la lógica que desees ejecutar cuando se selecciona un valor
+    });
+//fin valida precio
+  //  valida city y region 
+    var $city = $("#city");
+    var $region = $("#region");
+    var $errorContainerUbi = $("#error-container-ubicacion");
 
-    $("#anios").on('change', function(event) {
-    if( $("#title").val()!='' && $("#marca").val()!='0' &&  $("#modelo").val()!='' &&  $("#anios").val()!='0'){
-        $("#error-container-title").hide();
-      }else{
-        $("#error-container-title").show();
+    function validateLocationFields() {
+      if ($city.val() !== '0' && $city.val() !== '' && $region.val() !== '0'  && $region.val() !== '') {
+        $errorContainerUbi.hide();
+        isFormValidateSeccion3 = true;
+      } else {
+        $errorContainerUbi.show();
+        isFormValidateSeccion3 = false;
       }
-    }); 
+    }
 
-    $("#price").on('keyup', function(event) { 
-    if($('#price_type1').is(':checked') || $('#price_type2').is(':checked') && $("#price").val()!=''){
-        $("#error-container-price").hide();
-      }else{
-        $("#error-container-price").show();
-      }
-    });  
-
-    $("#price_type2").on('change', function(event) {
-     if( $('#price_type2').is(':checked') ){
-       $("#price").val('0');
-      } 
-    }); 
-
-    $("#city").on('change', function(event) {
-      if(   $("#city").val()!='0' &&  $("#region").val()!='0'){
-        $("#error-container-ubicacion").hide();
-      }else{
-        $("#error-container-ubicacion").show();
-      }
-    }); 
-    $("#region").on('change', function(event) {
-      if(   $("#city").val()!='0' &&  $("#region").val()!='0'){
-        $("#error-container-ubicacion").hide();
-      }else{
-        $("#error-container-ubicacion").show();
-      }
-    });  
- 
+  $city.add($region).on('change', validateLocationFields);
+  // fin valida city y region 
   });  
 </script>
  
@@ -249,9 +323,9 @@ $(document).ready(function() {
 const fileInput = document.getElementById('file-input');
 const imageContainer = document.getElementById('image-container');
 const uploadInputContainer = document.getElementById('upload-input-container');
-
+var idImg= 0;
 fileInput.addEventListener('change', handleImageUpload);
-  var idImg= 0;
+  
   function handleImageUpload() {
     const files = fileInput.files;
 
@@ -338,9 +412,15 @@ fileInput.addEventListener('change', handleImageUpload);
       $(".traction-text").removeClass("active_tracc"); 
       $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
     }
+    if(valor == 'Otros'){
+      $('#traction_index1').prop('disabled', false);
+    }else{
+      $('#traction_index1').val("");
+      $('#traction_index1').prop('disabled', true);
+    }
   }
  
-  var idPreview = '';
+ var idPreview = '';
  var aaa = 0;
  function resumePublication(step,save){  
     var id_product_old = '<?= isset($_GET['id']) &&  $_GET['id']!== '' ? $_GET['id'] : null; ?>';
@@ -354,13 +434,14 @@ fileInput.addEventListener('change', handleImageUpload);
       "title": $("#title").val(),
       "description":$("#descrip").val()
      };
+     console.log("publicacion1",publicacion1)
 
     publicacion2 = {   
       "id_product":id_product,
       "region":  $("#region").val(),
       "city":  $("#city").val(),
-      "price":  $("#price").val(),
-      "brand": $("#marca").text(),
+      "price": $('input[name="price_type"]:checked').val()  =='C' ? 'Cotizar' : selectedCurrency + ' '+  $("#price").val() + '',
+      "brand": $("#marca").val(),
       "model": $("#modelo").val(),
       "year": $("#anios").val(),
       "factory_code": "Factory Code",
@@ -368,17 +449,17 @@ fileInput.addEventListener('change', handleImageUpload);
       "engine_number": $("#engine_number").val() ?? '',
       "chasis_number":$("#chasis_number").val() ?? '',
       "patent": $("#patente").val() ?? '',
-      "warranty": $('input[name="rental"]:checked').val(),
+      "warranty": $('input[name="rental"]:checked').val() | 'N',
       "condition": $('input[name="flexRadioDefault"]:checked').val() ?? '',
       "owner": "",
       "delivery": $('input[name="shipping"]:checked').val() ?? '',
       "pay_now_delivery": "N",
       "facipay": $('input[name="price_type"]:checked').val() ?? '',
       "contact_me":"Contact Me" ,
-      "id_marca": $("#marca").val(),
+      "id_marca": '1',
       "id_model": '1',
     };
-
+    console.log("publicacion12",publicacion2)
     publicacion3 = {   
     "id_product": id_product,
     "weight": $("#PesoNeto").val(), 
@@ -388,11 +469,11 @@ fileInput.addEventListener('change', handleImageUpload);
     "mixed_consumption": $("#mixed_consumption").val(),   
     "transmission":$('input[name="transmission"]:checked').val(),
     "fuel": $('input[name="combustible"]:checked').val(),
-    "traction": traxion ? traxion : $("#traction_index1").val(), 
+    "traction": traxion !=='Otros' ? traxion : $("#traction_index1").val(), 
     "km_traveled": $("#KilometrosRecorridos").val(),   
     "hrs_traveled": $("#Horometro").val(), 
   };
-
+  console.log("publicacion3",publicacion3)
     publicacion4 = {  
     "id_product": id_product,
       "section_width": "",
@@ -431,20 +512,20 @@ fileInput.addEventListener('change', handleImageUpload);
       "rental_contract":  $('input[name="Machinery"]:checked').val(), 
       "rental_guarantee": $('input[name="rental"]:checked').val(), 
     }
- 
+    console.log("publicacion5",publicacion5)
   //agrega los valores en el resumen paso 3 
     if(save){
     $('.btn_2').text(categoria);
-    $('.r_marca').text(  $("#marca option:selected").text()); 
+    $('.r_marca').text( $("#marca").val()); 
     $('.r_modelo').text(  $("#modelo").val());
     $('.r_anio').text($("#anios").val());
     $('.r_condicion').text($('input[name="flexRadioDefault"]:checked').val());
     
     $('.r_km').text( $("#KilometrosRecorridos").val());
     $('.r_motor').text($("#engine_number").val() ?? '');
-    $('.r_ubicacion').text( $("#region option:selected").text());
-    $('.location-grey-text').text( $("#region option:selected").text());
-    var value =  publicacion2.facipay =='C' ? 'Cotizar' : 'CLP ' +$("#price").val() + ''
+    $('.r_ubicacion').text( $("#region option:selected").text() +' '+ $("#city option:selected").text());
+    $('.location-grey-text').text( $("#region option:selected").text() +' '+$("#city option:selected").text());
+    var value =  publicacion2.facipay =='C' ? 'Cotizar' : selectedCurrency + ' '+  $("#price").val()  + ''
     $('.r_price').text( value);
 
     $('.r_tipo_vendedor').text(categoria);
@@ -486,7 +567,7 @@ fileInput.addEventListener('change', handleImageUpload);
   }else{
     registerPublication(step);
   }
- }
+ } 
 
  function registerPublication(step_public){ 
     if(step_public <= 3 ){
@@ -775,9 +856,8 @@ function edit_publi(){
     method: 'GET',    
     success: function(res) {      
      if(!res.error){ 
-          res.data.forEach(function(element) { 
-     
-          if(element.status_id == '10') { 
+          res.data.forEach(function(element) {      
+          
             setCategory(element.id_category,element.mainCategory?.category); 
             
             $("#pills-publish1-tab").click();
@@ -790,11 +870,9 @@ function edit_publi(){
  
             $("#title").val(element.title);
             $("#descrip").val(element.description);
-
-            var selectize = $('#marca')[0].selectize;
-            selectize.setValue(element.product_details.id_marca);
-            var selectize = $('#anios')[0].selectize;
-            selectize.setValue(element.product_details.year);  
+            $("#marca").val(element.product_details.brand);
+            $("#anios").val(element.product_details.year);
+ 
 
              $("#modelo").val(element.product_details.model);
              $("#engine_number").val(element.product_details.engine_number);
@@ -822,7 +900,11 @@ function edit_publi(){
              }else{
               $("#price_type1").prop("checked", true);
              }
-             $("#price").val(element.product_details.price);
+             
+             var parts = element.product_details.price.split(" ")
+              $("#price").val(parts[1]); 
+              selectedCurrency = parts[0];
+             // $("#price").val(element.product_details.price);
 
             var selectize = $('#region')[0].selectize;
             selectize.setValue(element.product_details.region);
@@ -973,7 +1055,7 @@ function edit_publi(){
                   console.log('Error al descargar la imagen:', error);
                 });  
              }  
-          }  
+         
         })
       }
     }
