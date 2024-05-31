@@ -333,7 +333,7 @@ $(document).ready(function() {
 
     //valida title y marca,modelo,anios
     var $title5 = $("#title5");
-    var $marca5 = $("#marca5");
+    var $marca5 = $("#marca55");
     var $modelo5 = $("#modelo5");
     var $anios5 = $("#anios5");
     var $errorContainerTitle5 = $("#error-container-title5");
@@ -350,8 +350,7 @@ $(document).ready(function() {
 
     $title5.add($marca5).add($modelo5).add($anios5).on('blur', validateFields5);
   // fin valida title y marca,modelo,anios
-  
-
+   
 
   
     //valida condicion 
@@ -360,6 +359,7 @@ $(document).ready(function() {
     var $errorContainerCondicion = $("#error-container-condicion");
 
     function validateFieldsCondicion() {  
+      console.log("valida condicion ")
       if (($condicion1.is(':checked') || $condicion2.is(':checked'))) {
         $errorContainerCondicion.hide();
         isFormValidateSeccion5 = true;
@@ -370,6 +370,24 @@ $(document).ready(function() {
     }
 
     $condicion1.add($condicion2).on('change', validateFieldsCondicion);
+
+    
+    //valida condicion categoria neumatico
+    var $condicion15 = $("#flexRadioDefault15");
+    var $condicion25 = $("#flexRadioDefault25");
+    var $errorContainerCondicion5 = $("#error-container-condicion5");
+
+    function validateFieldsCondicion5() {  
+      if (($condicion15.is(':checked') || $condicion25.is(':checked'))) {
+        $errorContainerCondicion5.hide();
+        isFormValidateSeccion5 = true;
+      } else {
+        $errorContainerCondicion5.show();
+        isFormValidateSeccion5 = false;
+      }
+    }
+
+    $condicion15.add($condicion25).on('change', validateFieldsCondicion5);
   
  //valida el precio
     var $price = $("#price");  
@@ -519,7 +537,20 @@ function setTraccion(valor){
       $('#traction_index1').prop('disabled', true);
     }
  }
-
+ function setTraccion5(valor){
+    traxion = valor;  
+    console.log("bbbbbbbbbbb",valor)
+    if(valor!=''){
+      $(".traction-text").removeClass("active_tracc"); 
+      $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
+    }
+    if(valor == 'Otros'){
+      $('#traction_index').prop('disabled', false);
+    }else{
+      $('#traction_index').val("");
+      $('#traction_index').prop('disabled', true);
+    }
+ }
 var idPreview = '';
  var aaa = 0;
 function resumePublication(step,save){  
@@ -542,7 +573,7 @@ function resumePublication(step,save){
       "region": id_categoria!='3' ? $("#region").val():$("#region5").val(),
       "city": id_categoria!='3' ? $("#city").val():$("#city5").val(),
       "price": id_categoria!='3' ?  selectedCurrency + ' '+ $("#price").val(): selectedCurrency + ' '+ $("#price5").val(),  
-      "brand": id_categoria!='3' ? $("#marca").val():$("#marca5").val(),
+      "brand": id_categoria!='3' ? $("#marca").val():$("#marca55").val(),
       "model": id_categoria!='3' ? $("#modelo").val():$("#modelo5").val(),
       "year":  id_categoria!='3' ? $("#anios").val():$("#anios5").val(),
       "factory_code": "Factory Code",
@@ -604,7 +635,7 @@ function resumePublication(step,save){
   if(save){
   $('.btn_2').text(categoria); 
  
-  $('.r_marca').text( id_categoria!='3' ? $("#marca").val(): $("#marca5").val()); 
+  $('.r_marca').text( id_categoria!='3' ? $("#marca").val(): $("#marca55").val()); 
   $('.r_modelo').text(  id_categoria!='3' ? $("#modelo").val(): $("#modelo5").val());
   $('.r_anio').text( publicacion2.year);
   $('.r_condicion').text(publicacion2.condition);
@@ -949,7 +980,7 @@ $.ajax({
             $(descripSelector).val(element.description);
 
             if (element.id_category == 3) {       
-              $("#marca5").val(element.product_details.brand);         
+              $("#marca55").val(element.product_details.brand);         
               $("#anios5").val(element.product_details.year);  
                 $("#modelo5").val(element.product_details.model);
               

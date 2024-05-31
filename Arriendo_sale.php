@@ -316,6 +316,24 @@ $(document).ready(function() {
   $city.add($region).on('change', validateLocationFields);
   // fin valida city y region 
   });  
+
+  
+    //valida condicion 
+    var $condicion1 = $("#flexRadioDefault1");
+    var $condicion2 = $("#flexRadioDefault2");
+    var $errorContainerCondicion = $("#error-container-condicion");
+
+    function validateFieldsCondicion() {  
+      if (($condicion1.is(':checked') || $condicion2.is(':checked'))) {
+        $errorContainerCondicion.hide();
+        isFormValidateSeccion5 = true;
+      } else {
+        $errorContainerCondicion.show();
+        isFormValidateSeccion5 = false;
+      }
+    }
+
+    $condicion1.add($condicion2).on('change', validateFieldsCondicion);
 </script>
  
 <script>

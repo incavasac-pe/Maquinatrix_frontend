@@ -24,24 +24,154 @@ $url_publi = $protocol . '://' . $host;
     } 
     
       
-   $count_marca5 = 0;
-   $url965 = $baseUrl.'/list_marca'; 
-   $response965= file_get_contents($url965);
-   if ($response965 !== false) {
-      // Decodificar la respuesta JSON
-      $data = json_decode($response965, true);
-      if (!$data['error']) {
-          // Obtener la lista de $categories
-          $marca5 = $data['data'];
-
-          $count_marca5 = $data['count'];
-      } else {
-          echo 'Error: ' . $data['msg'];
-      }
-   } else {
-       echo 'Error al realizar la solicitud a la API';
-   }
-    ?>
+   $count_marca5 = 1;
+  
+   $marcas55 = array(
+    array(
+        "id_marca" => 1,
+        "id_product_type" => 1,
+        "description" => "Samson",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 2,
+        "id_product_type" => 1,
+        "description" => "Triangle",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 3,
+        "id_product_type" => 1,
+        "description" => "Ling Long",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 4,
+        "id_product_type" => 1,
+        "description" => "Chaoyang",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 5,
+        "id_product_type" => 1,
+        "description" => "Honour",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 6,
+        "id_product_type" => 1,
+        "description" => "Aventus",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 7,
+        "id_product_type" => 1,
+        "description" => "Continental",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 8,
+        "id_product_type" => 1,
+        "description" => "Dunlop",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 9,
+        "id_product_type" => 1,
+        "description" => "Goodyear",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 10,
+        "id_product_type" => 1,
+        "description" => "Bridgestone",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 11,
+        "id_product_type" => 1,
+        "description" => "Vredestein",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 12,
+        "id_product_type" => 1,
+        "description" => "Esa-Tecar",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 13,
+        "id_product_type" => 1,
+        "description" => "Pirelli",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 14,
+        "id_product_type" => 1,
+        "description" => "Michelin",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 15,
+        "id_product_type" => 1,
+        "description" => "Nokian",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 16,
+        "id_product_type" => 1,
+        "description" => "Falken",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 17,
+        "id_product_type" => 1,
+        "description" => "Hankook",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 18,
+        "id_product_type" => 1,
+        "description" => "Semperit",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 19,
+        "id_product_type" => 1,
+        "description" => "Barum",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 20,
+        "id_product_type" => 1,
+        "description" => "Toyo",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 21,
+        "id_product_type" => 1,
+        "description" => "Kumho",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 22,
+        "id_product_type" => 1,
+        "description" => "Apollo",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 23,
+        "id_product_type" => 1,
+        "description" => "Firestone",
+        "status_id" => 1
+    ),
+    array(
+        "id_marca" => 24,
+        "id_product_type" => 1,
+        "description" => "Fulda",
+        "status_id" => 1
+    )
+);    ?>
 <div class="container">
     <div class="category-product">
         <h1>Título y descripción de publicación</h1>
@@ -58,14 +188,14 @@ $url_publi = $protocol . '://' . $host;
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
             <div class="mb-3"> 
-                <label for="marca" class="form-label">Marca55*</label>
-                <input class="form-control" autocomplete="off" list="datalistOptions" id="marca5" placeholder="">
+                <label for="marca55" class="form-label">Marca55*</label>
+                <input class="form-control" autocomplete="off" list="datalistOptions11" id="marca55" placeholder="">
                     <?php  
                     if ($count_marca5 > 0) { 
-                        echo '<datalist id="datalistOptions">'; 
-                        foreach ($marca5 as $field) { 
-                            $marcaName = $field['description'];
-                            echo '<option value="' . $marcaName . '">';  
+                        echo '<datalist id="datalistOptions11">'; 
+                        foreach ($marcas55 as $field) { 
+                            $marcaName5 = $field['description'];
+                            echo '<option value="' . $marcaName5 . '">';  
                         }
                         echo '</datalist>'; 
                         }  ?>    
@@ -79,7 +209,7 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
             <div class="mb-3">  
-            <label for="anios" class="form-label">Año*</label>
+            <label for="anios5" class="form-label">Año*</label>
             <input class="form-control" autocomplete="off" list="datalistOptionsA5" id="anios5" placeholder="">
                 <?php  
                     $anioActual = date("Y");  
@@ -207,14 +337,14 @@ $url_publi = $protocol . '://' . $host;
         <p class="sm-title">Tracción</p>
         <div class="traction-wrapper">
             <div class="traction-left-section">
-                <div class="traction-text" onclick="setTraccion('Direccional')">Direccional</div>
-                <div class="traction-text" onclick="setTraccion('Transicional')">Transicional</div>
-                <div class="traction-text" onclick="setTraccion('Mixto')">Mixto</div>
-                <div class="traction-text" onclick="setTraccion('O')">Otros</div>
+                <div class="traction-text" onclick="setTraccion5('Direccional')">Direccional</div>
+                <div class="traction-text" onclick="setTraccion5('Transicional')">Transicional</div>
+                <div class="traction-text" onclick="setTraccion5('Mixto')">Mixto</div>
+                <div class="traction-text" onclick="setTraccion5('Otros')">Otros</div>
                
             </div>
             <div class="traction-right-section">
-                <input class="traction-btn" placeholder="Escribir otro " id="traction_index" name="traction_index"/>
+                <input class="traction-btn" disabled placeholder="Escribir otro " id="traction_index" name="traction_index"/>
             </div>
         </div>
         <p class="sm-title" style="margin-top: 55px;">Diseño de la banda de rodadura</p>
@@ -280,6 +410,13 @@ $url_publi = $protocol . '://' . $host;
                 Usado
             </label>
         </div>
+        <div class="warning-wrapper" id="error-container-condicion5">
+             <i class="fa-solid fa-circle-exclamation"></i>
+            <div>
+                <p class="error-heading">Campos faltan completar</p>
+                <p class="sm-text">Campos requeridos faltan completar: CONDICIÓN DEL PRODUCTO.</p>
+            </div>
+      </div>
        
     </div>
     <div class="category-product">
@@ -334,16 +471,20 @@ $url_publi = $protocol . '://' . $host;
         <h1>Precio</h1>
         <p class="sm-title">Ingresa los precios</p>
         <div class="kilometer" style="margin-right:20px !important;">
-            <div class="input-group " id="km_input" style="width: 273px;">
-                <input type="number" class="form-control input-control-price" placeholder="En pesos*"
-                name="price5"  id="price5">            
-            </div>
-            <div class="warning-wrapper" id="error-container-price5">
+        <div class="input-group mb-3"  id="km_input" style="width: 403px;"> 
+                <input type="text" for="inputGroupSelect01Price" class="form-control input-control-price"
+                        name="price5"  id="price5">
+                <select class="form-select" id="inputGroupSelect01Price"> 
+                    <option value="CLP">CLP</option>
+                    <option value="USD">USD</option> 
+                </select>
+            </div> 
+        </div>
+        <div class="warning-wrapper" id="error-container-price5">
                 <i class="fa-solid fa-circle-exclamation"></i> 
-                <div>
-                    <p class="error-heading">Campos faltan completar</p>
-                    <p class="sm-text">Campos requeridos faltan completar: PRECIO.</p>
-                </div>
+            <div>
+                <p class="error-heading">Campos faltan completar</p>
+                <p class="sm-text">Campos requeridos faltan completar: Precio.</p>
             </div>
         </div>
     </div>
@@ -366,21 +507,10 @@ $url_publi = $protocol . '://' . $host;
                 </div>
             </div>
            
-                <div class="warning-wrapper" id="error-container-desp5">
-                <i class="fa-solid fa-circle-exclamation"></i> 
-                <div>
-                    <p class="error-heading">Campos faltan completar</p>
-                    <p class="sm-text">Campos requeridos faltan completar: Despacho incluido.</p>
-                </div>
-        </div>
+             
         </div>
     </div>
-    <div class="error-container hidden">
-        <i class="fa-solid fa-circle-xmark"></i>
-        <div> 
-            <p class="sm-text">Campos requeridos faltan completar </p>
-        </div>
-    </div>
+ 
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn"  onclick="navigateBackwardCancel()" >Cancelar</button></div>
