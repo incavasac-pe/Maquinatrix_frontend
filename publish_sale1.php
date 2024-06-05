@@ -294,7 +294,7 @@ $url_publi = $protocol . '://' . $host;
         <h1>Precio</h1>
         <p class="sm-title">Ingresa los precios</p>
         <div class="kilometer" style="margin-right:20px !important;">
-        <div class="input-group mb-3"  id="km_input" style="width: 403px;"> 
+        <div class="input-group mb-3"  id="price" style="width: 403px;"> 
                 <input type="text" for="inputGroupSelect01Price" class="form-control input-control-price"
                         name="price"  id="price">
                 <select class="form-select" id="inputGroupSelect01Price"> 

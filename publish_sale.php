@@ -43,6 +43,11 @@
   var isFormValidateSeccion3 = false;
   var isFormValidateSeccion4 = false;
   var isFormValidateSeccion5 = false;
+ 
+  var isFormValidateSeccion25 = false;
+  var isFormValidateSeccion35 = false;
+  var isFormValidateSeccion45 = false;
+  var isFormValidateSeccion55 = false;
   var selectedCurrency = 'CLP';
 
   const navigateBackward = () => {
@@ -94,6 +99,18 @@
       const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
       console.log("*****stepNumber***",stepNumber) 
       if (stepNumber === 2) { 
+        
+        const $errorContainerTipo = $("#error-container-tipo");        
+        if (!isFormValidateSeccion1) {
+          $errorContainerTipo.show();
+          return
+        } else {
+         $errorContainerTipo.hide();
+        }
+
+        if(id_categoria !== 3){
+
+        console.log("categorua es",id_categoria)
         console.log("validando el paso  ",stepNumber)
         console.log("validando el paso 1",isFormValidateSeccion1)
         console.log("validando el paso 1",isFormValidateSeccion2)
@@ -101,24 +118,12 @@
         console.log("validando el paso 1",isFormValidateSeccion4)
         console.log("validando el paso 1",isFormValidateSeccion5)
         
-           const $errorContainerTipo = $("#error-container-tipo");
-          const $errorContainerTitle5 = $("#error-container-title5");
-          const $errorContainerTitle = $("#error-container-title");
-          const $errorContainerPrice = $("#error-container-price");
-          const $errorContainerUbicacion = $("#error-container-ubicacion");
-
-          const $errorContainerPrice5 = $("#error-container-price5");
-          const $errorContainerUbicacion5 = $("#error-container-ubicacion5");
-
-          const $errorContainerCondicion = $("#error-container-condicion");  
-
+        const $errorContainerTitle = $("#error-container-title");
+        const $errorContainerPrice = $("#error-container-price");
+        const $errorContainerUbicacion = $("#error-container-ubicacion"); 
+        const $errorContainerCondicion = $("#error-container-condicion");  
         
-        if (!isFormValidateSeccion1) {
-            $errorContainerTipo.show();
-            return
-          } else {
-            $errorContainerTipo.hide();
-          }
+        
 
           if (!isFormValidateSeccion2) {
             $errorContainerTitle.show();
@@ -147,6 +152,45 @@
           } else {
             $errorContainerCondicion.hide();
           }
+        
+        }else{
+          console.log("categorua es xxxxxxxxxxxxxxxxxxxx",id_categoria)
+        const $errorContainerTitle5 = $("#error-container-title5");
+        const $errorContainerPrice5 = $("#error-container-price5");
+        const $errorContainerUbicacion5 = $("#error-container-ubicacion5");
+        const $errorContainerCondicion5 = $("#error-container-condicion5");  
+
+         
+
+          if (!isFormValidateSeccion25) {
+            $errorContainerTitle5.show();
+            return
+          } else {
+            $errorContainerTitle5.hide();
+          }
+
+          if (!isFormValidateSeccion35) {
+            $errorContainerPrice5.show();
+            return
+          } else {
+            $errorContainerPrice5.hide();
+          }
+
+          if (!isFormValidateSeccion45) {
+            $errorContainerUbicacion5.show();
+            return
+          } else {
+            $errorContainerUbicacion5.hide();
+          }
+
+          if (!isFormValidateSeccion55) {
+            $errorContainerCondicion5.show();
+            return
+          } else {
+            $errorContainerCondicion5.hide();
+          }
+        
+        }
 
           console.log("se envia el paso 444444444444")
           resumePublication(stepNumber,true);      
@@ -341,10 +385,10 @@ $(document).ready(function() {
     function validateFields5() {  
       if ($title5.val() !== '' && $marca5.val() !== '' && $modelo5.val() !== '' && $anios5.val() !== '') {
         $errorContainerTitle5.hide();
-        isFormValidateSeccion2 = true;
+        isFormValidateSeccion25 = true;
       } else {
         $errorContainerTitle5.show();
-        isFormValidateSeccion2 = false;
+        isFormValidateSeccion25 = false;
       }
     }
 
@@ -375,15 +419,15 @@ $(document).ready(function() {
     //valida condicion categoria neumatico
     var $condicion15 = $("#flexRadioDefault15");
     var $condicion25 = $("#flexRadioDefault25");
-    var $errorContainerCondicion5 = $("#error-container-condicion5");
+    var $errorContainerCondicion55 = $("#error-container-condicion5");
 
     function validateFieldsCondicion5() {  
       if (($condicion15.is(':checked') || $condicion25.is(':checked'))) {
-        $errorContainerCondicion5.hide();
-        isFormValidateSeccion5 = true;
+        $errorContainerCondicion55.hide();
+        isFormValidateSeccion55 = true;
       } else {
-        $errorContainerCondicion5.show();
-        isFormValidateSeccion5 = false;
+        $errorContainerCondicion55.show();
+        isFormValidateSeccion55 = false;
       }
     }
 
@@ -392,7 +436,7 @@ $(document).ready(function() {
  //valida el precio
     var $price = $("#price");  
     var $errorContainerPrice = $("#error-container-price");
-
+console.log("pricepricepriceprice",$price.val())
     function validatePriceFields() {
       if ( $price.val() !== '') {
         $errorContainerPrice.hide();
@@ -412,16 +456,18 @@ $(document).ready(function() {
       console.log("Selected currency:", selectedCurrency);
       // Aquí puedes agregar la lógica que desees ejecutar cuando se selecciona un valor
     });
+
+
 //fin valida precio
  
 
     $("#price5").on('keyup', function(event) { 
     if( $("#price5").val()!=''){
         $("#error-container-price5").hide();
-        isFormValidateSeccion4 = true;
+        isFormValidateSeccion45 = true;
       }else{
         $("#error-container-price5").show();
-        isFormValidateSeccion4 = false;
+        isFormValidateSeccion45 = false;
       }
     });
  
@@ -451,10 +497,10 @@ $(document).ready(function() {
     function validateLocationFields5() {
       if ($city5.val() !== '0' && $city5.val() !== '' && $region5.val() !== '0'  && $region5.val() !== '') {
         $errorContainerUbi5.hide();
-        isFormValidateSeccion3 = true;
+        isFormValidateSeccion35 = true;
       } else {
         $errorContainerUbi5.show();
-        isFormValidateSeccion3 = false;
+        isFormValidateSeccion35 = false;
       }
     }
 

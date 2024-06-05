@@ -204,7 +204,7 @@ $url_publi = $protocol . '://' . $host;
             <div class="col-sm-6 col-md-6 col-lg-6">
             <div class="mb-3">
             <label for="exampleDataList" class="form-label">Modelo*</label>
-                <input type="text" class="form-control" id="modelo" name="modelo" placeholder=""/>
+                <input type="text" class="form-control" id="modelo5" name="modelo5" placeholder=""/>
             </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
@@ -236,22 +236,22 @@ $url_publi = $protocol . '://' . $host;
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="section_width" name="section_width"  placeholder="Ancho de sección**">
+                    <input type="text" class="form-control" id="section_width" name="section_width"  placeholder="Ancho de sección**">
                      </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="aspect_ratio" name="aspect_ratio" placeholder="Relación de Aspecto*"> 
+                    <input type="text" class="form-control" id="aspect_ratio" name="aspect_ratio" placeholder="Relación de Aspecto*"> 
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="rim_diameter"  name="rim_diameter" placeholder="Diámetro de la llanta*">
+                    <input type="text" class="form-control" id="rim_diameter"  name="rim_diameter" placeholder="Diámetro de la llanta*">
                </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="extern_diameter" name="extern_diameter" placeholder="Diámetro externo*">
+                    <input type="text" class="form-control" id="extern_diameter" name="extern_diameter" placeholder="Diámetro externo*">
                  </div>
             </div>
            
@@ -269,42 +269,42 @@ $url_publi = $protocol . '://' . $host;
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="load_index" name="load_index" placeholder="Índice de carga*">
+                    <input type="text" class="form-control" id="load_index" name="load_index" placeholder="Índice de carga*">
                </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="speed_index" name="speed_index" placeholder="Índice de velocidad*">
+                    <input type="text" class="form-control" id="speed_index" name="speed_index" placeholder="Índice de velocidad*">
                    </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="maximum_load" name="maximum_load" placeholder="Carga máxima">
+                    <input type="text" class="form-control" id="maximum_load" name="maximum_load" placeholder="Carga máxima">
                  </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="maximum_speed" name="maximum_speed" placeholder="Velocidad máxima">
+                    <input type="text" class="form-control" id="maximum_speed" name="maximum_speed" placeholder="Velocidad máxima">
             </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="utqg" name="utqg" placeholder="UTQG">  
+                    <input type="text" class="form-control" id="utqg" name="utqg" placeholder="UTQG">  
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="wear_rate" name="wear_rate" placeholder="Índice de desgaste">
+                    <input type="text" class="form-control" id="wear_rate" name="wear_rate" placeholder="Índice de desgaste">
                </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="traction_index" name="traction_index" placeholder="Índice de tracción">
+                    <input type="text" class="form-control" id="traction_index" name="traction_index" placeholder="Índice de tracción">
               </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="number" class="form-control" id="temperature_index"  name="temperature_index" placeholder="Índice de temperatura">
+                    <input type="text" class="form-control" id="temperature_index"  name="temperature_index" placeholder="Índice de temperatura">
            </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
@@ -471,10 +471,10 @@ $url_publi = $protocol . '://' . $host;
         <h1>Precio</h1>
         <p class="sm-title">Ingresa los precios</p>
         <div class="kilometer" style="margin-right:20px !important;">
-        <div class="input-group mb-3"  id="km_input" style="width: 403px;"> 
-                <input type="text" for="inputGroupSelect01Price" class="form-control input-control-price"
+        <div class="input-group mb-3"  id="price5" style="width: 403px;"> 
+                <input type="text" for="inputGroupSelect01Price5" class="form-control input-control-price"
                         name="price5"  id="price5">
-                <select class="form-select" id="inputGroupSelect01Price"> 
+                <select class="form-select" id="inputGroupSelect01Price5"> 
                     <option value="CLP">CLP</option>
                     <option value="USD">USD</option> 
                 </select>
