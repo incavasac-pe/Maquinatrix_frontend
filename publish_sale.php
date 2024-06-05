@@ -28,20 +28,15 @@
     </form>
   </div>
 </div>
-<?php include 'footer.php' ?>
-<script>
-  document.getElementById('Cancelar_continue-btn').addEventListener('click', function () {
-    var formData = $('#userAccountSetupForm').serialize(); 
-  });
-</script> 
+<?php include 'footer.php' ?> 
 
 
 <script>
   var save_public = false;
   var isFormValidateSeccion1 = false;
   var isFormValidateSeccion2 = false;
-  var isFormValidateSeccion3 = false;
-  var isFormValidateSeccion4 = false;
+  var isFormValidateSeccion3 = false;//precio
+  var isFormValidateSeccion4 = false;//ubicacion
   var isFormValidateSeccion5 = false;
  
   var isFormValidateSeccion25 = false;
@@ -339,8 +334,7 @@ $(document).ready(function() {
     var $industria = $("#industria");
     var $errorContainer = $("#error-container-tipo-cc");
 
-    function validateFieldsMaquine() {
-      console.log("aaaaaaaaaaaaa")
+    function validateFieldsMaquine() { 
       if ($idMachine.val() !== '0' && $idMachine.val() !== '' && $industria.val() !== '0' && $industria.val() !== '') {
         $errorContainer.hide();
         isFormValidateSeccion1 = true;
@@ -432,18 +426,18 @@ $(document).ready(function() {
     }
 
     $condicion15.add($condicion25).on('change', validateFieldsCondicion5);
-  
- //valida el precio
-    var $price = $("#price");  
+   
+      //valida el precio
+    var $price = $("#price"); 
     var $errorContainerPrice = $("#error-container-price");
-console.log("pricepricepriceprice",$price.val())
+
     function validatePriceFields() {
       if ( $price.val() !== '') {
         $errorContainerPrice.hide();
-        isFormValidateSeccion4 = true;
+        isFormValidateSeccion3 = true;
       } else {
         $errorContainerPrice.show();
-        isFormValidateSeccion4 = false;
+        isFormValidateSeccion3 = false;
       }
     }
 
@@ -456,18 +450,17 @@ console.log("pricepricepriceprice",$price.val())
       console.log("Selected currency:", selectedCurrency);
       // Aquí puedes agregar la lógica que desees ejecutar cuando se selecciona un valor
     });
-
-
+ 
 //fin valida precio
  
 
     $("#price5").on('keyup', function(event) { 
     if( $("#price5").val()!=''){
         $("#error-container-price5").hide();
-        isFormValidateSeccion45 = true;
+        isFormValidateSeccion35 = true;
       }else{
         $("#error-container-price5").show();
-        isFormValidateSeccion45 = false;
+        isFormValidateSeccion35 = false;
       }
     });
  
@@ -479,10 +472,10 @@ console.log("pricepricepriceprice",$price.val())
     function validateLocationFields() {
       if ($city.val() !== '0' && $city.val() !== '' && $region.val() !== '0'  && $region.val() !== '') {
         $errorContainerUbi.hide();
-        isFormValidateSeccion3 = true;
+        isFormValidateSeccion4 = true;
       } else {
         $errorContainerUbi.show();
-        isFormValidateSeccion3 = false;
+        isFormValidateSeccion4 = false;
       }
     }
 
@@ -497,10 +490,10 @@ console.log("pricepricepriceprice",$price.val())
     function validateLocationFields5() {
       if ($city5.val() !== '0' && $city5.val() !== '' && $region5.val() !== '0'  && $region5.val() !== '') {
         $errorContainerUbi5.hide();
-        isFormValidateSeccion35 = true;
+        isFormValidateSeccion45 = true;
       } else {
         $errorContainerUbi5.show();
-        isFormValidateSeccion35 = false;
+        isFormValidateSeccion45 = false;
       }
     }
 
@@ -693,7 +686,7 @@ function resumePublication(step,save){
   $('.location-grey-text').text( publicacion2.region);
 
   var value =  publicacion2.facipay =='C' ? 'Cotizar' :  publicacion2.price  + ''
-    $('.r_price').text( value);
+    $('.r_price').text(value);
  
 
   $('.r_tipo_vendedor').text(categoria); 
@@ -997,8 +990,7 @@ $.ajax({
   method: 'GET',    
   success: function(res) {      
    if(!res.error){ 
-        res.data.forEach(function(element) { 
-       // if(element.status_id != '10') {  
+        res.data.forEach(function(element) {  
           setCategorySale(element.id_category,element.mainCategory?.category); 
           if(element.id_category==3){
             $("#pills-publish3-tab").click();
@@ -1011,6 +1003,9 @@ $.ajax({
           selectize.setValue(element.id_product_type);
           var selectize = $('#id_machine')[0].selectize;
           selectize.setValue(element.id_machine);
+          var $errorContainer = $("#error-container-tipo-cc");
+          $errorContainer.hide();
+          isFormValidateSeccion1 = true;
 
           var titleSelector, descripSelector;
 
@@ -1028,19 +1023,34 @@ $.ajax({
             if (element.id_category == 3) {       
               $("#marca55").val(element.product_details.brand);         
               $("#anios5").val(element.product_details.year);  
-                $("#modelo5").val(element.product_details.model);
-              
-                var parts = element.product_details.price.split(" ")
+              $("#modelo5").val(element.product_details.model);
+              var $errorContainerTitle5 = $("#error-container-title5");
+              $errorContainerTitle5.hide();
+              isFormValidateSeccion25 = true;
+ 
+
+                var parts = element.product_details.price.split(" ");
                 console.log("el precio es ",parts[0])
                 $("#price5").val(parts[1]);
-                selectedCurrency = parts[0];
+                selectedCurrency = parts[0] =='CLP' || parts[0] =='USD' ? parts[0] : 'CLP' ;
+
+ 
             } else {
               $("#marca").val(element.product_details.brand);
               $("#anios").val(element.product_details.year);
               $("#modelo").val(element.product_details.model);
-              var parts = element.product_details.price.split(" ")
-              $("#price").val(parts[1]); 
-              selectedCurrency = parts[0];
+              var $errorContainerTitle = $("#error-container-title");
+              $errorContainerTitle.hide();
+              isFormValidateSeccion2 = true;
+             
+              var parts = element.product_details.price.split(" ");
+              console.log("aaaaaaaaaaaaaaaaaaaa",parts)
+              var $errorContainerPrice = $("#error-container-price"); 
+    
+              $("#price").val(element.product_details.price); 
+              selectedCurrency = parts[0] =='CLP' || parts[0] =='USD' ? parts[0] : 'CLP' ;
+              $errorContainerPrice.hide();
+              isFormValidateSeccion3 = true;
             }
 
            
@@ -1056,12 +1066,18 @@ $.ajax({
            $("#mixed_consumption").val(element.product_technical_characteristics?.mixed_consumption);
                 
            if (element.id_category == 3) {  
+            var $errorContainerCondicion55 = $("#error-container-condicion5");
+            $errorContainerCondicion55.hide();
+            isFormValidateSeccion55 = true;
               if(element.product_details.condition == 'Nuevo'){
                 $("#flexRadioDefault15").prop("checked", true);
               }else{
                 $("#flexRadioDefault25").prop("checked", true);
               }
             }else{
+              var $errorContainerCondicion = $("#error-container-condicion");
+              $errorContainerCondicion.hide();
+              isFormValidateSeccion5 = true;
               if(element.product_details.condition == 'Nuevo'){
                 $("#flexRadioDefault1").prop("checked", true);
               }else{
@@ -1079,11 +1095,18 @@ $.ajax({
               selectize.setValue(element.product_details.region);
               var selectize = $('#city5')[0].selectize;
               selectize.setValue(element.product_details.city);
+
+              var $errorContainerUbi5 = $("#error-container-ubicacion5");
+              $errorContainerUbi5.hide();
+              isFormValidateSeccion45 = true;
            }else{
               var selectize = $('#region')[0].selectize;
               selectize.setValue(element.product_details.region);
               var selectize = $('#city')[0].selectize;
               selectize.setValue(element.product_details.city);
+              var $errorContainerUbi = $("#error-container-ubicacion");
+              $errorContainerUbi.hide();
+             isFormValidateSeccion4 = true;
            }
            if (element.id_category == 3) {  
             if(element.product_details.delivery == 'Y'){  
@@ -1158,7 +1181,7 @@ $.ajax({
 
   //step 2 imagen edit
     const imageContainer = document.getElementById('image-container');
-  const uploadInputContainer = document.getElementById('upload-input-container');
+    const uploadInputContainer = document.getElementById('upload-input-container');
 
 
 // Calculate the index to insert the new image container

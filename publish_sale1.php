@@ -117,7 +117,7 @@ $url_publi = $protocol . '://' . $host;
             </div>
     </div>
     <div class="category-product">
-        <h1 id="category-product">Características Técnicas</h1>
+    <h1>Especificaciones</h1>
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
@@ -221,7 +221,7 @@ $url_publi = $protocol . '://' . $host;
         <div class="kilometer-box-wrapper" id="kilometer-box-wrapper">
             <div class="kilometer" style="margin-right:20px !important;">
                 <div class="input-group" id="km_input">
-                    <input type="number" class="form-control input-control-km" placeholder="Kilometros recorridos"
+                    <input type="text" class="form-control input-control-km" placeholder="Kilometros recorridos"
                     name="KilometrosRecorridos"   id="KilometrosRecorridos">
                     <div class="input-group-addon-km">
                         Km.
@@ -232,7 +232,7 @@ $url_publi = $protocol . '://' . $host;
 
             <div class="hourometer">
                 <div class="input-group" id="km_input">
-                    <input type="number" class="form-control input-control-km" placeholder="Horómetro"  name="Horometro" id="Horometro">
+                    <input type="text" class="form-control input-control-km" placeholder="Horómetro"  name="Horometro" id="Horometro">
                     <div class="input-group-addon-km">
                         Hrs.
                     </div>
@@ -293,16 +293,14 @@ $url_publi = $protocol . '://' . $host;
     <div class="category-product">
         <h1>Precio</h1>
         <p class="sm-title">Ingresa los precios</p>
-        <div class="kilometer" style="margin-right:20px !important;">
-        <div class="input-group mb-3"  id="price" style="width: 403px;"> 
+        <div class="input-group mb-3"  id="km_input" style="width: 403px;"> 
                 <input type="text" for="inputGroupSelect01Price" class="form-control input-control-price"
                         name="price"  id="price">
                 <select class="form-select" id="inputGroupSelect01Price"> 
                     <option value="CLP">CLP</option>
                     <option value="USD">USD</option> 
                 </select>
-            </div> 
-        </div>
+            </div>
         <div class="warning-wrapper" id="error-container-price">
                 <i class="fa-solid fa-circle-exclamation"></i> 
             <div>
