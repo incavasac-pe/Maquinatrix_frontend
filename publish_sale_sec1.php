@@ -219,7 +219,7 @@
 
 
   if (id_categoria==4 || id_categoria==2 ) {
-     $('#factory_code').prop('type', 'number'); 
+     $('#factory_code').prop('type', 'text'); 
   }
 
   
