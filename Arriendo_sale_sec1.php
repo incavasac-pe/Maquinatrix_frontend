@@ -247,33 +247,48 @@ $url_publi = $protocol . '://' . $host;
                             <h1>Características Técnicas</h1>
                             <div class="row">
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" id="PesoNeto"  name="PesoNeto" placeholder="Peso Neto">
+                                    <div class="input-group mb-3"   style="width: 450px;"> 
+                                        <input  style="width: 270px;" type="text" class="form-control" id="PesoNeto"  name="PesoNeto" placeholder="Peso Neto">
+                                        <select class="form-select" id="inputGroupSelectPeso"> 
+                                            <option value="Tonelada">Tonelada</option>
+                                            <option value="Kilogramos">Kilogramos</option> 
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" name="Potencia"  id="Potencia" placeholder="Potencia">
-
-                                    </div>
+                                <div class="input-group mb-3"   style="width: 450px;"> 
+                                <input  style="width: 270px;" type="text" class="form-control" name="Potencia"  id="Potencia" placeholder="Potencia">
+                                    <select class="form-select" id="inputGroupSelectPotencia"> 
+                                        <option value="HP">HP</option>
+                                        <option value="kW">kW</option> 
+                                        <option value="CV">CV</option> 
+                                    </select>
+                                </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control"  name="Cilindrada"  id="Cilindrada" placeholder="Cilindrada (CC)">
-
+                                <div class="input-group mb-3"   style="width: 450px;"> 
+                                    <input  style="width: 270px;" type="text" class="form-control" name="Cilindrada"  id="Cilindrada" placeholder="Cilindrada (CC)">
+                                        <select class="form-select" id="inputGroupSelectCilindrada"> 
+                                            <option value="CC" selected>CC</option> 
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" id="Torque"  name="Torque"  placeholder="Torque (NM)">
-
-                                    </div>
+                                <div class="input-group mb-3"   style="width: 450px;"> 
+                                <input  style="width: 270px;" type="text" class="form-control" id="Torque"  name="Torque"  placeholder="Torque (NM)">
+                                    <select class="form-select" id="inputGroupSelectTorque"> 
+                                        <option value="NM" selected>NM</option> 
+                                    </select>
+                                </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" id="mixed_consumption" name="mixed_consumption"  placeholder="Consumo Mixto">
-
+                                <div class="input-group mb-3"   style="width: 450px;"> 
+                                    <input style="width: 270px;" type="text" class="form-control" id="mixed_consumption" name="mixed_consumption"  placeholder="Consumo Mixto">
+                                        <select class="form-select" id="inputGroupSelectConsumo"> 
+                                            <option value="km/L" selected>km/L</option> 
+                                            <option value="l/h" selected>l/h</option> 
+                                        </select>
                                     </div>
                                 </div>
                             </div>

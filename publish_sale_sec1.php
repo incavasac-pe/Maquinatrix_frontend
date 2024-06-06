@@ -195,10 +195,12 @@
 
   if (id_categoria==1 || id_categoria==2) {
     $('.engine_number, .chasis_number, .patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').show(); 
+    $('#inputGroupSelectPeso,#inputGroupSelectPotencia,#inputGroupSelectCilindrada,#inputGroupSelectTorque,#inputGroupSelectConsumo').show(); 
     $('#title-transmission,#t-transmission,#t-tranx').show(); 
   }else{
     
     $('.engine_number, .chasis_number, .patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').hide(); 
+    $('#inputGroupSelectPeso,#inputGroupSelectPotencia,#inputGroupSelectCilindrada,#inputGroupSelectTorque,#inputGroupSelectConsumo').hide(); 
     $('#title-transmission,#t-transmission,#t-tranx').hide(); // Ocultar los elementos de entrada// Ocultar los elementos de entrada
   }
 

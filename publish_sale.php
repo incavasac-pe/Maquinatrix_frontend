@@ -633,18 +633,18 @@ function resumePublication(step,save){
 
     publicacion3 = {   
     "id_product": id_product,
-    "weight": $("#PesoNeto").val(), 
-    "power": $("#Potencia").val(), 
-    "displacement": $("#Cilindrada").val(),
-    "torque":  $("#Torque").val(), 
-    "mixed_consumption": $("#mixed_consumption").val(),   
+    "weight": $("#PesoNeto").val() + ' '+ $("#inputGroupSelectPeso").val() , 
+    "power": $("#Potencia").val() + ' '+ $("#inputGroupSelectPotencia").val() , 
+    "displacement": $("#Cilindrada").val() + ' '+ $("#inputGroupSelectCilindrada").val() , 
+    "torque":  $("#Torque").val() + ' '+ $("#inputGroupSelectTorque").val() ,  
+    "mixed_consumption": $("#mixed_consumption").val() + ' '+ $("#inputGroupSelectConsumo").val() , 
     "transmission": $('input[name="transmission"]:checked').val(),
     "fuel": $('input[name="combustible"]:checked').val(),
     "traction": $("#traction_index1").val(), 
     "km_traveled": $("#KilometrosRecorridos").val(),   
     "hrs_traveled": $("#Horometro").val(), 
   };
-
+console.log("publicacion4",publicacion3);
     publicacion4 = {  
     "id_product": id_product,
       "section_width":  $("#section_width").val(), 
@@ -1029,11 +1029,11 @@ $.ajax({
               isFormValidateSeccion25 = true;
  
 
-                var parts = element.product_details.price.split(" ");
-                console.log("el precio es ",parts[0])
+                var parts = element.product_details.price.split(" "); 
                 $("#price5").val(parts[1]);
-                selectedCurrency = parts[0] =='CLP' || parts[0] =='USD' ? parts[0] : 'CLP' ;
-
+                  selectedCurrency = parts[0] =='CLP' || parts[0] =='USD' ? parts[0] : 'CLP' ;
+              // Seleccionamos el elemento <option> correspondiente
+                  $("#inputGroupSelect01Price5 option[value='" + selectedCurrency + "']").prop("selected", true);
  
             } else {
               $("#marca").val(element.product_details.brand);
@@ -1043,12 +1043,14 @@ $.ajax({
               $errorContainerTitle.hide();
               isFormValidateSeccion2 = true;
              
-              var parts = element.product_details.price.split(" ");
-              console.log("aaaaaaaaaaaaaaaaaaaa",parts)
+              var parts = element.product_details.price.split(" "); 
               var $errorContainerPrice = $("#error-container-price"); 
     
-              $("#price").val(element.product_details.price); 
-              selectedCurrency = parts[0] =='CLP' || parts[0] =='USD' ? parts[0] : 'CLP' ;
+              $("#price").val(parts[1]); 
+              selectedCurrency = parts[0] =='CLP' || parts[0] =='USD' ? parts[0] : 'CLP' ; 
+
+        // Seleccionamos el elemento <option> correspondiente
+               $("#inputGroupSelect01Price option[value='" + selectedCurrency + "']").prop("selected", true);
               $errorContainerPrice.hide();
               isFormValidateSeccion3 = true;
             }
@@ -1059,11 +1061,33 @@ $.ajax({
            $("#patente").val(element.product_details?.patent);
            $("#patent").val(element.product_details?.patent)
           
-           $("#PesoNeto").val(element.product_technical_characteristics?.weight);
-           $("#Potencia").val(element.product_technical_characteristics?.power);
-           $("#Cilindrada").val(element.product_technical_characteristics?.displacement);
-           $("#Torque").val(element.product_technical_characteristics?.torque);
-           $("#mixed_consumption").val(element.product_technical_characteristics?.mixed_consumption);
+          // $("#PesoNeto").val(element.product_technical_characteristics?.weight);
+           var PesoNeto = element.product_technical_characteristics?.weight.split(" ");   
+            $("#PesoNeto").val(PesoNeto[0]);    
+            $("#inputGroupSelectPeso option[value='" + PesoNeto[1] + "']").prop("selected", true);
+ 
+
+           //$("#Potencia").val(element.product_technical_characteristics?.power);
+           var Potencia = element.product_technical_characteristics?.power.split(" ");   
+            $("#Potencia").val(Potencia[0]);    
+            $("#inputGroupSelectPotencia option[value='" + Potencia[1] + "']").prop("selected", true);
+
+           //$("#Cilindrada").val(element.product_technical_characteristics?.displacement);
+           var Cilindrada = element.product_technical_characteristics?.displacement.split(" ");   
+            $("#Cilindrada").val(Cilindrada[0]);    
+            $("#inputGroupSelectCilindrada option[value='" + Cilindrada[1] + "']").prop("selected", true);
+
+
+           //$("#Torque").val(element.product_technical_characteristics?.torque);
+           var Torque = element.product_technical_characteristics?.torque.split(" ");   
+            $("#Torque").val(Torque[0]);    
+            $("#inputGroupSelectTorque option[value='" + Torque[1] + "']").prop("selected", true);
+
+ 
+           //$("#mixed_consumption").val(element.product_technical_characteristics?.mixed_consumption);
+           var mixed_consumption = element.product_technical_characteristics?.mixed_consumption.split(" ");   
+            $("#mixed_consumption").val(mixed_consumption[0]);    
+            $("#inputGroupSelectConsumo option[value='" + mixed_consumption[1] + "']").prop("selected", true);
                 
            if (element.id_category == 3) {  
             var $errorContainerCondicion55 = $("#error-container-condicion5");

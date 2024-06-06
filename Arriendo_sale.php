@@ -479,12 +479,12 @@ fileInput.addEventListener('change', handleImageUpload);
     };
     console.log("publicacion12",publicacion2)
     publicacion3 = {   
-    "id_product": id_product,
-    "weight": $("#PesoNeto").val(), 
-    "power": $("#Potencia").val(), 
-    "displacement": $("#Cilindrada").val(),
-    "torque":  $("#Torque").val(), 
-    "mixed_consumption": $("#mixed_consumption").val(),   
+    "id_product": id_product, 
+    "weight": $("#PesoNeto").val() + ' '+ $("#inputGroupSelectPeso").val() , 
+    "power": $("#Potencia").val() + ' '+ $("#inputGroupSelectPotencia").val() , 
+    "displacement": $("#Cilindrada").val() + ' '+ $("#inputGroupSelectCilindrada").val() , 
+    "torque":  $("#Torque").val() + ' '+ $("#inputGroupSelectTorque").val() ,  
+    "mixed_consumption": $("#mixed_consumption").val() + ' '+ $("#inputGroupSelectConsumo").val() , 
     "transmission":$('input[name="transmission"]:checked').val(),
     "fuel": $('input[name="combustible"]:checked').val(),
     "traction": traxion !=='Otros' ? traxion : $("#traction_index1").val(), 
@@ -898,11 +898,35 @@ function edit_publi(){
              $("#patente").val(element.product_details.patent);
              $("#patent").val(element.product_details.patent)
             
-             $("#PesoNeto").val(element.product_technical_characteristics.weight);
+            /* $("#PesoNeto").val(element.product_technical_characteristics.weight);
              $("#Potencia").val(element.product_technical_characteristics.power);
              $("#Cilindrada").val(element.product_technical_characteristics.displacement);
              $("#Torque").val(element.product_technical_characteristics.torque);
-             $("#mixed_consumption").val(element.product_technical_characteristics.mixed_consumption);
+             $("#mixed_consumption").val(element.product_technical_characteristics.mixed_consumption);*/
+
+             
+           var PesoNeto = element.product_technical_characteristics?.weight.split(" ");   
+            $("#PesoNeto").val(PesoNeto[0]);    
+            $("#inputGroupSelectPeso option[value='" + PesoNeto[1] + "']").prop("selected", true);
+ 
+
+           var Potencia = element.product_technical_characteristics?.power.split(" ");   
+            $("#Potencia").val(Potencia[0]);    
+            $("#inputGroupSelectPotencia option[value='" + Potencia[1] + "']").prop("selected", true);
+
+           var Cilindrada = element.product_technical_characteristics?.displacement.split(" ");   
+            $("#Cilindrada").val(Cilindrada[0]);    
+            $("#inputGroupSelectCilindrada option[value='" + Cilindrada[1] + "']").prop("selected", true);
+
+
+           var Torque = element.product_technical_characteristics?.torque.split(" ");   
+            $("#Torque").val(Torque[0]);    
+            $("#inputGroupSelectTorque option[value='" + Torque[1] + "']").prop("selected", true);
+
+
+           var mixed_consumption = element.product_technical_characteristics?.mixed_consumption.split(" ");   
+            $("#mixed_consumption").val(mixed_consumption[0]);    
+            $("#inputGroupSelectConsumo option[value='" + mixed_consumption[1] + "']").prop("selected", true);
               
              if(element.product_details.condition == 'Nuevo'){
                $("#flexRadioDefault1").prop("checked", true);

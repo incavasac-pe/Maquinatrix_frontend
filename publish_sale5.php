@@ -471,7 +471,7 @@ $url_publi = $protocol . '://' . $host;
         <h1>Precio</h1>
         <p class="sm-title">Ingresa los precios</p>
         <div class="kilometer" style="margin-right:20px !important;">
-        <div class="input-group mb-3"  id="price5" style="width: 403px;"> 
+        <div class="input-group mb-3"  id="price522" style="width: 403px;"> 
                 <input type="text" for="inputGroupSelect01Price5" class="form-control input-control-price"
                         name="price5"  id="price5">
                 <select class="form-select" id="inputGroupSelect01Price5"> 
