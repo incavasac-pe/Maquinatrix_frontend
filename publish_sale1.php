@@ -43,48 +43,40 @@ $url_publi = $protocol . '://' . $host;
         <h1>Información de producto</h1>
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
+            <div class="mb-3"> 
+            <label for="marca" class="form-label">Marca*</label>
+            <input class="form-control" autocomplete="off" list="datalistOptions" id="marca" placeholder="">
                 <?php  
-                    
-                    if ($count_marca > 0) { 
-                        echo '<select  id="marca" name="marca" required>';
-                        echo '<option value="0">Marca*</option>'; 
-                        foreach ($marca as $field) {
-                            $id = $field['id_marca'];
-                            $marcaName = $field['description'];
-                            echo '<option value="' . $id . '"'; 
-                            if ($id == $marca) {
-                                echo ' selected';
-                            }  
-                            echo '>' . $marcaName. '</option>';
-                        }
-                        echo '</select> ';
-                
-                        }  ?>   
-                  
-
-                </div>
+                if ($count_marca > 0) { 
+                    echo '<datalist id="datalistOptions">'; 
+                    foreach ($marca as $field) { 
+                        $marcaName = $field['description'];
+                        echo '<option value="' . $marcaName . '">';  
+                    }
+                    echo '</datalist>'; 
+                    }  ?>    
+            </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                 <input type="text"  class="form-control" id="modelo" name="modelo" placeholder="Modelo*"/>
-                </div>
+            <div class="mb-3">
+            <label for="exampleDataList" class="form-label">Modelo*</label>
+                <input type="text" class="form-control" id="modelo" name="modelo" placeholder=""/>
+            </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                <select name="anios"  id="anios"  required>
-                        <?php
-                        // Obtener el año actual
-                        $anioActual = date("Y");
-                        echo '<option value="0">Año*</option>';
-                        // Crear opciones para los últimos 50 años
-                            for ($i = $anioActual; $i >= ($anioActual - 50); $i--) {
-                            echo '<option value="' . $i . '">' . $i . '</option>';
-                            }
-                        ?>
-                  </select>
-
-                </div>
+            <div class="mb-3">  
+            <label for="anios" class="form-label">Año*</label>
+            <input class="form-control" autocomplete="off" list="datalistOptionsA" id="anios" placeholder="">
+                <?php  
+                    $anioActual = date("Y");  
+                    echo '<datalist id="datalistOptionsA">'; 
+                    for ($i = $anioActual; $i >= ($anioActual - 100); $i--) {
+                        $marcaName = $field['description'];
+                        echo '<option value="' . $i . '">';  
+                    }
+                    echo '</datalist>'; 
+                    ?>    
+                </div> 
                 
             </div> 
           
@@ -125,39 +117,57 @@ $url_publi = $protocol . '://' . $host;
             </div>
     </div>
     <div class="category-product">
-        <h1 id="category-product">Características Técnicas</h1>
+    <h1>Especificaciones</h1>
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                    <input type="number" class="form-control" id="PesoNeto"  name="PesoNeto" placeholder="Peso Neto">
-
-
-                </div>
+            <div class="input-group mb-3"   style="width: 450px;"> 
+               <input  style="width: 270px;" type="text" class="form-control" id="PesoNeto"  name="PesoNeto" placeholder="Peso Neto">
+                <select class="form-select" id="inputGroupSelectPeso"> 
+                    <option value="Tonelada">Tonelada</option>
+                    <option value="Kilogramos">Kilogramos</option> 
+                </select>
+            </div>
+               
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                    <input type="text" class="form-control" name="Potencia"  id="Potencia" placeholder="Potencia">
-
-                </div>
+            <div class="input-group mb-3"   style="width: 450px;"> 
+            <input  style="width: 270px;" type="text" class="form-control" name="Potencia"  id="Potencia" placeholder="Potencia">
+                <select class="form-select" id="inputGroupSelectPotencia"> 
+                    <option value="HP">HP</option>
+                    <option value="kW">kW</option> 
+                    <option value="CV">CV</option> 
+                </select>
+            </div>
+               
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                    <input type="text" class="form-control" name="Cilindrada"  id="Cilindrada" placeholder="Cilindrada (CC)">
-
-                </div>
+            <div class="input-group mb-3"   style="width: 450px;"> 
+            <input  style="width: 270px;" type="text" class="form-control" name="Cilindrada"  id="Cilindrada" placeholder="Cilindrada (CC)">
+                <select class="form-select" id="inputGroupSelectCilindrada"> 
+                    <option value="CC" selected>CC</option> 
+                </select>
+            </div>
+              
             </div>
 
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                    <input type="text" class="form-control" id="Torque"  name="Torque"  placeholder="Torque (NM)">
-
-                </div>
+            <div class="input-group mb-3"   style="width: 450px;"> 
+            <input  style="width: 270px;" type="text" class="form-control" id="Torque"  name="Torque"  placeholder="Torque (NM)">
+                <select class="form-select" id="inputGroupSelectTorque"> 
+                    <option value="NM" selected>NM</option> 
+                </select>
+            </div>
+               
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                    <input type="text" class="form-control" id="mixed_consumption" name="mixed_consumption"  placeholder="Consumo Mixto">
-
-
+            <div class="input-group mb-3"   style="width: 450px;"> 
+            <input style="width: 270px;" type="text" class="form-control" id="mixed_consumption" name="mixed_consumption"  placeholder="Consumo Mixto">
+                <select class="form-select" id="inputGroupSelectConsumo"> 
+                    <option value="km/L" selected>km/L</option> 
+                    <option value="l/h" selected>l/h</option> 
+                </select>
+            </div>
+                <div class="mb-3">  
                 </div>
             </div>
         </div>
@@ -202,7 +212,7 @@ $url_publi = $protocol . '://' . $host;
                 <div class="traction-text"onclick="setTraccion('No clasifica')">No clasifica</div>
             </div>
             <div class="traction-right-section"  id="t-tranx">
-                <input class="traction-btn" placeholder="Escribir otro" id="traction_index1"  />
+                <input class="traction-btn" placeholder="Escribir otro" disabled id="traction_index1"  />
             </div>
         </div>
         <p class="sm-title">Condición actual del producto</p>
@@ -219,10 +229,17 @@ $url_publi = $protocol . '://' . $host;
                 Usado
             </label>
         </div>
+        <div class="warning-wrapper" id="error-container-condicion">
+             <i class="fa-solid fa-circle-exclamation"></i>
+            <div>
+                <p class="error-heading">Campos faltan completar</p>
+                <p class="sm-text">Campos requeridos faltan completar: CONDICIÓN DEL PRODUCTO.</p>
+            </div>
+      </div>
         <div class="kilometer-box-wrapper" id="kilometer-box-wrapper">
             <div class="kilometer" style="margin-right:20px !important;">
                 <div class="input-group" id="km_input">
-                    <input type="number" class="form-control input-control-km" placeholder="Kilometros recorridos"
+                    <input type="text" class="form-control input-control-km" placeholder="Kilometros recorridos"
                     name="KilometrosRecorridos"   id="KilometrosRecorridos">
                     <div class="input-group-addon-km">
                         Km.
@@ -233,7 +250,7 @@ $url_publi = $protocol . '://' . $host;
 
             <div class="hourometer">
                 <div class="input-group" id="km_input">
-                    <input type="number" class="form-control input-control-km" placeholder="Horómetro"  name="Horometro" id="Horometro">
+                    <input type="text" class="form-control input-control-km" placeholder="Horómetro"  name="Horometro" id="Horometro">
                     <div class="input-group-addon-km">
                         Hrs.
                     </div>
@@ -244,10 +261,11 @@ $url_publi = $protocol . '://' . $host;
         </div>
     </div>
     <div class="category-product">
-        <h1>Ubicación de publicación</h1>
+        <h1>Ubicación</h1>
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
+                <label for="exampleDataList" class="form-label">Región*</label>
                 <?php                                            
                     if ($count_regiones > 0) { 
                             echo '<select required id="region" name="region">';
@@ -267,6 +285,7 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
+                <label for="exampleDataList" class="form-label">Comunas*</label>
                 <?php 
                     require 'comunas.php';
                     // Generar el select de comunas
@@ -281,27 +300,25 @@ $url_publi = $protocol . '://' . $host;
                 </div>
             </div>
 </div>   
-<div class="warning-wrapper" id="error-container-ubicacion">
-                            <i class="fa-solid fa-circle-exclamation"></i>
-                                    <div>
-                                        <p class="error-heading">Campos faltan completar</p>
-                                        <p class="sm-text">Campos requeridos faltan completar: UBICACION.</p>
-                                    </div>
-                            </div>
+    <div class="warning-wrapper" id="error-container-ubicacion">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <div>
+        <p class="error-heading">Campos faltan completar</p>
+        <p class="sm-text">Campos requeridos faltan completar: UBICACION.</p>
+    </div>
+   </div>
     </div>
     <div class="category-product">
         <h1>Precio</h1>
         <p class="sm-title">Ingresa los precios</p>
-        <div class="kilometer" style="margin-right:20px !important;">
-            <div class="input-group " id="km_input" style="width: 273px;">
-            <input type="number" class="form-control input-control-price" placeholder="En pesos*"
-                    name="price"  id="price">
-                    <div class="input-group-addon-km">
-                        CLP
-                    </div>
+        <div class="input-group mb-3"  id="km_input" style="width: 403px;"> 
+                <input type="text" for="inputGroupSelect01Price" class="form-control input-control-price"
+                        name="price"  id="price">
+                <select class="form-select" id="inputGroupSelect01Price"> 
+                    <option value="CLP">CLP</option>
+                    <option value="USD">USD</option> 
+                </select>
             </div>
-
-        </div>
         <div class="warning-wrapper" id="error-container-price">
                 <i class="fa-solid fa-circle-exclamation"></i> 
             <div>
@@ -315,8 +332,7 @@ $url_publi = $protocol . '://' . $host;
         <div class="shipping-wrapper">
             <div class="shipping-main">
                 <p class="sm-title">Despacho incluido</p>
-                <p class="sm-text">Es un hecho establecido hace demasiado tiempo que un lector se disaerá con el
-                    contenido del texto de <br /> un sitio mientras.</p>
+                
             </div>
             <div>
                 <div class="form-check form-check-inline">
@@ -339,7 +355,7 @@ $url_publi = $protocol . '://' . $host;
                 </div>
     <div class="category-product2">
         <div class="category-btns-wrapper">
-            <div><button type="button" class="grey-btn">Cancelar</button></div>
+            <div><button type="button" class="grey-btn" onclick="navigateBackwardCancel()" >Cancelar</button></div>
             <div><button type="button" class="grey-btn">Guardar y salir</button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
         </div>

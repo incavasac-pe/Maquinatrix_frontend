@@ -77,7 +77,7 @@ if (isset($_SESSION['loggedIn'])) {
     <div class="tab-content content" id="v-pills-tabContent ">
       <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"
         tabindex="0">
-        <span class="text-danger align-middle" id="Msg"></span>
+       
         <h1>Mi cuenta</h1>
         <div class="user-profile-main">
           <div class="profile-details-container">
@@ -123,6 +123,7 @@ if (isset($_SESSION['loggedIn'])) {
 
           </ul>
         </div>
+        <span class="text-danger align-middle" id="Msg"></span>
         <div class="tab-content" id="pills-tabContent">
           <div class="row-class tab-pane fade show active" id="pills-home" role="tabpanel"
             aria-labelledby="pills-home-tab" tabindex="0">
@@ -136,9 +137,13 @@ if (isset($_SESSION['loggedIn'])) {
                   </div>
                   <div class="user-detail-table  user-detail-table1">
                     <table class="additional-table">
-                    <tr>
+                      <tr>
                         <td>ID Usuario</td>
                         <td> <?= $id_user_ext; ?></td>
+                      </tr>
+                      <tr>
+                        <td>Correo electrónico</td>
+                        <td> <?= $email; ?></td>
                       </tr>
                       <tr id="social-field">
                         <td>Razón Social</td>
@@ -172,16 +177,18 @@ if (isset($_SESSION['loggedIn'])) {
               <div class="user-detail-box">
                   <div class="table-title-2">
                     <p class="top-title2">Dirección</p>
-                    <button type="button" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#direction">Editar Perfil</button>
+                    <button type="button" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#direction"  >Editar Perfil</button>
                   </div>
-                  <div class="user-detail-table">
-
+                  <div class="user-detail-table"> 
                     <table class="additional-table">
                       <tr id="address">
                         <td>Dirección</td>
-                        <td></td>
+                        <td></td> 
                       </tr>
-                      
+                      <tr id="address_info">
+                        <td>Información adicional de la dirección</td>
+                        <td></td> 
+                      </tr> 
                     </table>
                   </div>
                 </div>
@@ -190,22 +197,19 @@ if (isset($_SESSION['loggedIn'])) {
                     <p class="top-title2">Contraseña</p>
                     <button type="button" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#pwd-editar-modal">Editar Perfil</button>
                   </div>
-                  <div class="user-detail-table">
-
+                  <div class="user-detail-table"> 
                     <table class="additional-table">
                       <tr>
                         <td>Contraseña actual</td>
-                        <td><input disabled type="password" value="current_password"></td>
-                      </tr>
-                      
+                        <td><input class="form-control"  disabled type="password" value="current_password"></td>
+                      </tr> 
                     </table>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
+        </div> 
       </div>
 
       <div class="tab-pane fade " id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
@@ -234,8 +238,7 @@ if (isset($_SESSION['loggedIn'])) {
 </div>
 </div>
 
-<?php include 'publication_type.php' ?>
-
+<?php include 'publication_type.php' ?> 
 
 <div class="modal fade" id="confirmation" tabindex="-1" aria-labelledby="exampleModalLabel11" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered ">
@@ -302,20 +305,54 @@ function getQueryParam(name) {
 
 $(document).ready(function() { 
   datosBasicos();
-  construirEstructuraHTML('0');
-  
+  construirEstructuraHTML('0');  
   $('.filter-btn').click(function() {
     // Remover la clase 'activo' de todos los botones
     $('.filter-btn').removeClass('filter-active-btn');
-    
-    // Agregar la clase 'activo' al botón seleccionado
-    $(this).addClass('filter-active-btn');
-    var buttonId = $(this).attr('id');
-    
-      construirEstructuraHTML(buttonId);
-   
-    console.log('ID del botón presionado:', buttonId);
      
+    $(this).addClass('filter-active-btn');
+    var buttonId = $(this).attr('id');    
+    construirEstructuraHTML(buttonId);         
+  });
+  
+  $('.see1').click(function() { 
+    var passwordInput = $('#exampleInputPasswordold');
+    if (passwordInput.attr('type') === 'password') {
+      passwordInput.attr('type', 'text');
+      $('#show_hide_password_old i').removeClass( "fa-eye-slash" );
+      $('#show_hide_password_old i').addClass( "fa-eye" );  
+      
+    } else {
+      passwordInput.attr('type', 'password');
+      $('#show_hide_password_old i').addClass( "fa-eye-slash" );
+      $('#show_hide_password_old i').removeClass( "fa-eye" );
+    }
+  });
+  $('.see2').click(function() { 
+    var passwordInput = $('#exampleInputPassword1');
+    if (passwordInput.attr('type') === 'password') {
+      passwordInput.attr('type', 'text');
+      $('#show_hide_password i').removeClass( "fa-eye-slash" );
+      $('#show_hide_password i').addClass( "fa-eye" );  
+      
+    } else {
+      passwordInput.attr('type', 'password');
+      $('#show_hide_password i').addClass( "fa-eye-slash" );
+      $('#show_hide_password i').removeClass( "fa-eye" );
+    }
+  });
+  $('.see3').click(function() { 
+    var passwordInput = $('#exampleInputPassword2');
+    if (passwordInput.attr('type') === 'password') {
+      passwordInput.attr('type', 'text');
+      $('#show_hide_confirm_password i').removeClass( "fa-eye-slash" );
+      $('#show_hide_confirm_password i').addClass( "fa-eye" );  
+      
+    } else {
+      passwordInput.attr('type', 'password');
+      $('#show_hide_confirm_password i').addClass( "fa-eye-slash" );
+      $('#show_hide_confirm_password i').removeClass( "fa-eye" );
+    }
   });
 
 //editar la data "Datos de cuenta"
@@ -344,14 +381,16 @@ $('.user-detail-table button').click(function() {
         var value = $(this).text().trim();
         var input = $('<input class="form-control">').val(value).prop('id', 'input_' + index);
         $(this).empty().append(input);
-      });
-    
+      });   
+      $('#input_0').prop('disabled', true); 
+      $('#input_1').prop('disabled', true);  
       $('.profile-edit-btn1').text('Guardar');
     }
   });
-
 });
 
+var address1='';
+var address2='';
 function datosBasicos(){
   $.ajax({
     url: '<?=$baseUrl?>/profile_basic',
@@ -370,15 +409,20 @@ function datosBasicos(){
 
        //num publicaciones
        $('#num_pub').text(response.data.num_publications);
-        //email 
-        var addressFieldValue1 = response.data.email;
-        var addressFieldTd1 = $('#email td:nth-child(2)');
-        addressFieldTd1.text(addressFieldValue1); 
+
 
        //direccion 
         var addressFieldValue = response.data.address;
+        var partesDir = addressFieldValue.split("|");
+        var parte1 = partesDir[0]; // "Paseo de la republica 201 lima surco"
+        var parte2 = partesDir[1]; // "Mz C lote 15, urb los jazmines de san roque"
+
         var addressFieldTd = $('#address td:nth-child(2)');
-        addressFieldTd.text(addressFieldValue); 
+        address1 = parte1;
+        address2 = parte2;
+        addressFieldTd.text(parte1); 
+        var addressFieldTd1 = $('#address_info td:nth-child(2)');
+        addressFieldTd1.text(parte2); 
         
         //social-field 
         var addressFieldValue6 = response.data.razon_social;
@@ -411,8 +455,7 @@ function datosBasicos(){
         var addressFieldTd2 = $('#num_doc-field td:nth-child(2)');
         addressFieldTd2.text(addressFieldValue2); 
         
-      }
-      // Aquí puedes realizar cualquier acción adicional con los datos recibidos
+      } 
     },
     error: function(xhr, status, error) { 
       window.location.href = 'create_session_portal.php?logout=true'; 
@@ -422,7 +465,7 @@ function datosBasicos(){
   });
 }
 
-function enviarActualizacionDatosBasicos(type, newValue) { 
+function enviarActualizacionDatosBasicos(type, newValue,newValue2) { 
   var url;
   var data = {};
 
@@ -434,6 +477,7 @@ function enviarActualizacionDatosBasicos(type, newValue) {
   } else {
     url = '<?=$baseUrl?>/changePassword?id_user=' + <?=$id_user?>;
     data.password = newValue;
+    data.old_password = newValue2
   }
 
   $.ajax({
@@ -445,10 +489,12 @@ function enviarActualizacionDatosBasicos(type, newValue) {
       xhr.setRequestHeader('Authorization', 'Bearer ' + '<?=$token?>');
     },
     success: function(response) {
-      if (type == 1) {
+      console.log(response.error)
+      if (response.error) {
+        $("#Msg2").html("<div class='alert alert-danger' role='alert'>" + response.msg + "</div>");
+      }else{
         $("#Msg2").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
-      }
-      //location.reload();
+      } 
     },
     error: function(error) {
       console.error('Error al enviar los datos actualizados');
@@ -462,12 +508,12 @@ function enviarActualizacionInformacionAdicional(type, value = '') {
 
   var data;
   if (type == 1) {
-    var razonSocial = $('#input_1').val();
-    var rut = $('#input_2').val();
-    var nombresRepresentante = $('#input_3').val();
-    var apellidosRepresentante = $('#input_4').val();
-    var tipoDocumento = $('#input_5').val() == 'RUT' ? '1' : '2';
-    var numeroDocumento = $('#input_6').val();
+    var razonSocial = $('#input_2').val();
+    var rut = $('#input_3').val();
+    var nombresRepresentante = $('#input_4').val();
+    var apellidosRepresentante = $('#input_5').val();
+    var tipoDocumento = $('#input_6').val() == 'RUT' ? '1' : '2';
+    var numeroDocumento = $('#input_7').val();
 
     data = {
       razon_social: razonSocial,
@@ -495,7 +541,9 @@ function enviarActualizacionInformacionAdicional(type, value = '') {
     },
     success: function(response) {
       $("#Msg").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
-      //location.reload();
+      setTimeout(function() {
+              location.reload();
+            }, 2000);  
     },
     error: function(error) {
       console.error('Error al enviar los datos actualizados');
@@ -588,21 +636,9 @@ function construirEstructuraHTML(value) {
               
               var dropdown = $('<div>').addClass('dropdown');
               var dropdownToggle = $('<a class="btn btn-secondary dropdown-toggle" onclick="toggleDropdownMenu('+element.id_product+')" type="button" > Opciones <i class="fa-solid fa-chevron-down"></i> </a>')
-            /*.addClass('btn btn-default')
-            .attr('role', 'button')
-            .attr('type', 'button')
-            .attr('id', 'dropdown-toggle')
-            .on('click', toggleDropdownMenu(element.id_product))
-            .text('Opciones')
-            .append($('<i>').addClass('fa-solid fa-chevron-down'));
-            <button class="btn btn-secondary" onclick="showMwnu()" type="button" >
-            <i class="fa-solid fa-bars"></i> <img class="profile-img" src="./assets/img/profile.png" alt="profile" />
-        </button>*/
-              
-            //  var dropdownToggle = $('<a>').addClass('btn btn-secondary dropdown-toggle').attr('href', '#').attr('role', 'button').attr('data-bs-toggle', 'dropdown').attr('aria-expanded', 'false').text('Opciones').append($('<i>').addClass('fa-solid fa-chevron-down'));
-             // var dropdownMenu = $('<ul>').addClass('dropdown-menu item-product');
+          
               var dropdownMenu = $('<ul>').addClass('dropdown-menu item-product '+element.id_product);
-             // var editOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', '#').text('Editar'));
+          
               var url_edit = element.PublicationType.id_publication_type == '1' ? 'Arriendo_sale.php?id=' : 'publish_sale.php?id=';
               var editOption = $('<li>').append($('<a>').addClass('dropdown-item').attr('href', url_edit + element.id_product).text('Editar'));
               var id = element.id_product; 
@@ -623,7 +659,8 @@ function construirEstructuraHTML(value) {
                     case 6:
                     //Activa
                       dropdownMenu.append(publishOption1); //ver pub
-                      dropdownMenu.append(borradorOption); //borrador
+                      dropdownMenu.append(editOption); //editar
+                     // dropdownMenu.append(borradorOption); //borrador
                       break;
                     case 7:
                      //Suspendida 
@@ -708,18 +745,15 @@ function construirEstructuraHTML(value) {
   });
 }
  
-    function toggleDropdownMenu(id) {
-      var dropdownMenuAlt = $(".item-product "+id);
-      dropdownMenuAlt.removeClass("show");
-
-      console.log("ID del menú:", id);
-      
-      var dropdownMenu = $("." + id);
-      if (!dropdownMenu.hasClass("show")) {
-        dropdownMenu.addClass("show");
-      } else {
-        dropdownMenu.removeClass("show");
-      }
+function toggleDropdownMenu(id) {
+  var dropdownMenuAlt = $(".item-product "+id);
+  dropdownMenuAlt.removeClass("show");      
+  var dropdownMenu = $("." + id);
+  if (!dropdownMenu.hasClass("show")) {
+    dropdownMenu.addClass("show");
+  } else {
+    dropdownMenu.removeClass("show");
+  }
 }
 function setValuePassword(id){ 
   var old_password = $("#exampleInputPasswordold").val();
@@ -733,14 +767,14 @@ function setValuePassword(id){
     $("#Msg2").html("<div class='alert alert-danger' role='alert'>Las contraseñas deben coincidir.</div>"); 
     return
   }
-  enviarActualizacionDatosBasicos(1, new_password); 
+  enviarActualizacionDatosBasicos(1, new_password,old_password); 
 }
 
 function setValue(id){ 
   $('#id_product').val(id);
 }
 
-function  statusBorrador(id){
+function statusBorrador(id){
   $('#id_product').val(id);
    deletePublic(10);
 }
@@ -759,7 +793,6 @@ function seePublicacion(id){
 
       document.body.appendChild(form);
       form.submit();
-
 }
 
 function deletePublic(status){
@@ -790,4 +823,14 @@ function deletePublic(status){
     }
   });
 }
+</script> 
+
+<script>
+  $('#direction').on('show.bs.modal', function (event) { 
+    var button = $(event.relatedTarget);
+    var direccion = button.data('direccion'); 
+    var modal = $(this);
+    modal.find('#pac-input-loc').val(address1);  
+    modal.find('#pac-input-loc1').val(address2);   
+  });
 </script>

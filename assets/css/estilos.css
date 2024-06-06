@@ -1236,6 +1236,9 @@ border: 1px solid rgba(69, 66, 66, 0.3);
 .fomulario-search [class*="col-"] {
   padding: 0;
 }
+.btn-click{
+  cursor:crosshair;
+}
 .btn-amarillo {
   height: 58px;
   width: 100%;

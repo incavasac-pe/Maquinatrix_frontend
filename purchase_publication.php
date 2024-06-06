@@ -16,6 +16,7 @@
     }
     
     $tpublicacion =  '1';
+    $priceFormate = 0;
     $mov = ($tpublicacion == '2') ? 'comprar' :' arrendar';  
         $count_detalle = 0;
         $url12 = $baseUrl.'/list_publications_panel_details?id='.$id; 
@@ -25,7 +26,11 @@
         $data = json_decode($response, true);
         if (!$data['error']) {
             // Obtener la lista de $categories
-            $detalle = $data['data'][0];
+            $detalle = $data['data'][0];          
+            if($detalle['product_details']["price"]!='Cotizar'){ 
+                //$priceFormate = formatearPrecio($detalle['product_details']["price"]); 
+                $priceFormate =  $detalle['product_details']["price"] ; 
+              } 
             $count_detalle = $data['count'];
         }  
         } else {
@@ -46,6 +51,17 @@
         } else {
             echo 'Error al realizar la solicitud a la API';
         } 
+
+        function formatearPrecio($precio) {
+            // Extraer el código de moneda y el valor numérico del precio
+            $partes = explode(' ', $precio);
+            $codigoMoneda = $partes[0];
+            $precioNumerico = floatval(preg_replace('/[^0-9\.-]+/', '', $partes[1]));
+        
+            $precioFormateado = $codigoMoneda . ' ' . number_format($precioNumerico, 2, ',', '.'); 
+        
+            return $precioFormateado;
+        }
    ?>  
 <section class="bg-carrucel mb-5">
     <div class="container">
@@ -139,6 +155,7 @@
                 <a href="javascript:void(0);" class="font-family-Roboto-Regular migas migas1">&middot; <?= $detalle['publication_type']['description']; ?></a>
                 <a href="javascript:void(0);" class="font-family-Roboto-Regular migas"> <?= $detalle['mainCategory']['category']; ?></a> 
             </div>
+            <?php if (!empty($detalle['status_id']=='9')): ?>
             <div class="publication-draft-warning detalle-warn">
               <i class="fa-solid fa-circle-exclamation"></i>
               <div>
@@ -146,7 +163,8 @@
                 <p class="draft-warning-text-sub">Te notificaremos tan pronto como tu aviso sea aprobado y esté listo para ser publicado. ¡Gracias por tu paciencia!</p>
               </div>
             </div>
-          
+            <?php else: ?>
+                                <?php endif; ?>
             <div class="col-md-7 col-class">
 
      <div class="slider-container-1">
@@ -192,10 +210,10 @@
                         <div
                             class="align-items-center col-xl-2 col-lg-2  col-md-2 col-sm-2 col-2 d-flex justify-content-center perfil-verificado position-relative">
                             <div class="position-relative">
-                                <img src="./assets/img/user.png" alt="user">
-                                <div class="abs">
-                                    <img src="./assets/img/verificar.png" alt="verificar">
-                                </div>
+                                <img src="./assets/img/profile.png" alt="user">
+                               <!--div class="abs">
+                                    <img src="./assets/img/profile.png" alt="verificar">
+                                </div-->
                             </div>
                         </div>
                     </div>
@@ -308,13 +326,13 @@
                     <p class="font-family-Roboto-Regular">Esta publicación incluye para ti los siguientes servicios:
                     </p>
                     <div class="service-box-wrapper">
-                    <?php if (!empty($detalle['product_rental']['rental_contract'])): ?>
+                    <?php if (!empty($detalle['product_rental']['rental_contract']) && $detalle['product_rental']['rental_contract']=='Y'): ?>
                         <div class="col-1"><i class="fa-regular fa-circle-check"></i>
                             <p>Contrato Maquinatrix </p><img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
                         <?php else: ?>
                         <?php endif; ?>
-                        <?php if (!empty($detalle['product_rental']['delivery'])): ?>
+                        <?php if (!empty($detalle['product_rental']['delivery']) && $detalle['product_rental']['delivery']=='Y'): ?>
                         <div class="col-2"><i class="fa-regular fa-circle-check"></i>
                             <p>Despacho</p> <img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
@@ -322,7 +340,7 @@
                         <?php endif; ?>
                     </div>
                     <div class="service-box-wrapper mt-3">
-                    <?php if (!empty($detalle['product_rental']['rental_guarantee'])): ?>
+                    <?php if (!empty($detalle['product_rental']['rental_guarantee']) && $detalle['product_rental']['rental_guarantee']=='Y'): ?>
                         <div class="col-1"><i class="fa-regular fa-circle-check"></i>
                             <p>Garantía Maquinatrix</p> <img src="./assets/img/help-circle-outline.png" alt="pregunta">
                         </div>
@@ -338,14 +356,14 @@
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                            <?= isset($detalle['product_details']["facipay"]) && isset($detalle['product_details']["price"]) ? ($detalle['product_details']["facipay"] == 'C' ? 'Cotizar' : "CLP " . $detalle['product_details']["price"] . " / hora") : ''; ?>
+                            <?= ($detalle['product_details']["facipay"] == 'C' ? 'Cotizar' : $priceFormate)  ?>
                          </h3>
 
                         </div>
 
                         <div class="location-tx-wrapper">
                             <img src="./assets/img/location.png" alt="location">
-                            <p><?= isset($detalle['product_details']['region']) ? $detalle['product_details']['region'] : ''; ?></p>
+                            <p><?= isset($detalle['product_details']['region']) ? $detalle['product_details']['region'] .", ".$detalle['product_details']['city']  : ''; ?></p>
                         </div>
                         <p class="cotiza-md-text">Contáctate con el propietario de este anuncio para realizar la
                             solicitud de cotización del producto.</p>

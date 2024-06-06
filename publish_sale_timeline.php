@@ -6,7 +6,7 @@
 
           <span><i class="fa-solid fa-chevron-left"></i></span>
 
-          <div class="label">Cancelar</div>
+          <div class="label">Anterior</div>
         </a>
       </li>
       <li class="form-stepper-active text-center form-stepper-list" step="1">

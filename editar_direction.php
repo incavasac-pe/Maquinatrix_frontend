@@ -11,45 +11,54 @@
       <span class="text-success align-middle" id="Msg5"></span>
       <div class="modal-body base-modal-body">
      
-    <div class="location-container location-container2">
-        
- 
-        <div id="pac-input" class="location-input-wrapper">
-            <div class="location-input-group">
-  <input
-    id="pac-input-loc"
-    name="pac-input-loc"
-    class="form-control"
-    type="text"
-    placeholder="Search Box"
-  />
-  <i class="fa-solid fa-magnifying-glass"></i>
+    <div class="location-container location-container2"> 
+      <div id="pac-input" class="location-input-wrapper">
+          <div class="location-input-group">
+            <input
+              id="pac-input-loc"
+              name="pac-input-loc"
+              class="form-control"
+              type="text"
+              placeholder="Search Box"
+            />
+        <i class="fa-solid fa-magnifying-glass"></i>
+   </div>  
   </div>
-  </div>
-    <div id="map">
- 
-    </div>
-      
-    </div>
-
+      <div id="map"> 
+      </div> 
+    </div> 
       </div>
-      <div class="modal-footer ">
-      <button type="button" id="continueButtonLocation" class="btn btn-primary direction-btn" >Continuar</button>
+      <div class="modal-footer "> 
+      <div class="location-input-group">
+        <input
+          id="pac-input-loc1"
+          name="pac-input-loc1"
+          class="form-control"
+          type="text"
+          placeholder="Ingrese referencia, #casa ó edificio,calle."
+        />  
+      </div>
+       <button type="button" id="continueButtonLocation" class="btn btn-primary direction-btn" >Continuar</button>
       </div>
     </div>
   </div>
 </div>
+
+
 <script>
     
     document.getElementById('continueButtonLocation').addEventListener('click', function () {
 
       var inputElement = document.getElementById("pac-input-loc");
       var inputValue = inputElement.value; 
+
+      var inputElement2 = document.getElementById("pac-input-loc1");
+      var inputValue2 = inputElement2.value; 
       if(inputValue==''){
         return
       }
      let data = {
-        address: inputValue
+        address: inputValue + '|'+ inputValue2
       };
  
       var id_profile = $('#id_profile').val();
@@ -64,8 +73,11 @@
           },
           success: function(response) { 
             $("#Msg5").html("<div class='alert alert-success' role='alert'>" + response.msg + "</div>");
-          //  location.reload();
-          },
+            
+            setTimeout(function() {
+              location.reload();
+            }, 2000);  
+            },
           error: function(error) {
             console.error('Error al enviar los datos actualizados');
           }
@@ -78,7 +90,7 @@
 
   function initAutocomplete() {
     map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: -33.8688, lng: 151.2195 },
+      center: { lat: -33.44889290, lng: -70.66927940  },
       zoom: 13,
       mapId: "67f00e4f77c30c63",
     });
@@ -176,4 +188,7 @@
 
   window.initAutocomplete = initAutocomplete;
 </script>
-<script src="./assets/js/maps.js"></script>
+<!--script src="./assets/js/maps.js"></script-->
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbFChqQf5N-MhbiNjjzR7G-lafKPfuN58&callback=initAutocomplete&libraries=places&v=weekly"
+        defer></script>
