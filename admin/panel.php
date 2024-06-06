@@ -40,6 +40,11 @@
                         $search = $_GET['buscar'];
                         $params[] = "search=" .urlencode($search); 
                     }
+                    if (isset($_GET['id_user']) && $_GET['id_user'] != '') {
+                        $id_user = $_GET['id_user'];
+                        $params[] = "id_user=" .urlencode($id_user); 
+                    }
+
 
                     if (isset($_GET['tpublicacion']) && $_GET['tpublicacion'] != '0') {
                         $tpublicacion = $_GET['tpublicacion'];
@@ -168,7 +173,10 @@
                                             </a>
                                         </div>
 
-                                        <div class="absbody">
+                                        <div class="absbody"> <div class="form-group">
+                                                    <label for="sdf" class="font-family-Inter-Regular d-block">Usuario</label>
+                                                    <input type="text" id="id_user" name="id_user">
+                                                </div>
                                           
                                                 <div class="form-group">
                                                     <label for="tpublicacion" class="font-family-Inter-Regular d-block">Tipo de publicación</label>
@@ -326,6 +334,7 @@
                         <thead class="font-family-Roboto-Medium">
                             <tr>
                                 <th>ID Publicación</th>
+                                <th>ID Usuario</th>
                                 <th>Título</th>
                                 <th>Fecha Creación</th>
                                 <th>Categoría</th>
@@ -343,6 +352,7 @@
 
                                         echo '<tr>';
                                         echo '<td>Publicación#' . $id . '</td>';
+                                        echo '<td>#' . ($pub['User']['Profile']['id_user_ext'] ?? '-') . '</td>';
                                         echo '<td>' . $pub['title'] . '</td>';
                                         echo '<td>' . $pub['create_at_formatted'] . '</td>';
                                         echo '<td><span class="category"> ' . $pub['Category']['category'] . '</span></td>';

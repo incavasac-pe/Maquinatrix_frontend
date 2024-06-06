@@ -188,7 +188,7 @@ $url_publi = $protocol . '://' . $host;
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
             <div class="mb-3"> 
-                <label for="marca55" class="form-label">Marca55*</label>
+                <label for="marca55" class="form-label">Marca*</label>
                 <input class="form-control" autocomplete="off" list="datalistOptions11" id="marca55" placeholder="">
                     <?php  
                     if ($count_marca5 > 0) { 

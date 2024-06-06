@@ -199,7 +199,7 @@
 </script>
 <script>
 
-
+var $confirmPublicSaleBtn = $('#confirm_public');
 $(document).ready(function() {
     console.log( "ready publication!" ); 
     var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
@@ -209,6 +209,10 @@ $(document).ready(function() {
   
     $("#error-container").hide();
      $("#confirm_public").on('click', function(event) {
+      $(this).prop('disabled', true);
+      $(this)
+      .html('<i class="fa fa-spinner fa-spin"></i> Procesando...')
+      .addClass('disabled');
       save_public = true;
       registerPublication(8);
     });  
@@ -607,6 +611,10 @@ fileInput.addEventListener('change', handleImageUpload);
         registerPublication2(response.data.id_product)
       },
       error: function(response,xhr, textStatus, errorThrown) {
+        $confirmPublicSaleBtn
+      .prop('disabled', false)
+      .html('Confirmar y publicar')
+      .removeClass('disabled');
         if (response.status === 401 || response.status === 403) {
               window.location.href = 'create_session_portal.php?logout=true';
             } 
@@ -637,6 +645,10 @@ function registerPublication2(id){
         registerPublication3()
     },
     error: function(response,xhr, textStatus, errorThrown) {
+      $confirmPublicSaleBtn
+      .prop('disabled', false)
+      .html('Confirmar y publicar')
+      .removeClass('disabled');
         console.log(response.responseJSON.msg)
         var statusCode = xhr.status;  
             $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
@@ -661,6 +673,13 @@ function registerPublication3(){
       registerPublication4()
     },
     error: function(response,xhr, textStatus, errorThrown) {
+      $confirmPublicSaleBtn
+      .prop('disabled', false)
+      .html('Confirmar y publicar')
+      .removeClass('disabled');
+      if (response.status === 401 || response.status === 403) {
+              window.location.href = 'create_session_portal.php?logout=true';
+              }
         console.log(response.responseJSON.msg)
         var statusCode = xhr.status;  
             $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
@@ -684,6 +703,10 @@ function registerPublication4(){
       registerPublication5()  
     },
     error: function(response,xhr, textStatus, errorThrown) { 
+      $confirmPublicSaleBtn
+      .prop('disabled', false)
+      .html('Confirmar y publicar')
+      .removeClass('disabled');
         var statusCode = xhr.status;  
             $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
             $('#new_password').prop('disabled', false);
@@ -707,6 +730,10 @@ function registerPublication5(){
       uploadImagen();    
     },
     error: function(response,xhr, textStatus, errorThrown) {
+      $confirmPublicSaleBtn
+      .prop('disabled', false)
+      .html('Confirmar y publicar')
+      .removeClass('disabled');
         console.log(response.responseJSON.msg)
         var statusCode = xhr.status;  
             $("#Msg").html("<div class='alert alert-danger' role='alert'>"+response.responseJSON.msg+"</div>");
@@ -726,6 +753,10 @@ function deleteImagenAll() {
       success: function (response, textStatus, xhr)
           { },
       error: function (response) { 
+        $confirmPublicSaleBtn
+      .prop('disabled', false)
+      .html('Confirmar y publicar')
+      .removeClass('disabled');
           if (response.status === 401 || response.status === 403) {
               window.location.href = 'create_session_portal.php?logout=true';
             }
@@ -815,7 +846,11 @@ function uploadPDF() {
                   loading++;
                   if(loading == imgArray.length){
                 
-                    if(save_public){                      
+                    if(save_public){   
+                      $confirmPublicSaleBtn
+                  .prop('disabled', false)
+                  .html('Confirmar y publicar')
+                  .removeClass('disabled');                     
                         sendDataResume(imgArray[bbb]);  
                       
                     }else{
