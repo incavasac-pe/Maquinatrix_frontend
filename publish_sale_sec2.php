@@ -31,7 +31,7 @@
     </div>
     <div class="category-product2">
         <div class="category-btns-wrapper">
-            <div><button type="button" class="grey-btn">Cancelar</button></div>
+            <div><button type="button" class="grey-btn"  onclick="navigateBackwardCancel()" >Cancelar</button></div>
             <div><button type="button" class="grey-btn" id="save_public3">Guardar y salir</button><button type="button"
               class="yellow-btn btn-navigate-form-step" type="button" step_number="3">Continuar</button></div>
         </div>

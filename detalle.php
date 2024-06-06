@@ -15,7 +15,7 @@ if (isset($_GET['typep'])&& $_GET['typep']!='') {
 
 $count_category = 0;
 $url12 = $baseUrl.'/list_publications_panel_details?id='.$id;
-
+$priceFormate = 0;
 $response = file_get_contents($url12);
 if ($response !== false) {
    // Decodificar la respuesta JSON
@@ -23,7 +23,10 @@ if ($response !== false) {
    if (!$data['error']) {
        // Obtener la lista de $categories
        $detalle = $data['data'][0];
-       //print_r( $detalle );
+       if($detalle['product_details']["price"]!='Cotizar'){ 
+         //$priceFormate = formatearPrecio($detalle['product_details']["price"]);
+         $priceFormate = $detalle['product_details']["price"];
+        } 
        $count_category = $data['count'];
    }  
 } else {
@@ -44,6 +47,17 @@ if ($responseimg !== false) {
    }  
 } else {
     echo 'Error al realizar la solicitud a la API';
+}
+
+function formatearPrecio($precio) {
+    // Extraer el código de moneda y el valor numérico del precio
+    $partes = explode(' ', $precio);
+    $codigoMoneda = $partes[0];
+    $precioNumerico = floatval(preg_replace('/[^0-9\.-]+/', '', $partes[1]));
+
+    $precioFormateado = $codigoMoneda . ' ' . number_format($precioNumerico, 2, ',', '.'); 
+
+    return $precioFormateado;
 }
   }  
    ?>  
@@ -149,39 +163,39 @@ if ($responseimg !== false) {
           
             <div class="col-md-7 col-class">
 
-     <div class="slider-container-1">
-        <div class="mySlides-back">
-            <img class="slider-img-back" src="<?= $baseUrl ?>/see_image?image=<?= $detalle_img[0]["image_name"]!=null ? $detalle_img[0]["image_name"]: 'sin_producto.jpg'?>">
-            <div class="numbertext1">
-                <i class="fa-solid fa-camera"></i> <span id="currentSlide1">1</span> / <span id="totalSlides1"> <?= $count_imagen; ?></span>
-            </div>
-        </div>
-     <?php  
-       foreach ($detalle_img as $img)   {   ?>
-            <div class="mySlides1" onclick="openModal()">
-                <img class="slider-img1"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>">
-            </div>
-     <?php  }  ?>    
-      
-     <a class="slider-prev1" onclick="plusSlides1(-1)">❮</a>
-     <a class="slider-next1" onclick="plusSlides1(1)">❯</a>
- 
-     <div class="slider-img-wrapper1">
-        <?php 
-            $i=0;
-        foreach ($detalle_img as $img)    { 
-            $i++;
-            ?>
-         <div class="column1"> 
-             <img class="demo1 cursor"  style="width:100%; object-fit: cover;" onclick="currentSlide1(<?=$i;?>)"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" alt="min galeria">
-         </div>
-         <?php  }  ?>    
-         
-         <span id="hiddenSlidesBadge" class="position-absolute translate-middle badge rounded-pill bg-primary" style="display: none;">
-        <span class="visually-hidden">unread messages</span>
-         </span>
-     </div>
- </div>
+                    <div class="slider-container-1">
+                        <div class="mySlides-back">
+                            <img class="slider-img-back" src="<?= $baseUrl ?>/see_image?image=<?= $detalle_img[0]["image_name"]!=null ? $detalle_img[0]["image_name"]: 'sin_producto.jpg'?>">
+                            <div class="numbertext1">
+                                <i class="fa-solid fa-camera"></i> <span id="currentSlide1">1</span> / <span id="totalSlides1"> <?= $count_imagen; ?></span>
+                            </div>
+                        </div>
+                    <?php  
+                    foreach ($detalle_img as $img)   {   ?>
+                            <div class="mySlides1" onclick="openModal()">
+                                <img class="slider-img1"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>">
+                            </div>
+                    <?php  }  ?>    
+                    
+                    <a class="slider-prev1" onclick="plusSlides1(-1)">❮</a>
+                    <a class="slider-next1" onclick="plusSlides1(1)">❯</a>
+                
+                    <div class="slider-img-wrapper1">
+                        <?php 
+                            $i=0;
+                        foreach ($detalle_img as $img)    { 
+                            $i++;
+                            ?>
+                        <div class="column1"> 
+                            <img class="demo1 cursor"  style="width:100%; object-fit: cover;" onclick="currentSlide1(<?=$i;?>)"  src="<?= $baseUrl ?>/see_image?image=<?= $img["image_name"]!=null ? $img["image_name"]: 'sin_producto.jpg'?>" alt="min galeria">
+                        </div>
+                        <?php  }  ?>    
+                        
+                        <span id="hiddenSlidesBadge" class="position-absolute translate-middle badge rounded-pill bg-primary" style="display: none;">
+                        <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </div>
+                </div>
 
                 <div class="perfil">
                     <div class="row" style="padding-bottom: 35px;">
@@ -280,7 +294,7 @@ if ($responseimg !== false) {
                          
                             <tr>
                                 <td>Ubicación</td>
-                                <td><?= $detalle['location'] ??  $detalle['product_details']['region']; ?></td>
+                                <td><?= $detalle['location']!='location' ?  $detalle['location'] :  $detalle['product_details']['region']; ?>, <?= $detalle['product_details']['city']; ?></td>
                             </tr>
                             <tr>
                                 <td>Garantía Maquinatrix</td>
@@ -292,7 +306,7 @@ if ($responseimg !== false) {
                             </tr>
                             <tr>
                                 <td>Despacho</td>
-                                <td> <?= $detalle['product_details']['delivery'] == 'S' ? 'Sí':'No';   ?></td>
+                                <td> <?= $detalle['product_details']['delivery'] == 'S' || $detalle['product_details']['delivery'] == 'Y'  ? 'Sí':'No';   ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -336,13 +350,13 @@ if ($responseimg !== false) {
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                            <?= isset($detalle['product_details']["facipay"]) &&  $detalle['product_details']["facipay"] == 'C' ? 'Cotizar':"CLP ". $detalle['product_details']["price"]." ". "" ;?>
+                            <?= ($detalle['product_details']["facipay"] == 'C' ? 'Cotizar' :  $priceFormate)  ?>
                                <span class="font-family-Roboto-Regular"></span>
                             </h3>
                         </div>
                         <div class="location-tx-wrapper">
                             <img src="./assets/img/location.png" alt="location">
-                            <p><?=  $detalle['location'];  $detalle['product_details']['region']; ?>, <?= $detalle['product_details']['city']; ?></p>
+                            <p><?=  $detalle['location']!='location' ?  $detalle['location'] :  $detalle['product_details']['region']; ?>, <?= $detalle['product_details']['city']; ?></p>
                         </div>
                         <p class="cotiza-md-text">Contáctate con el propietario de este anuncio para realizar la
                             solicitud de cotización del producto.</p>

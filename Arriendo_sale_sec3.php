@@ -5,7 +5,7 @@
           <h1>Resumen publicación</h1>
           <p class="text-grey">Paso 3 de 3</p>
           <div class="excavator-box-wrapper">
-          <img  id="image-preview" width="200px" src="./assets/img/detalle-pro.png" alt="producto">
+          <img  id="image-preview" width="200px" src="" alt="producto">
             <div class="excavator-right-box" >
             <p class="sm-title r_title" style="margin-top:0px !important;"></p>
               <p class="text-lg-bold r_price"></p>
@@ -52,13 +52,10 @@
         <td class="r_ubicacion"></td>
       </tr>
       <tr>
-        <td>Tipo de Vendedor</td>
+        <td>Tipo de Maquinaria</td>
         <td class="r_tipo_vendedor"></td>
       </tr>
-      <tr>
-        <td>Despacho</td>
-        <td class="r_delivery"></td>
-      </tr>
+      
     </tbody>
   </table>
   <table class="excavator-table" style="margin-top:0px !important;">
@@ -104,7 +101,7 @@
     </div>
     <div class="category-product2">
         <div class="category-btns-wrapper">
-            <div><button type="button" class="grey-btn" >Cancelar</button></div>
+            <div><button type="button" class="grey-btn" onclick="navigateBackwardCancel()" >Cancelar</button></div>
             <!--div>
               <button type="button" class="grey-btn" id="save_public3">Guardar y salir </button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" id="Cancelar_continue-btn" step_number="3">Continuar</button>

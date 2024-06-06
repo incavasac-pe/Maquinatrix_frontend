@@ -137,9 +137,13 @@ if (isset($_SESSION['loggedIn'])) {
                   </div>
                   <div class="user-detail-table  user-detail-table1">
                     <table class="additional-table">
-                    <tr>
+                      <tr>
                         <td>ID Usuario</td>
                         <td> <?= $id_user_ext; ?></td>
+                      </tr>
+                      <tr>
+                        <td>Correo electrónico</td>
+                        <td> <?= $email; ?></td>
                       </tr>
                       <tr id="social-field">
                         <td>Razón Social</td>
@@ -173,16 +177,18 @@ if (isset($_SESSION['loggedIn'])) {
               <div class="user-detail-box">
                   <div class="table-title-2">
                     <p class="top-title2">Dirección</p>
-                    <button type="button" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#direction">Editar Perfil</button>
+                    <button type="button" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#direction"  >Editar Perfil</button>
                   </div>
-                  <div class="user-detail-table">
-
+                  <div class="user-detail-table"> 
                     <table class="additional-table">
                       <tr id="address">
                         <td>Dirección</td>
-                        <td></td>
+                        <td></td> 
                       </tr>
-                      
+                      <tr id="address_info">
+                        <td>Información adicional de la dirección</td>
+                        <td></td> 
+                      </tr> 
                     </table>
                   </div>
                 </div>
@@ -191,22 +197,19 @@ if (isset($_SESSION['loggedIn'])) {
                     <p class="top-title2">Contraseña</p>
                     <button type="button" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#pwd-editar-modal">Editar Perfil</button>
                   </div>
-                  <div class="user-detail-table">
-
+                  <div class="user-detail-table"> 
                     <table class="additional-table">
                       <tr>
                         <td>Contraseña actual</td>
                         <td><input class="form-control"  disabled type="password" value="current_password"></td>
-                      </tr>
-                      
+                      </tr> 
                     </table>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
+        </div> 
       </div>
 
       <div class="tab-pane fade " id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
@@ -235,8 +238,7 @@ if (isset($_SESSION['loggedIn'])) {
 </div>
 </div>
 
-<?php include 'publication_type.php' ?>
-
+<?php include 'publication_type.php' ?> 
 
 <div class="modal fade" id="confirmation" tabindex="-1" aria-labelledby="exampleModalLabel11" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered ">
@@ -303,20 +305,14 @@ function getQueryParam(name) {
 
 $(document).ready(function() { 
   datosBasicos();
-  construirEstructuraHTML('0');
-  
+  construirEstructuraHTML('0');  
   $('.filter-btn').click(function() {
     // Remover la clase 'activo' de todos los botones
     $('.filter-btn').removeClass('filter-active-btn');
-    
-    // Agregar la clase 'activo' al botón seleccionado
-    $(this).addClass('filter-active-btn');
-    var buttonId = $(this).attr('id');
-    
-      construirEstructuraHTML(buttonId);
-   
-    console.log('ID del botón presionado:', buttonId);
      
+    $(this).addClass('filter-active-btn');
+    var buttonId = $(this).attr('id');    
+    construirEstructuraHTML(buttonId);         
   });
   
   $('.see1').click(function() { 
@@ -385,14 +381,16 @@ $('.user-detail-table button').click(function() {
         var value = $(this).text().trim();
         var input = $('<input class="form-control">').val(value).prop('id', 'input_' + index);
         $(this).empty().append(input);
-      });
-    
+      });   
+      $('#input_0').prop('disabled', true); 
+      $('#input_1').prop('disabled', true);  
       $('.profile-edit-btn1').text('Guardar');
     }
   });
-
 });
 
+var address1='';
+var address2='';
 function datosBasicos(){
   $.ajax({
     url: '<?=$baseUrl?>/profile_basic',
@@ -411,15 +409,20 @@ function datosBasicos(){
 
        //num publicaciones
        $('#num_pub').text(response.data.num_publications);
-        //email 
-        var addressFieldValue1 = response.data.email;
-        var addressFieldTd1 = $('#email td:nth-child(2)');
-        addressFieldTd1.text(addressFieldValue1); 
+
 
        //direccion 
         var addressFieldValue = response.data.address;
+        var partesDir = addressFieldValue.split("|");
+        var parte1 = partesDir[0]; // "Paseo de la republica 201 lima surco"
+        var parte2 = partesDir[1]; // "Mz C lote 15, urb los jazmines de san roque"
+
         var addressFieldTd = $('#address td:nth-child(2)');
-        addressFieldTd.text(addressFieldValue); 
+        address1 = parte1;
+        address2 = parte2;
+        addressFieldTd.text(parte1); 
+        var addressFieldTd1 = $('#address_info td:nth-child(2)');
+        addressFieldTd1.text(parte2); 
         
         //social-field 
         var addressFieldValue6 = response.data.razon_social;
@@ -452,8 +455,7 @@ function datosBasicos(){
         var addressFieldTd2 = $('#num_doc-field td:nth-child(2)');
         addressFieldTd2.text(addressFieldValue2); 
         
-      }
-      // Aquí puedes realizar cualquier acción adicional con los datos recibidos
+      } 
     },
     error: function(xhr, status, error) { 
       window.location.href = 'create_session_portal.php?logout=true'; 
@@ -506,12 +508,12 @@ function enviarActualizacionInformacionAdicional(type, value = '') {
 
   var data;
   if (type == 1) {
-    var razonSocial = $('#input_1').val();
-    var rut = $('#input_2').val();
-    var nombresRepresentante = $('#input_3').val();
-    var apellidosRepresentante = $('#input_4').val();
-    var tipoDocumento = $('#input_5').val() == 'RUT' ? '1' : '2';
-    var numeroDocumento = $('#input_6').val();
+    var razonSocial = $('#input_2').val();
+    var rut = $('#input_3').val();
+    var nombresRepresentante = $('#input_4').val();
+    var apellidosRepresentante = $('#input_5').val();
+    var tipoDocumento = $('#input_6').val() == 'RUT' ? '1' : '2';
+    var numeroDocumento = $('#input_7').val();
 
     data = {
       razon_social: razonSocial,
@@ -657,7 +659,8 @@ function construirEstructuraHTML(value) {
                     case 6:
                     //Activa
                       dropdownMenu.append(publishOption1); //ver pub
-                      dropdownMenu.append(borradorOption); //borrador
+                      dropdownMenu.append(editOption); //editar
+                     // dropdownMenu.append(borradorOption); //borrador
                       break;
                     case 7:
                      //Suspendida 
@@ -742,16 +745,16 @@ function construirEstructuraHTML(value) {
   });
 }
  
-  function toggleDropdownMenu(id) {
-    var dropdownMenuAlt = $(".item-product "+id);
-    dropdownMenuAlt.removeClass("show");      
-    var dropdownMenu = $("." + id);
-    if (!dropdownMenu.hasClass("show")) {
-      dropdownMenu.addClass("show");
-    } else {
-      dropdownMenu.removeClass("show");
-    }
+function toggleDropdownMenu(id) {
+  var dropdownMenuAlt = $(".item-product "+id);
+  dropdownMenuAlt.removeClass("show");      
+  var dropdownMenu = $("." + id);
+  if (!dropdownMenu.hasClass("show")) {
+    dropdownMenu.addClass("show");
+  } else {
+    dropdownMenu.removeClass("show");
   }
+}
 function setValuePassword(id){ 
   var old_password = $("#exampleInputPasswordold").val();
   var new_password = $("#exampleInputPassword1").val();
@@ -771,7 +774,7 @@ function setValue(id){
   $('#id_product').val(id);
 }
 
-function  statusBorrador(id){
+function statusBorrador(id){
   $('#id_product').val(id);
    deletePublic(10);
 }
@@ -820,4 +823,14 @@ function deletePublic(status){
     }
   });
 }
+</script> 
+
+<script>
+  $('#direction').on('show.bs.modal', function (event) { 
+    var button = $(event.relatedTarget);
+    var direccion = button.data('direccion'); 
+    var modal = $(this);
+    modal.find('#pac-input-loc').val(address1);  
+    modal.find('#pac-input-loc1').val(address2);   
+  });
 </script>

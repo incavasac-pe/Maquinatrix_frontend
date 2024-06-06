@@ -104,8 +104,9 @@
                 <div class="mb-3">
                 <?php  
                       if ($count_industry > 0) { 
-                          echo '<select required   id="industria" name="industria"   >';
-                          echo '<option value="0">Seleccionar industria*</option>'; 
+                          echo '<label for="exampleDataList" class="form-label">Tipo industria*</label>
+                          <select required  id="industria" name="industria"  >';
+                          echo '<option value="0"></option>'; 
                           foreach ($industry as $field) {
                               $id = $field['id_product_type'];
                               $industryName = $field['description'];
@@ -123,10 +124,12 @@
               </div>
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
+                 
                 <?php  
                       if ($count_m > 0) { 
-                          echo '<select required  id="id_machine" name="id_machine" >';
-                          echo '<option value="0"> Tipo Maquinas*</option>'; 
+                          echo '<label for="exampleDataList" class="form-label">Tipo maquinaria*</label>
+                          <select required  id="id_machine" name="id_machine" >';
+                          echo '<option value="0"></option>'; 
                           foreach ($maquina as $field) {
                               $id = $field['id_machine'];
                               $maquinaName = $field['description'];
@@ -138,11 +141,11 @@
                           }
                           echo '</select> ';
                 
-                        }  ?>   
+                        }  ?> 
                 </div>
               </div>
             </div>
-            <div class="warning-wrapper" id="error-container-tipo">
+            <div class="warning-wrapper" id="error-container-tipo-cc">
              <i class="fa-solid fa-circle-exclamation"></i>
                     <div>
                         <p class="error-heading">Campos faltan completar</p>
@@ -167,9 +170,18 @@
 
         
  <script> 
-    $(document).ready(function() {
-  
-  }); 
+  $(document).ready(function() {
+  formatPrice('#price');
+  formatPrice('#price5');
+});
+
+  function formatPrice(selector) {
+  $(document).on('input', selector, function() {
+    var value = $(this).val().replace(/\D/g, '');
+    var formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    $(this).val(formattedValue);
+  });
+}
 
  var id_categoria = 0;
  var categoria = '';
@@ -183,10 +195,12 @@
 
   if (id_categoria==1 || id_categoria==2) {
     $('.engine_number, .chasis_number, .patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').show(); 
+    $('#inputGroupSelectPeso,#inputGroupSelectPotencia,#inputGroupSelectCilindrada,#inputGroupSelectTorque,#inputGroupSelectConsumo').show(); 
     $('#title-transmission,#t-transmission,#t-tranx').show(); 
   }else{
     
     $('.engine_number, .chasis_number, .patente,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption').hide(); 
+    $('#inputGroupSelectPeso,#inputGroupSelectPotencia,#inputGroupSelectCilindrada,#inputGroupSelectTorque,#inputGroupSelectConsumo').hide(); 
     $('#title-transmission,#t-transmission,#t-tranx').hide(); // Ocultar los elementos de entrada// Ocultar los elementos de entrada
   }
 
@@ -207,7 +221,7 @@
 
 
   if (id_categoria==4 || id_categoria==2 ) {
-     $('#factory_code').prop('type', 'number'); 
+     $('#factory_code').prop('type', 'text'); 
   }
 
   
@@ -223,15 +237,9 @@
  
 <script>
     $('#industria').selectize({ normalize: true });
-    $('#id_machine').selectize({ normalize: true });
-    $('#anios').selectize({ normalize: true });
-    $('#marca').selectize({ normalize: true });
+    $('#id_machine').selectize({ normalize: true }); 
     $('#region').selectize({ normalize: true });
-    $('#city').selectize({ normalize: true });
-
-    $('#anios5').selectize({ normalize: true });
-    $('#marca5').selectize({ normalize: true });
+    $('#city').selectize({ normalize: true }); 
     $('#region5').selectize({ normalize: true });
-    $('#city5').selectize({ normalize: true });
-    
+    $('#city5').selectize({ normalize: true });    
 </script>
