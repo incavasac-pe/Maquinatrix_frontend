@@ -5,7 +5,7 @@ if (isset($_SESSION['loggedIn'])) {
     $email = $_SESSION['email'];
     $username = $_SESSION['username'];
     $photo = $_SESSION['photo'];
-    $id_user_ext = $_SESSION['id_user_ext'];
+    $id_user_ext = $_SESSION['id_user_ext'] ?? '';
 }
   
 ?>
