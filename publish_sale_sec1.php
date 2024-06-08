@@ -171,8 +171,7 @@
         
  <script> 
   $(document).ready(function() {
-  formatPrice('#price');
-  formatPrice('#price5');
+    formatPrice('#price,#price5,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption,#KilometrosRecorridos,#Horometro');  
 });
 
   function formatPrice(selector) {

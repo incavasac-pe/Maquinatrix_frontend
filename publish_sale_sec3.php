@@ -84,6 +84,11 @@
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn"  onclick="navigateBackwardCancel()" >Cancelar</button></div> 
-        </div>
+            <div>
+              <button type="button"  class="grey-btn save_public_sale" data-publication-id="3">Guardar y salir </button>
+               
+           </div>
+          </div>
+        
     </div>
    </div>

@@ -339,6 +339,7 @@
                                 <th>Fecha Creación</th>
                                 <th>Categoría</th>
                                 <th>Tipo</th>
+                                <th>Estatus</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
@@ -350,6 +351,29 @@
                                     foreach ($currentRows as $pub) {
                                         $id = $pub['id_product'];
 
+                                        $status = $pub['status_id'];
+                                        $status_descpricion = '';
+                                        switch ($status) {
+                                            case 6:
+                                                $status_descpricion ="ACTIVA";
+                                                break;
+                                            case 7:
+                                                $status_descpricion = "SUSPENDIDA";
+                                                break;
+                                            case 8:
+                                                $status_descpricion = "ELIMINADA";
+                                                break;
+                                            case 9:
+                                                $status_descpricion = "EN REVISION";
+                                                break;
+                                            case 10:
+                                                $status_descpricion = "BORRADOR";
+                                                break;
+                                            default:
+                                                $status_descpricion = "Estado de publicación desconocido";
+                                                break;
+                                        }
+
                                         echo '<tr>';
                                         echo '<td>Publicación#' . $id . '</td>';
                                         echo '<td>#' . ($pub['User']['Profile']['id_user_ext'] ?? '-') . '</td>';
@@ -357,7 +381,7 @@
                                         echo '<td>' . $pub['create_at_formatted'] . '</td>';
                                         echo '<td><span class="category"> ' . $pub['Category']['category'] . '</span></td>';
                                         echo '<td> ' . $pub['PublicationType']['type_pub'] . '</td>';
-
+                                        echo '<td> ' . $status_descpricion. '</td>';
                                         echo '<td>
                                                 <div class="dropdown d-inline-block">
                                                     <a class="btn-action dropdownMenuLink font-family-Roboto-Regular" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -368,7 +392,8 @@
                                                         <a class="dropdown-item font-family-Roboto-Regular" href="detalle-publicaciones.php?id=' . $id . '">Ver detalles</a>
                                                         <a class="dropdown-item font-family-Roboto-Regular"  onclick="statusPub('.$id.',8)" >Eliminar publicación</a>
                                                         <a class="dropdown-item font-family-Roboto-Regular"  onclick="statusPub('.$id.',6)" >Activar publicación</a>
-                                                        </div>
+                                                        <a class="dropdown-item font-family-Roboto-Regular"  onclick="statusPub('.$id.',7)" >Suspender publicación</a>
+                                                         </div>
                                                 </div>
                                              </td>';
                                         echo '</tr>';

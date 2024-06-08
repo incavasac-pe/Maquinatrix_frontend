@@ -344,7 +344,7 @@ $url_publi = $protocol . '://' . $host;
                
             </div>
             <div class="traction-right-section">
-                <input class="traction-btn" disabled placeholder="Escribir otro " id="traction_index" name="traction_index"/>
+                <input class="traction-btn" disabled placeholder="Escribir otro " id="traction_index5" name="traction_index5"/>
             </div>
         </div>
         <p class="sm-title" style="margin-top: 55px;">Diseño de la banda de rodadura</p>
@@ -514,7 +514,7 @@ $url_publi = $protocol . '://' . $host;
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn"  onclick="navigateBackwardCancel()" >Cancelar</button></div>
-            <div><button type="button" class="grey-btn" id="save_public1">Guardar y salir</button><button type="button"
+            <div><button type="button"  class="grey-btn save_public_sale" data-publication-id="1" >Guardar y salir</button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
         </div>
     </div>

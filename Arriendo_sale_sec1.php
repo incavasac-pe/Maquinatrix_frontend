@@ -91,8 +91,8 @@ $url_publi = $protocol . '://' . $host;
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button   onclick="setCategory(5,'Equipos y herramientas')" class="nav-link" id="pills-publish1-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
-                  type="button" role="tab" aria-controls="pills-publish1" aria-selected="false"><img
+                <button   onclick="setCategory(5,'Equipos y herramientas')" class="nav-link" id="pills-publish5-tab" data-bs-toggle="pill" data-bs-target="#pills-publish1"
+                  type="button" role="tab" aria-controls="pills-publish" aria-selected="false"><img
                     src="./assets/img/hand-drill.png" alt="hand-drill" />
                   <p>Equipos y<br /> herramientas </p>
                 </button>
@@ -662,7 +662,7 @@ $url_publi = $protocol . '://' . $host;
                 <div class="category-product2">
                     <div class="category-btns-wrapper">
                         <div><button type="button" class="grey-btn" onclick="navigateBackwardCancel()">Cancelar</button></div>
-                        <div><button type="button" class="grey-btn">Guardar y salir</button><button type="button"
+                        <div><button type="button" class="grey-btn save_public" data-publication-id="1" >Guardar y salir</button><button type="button"
                            class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
                     </div>
                 </div>
@@ -678,7 +678,8 @@ $url_publi = $protocol . '://' . $host;
 function setCategory(value,text) {
   id_categoria = value;
   categoria = text;
-  console.log("la categoria es",id_categoria)
+  console.log("la categoria es*",id_categoria)
+  console.log("la categoria es",categoria)
     if (id_categoria==5) {
        $('.engine_number, .chasis_number, .patente').hide(); // Ocultar los elementos de entrada
     }else{
@@ -786,13 +787,8 @@ function searchTypeModelo(industria){
 </script>
 <script>
 $(document).ready(function() {
-    $('#price').on('input', function() {
-        var value = $(this).val().replace(/\D/g, '');
-        var formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-        $(this).val(formattedValue);
-  });
-  
-
+    formatPrice('#price,#PesoNeto,#Potencia,#Cilindrada,#Torque,#mixed_consumption,#KilometrosRecorridos,#Horometro');  
+ 
   $('#pdfFile').change(function() {
     var file = $(this).prop('files')[0];
 
@@ -850,6 +846,14 @@ $(document).ready(function() {
 
    
 });
+
+function formatPrice(selector) {
+  $(document).on('input', selector, function() {
+    var value = $(this).val().replace(/\D/g, '');
+    var formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    $(this).val(formattedValue);
+  });
+}
 </script>
 <script>
     $('#industria').selectize({ normalize: true });

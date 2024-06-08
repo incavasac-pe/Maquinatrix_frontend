@@ -7,23 +7,7 @@
 
   $baseUrl = getenv('URL_API'); 
   $count_detalle = 0;
-  /*
-  if (isset($_GET['id']) &&  $_GET['id']!== ''){
-      //echo "ID RECIBIDO ". $id= $_GET['id']; 
-      $url12 = $baseUrl.'/list_publications_panel_details?id='.$id;
-
-      $response = file_get_contents($url12);
-      if ($response !== false) {
-        // Decodificar la respuesta JSON
-        $data = json_decode($response, true);
-        if (!$data['error']) {
-            // Obtener el detalle
-            $detalle_edit = $data['data'][0]; 
-           // print_r($detalle_edit);
-           $count_detalle = $data['count'];
-        }  
-      } 
-    }  */
+  
 ?> 
 <div>
 
@@ -199,7 +183,8 @@
 </script>
 <script>
 
-var $confirmPublicSaleBtn = $('#confirm_public');
+var $confirmPublicSaleBtn = $('#confirm_public'); 
+
 $(document).ready(function() {
     console.log( "ready publication!" ); 
     var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
@@ -211,21 +196,19 @@ $(document).ready(function() {
      $("#confirm_public").on('click', function(event) {
       $(this).prop('disabled', true);
       $(this)
-      .html('<i class="fa fa-spinner fa-spin"></i> Procesando...')
+      .html('<i class="fa fa-spinner fa-spin"></i> Publicando...')
       .addClass('disabled');
       save_public = true;
       registerPublication(8);
     });  
-
-    $("#save_public1").on('click', function(event) {
-      resumePublication(1,false);   
+    //guardar en borrador
+    $('.save_public').on('click', function(event) {
+      let publicationId = $(this).data('publication-id');
+      $(this).prop('disabled', true)
+        .html('<i class="fa fa-spinner fa-spin"></i> Guardando...')
+        .addClass('disabled');
+      resumePublication(publicationId, false);
     }); 
-    $("#save_public2").on('click', function(event) {
-      resumePublication(2,false);   
-    });  
-    $("#save_public3").on('click', function(event) {
-      resumePublication(3,false);  
-    });   
 
     $(".traction-text").click(function() {
       $(".traction-text").removeClass("active_tracc");
@@ -280,10 +263,10 @@ $(document).ready(function() {
     function validatePriceFields() {
       if (($priceType1.is(':checked') || $priceType2.is(':checked')) && $price.val() !== '') {
         $errorContainerPrice.hide();
-        isFormValidateSeccion4 = true;
+        isFormValidateSeccion3 = true;
       } else {
         $errorContainerPrice.show();
-        isFormValidateSeccion4 = false;
+        isFormValidateSeccion3 = false;
       }
     }
 
@@ -291,7 +274,7 @@ $(document).ready(function() {
     $priceType2.on('change', function() {
       if ($priceType2.is(':checked')) {
         $price.val('0');
-        isFormValidateSeccion4 = true;
+        isFormValidateSeccion3 = true;
       }
     });
     var $priceInput = $("#inputGroupSelect01Price");
@@ -310,10 +293,10 @@ $(document).ready(function() {
     function validateLocationFields() {
       if ($city.val() !== '0' && $city.val() !== '' && $region.val() !== '0'  && $region.val() !== '') {
         $errorContainerUbi.hide();
-        isFormValidateSeccion3 = true;
+        isFormValidateSeccion4 = true;
       } else {
         $errorContainerUbi.show();
-        isFormValidateSeccion3 = false;
+        isFormValidateSeccion4 = false;
       }
     }
 
@@ -447,20 +430,20 @@ fileInput.addEventListener('change', handleImageUpload);
  function resumePublication(step,save){  
     var id_product_old = '<?= isset($_GET['id']) &&  $_GET['id']!== '' ? $_GET['id'] : null; ?>';
     publicacion1 = {  
-      "id_product": id_product_old,
-      "id_publication_type": 1,
-      "id_category": id_categoria,
+      "id_product":id_product_old,
+      "id_publication_type":1,
+      "id_category":id_categoria,
       "id_product_type": $("#industria").val(),
-      "id_machine":  $("#id_machine").val(),
-      "status_id": 9,
-      "title": $("#title").val(),
+      "id_machine":$("#id_machine").val(),
+      "status_id":10,
+      "title":$("#title").val(),
       "description":$("#descrip").val()
      };
      console.log("publicacion1",publicacion1)
 
     publicacion2 = {   
       "id_product":id_product,
-      "region":  $("#region").val(),
+      "region": $("#region").val(),
       "city":  $("#city").val(),
       "price": $('input[name="price_type"]:checked').val()  =='C' ? 'Cotizar' : selectedCurrency + ' '+  $("#price").val() + '',
       "brand": $("#marca").val(),
@@ -537,6 +520,7 @@ fileInput.addEventListener('change', handleImageUpload);
     console.log("publicacion5",publicacion5)
   //agrega los valores en el resumen paso 3 
     if(save){
+      publicacion1.status_id = 9;
     $('.btn_2').text(categoria);
     $('.r_marca').text( $("#marca").val()); 
     $('.r_modelo').text(  $("#modelo").val());
@@ -591,10 +575,7 @@ fileInput.addEventListener('change', handleImageUpload);
   }
  } 
 
- function registerPublication(step_public){ 
-    if(step_public <= 3 ){
-      publicacion1.status_id = 9;
-    }
+ function registerPublication(step_public){  
  
     var url = '<?=$baseUrl?>/register_publication'; 
     var token = '<?= $_SESSION["token"]  ?? ''?>';
@@ -910,11 +891,15 @@ function edit_publi(){
     success: function(res) {      
      if(!res.error){ 
           res.data.forEach(function(element) {      
+          console.log("*999999999999",element.id_category)
+            setCategory(element.id_category,element.mainCategory?.category);
+            if(element.id_category==5){
+              $("#pills-publish5-tab").click();
+            }else{
+              $("#pills-publish1-tab").click();
+            }
           
-            setCategory(element.id_category,element.mainCategory?.category); 
             
-            $("#pills-publish1-tab").click();
-       
              // Establecer el valor seleccionado
             var selectize = $('#industria')[0].selectize;
             selectize.setValue(element.id_product_type);
@@ -924,21 +909,16 @@ function edit_publi(){
             $("#title").val(element.title);
             $("#descrip").val(element.description);
             $("#marca").val(element.product_details.brand);
-            $("#anios").val(element.product_details.year);
- 
-
+            $("#anios").val(element.product_details.year); 
              $("#modelo").val(element.product_details.model);
              $("#engine_number").val(element.product_details.engine_number);
              $("#chasis_number").val(element.product_details.chasis_number);
              $("#patente").val(element.product_details.patent);
              $("#patent").val(element.product_details.patent)
-            
-            /* $("#PesoNeto").val(element.product_technical_characteristics.weight);
-             $("#Potencia").val(element.product_technical_characteristics.power);
-             $("#Cilindrada").val(element.product_technical_characteristics.displacement);
-             $("#Torque").val(element.product_technical_characteristics.torque);
-             $("#mixed_consumption").val(element.product_technical_characteristics.mixed_consumption);*/
-
+             
+             var $errorContainerTitle = $("#error-container-title");
+              $errorContainerTitle.hide();
+              isFormValidateSeccion2 = true;
              
            var PesoNeto = element.product_technical_characteristics?.weight.split(" ");   
             $("#PesoNeto").val(PesoNeto[0]);    
@@ -968,7 +948,10 @@ function edit_publi(){
              }else{
               $("#flexRadioDefault2").prop("checked", true);
              }
-         
+             var $errorContainerCondicion = $("#error-container-condicion");
+              $errorContainerCondicion.hide();
+              isFormValidateSeccion5 = true;
+
              $("#KilometrosRecorridos").val(element.product_technical_characteristics.km_traveled);
              $("#Horometro").val(element.product_technical_characteristics.hrs_traveled);
              
@@ -980,13 +963,22 @@ function edit_publi(){
              
              var parts = element.product_details.price.split(" ")
               $("#price").val(parts[1]); 
-              selectedCurrency = parts[0];
-             // $("#price").val(element.product_details.price);
+              selectedCurrency = parts[0]; 
+
+              var $errorContainerPrice = $("#error-container-price"); 
+              $errorContainerPrice.hide();
+              isFormValidateSeccion3 = true;
+ 
+
+
 
             var selectize = $('#region')[0].selectize;
             selectize.setValue(element.product_details.region);
             var selectize = $('#city')[0].selectize;
             selectize.setValue(element.product_details.city);
+            var $errorContainerUbi = $("#error-container-ubicacion");
+              $errorContainerUbi.hide();
+             isFormValidateSeccion4 = true;
 
             if(element.product_technical_characteristics.transmission == 'Manual'){  
               $("#inlineRadio1").prop("checked", true);

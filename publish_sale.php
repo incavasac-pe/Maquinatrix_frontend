@@ -313,21 +313,20 @@ $(document).ready(function() {
     
       $(this).prop('disabled', true);
       $(this)
-      .html('<i class="fa fa-spinner fa-spin"></i> Procesando...')
+      .html('<i class="fa fa-spinner fa-spin"></i> Publicando...')
       .addClass('disabled');
       save_public = true;
       registerPublication(0);
     });  
-
-    $("#save_public1").on('click', function(event) {
-      resumePublication(1,false);   
+    
+      //guardar en borrador
+      $('.save_public_sale').on('click', function(event) {
+      let publicationId = $(this).data('publication-id');
+      $(this).prop('disabled', true)
+        .html('<i class="fa fa-spinner fa-spin"></i> Guardando...')
+        .addClass('disabled');
+      resumePublication(publicationId, false);
     }); 
-    $("#save_public2").on('click', function(event) {
-      resumePublication(2,false);   
-    });  
-    $("#save_public3").on('click', function(event) {
-      resumePublication(3,false);  
-    });   
    
     //valida maquina y industria
     var $idMachine = $("#id_machine");
@@ -560,6 +559,12 @@ function setTipoT(valor){
     $(".st").removeClass("active_tracc"); 
     $(".st:contains(" + valor + ")").addClass("active_tracc");
   }
+  if(valor == 'Otros'){
+      $('#land_type').prop('disabled', false);
+    }else{
+      $('#land_type').val("");
+      $('#land_type').prop('disabled', true);
+    }
 }
 
 function setTraccion(valor){
@@ -584,10 +589,10 @@ function setTraccion(valor){
       $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
     }
     if(valor == 'Otros'){
-      $('#traction_index').prop('disabled', false);
+      $('#traction_index5').prop('disabled', false);
     }else{
-      $('#traction_index').val("");
-      $('#traction_index').prop('disabled', true);
+      $('#traction_index5').val("");
+      $('#traction_index5').prop('disabled', true);
     }
  }
 var idPreview = '';
@@ -602,7 +607,7 @@ function resumePublication(step,save){
       "id_category": id_categoria,
       "id_product_type": $("#industria").val(),
       "id_machine":  $("#id_machine").val(),
-      "status_id": 9,
+      "status_id": 10,
       "title": id_categoria!='3' ? $("#title").val():$("#title5").val(),
       "description":  id_categoria!='3' ? $("#descrip").val():$("#descrip5").val()
      };
@@ -622,10 +627,10 @@ function resumePublication(step,save){
       "patent": $("#patente").val() ?? '',     
       "condition": id_categoria!='3' ? $('input[name="flexRadioDefault"]:checked').val() : $('input[name="flexRadioDefault5"]:checked').val(),
       "owner": "Owner",
-      "warranty": 'N',
+      "warranty": '',
       "delivery": id_categoria!='3' ? $('input[name="inlineRadioOptions"]:checked').val()  ?? '' : $('input[name="inlineRadioOptions5"]:checked').val()  ?? '',
-      "pay_now_delivery": "N",
-      "facipay":"H",
+      "pay_now_delivery": "",
+      "facipay":"",
       "contact_me": "Contact Me" ,
       "id_marca": '1',
       "id_model": '1',
@@ -657,7 +662,7 @@ console.log("publicacion4",publicacion3);
       "maximum_speed": $("#maximum_speed").val(), 
       "utqg": $("#utqg").val(), 
       "wear_rate":  $("#wear_rate").val(), 
-      "traction_index": traxion ? traxion : $("#traction_index").val(), 
+      "traction_index": traxion ? traxion : id_categoria!='3' ? $("#traction_index").val() :  $("#traction_index5").val(), 
       "temperature_index":  $("#temperature_index").val(), 
       "runflat": $('input[name="runflat"]:checked').val(),
       "terrain_type": $("#terrain_type").val(), 
@@ -672,6 +677,7 @@ console.log("publicacion4",publicacion3);
 
   //agrega los valores en el resumen paso 3 
   if(save){
+    publicacion1.status_id = 9;
   $('.btn_2').text(categoria); 
  
   $('.r_marca').text( id_categoria!='3' ? $("#marca").val(): $("#marca55").val()); 
@@ -728,9 +734,7 @@ console.log("publicacion4",publicacion3);
  }
 
  function registerPublication(step_public){ 
-  if(step_public <= 3 ){
-    publicacion1.status_id = 9;
-  }
+  
     var url = '<?=$baseUrl?>/register_publication'; 
     var token = '<?= $_SESSION["token"]; ?>';
     $.ajax({
@@ -749,9 +753,9 @@ console.log("publicacion4",publicacion3);
       },
       error: function(response,xhr, textStatus, errorThrown) {
         $confirmPublicSaleBtn
-      .prop('disabled', false)
-      .html('Confirmar y publicar')
-      .removeClass('disabled');
+        .prop('disabled', false)
+        .html('Confirmar y publicar')
+        .removeClass('disabled');
         if (response.status === 401 || response.status === 403) {
               window.location.href = 'create_session_portal.php?logout=true';
               }
@@ -1044,13 +1048,14 @@ $.ajax({
               isFormValidateSeccion2 = true;
              
               var parts = element.product_details.price.split(" "); 
-              var $errorContainerPrice = $("#error-container-price"); 
+              
     
               $("#price").val(parts[1]); 
               selectedCurrency = parts[0] =='CLP' || parts[0] =='USD' ? parts[0] : 'CLP' ; 
 
         // Seleccionamos el elemento <option> correspondiente
                $("#inputGroupSelect01Price option[value='" + selectedCurrency + "']").prop("selected", true);
+               var $errorContainerPrice = $("#error-container-price"); 
               $errorContainerPrice.hide();
               isFormValidateSeccion3 = true;
             }
