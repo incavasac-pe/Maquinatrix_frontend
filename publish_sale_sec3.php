@@ -47,6 +47,14 @@
         <td>N° de Motor</td>
         <td class="r_motor"></td>
       </tr> 
+      <tr id="r_chasis">
+        <td>N°. de Chasis/VIN</td>
+        <td class="r_chasis"></td>
+      </tr>
+      <tr id="r_patente">
+        <td>Patente</td>
+        <td class="r_patente"></td>
+      </tr>
       <tr>
         <td>Ubicación</td>
         <td class="r_ubicacion"></td>
@@ -61,6 +69,31 @@
       </tr>
     </tbody>
   </table>
+  <table class="excavator-table" style="margin-top:0px !important;">
+  <p class="sm-title-excavator">Características</p>
+  <tbody>
+  <tr id="r_peso">
+        <td>Peso Neto</td>
+        <td class="r_peso"></td>
+  </tr>
+  <tr id="r_potencia">
+        <td>Potencia</td>
+        <td class="r_potencia"></td>
+  </tr>
+  <tr id="r_cilindrada">
+        <td>Cilindrada</td>
+        <td class="r_cilindrada"></td>
+  </tr>
+  <tr id="r_torque">
+        <td>Torque</td>
+        <td class="r_torque"></td>
+  </tr>
+  <tr id="r_consumo">
+        <td>Consumo Mixto</td>
+        <td class="r_consumo"></td>
+  </tr>
+  </tbody>
+</table>
  
         </div>
         <div class="col-md-4 col-lg-4 col-sm-12">

@@ -722,7 +722,7 @@ function searchPublication(type,page=false) {
                 var divCol6_2 = $('<div>').addClass('col-md-6');
                 var pLocation = $('<p>').addClass('font-family-Roboto-Regular detalles-grey mb-1').html('<img src="./assets/img/location-grey.png" alt="location"> Ubicado en');
                 var pBus = $('<p>').addClass('font-family-Roboto-Regular detalles-grey mb-1').html('<img src="./assets/img/bus.png" alt="bus"> Marca');
-                var pKm = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element?.location!='location' ? element?.location : element.product_details?.region  +' ' +element.product_details?.city);
+                var pKm = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element?.location!='location' ? element?.location : element.product_details?.region  +', ' +element.product_details?.city);
                 var pDate = $('<p>').addClass('font-family-Roboto-Regular detalles-bold mb-1').text(element.product_details?.brand);
 
                 // Agregar los elementos de los detalles dentro del div de la columna 1 y columna 2

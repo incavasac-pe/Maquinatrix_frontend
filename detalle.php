@@ -280,10 +280,17 @@ function formatearPrecio($precio) {
                             <?php if (!empty($detalle['product_technical_characteristics']['km_traveled'])): ?>
                                 <tr>
                             <td>Kilometraje</td>
-                                <td><?= $detalle['product_technical_characteristics']['km_traveled']; ?></td>
+                                <td><?= $detalle['product_technical_characteristics']['km_traveled']; ?> Km</td>
                                 </tr>
                             <?php else: ?>
                                 <?php endif; ?>
+                                <?php if (!empty($detalle['product_technical_characteristics']['hrs_traveled'])): ?>
+                                <tr>
+                                    <td>Horómetro</td>
+                                     <td><?= $detalle['product_technical_characteristics']['hrs_traveled'];  ?>  Hrs</td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?>
                                 <?php if (!empty($detalle['product_details']['engine_number'])): ?>
                                 <tr>
                                     <td>N° de Motor</td>
@@ -292,6 +299,22 @@ function formatearPrecio($precio) {
                             <?php else: ?>     
                                 <?php endif; ?>
                          
+                                <?php if (!empty($detalle['product_details']['chasis_number'])): ?>
+                                <tr>
+                                    <td>N°. de Chasis/VIN</td>
+                                     <td><?= $detalle['product_details']['chasis_number']; ?></td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?>
+
+
+                            <?php if (!empty($detalle['product_details']['patent'])): ?>
+                                <tr>
+                                    <td>Patente</td>
+                                     <td><?= $detalle['product_details']['patent']; ?></td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?>
                             <tr>
                                 <td>Ubicación</td>
                                 <td><?= $detalle['location']!='location' ?  $detalle['location'] :  $detalle['product_details']['region']; ?>, <?= $detalle['product_details']['city']; ?></td>
@@ -308,6 +331,58 @@ function formatearPrecio($precio) {
                                 <td>Despacho</td>
                                 <td> <?= $detalle['product_details']['delivery'] == 'S' || $detalle['product_details']['delivery'] == 'Y'  ? 'Sí':'No';   ?></td>
                             </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped font-family-Roboto-Medium table-bordered">
+                        <tbody> 
+                            <?php if (!empty($detalle['product_technical_characteristics']['weight']) &&  $detalle['product_technical_characteristics']['weight']!=' Tonelada'): ?>
+                                <tr>
+                            <td>Peso Neto</td>
+                                <td><?= $detalle['product_technical_characteristics']['weight']; ?></td>
+                                </tr>
+                            <?php else: ?>
+                                <?php endif; ?>
+                                <?php if (!empty($detalle['product_technical_characteristics']['power']) && $detalle['product_technical_characteristics']['power'] !=' HP') : ?>
+                                <tr>
+                                <td>Potencia</td>
+                                <td><?= $detalle['product_technical_characteristics']['power']; ?> </td>
+                                </tr>
+                              <?php else: ?>
+                                <?php endif; ?>
+
+                                <?php if (!empty($detalle['product_technical_characteristics']['displacement']) && $detalle['product_technical_characteristics']['displacement'] !=' CC') : ?>
+                                <tr>
+                                <td>Cilindrada</td>
+                                     <td><?= $detalle['product_technical_characteristics']['displacement']; ?> </td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?>
+                                <?php if (!empty($detalle['product_technical_characteristics']['torque'])  && $detalle['product_technical_characteristics']['torque'] !=' NM') : ?>
+                                <tr>
+                                <td>Torque</td>
+                                     <td><?= $detalle['product_technical_characteristics']['torque']; ?></td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?>
+
+                            <?php if (!empty($detalle['product_technical_characteristics']['mixed_consumption']) && $detalle['product_technical_characteristics']['mixed_consumption'] !=' l/h') : ?>
+                                <tr>
+                                <td>Consumo Mixto</td>
+                                     <td><?= $detalle['product_technical_characteristics']['mixed_consumption']; ?></td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?> 
+
+                            
+                            <?php if (!empty($detalle['product_technical_characteristics']['traction'])): ?>
+                                <tr>
+                                <td>Traccion</td>
+                                     <td><?= $detalle['product_technical_characteristics']['traction']; ?></td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?> 
+                              
+                       
                         </tbody>
                     </table>
                 </div>

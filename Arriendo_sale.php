@@ -184,7 +184,8 @@
 <script>
 
 var $confirmPublicSaleBtn = $('#confirm_public'); 
-
+var city='';
+var region='';
 $(document).ready(function() {
     console.log( "ready publication!" ); 
     var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
@@ -285,13 +286,17 @@ $(document).ready(function() {
       // Aquí puedes agregar la lógica que desees ejecutar cuando se selecciona un valor
     });
 //fin valida precio
-  //  valida city y region 
-    var $city = $("#city");
-    var $region = $("#region");
+ 
+    const $region = $('.region-select');
+    const $selectedComunaId = $('.comuna-select');
     var $errorContainerUbi = $("#error-container-ubicacion");
 
-    function validateLocationFields() {
-      if ($city.val() !== '0' && $city.val() !== '' && $region.val() !== '0'  && $region.val() !== '') {
+    function validateLocationFields() {   
+      city = $selectedComunaId.val();
+
+      console.log("*-*-*-*-region*-*-* ",region); 
+      console.log("*-*-*-*-city*-*-* ",city); 
+      if ($selectedComunaId.val() !== '0' && $selectedComunaId.val() !== '' && region !== '0'  && region !== '') {
         $errorContainerUbi.hide();
         isFormValidateSeccion4 = true;
       } else {
@@ -300,7 +305,7 @@ $(document).ready(function() {
       }
     }
 
-  $city.add($region).on('change', validateLocationFields);
+  $selectedComunaId.add($region).on('change', validateLocationFields);
   // fin valida city y region 
   });  
 
@@ -443,9 +448,9 @@ fileInput.addEventListener('change', handleImageUpload);
 
     publicacion2 = {   
       "id_product":id_product,
-      "region": $("#region").val(),
-      "city":  $("#city").val(),
-      "price": $('input[name="price_type"]:checked').val()  =='C' ? 'Cotizar' : selectedCurrency + ' '+  $("#price").val() + '',
+      "region": region, 
+      "city":  city, 
+      "price": $('input[name="price_type"]:checked').val()  =='H' ?  selectedCurrency + ' '+  $("#price").val() + '':'0',
       "brand": $("#marca").val(),
       "model": $("#modelo").val(),
       "year": $("#anios").val(),
@@ -528,10 +533,12 @@ fileInput.addEventListener('change', handleImageUpload);
     $('.r_condicion').text($('input[name="flexRadioDefault"]:checked').val());
     
     $('.r_km').text( $("#KilometrosRecorridos").val());
-    $('.r_motor').text($("#engine_number").val() ?? '');
-    $('.r_ubicacion').text( $("#region option:selected").text() +' '+ $("#city option:selected").text());
-    $('.location-grey-text').text( $("#region option:selected").text() +' '+$("#city option:selected").text());
-    var value =  publicacion2.facipay =='C' ? 'Cotizar' : selectedCurrency + ' '+  $("#price").val()  + ''
+    $('.r_motor').text($("#engine_number").val() ?? ''); 
+    $('.r_chasis').text($("#chasis_number").val() ?? ''); 
+    $('.r_patente').text($("#patente").val() ?? ''); 
+    $('.r_ubicacion').text(region +', '+ city); 
+    $('.location-grey-text').text(region +', '+ city);
+    var value =  publicacion2.facipay =='H' ?  selectedCurrency + ' '+  $("#price").val() : 'Cotizar';
     $('.r_price').text( value);
 
     $('.r_tipo_vendedor').text(categoria);
@@ -544,15 +551,46 @@ fileInput.addEventListener('change', handleImageUpload);
     $('.btn_rrrr').text(categoria);
     $('.r_title').text( $("#title").val());
 
+
     if($("#KilometrosRecorridos").val()==''){   
       $("#r_km").hide();
     }
     if($("#engine_number").val()==''){   
       $("#r_motor").hide();
     }
+    if($("#chasis_number").val()==''){   
+      $("#r_chasis").hide();
+    }
+    if($("#patente").val()==''){   
+      $("#r_patente").hide();
+    }
     if(publicacion2.condition==''){   
       $("#r_condicion").hide();
     }
+
+    //caracteristicas
+    $('.r_peso').text($("#PesoNeto").val() + ' '+ $("#inputGroupSelectPeso").val()); 
+    $('.r_potencia').text($("#Potencia").val() + ' '+ $("#inputGroupSelectPotencia").val()); 
+    $('.r_cilindrada').text($("#Cilindrada").val() + ' '+ $("#inputGroupSelectCilindrada").val() ); 
+    $('.r_torque').text($("#Torque").val() + ' '+ $("#inputGroupSelectTorque").val()); 
+    $('.r_consumo').text( $("#mixed_consumption").val() + ' '+ $("#inputGroupSelectConsumo").val());   
+
+    if($("#PesoNeto").val()==''){   
+      $("#r_peso").hide();
+    }
+    if($("#Potencia").val()==''){   
+      $("#r_potencia").hide();
+    }
+    if($("#Cilindrada").val()==''){   
+      $("#r_cilindrada").hide();
+    }
+    if($("#Torque").val()==''){   
+      $("#r_torque").hide();
+    }
+    if($("#mixed_consumption").val()==''){   
+      $("#r_consumo").hide();
+    }
+
 
     if(step==3){
       var imgPreview = document.getElementById('image-preview'); 
@@ -890,8 +928,7 @@ function edit_publi(){
     method: 'GET',    
     success: function(res) {      
      if(!res.error){ 
-          res.data.forEach(function(element) {      
-          console.log("*999999999999",element.id_category)
+          res.data.forEach(function(element) {       
             setCategory(element.id_category,element.mainCategory?.category);
             if(element.id_category==5){
               $("#pills-publish5-tab").click();
@@ -910,15 +947,15 @@ function edit_publi(){
             $("#descrip").val(element.description);
             $("#marca").val(element.product_details.brand);
             $("#anios").val(element.product_details.year); 
-             $("#modelo").val(element.product_details.model);
-             $("#engine_number").val(element.product_details.engine_number);
-             $("#chasis_number").val(element.product_details.chasis_number);
-             $("#patente").val(element.product_details.patent);
-             $("#patent").val(element.product_details.patent)
+            $("#modelo").val(element.product_details.model);
+            $("#engine_number").val(element.product_details.engine_number);
+            $("#chasis_number").val(element.product_details.chasis_number);
+            $("#patente").val(element.product_details.patent);
+            $("#patent").val(element.product_details.patent)
              
-             var $errorContainerTitle = $("#error-container-title");
-              $errorContainerTitle.hide();
-              isFormValidateSeccion2 = true;
+            var $errorContainerTitle = $("#error-container-title");
+            $errorContainerTitle.hide();
+            isFormValidateSeccion2 = true;
              
            var PesoNeto = element.product_technical_characteristics?.weight.split(" ");   
             $("#PesoNeto").val(PesoNeto[0]);    
@@ -961,21 +998,37 @@ function edit_publi(){
               $("#price_type1").prop("checked", true);
              }
              
-             var parts = element.product_details.price.split(" ")
-              $("#price").val(parts[1]); 
-              selectedCurrency = parts[0]; 
+            var parts = element.product_details.price.split(" ")
+            $("#price").val(parts[1]); 
+            selectedCurrency = parts[0]; 
 
-              var $errorContainerPrice = $("#error-container-price"); 
-              $errorContainerPrice.hide();
-              isFormValidateSeccion3 = true;
- 
-
-
-
+            var $errorContainerPrice = $("#error-container-price"); 
+            $errorContainerPrice.hide();
+            isFormValidateSeccion3 = true;
+             
+            const regiones = [
+          { id: 1, nombre: 'Arica y Parinacota' },
+          { id: 2, nombre: 'Tarapacá' },
+          { id: 3, nombre: 'Antofagasta' },
+          { id: 4, nombre: 'Atacama' },
+          { id: 5, nombre: 'Coquimbo' },
+          { id: 6, nombre: 'Valparaíso' },
+          { id: 7, nombre: 'Metropolitana de Santiago' },
+          { id: 8, nombre: 'Libertador General Bernardo O\'Higgins' },
+          { id: 9, nombre: 'Maule' },
+          { id: 10, nombre: 'Ñuble' },
+          { id: 11, nombre: 'Biobío' },
+          { id: 12, nombre: 'Araucanía' }
+        ];
+           const selectedRegion = regiones.find(r => r.nombre == element.product_details.region); 
+             console.log("****999999999999999selectedRegion",selectedRegion)
             var selectize = $('#region')[0].selectize;
-            selectize.setValue(element.product_details.region);
+            selectize.setValue(selectedRegion.id);
+             
             var selectize = $('#city')[0].selectize;
             selectize.setValue(element.product_details.city);
+ 
+
             var $errorContainerUbi = $("#error-container-ubicacion");
               $errorContainerUbi.hide();
              isFormValidateSeccion4 = true;

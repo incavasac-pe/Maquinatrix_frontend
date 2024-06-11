@@ -300,7 +300,11 @@
 
 
 <script>
-  var $confirmPublicSaleBtn = $('#confirm_public_sale');
+var $confirmPublicSaleBtn = $('#confirm_public_sale');
+var city='';
+var region='';
+var city5='';
+var region5='';
 $(document).ready(function() {
     console.log( "ready publication sale!" );  
     var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
@@ -462,14 +466,17 @@ $(document).ready(function() {
         isFormValidateSeccion35 = false;
       }
     });
- 
-     //  valida city y region 
-    var $city = $("#city");
-    var $region = $("#region");
+   //  valida city y region 
+    const $region = $('.region-select');
+    const $selectedComunaId = $('.comuna-select');
     var $errorContainerUbi = $("#error-container-ubicacion");
 
-    function validateLocationFields() {
-      if ($city.val() !== '0' && $city.val() !== '' && $region.val() !== '0'  && $region.val() !== '') {
+    function validateLocationFields() {   
+      city = $selectedComunaId.val();
+
+      console.log("*-*-*-*-region*-*-* ",region); 
+      console.log("*-*-*-*-city*-*-* ",city); 
+      if ($selectedComunaId.val() !== '0' && $selectedComunaId.val() !== '' && region !== '0'  && region !== '') {
         $errorContainerUbi.hide();
         isFormValidateSeccion4 = true;
       } else {
@@ -478,16 +485,20 @@ $(document).ready(function() {
       }
     }
 
-  $city.add($region).on('change', validateLocationFields);
-  // fin valida city y region  
-  
-     //  valida city y region 
-     var $city5 = $("#city5");
-    var $region5 = $("#region5");
+  $selectedComunaId.add($region).on('change', validateLocationFields);
+  // fin valida city y region 
+ 
+    //  valida city y region 
+    const $region5 = $('.region-select5');
+    const $selectedComunaId5 = $('.comuna-select5');
     var $errorContainerUbi5 = $("#error-container-ubicacion5");
 
-    function validateLocationFields5() {
-      if ($city5.val() !== '0' && $city5.val() !== '' && $region5.val() !== '0'  && $region5.val() !== '') {
+    function validateLocationFields5() {   
+      city5 = $selectedComunaId5.val();
+
+      console.log("*-*-*-*-region5*-*-* ",region5); 
+      console.log("*-*-*-*-city5*-*-* ",city5); 
+      if ($selectedComunaId5.val() !== '0' && $selectedComunaId5.val() !== '' && region5 !== '0'  && region5 !== '') {
         $errorContainerUbi5.hide();
         isFormValidateSeccion45 = true;
       } else {
@@ -496,9 +507,8 @@ $(document).ready(function() {
       }
     }
 
-  $city5.add($region5).on('change', validateLocationFields5);
-  // fin valida city y region 
-    
+  $selectedComunaId5.add($region5).on('change', validateLocationFields5);
+  
 
   var $aspectRatio = $("#aspect_ratio");
   var $sectionWidth = $("#section_width");
@@ -614,8 +624,8 @@ function resumePublication(step,save){
 
     publicacion2 = {   
       "id_product":id_product,
-      "region": id_categoria!='3' ? $("#region").val():$("#region5").val(),
-      "city": id_categoria!='3' ? $("#city").val():$("#city5").val(),
+      "region": id_categoria!='3' ? region: region5,
+      "city": id_categoria!='3' ? city: city5,
       "price": id_categoria!='3' ?  selectedCurrency + ' '+ $("#price").val(): selectedCurrency + ' '+ $("#price5").val(),  
       "brand": id_categoria!='3' ? $("#marca").val():$("#marca55").val(),
       "model": id_categoria!='3' ? $("#modelo").val():$("#modelo5").val(),
@@ -648,8 +658,7 @@ function resumePublication(step,save){
     "traction": $("#traction_index1").val(), 
     "km_traveled": $("#KilometrosRecorridos").val(),   
     "hrs_traveled": $("#Horometro").val(), 
-  };
-console.log("publicacion4",publicacion3);
+  }; 
     publicacion4 = {  
     "id_product": id_product,
       "section_width":  $("#section_width").val(), 
@@ -684,16 +693,18 @@ console.log("publicacion4",publicacion3);
   $('.r_modelo').text(  id_categoria!='3' ? $("#modelo").val(): $("#modelo5").val());
   $('.r_anio').text( publicacion2.year);
   $('.r_condicion').text(publicacion2.condition);
-  
+   
+   
   $('.r_km').text( $("#KilometrosRecorridos").val());
-  $('.r_motor').text($("#engine_number").val() ?? '');
+  $('.r_motor').text($("#engine_number").val() ?? ''); 
+  $('.r_chasis').text($("#chasis_number").val() ?? ''); 
+  $('.r_patente').text($("#patente").val() ?? ''); 
   $('.r_ubicacion').text( publicacion2.region + ','+ publicacion2.city);
   
-  $('.location-grey-text').text( publicacion2.region);
+  $('.location-grey-text').text( publicacion2.region + ','+ publicacion2.city);
 
   var value =  publicacion2.facipay =='C' ? 'Cotizar' :  publicacion2.price  + ''
-    $('.r_price').text(value);
- 
+  $('.r_price').text(value); 
 
   $('.r_tipo_vendedor').text(categoria); 
   $('.r_delivery').text(publicacion2.delivery == 'Y' ? 'Sí' : 'No');
@@ -705,10 +716,39 @@ console.log("publicacion4",publicacion3);
     if($("#engine_number").val()==''){   
       $("#r_motor").hide();
     }
+    
+    if($("#chasis_number").val()==''){   
+      $("#r_chasis").hide();
+    }
+    if($("#patente").val()==''){   
+      $("#r_patente").hide();
+    }
     if(publicacion2.condition==''){   
       $("#r_condicion").hide();
     }
 
+    //caracteristicas
+    $('.r_peso').text($("#PesoNeto").val() + ' '+ $("#inputGroupSelectPeso").val()); 
+    $('.r_potencia').text($("#Potencia").val() + ' '+ $("#inputGroupSelectPotencia").val()); 
+    $('.r_cilindrada').text($("#Cilindrada").val() + ' '+ $("#inputGroupSelectCilindrada").val() ); 
+    $('.r_torque').text($("#Torque").val() + ' '+ $("#inputGroupSelectTorque").val()); 
+    $('.r_consumo').text( $("#mixed_consumption").val() + ' '+ $("#inputGroupSelectConsumo").val());   
+
+    if($("#PesoNeto").val()==''){   
+      $("#r_peso").hide();
+    }
+    if($("#Potencia").val()==''){   
+      $("#r_potencia").hide();
+    }
+    if($("#Cilindrada").val()==''){   
+      $("#r_cilindrada").hide();
+    }
+    if($("#Torque").val()==''){   
+      $("#r_torque").hide();
+    }
+    if($("#mixed_consumption").val()==''){   
+      $("#r_consumo").hide();
+    }
   if(step==3){ 
       var imgPreview = document.getElementById('image-preview');
     
@@ -1118,21 +1158,42 @@ $.ajax({
            $("#KilometrosRecorridos").val(element.product_technical_characteristics?.km_traveled);
            $("#Horometro").val(element.product_technical_characteristics?.hrs_traveled);
            
-       
-           if (element.id_category == 3) {  
+               
+           const regiones = [
+          { id: 1, nombre: 'Arica y Parinacota' },
+          { id: 2, nombre: 'Tarapacá' },
+          { id: 3, nombre: 'Antofagasta' },
+          { id: 4, nombre: 'Atacama' },
+          { id: 5, nombre: 'Coquimbo' },
+          { id: 6, nombre: 'Valparaíso' },
+          { id: 7, nombre: 'Metropolitana de Santiago' },
+          { id: 8, nombre: 'Libertador General Bernardo O\'Higgins' },
+          { id: 9, nombre: 'Maule' },
+          { id: 10, nombre: 'Ñuble' },
+          { id: 11, nombre: 'Biobío' },
+          { id: 12, nombre: 'Araucanía' }
+        ];
+           const selectedRegion = regiones.find(r => r.nombre == element.product_details.region); 
+             console.log("****999999999999999selectedRegion",selectedRegion)
+         
+ 
+           if (element.id_category == 3) {   
+
               var selectize = $('#region5')[0].selectize;
-              selectize.setValue(element.product_details.region);
-              var selectize = $('#city5')[0].selectize;
-              selectize.setValue(element.product_details.city);
+            selectize.setValue(selectedRegion.id);
+             
+            var selectize = $('#city5')[0].selectize;
+            selectize.setValue(element.product_details.city);
 
               var $errorContainerUbi5 = $("#error-container-ubicacion5");
               $errorContainerUbi5.hide();
               isFormValidateSeccion45 = true;
            }else{
-              var selectize = $('#region')[0].selectize;
-              selectize.setValue(element.product_details.region);
-              var selectize = $('#city')[0].selectize;
-              selectize.setValue(element.product_details.city);
+            var selectize = $('#region')[0].selectize;
+            selectize.setValue(selectedRegion.id);
+             
+            var selectize = $('#city')[0].selectize;
+            selectize.setValue(element.product_details.city);
               var $errorContainerUbi = $("#error-container-ubicacion");
               $errorContainerUbi.hide();
              isFormValidateSeccion4 = true;

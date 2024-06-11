@@ -423,39 +423,15 @@ $url_publi = $protocol . '://' . $host;
         <h1>Ubicación de publicación</h1>
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                <label for="exampleDataList" class="form-label">Región*</label>
-                <?php                                            
-                    if ($count_regiones > 0) { 
-                            echo '<select required id="region5" name="region5">';
-                            echo '<option value="0">Región*</option>'; 
-                            foreach ($regiones as $reg) { 
-                                echo '<option value="' . $reg . '"'; 
-                                if (isset($region) && $region == $reg) {
-                                    echo ' selected';
-                                }  
-                                echo '>' . $reg. '</option>';
-                            }
-                            echo '</select>';
-                        }  
-                    ?> 
-
-                </div>
+            <div class="mb-3">
+                    <label for="region5" class="form-label">Región*</label>
+                    <select id="region5" required name="region5"  class="region-select5"></select>  
+            </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                <label for="exampleDataList" class="form-label">Comunas*</label>
-                <?php 
-                    require 'comunas.php';
-                    // Generar el select de comunas
-                    echo '<select required  id="city5" name="city5">';
-                    echo '<option value="0" selected >Comunas*</option>'; 
-                    foreach ($comunas as $comuna) {
-                        echo '<option value="' . $comuna . '">' . $comuna . '</option>';
-                    }
-                    echo '</select>';
-                    ?> 
-
+            <div class="mb-3">
+                    <label for="city5" class="form-label">Comunas*</label>
+                    <select id="city5" required name="city5"  class="comuna-select5"></select>  
                 </div>
             </div>
             <div class="warning-wrapper" id="error-container-ubicacion5">

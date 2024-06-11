@@ -26,9 +26,9 @@
         $data = json_decode($response, true);
         if (!$data['error']) {
             // Obtener la lista de $categories
-            $detalle = $data['data'][0];          
-            if($detalle['product_details']["price"]!='Cotizar'){ 
-                //$priceFormate = formatearPrecio($detalle['product_details']["price"]); 
+            $detalle = $data['data'][0];       
+           // print_r( $detalle) ;
+            if($detalle['product_details']["price"]!='Cotizar'){  
                 $priceFormate =  $detalle['product_details']["price"] ; 
               } 
             $count_detalle = $data['count'];
@@ -284,10 +284,18 @@
                                 <?php if (!empty($detalle['product_technical_characteristics']['km_traveled'])): ?>
                                 <tr>
                             <td>Kilometraje</td>
-                                <td><?= $detalle['product_technical_characteristics']['km_traveled']; ?></td>
+                                <td><?= $detalle['product_technical_characteristics']['km_traveled']; ?> Km</td>
                                 </tr>
                               <?php else: ?>
                                 <?php endif; ?>
+
+                                <?php if (!empty($detalle['product_technical_characteristics']['hrs_traveled'])): ?>
+                                <tr>
+                                    <td>Horómetro</td>
+                                     <td><?= $detalle['product_technical_characteristics']['hrs_traveled'];  ?>  Hrs</td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?>
                                 <?php if (!empty($detalle['product_details']['engine_number'])): ?>
                                 <tr>
                                     <td>N° de Motor</td>
@@ -295,6 +303,24 @@
                                 </tr>
                             <?php else: ?>     
                             <?php endif; ?>
+
+                            <?php if (!empty($detalle['product_details']['chasis_number'])): ?>
+                                <tr>
+                                    <td>N°. de Chasis/VIN</td>
+                                     <td><?= $detalle['product_details']['chasis_number']; ?></td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?>
+
+
+                            <?php if (!empty($detalle['product_details']['patent'])): ?>
+                                <tr>
+                                    <td>Patente</td>
+                                     <td><?= $detalle['product_details']['patent']; ?></td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?>
+ 
                           
                             <tr>
                                 <td>Ubicación</td>
@@ -312,6 +338,59 @@
                                 <td>Despacho</td>
                                 <td> <?= $detalle['product_details']['delivery'] == 'Y' ? 'Sí':'No';   ?></td>
                             </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-striped font-family-Roboto-Medium table-bordered">
+                        <tbody> 
+                            <?php if (!empty($detalle['product_technical_characteristics']['weight']) &&  $detalle['product_technical_characteristics']['weight']!=' Tonelada'): ?>
+                                <tr>
+                            <td>Peso Neto</td>
+                                <td><?= $detalle['product_technical_characteristics']['weight']; ?></td>
+                                </tr>
+                            <?php else: ?>
+                                <?php endif; ?>
+                                <?php if (!empty($detalle['product_technical_characteristics']['power']) && $detalle['product_technical_characteristics']['power'] !=' HP') : ?>
+                                <tr>
+                                <td>Potencia</td>
+                                <td><?= $detalle['product_technical_characteristics']['power']; ?> </td>
+                                </tr>
+                              <?php else: ?>
+                                <?php endif; ?>
+
+                                <?php if (!empty($detalle['product_technical_characteristics']['displacement']) && $detalle['product_technical_characteristics']['displacement'] !=' CC') : ?>
+                                <tr>
+                                <td>Cilindrada</td>
+                                     <td><?= $detalle['product_technical_characteristics']['displacement']; ?> </td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?>
+                                <?php if (!empty($detalle['product_technical_characteristics']['torque'])  && $detalle['product_technical_characteristics']['torque'] !=' NM') : ?>
+                                <tr>
+                                <td>Torque</td>
+                                     <td><?= $detalle['product_technical_characteristics']['torque']; ?></td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?>
+
+                            <?php if (!empty($detalle['product_technical_characteristics']['mixed_consumption']) && $detalle['product_technical_characteristics']['mixed_consumption'] !=' l/h') : ?>
+                                <tr>
+                                <td>Consumo Mixto</td>
+                                     <td><?= $detalle['product_technical_characteristics']['mixed_consumption']; ?></td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?> 
+
+                            
+                            <?php if (!empty($detalle['product_technical_characteristics']['traction'])): ?>
+                                <tr>
+                                <td>Traccion</td>
+                                     <td><?= $detalle['product_technical_characteristics']['traction']; ?></td>
+                                </tr>
+                            <?php else: ?>     
+                            <?php endif; ?> 
+                              
+                       
                         </tbody>
                     </table>
                     <?php else: ?>
@@ -356,7 +435,7 @@
                         <div class="box-cotiza">
                             <span class="font-family-Roboto-Regular">Precio</span>
                             <h3 class="font-family-Roboto-Medium ">
-                            <?= ($detalle['product_details']["facipay"] == 'C' ? 'Cotizar' : $priceFormate)  ?>
+                            <?= ($detalle['product_details']["facipay"] == 'H' ?  $priceFormate :'Cotizar')    ?>
                          </h3>
 
                         </div>

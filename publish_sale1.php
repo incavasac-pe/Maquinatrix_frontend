@@ -264,39 +264,15 @@ $url_publi = $protocol . '://' . $host;
         <h1>Ubicación</h1>
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="mb-3">
-                <label for="exampleDataList" class="form-label">Región*</label>
-                <?php                                            
-                    if ($count_regiones > 0) { 
-                            echo '<select required id="region" name="region">';
-                            echo '<option value="0" selected >Región*</option>'; 
-                            foreach ($regiones as $reg) { 
-                                echo '<option value="' . $reg . '"'; 
-                                if (isset($region) && $region == $reg) {
-                                    echo ' selected';
-                                }  
-                                echo '>' . $reg. '</option>';
-                            }
-                            echo '</select>';
-                        }  
-                    ?> 
-
-                </div>
+            <div class="mb-3">
+                    <label for="exampleDataList" class="form-label">Región*</label>
+                    <select id="region" required name="region"  class="region-select"></select>  
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-6">
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">              
                 <div class="mb-3">
-                <label for="exampleDataList" class="form-label">Comunas*</label>
-                <?php 
-                    require 'comunas.php';
-                    // Generar el select de comunas
-                    echo '<select required  id="city" name="city">';
-                    echo '<option value="0" selected >Comunas*</option>'; 
-                    foreach ($comunas as $comuna) {
-                        echo '<option value="' . $comuna . '">' . $comuna . '</option>';
-                    }
-                    echo '</select>';
-                    ?> 
-
+                    <label for="city" class="form-label">Comunas*</label>
+                    <select id="city" required name="city"  class="comuna-select"></select>  
                 </div>
             </div>
 </div>   
