@@ -26,8 +26,7 @@
         $data = json_decode($response, true);
         if (!$data['error']) {
             // Obtener la lista de $categories
-            $detalle = $data['data'][0];       
-            //print_r( $detalle) ;
+            $detalle = $data['data'][0];      
             if($detalle['product_details']["price"]!='Cotizar'){  
                 $priceFormate =  $detalle['product_details']["price"] ; 
               } 
