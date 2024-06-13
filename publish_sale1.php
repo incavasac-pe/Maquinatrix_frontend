@@ -102,6 +102,7 @@ $url_publi = $protocol . '://' . $host;
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6 factory_code" >
                 <div class="mb-3">
+                <label for="exampleDataList" class="form-label">Número de Parte</label>
                 <input type="hidden"  class="form-control" id="factory_code" name="factory_code"
                         placeholder="Número de Parte (código de fábrica producto)">
 

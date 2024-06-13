@@ -574,6 +574,9 @@ fileInput.addEventListener('change', handleImageUpload);
     $('.r_cilindrada').text($("#Cilindrada").val() + ' '+ $("#inputGroupSelectCilindrada").val() ); 
     $('.r_torque').text($("#Torque").val() + ' '+ $("#inputGroupSelectTorque").val()); 
     $('.r_consumo').text( $("#mixed_consumption").val() + ' '+ $("#inputGroupSelectConsumo").val());   
+    $('.r_transmission').text( publicacion3.transmission);   
+    $('.r_fuel').text(publicacion3.fuel);   
+    $('.r_traction').text(publicacion3.traction);   
 
     if($("#PesoNeto").val()==''){   
       $("#r_peso").hide();
@@ -589,6 +592,15 @@ fileInput.addEventListener('change', handleImageUpload);
     }
     if($("#mixed_consumption").val()==''){   
       $("#r_consumo").hide();
+    }
+    if(publicacion3.traction==''){   
+      $("#r_traction").hide();
+    }
+    if(publicacion3.transmission==''){   
+      $("#r_transmission").hide();
+    }
+    if(publicacion3.fuel==''){   
+      $("#r_fuel").hide();
     }
 
 

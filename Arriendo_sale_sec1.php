@@ -1056,16 +1056,14 @@ const $comunaSelect = $('.comuna-select').selectize({
 });
 
 // Función para actualizar las comunas cuando se selecciona una región
-function updateComunaSelect(regionId,regionName) {
-    console.log(`La región seleccionada es: ${regionName}`);
+function updateComunaSelect(regionId,regionName) { 
 
     region = regionName;
  
   const comunasDeRegion = comunas.filter(c => c.region_id == regionId);
   const $comunaSelectize = $comunaSelect[0].selectize;
   $comunaSelectize.clearOptions();
-  comunasDeRegion.forEach(comuna => {
-    console.log("se agrega las comunas",comuna)
+  comunasDeRegion.forEach(comuna => { 
     $comunaSelectize.addOption({ id: comuna.id, nombre: comuna.nombre });
   });
   $comunaSelectize.refreshOptions();
@@ -1232,16 +1230,12 @@ const $maquinasSelect = $('.maquina-select').selectize({
   placeholder: "Tipo Maquinas"
 });
  
-function updateMaquinaSelect(industriaId,industriaName) {
-    console.log(`La industriaName seleccionada es: ${industriaName}`);
-
-  //  industria = industriaName;
+function updateMaquinaSelect(industriaId,industriaName) { 
  
   const maquinassDeRegion = maquinas.filter(c => c.region_id == industriaId);
   const $maqSelectize = $maquinasSelect[0].selectize;
   $maqSelectize.clearOptions();
-  maquinassDeRegion.forEach(maq => {
-    console.log("se agrega las maquina",maq)
+  maquinassDeRegion.forEach(maq => { 
     $maqSelectize.addOption({ id: maq.id, nombre: maq.nombre });
   });
   $maqSelectize.refreshOptions();

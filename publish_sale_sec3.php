@@ -31,6 +31,10 @@
         <td>Modelo</td>
         <td class="r_modelo"></td>
       </tr>
+      <tr id="r_factory_code">
+        <td>Número de Parte</td>
+        <td class="r_factory_code"></td>
+      </tr>
       <tr>
         <td>Año</td>
         <td class="r_anio"></td>
@@ -84,6 +88,10 @@
         <td>Cilindrada</td>
         <td class="r_cilindrada"></td>
   </tr>
+  <tr id="r_traction">
+        <td>Tracción</td>
+        <td class="r_traction"></td>
+  </tr>
   <tr id="r_torque">
         <td>Torque</td>
         <td class="r_torque"></td>
@@ -92,9 +100,46 @@
         <td>Consumo Mixto</td>
         <td class="r_consumo"></td>
   </tr>
+
+  <tr id="r_transmission">
+        <td>Transmisión</td>
+        <td class="r_transmission"></td>
+  </tr>
+  <tr id="r_fuel">
+        <td>Combustible</td>
+        <td class="r_fuel"></td>
+  </tr>
   </tbody>
 </table>
- 
+<table class="excavator-table" style="margin-top:0px !important;">
+  <p class="sm-title-excavator">Dimensiones</p>
+  <tbody>
+  <tr id="r_section_width">
+        <td>Ancho de sección</td>
+        <td class="r_section_width"></td>
+  </tr>
+  <tr id="r_aspect_ratio">
+        <td>Relación de Aspecto</td>
+        <td class="r_aspect_ratio"></td>
+  </tr>
+  <tr id="r_rim_diameter">
+        <td>Diámetro de la llanta</td>
+        <td class="r_rim_diameter"></td>
+  </tr>
+  <tr id="r_extern_diameter">
+        <td>Diámetro externo</td>
+        <td class="r_extern_diameter"></td>
+  </tr>
+  <tr id="r_load_index">
+        <td>Índice de carga</td>
+        <td class="r_load_index"></td>
+  </tr>
+  <tr id="r_speed_index">
+        <td>Índice de velocidad</td>
+        <td class="r_speed_index"></td>
+  </tr>
+  </tbody>
+</table>
         </div>
         <div class="col-md-4 col-lg-4 col-sm-12">
           <div class="confirm-publish-box-wrapper">

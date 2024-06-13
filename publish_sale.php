@@ -630,7 +630,7 @@ function resumePublication(step,save){
       "brand": id_categoria!='3' ? $("#marca").val():$("#marca55").val(),
       "model": id_categoria!='3' ? $("#modelo").val():$("#modelo5").val(),
       "year":  id_categoria!='3' ? $("#anios").val():$("#anios5").val(),
-      "factory_code": "Factory Code",
+      "factory_code": $("#factory_code").val(),
       "mileage": $("#KilometrosRecorridos").val(), 
       "engine_number": $("#engine_number").val() ?? '',
       "chasis_number":$("#chasis_number").val() ?? '',
@@ -655,7 +655,7 @@ function resumePublication(step,save){
     "mixed_consumption": $("#mixed_consumption").val() + ' '+ $("#inputGroupSelectConsumo").val() , 
     "transmission": $('input[name="transmission"]:checked').val(),
     "fuel": $('input[name="combustible"]:checked').val(),
-    "traction": $("#traction_index1").val(), 
+    "traction": traxion ?? $("#traction_index1").val(), 
     "km_traveled": $("#KilometrosRecorridos").val(),   
     "hrs_traveled": $("#Horometro").val(), 
   }; 
@@ -691,6 +691,7 @@ function resumePublication(step,save){
  
   $('.r_marca').text( id_categoria!='3' ? $("#marca").val(): $("#marca55").val()); 
   $('.r_modelo').text(  id_categoria!='3' ? $("#modelo").val(): $("#modelo5").val());
+  $('.r_factory_code').text( publicacion2.factory_code);
   $('.r_anio').text( publicacion2.year);
   $('.r_condicion').text(publicacion2.condition);
    
@@ -710,6 +711,9 @@ function resumePublication(step,save){
   $('.r_delivery').text(publicacion2.delivery == 'Y' ? 'Sí' : 'No');
   $('.r_title').text(publicacion1.title);
 
+  if(publicacion2.factory_code==''){   
+      $("#r_factory_code").hide();
+    }
   if($("#KilometrosRecorridos").val()==''){   
       $("#r_km").hide();
     }
@@ -733,21 +737,66 @@ function resumePublication(step,save){
     $('.r_cilindrada').text($("#Cilindrada").val() + ' '+ $("#inputGroupSelectCilindrada").val() ); 
     $('.r_torque').text($("#Torque").val() + ' '+ $("#inputGroupSelectTorque").val()); 
     $('.r_consumo').text( $("#mixed_consumption").val() + ' '+ $("#inputGroupSelectConsumo").val());   
+    $('.r_transmission').text( publicacion3.transmission);   
+    $('.r_fuel').text(publicacion3.fuel);   
+    $('.r_traction').text(publicacion3.traction);  
+    
+    //dimensiones
+    $('.r_section_width').text(publicacion4.section_width);   
+    $('.r_aspect_ratio').text(publicacion4.aspect_ratio);   
+    $('.r_rim_diameter').text(publicacion4.rim_diameter);  
+    $('.r_extern_diameter').text(publicacion4.extern_diameter);
+    $('.r_load_index').text(publicacion4.load_index);  
+    $('.r_speed_index').text(publicacion4.speed_index);
+    console.log("publicacion4publicacion4",publicacion4)  
 
-    if($("#PesoNeto").val()==''){   
-      $("#r_peso").hide();
+    if(id_categoria == 3) {
+      $("#r_peso,#r_potencia,#r_cilindrada,#r_torque,#r_consumo,#r_transmission,#r_fuel,#r_traction,#r_patente,#r_chasis,#r_motor,#r_factory_code,#r_km").hide();    
+    }else { 
+
+      if($("#PesoNeto").val()==''){   
+        $("#r_peso").hide();
+      }
+      if($("#Potencia").val()==''){   
+        $("#r_potencia").hide();
+      }
+      if($("#Cilindrada").val()==''){   
+        $("#r_cilindrada").hide();
+      }
+      if($("#Torque").val()==''){   
+        $("#r_torque").hide();
+      }
+      if($("#mixed_consumption").val()==''){   
+        $("#r_consumo").hide();
+      }
+      if(publicacion3.traction==''){   
+        $("#r_traction").hide();
+      }
+      if(publicacion3.transmission==''){   
+        $("#r_transmission").hide();
+      }
+      if(publicacion3.fuel==''){   
+        $("#r_fuel").hide();
+      }
     }
-    if($("#Potencia").val()==''){   
-      $("#r_potencia").hide();
+
+    if(publicacion4.section_width==''){   
+      $("#r_section_width").hide();
     }
-    if($("#Cilindrada").val()==''){   
-      $("#r_cilindrada").hide();
+    if(publicacion4.aspect_ratio==''){   
+      $("#r_aspect_ratio").hide();
     }
-    if($("#Torque").val()==''){   
-      $("#r_torque").hide();
+    if(publicacion4.rim_diameter==''){   
+      $("#r_rim_diameter").hide();
     }
-    if($("#mixed_consumption").val()==''){   
-      $("#r_consumo").hide();
+    if(publicacion4.extern_diameter==''){   
+      $("#r_extern_diameter").hide();
+    }
+    if(publicacion4.load_index==''){   
+      $("#r_load_index").hide();
+    }
+    if(publicacion4.speed_index==''){   
+      $("#r_speed_index").hide();
     }
   if(step==3){ 
       var imgPreview = document.getElementById('image-preview');
@@ -1092,8 +1141,7 @@ $.ajax({
     
               $("#price").val(parts[1]); 
               selectedCurrency = parts[0] =='CLP' || parts[0] =='USD' ? parts[0] : 'CLP' ; 
-
-        // Seleccionamos el elemento <option> correspondiente
+ 
                $("#inputGroupSelect01Price option[value='" + selectedCurrency + "']").prop("selected", true);
                var $errorContainerPrice = $("#error-container-price"); 
               $errorContainerPrice.hide();
@@ -1105,31 +1153,23 @@ $.ajax({
            $("#chasis_number").val(element.product_details?.chasis_number);
            $("#patente").val(element.product_details?.patent);
            $("#patent").val(element.product_details?.patent)
-          
-          // $("#PesoNeto").val(element.product_technical_characteristics?.weight);
+           
            var PesoNeto = element.product_technical_characteristics?.weight.split(" ");   
             $("#PesoNeto").val(PesoNeto[0]);    
-            $("#inputGroupSelectPeso option[value='" + PesoNeto[1] + "']").prop("selected", true);
+            $("#inputGroupSelectPeso option[value='" + PesoNeto[1] + "']").prop("selected", true); 
  
-
-           //$("#Potencia").val(element.product_technical_characteristics?.power);
            var Potencia = element.product_technical_characteristics?.power.split(" ");   
             $("#Potencia").val(Potencia[0]);    
             $("#inputGroupSelectPotencia option[value='" + Potencia[1] + "']").prop("selected", true);
-
-           //$("#Cilindrada").val(element.product_technical_characteristics?.displacement);
+ 
            var Cilindrada = element.product_technical_characteristics?.displacement.split(" ");   
             $("#Cilindrada").val(Cilindrada[0]);    
             $("#inputGroupSelectCilindrada option[value='" + Cilindrada[1] + "']").prop("selected", true);
-
-
-           //$("#Torque").val(element.product_technical_characteristics?.torque);
+ 
            var Torque = element.product_technical_characteristics?.torque.split(" ");   
             $("#Torque").val(Torque[0]);    
             $("#inputGroupSelectTorque option[value='" + Torque[1] + "']").prop("selected", true);
-
- 
-           //$("#mixed_consumption").val(element.product_technical_characteristics?.mixed_consumption);
+  
            var mixed_consumption = element.product_technical_characteristics?.mixed_consumption.split(" ");   
             $("#mixed_consumption").val(mixed_consumption[0]);    
             $("#inputGroupSelectConsumo option[value='" + mixed_consumption[1] + "']").prop("selected", true);
@@ -1173,9 +1213,7 @@ $.ajax({
           { id: 11, nombre: 'Biobío' },
           { id: 12, nombre: 'Araucanía' }
         ];
-           const selectedRegion = regiones.find(r => r.nombre == element.product_details.region); 
-             console.log("****999999999999999selectedRegion",selectedRegion)
-         
+           const selectedRegion = regiones.find(r => r.nombre == element.product_details.region);           
  
            if (element.id_category == 3) {   
 

@@ -236,7 +236,7 @@ $url_publi = $protocol . '://' . $host;
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="section_width" name="section_width"  placeholder="Ancho de sección**">
+                    <input type="text" class="form-control" id="section_width" name="section_width"  placeholder="Ancho de sección*">
                      </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
@@ -469,8 +469,7 @@ $url_publi = $protocol . '://' . $host;
         <div class="shipping-wrapper">
             <div class="shipping-main">
                 <p class="sm-title">Despacho incluido</p>
-                <p class="sm-text">Es un hecho establecido hace demasiado tiempo que un lector se disaerá con el
-                    contenido del texto de <br /> un sitio mientras.</p>
+                
             </div>
             <div>
                 <div class="form-check form-check-inline">

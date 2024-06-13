@@ -103,13 +103,26 @@
         <td>Cilindrada</td>
         <td class="r_cilindrada"></td>
   </tr>
+  <tr id="r_traction">
+        <td>Tracción</td>
+        <td class="r_traction"></td>
+  </tr>
   <tr id="r_torque">
         <td>Torque</td>
         <td class="r_torque"></td>
   </tr>
+   
   <tr id="r_consumo">
         <td>Consumo Mixto</td>
         <td class="r_consumo"></td>
+  </tr>
+  <tr id="r_transmission">
+        <td>Transmisión</td>
+        <td class="r_transmission"></td>
+  </tr>
+  <tr id="r_fuel">
+        <td>Combustible</td>
+        <td class="r_fuel"></td>
   </tr>
   </tbody>
 </table>
