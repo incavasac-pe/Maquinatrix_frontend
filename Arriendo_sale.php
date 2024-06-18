@@ -208,6 +208,7 @@ var $confirmPublicSaleBtn = $('#confirm_public');
 var city='';
 var region='';
 $(document).ready(function() {
+  limitToCurrentYear('#anios');
     console.log( "ready publication!" ); 
     var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
       if(product_old!=''){
@@ -396,6 +397,7 @@ fileInput.addEventListener('change', handleImageUpload);
     for (const file of files) {
      
       imgArray.push(file);
+        $("#error-container-photo").hide();
       const reader = new FileReader();
 
       reader.onload = function (e) {
@@ -1179,6 +1181,7 @@ function edit_publi(){
   
   const insertIndex = imageContainer.children.length > 1 ? 1 : 0; 
      for (var i = 0; i < element.product_images.length; i++) { 
+          $("#error-container-photo").hide();
           var imageUrlEdit = element.product_images[i].image_name; 
           
           const imgContainer = document.createElement('div');
@@ -1250,5 +1253,16 @@ function edit_publi(){
       }
     }
   })
+}
+
+function limitToCurrentYear(inputElement) { 
+  const currentYear = new Date().getFullYear();
+ 
+  $(inputElement).on('input', function() { 
+    const inputValue = parseInt($(this).val()); 
+    if (inputValue > currentYear) { 
+      $(this).val(currentYear);
+    }
+  });
 }
 </script>

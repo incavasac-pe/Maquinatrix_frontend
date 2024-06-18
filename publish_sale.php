@@ -96,11 +96,9 @@
       const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
       console.log("*****stepNumber***",stepNumber)  
        
-        var isValid =  validateFormSteps(stepNumber,true);
-      console.log("isValid*-*-",isValid);
+        var isValid =  validateFormSteps(stepNumber,true); 
      
-        if(isValid){               
-          console.log("se envia el paso 5555555555");
+        if(isValid){                
           resumePublication(stepNumber, true);
           navigateToFormStep(stepNumber);
         }
@@ -205,8 +203,7 @@
       } else {
         $errorContainerCondicion5.hide();
       }
-    }
-    console.log("jijijiji")
+    } 
     return true;
   } else {
     $("#error-container").hide();
@@ -245,7 +242,7 @@
     const files = fileInput.files;
 
     // Calculate the index to insert the new image container
-    const insertIndex = imageContainer.children.length > 1 ? imageContainer.children.length +1 : 0;
+    const insertIndex = imageContainer.children.length > 1 ? 1 : 0;   
    
     for (const file of files) {
      
@@ -322,7 +319,9 @@ var city='';
 var region='';
 var city5='';
 var region5='';
-$(document).ready(function() {
+$(document).ready(function() { 
+  limitToCurrentYear('#anios');
+  limitToCurrentYear('#anios5');
     console.log( "ready publication sale!" );  
     var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
       if(product_old!=''){
@@ -1420,12 +1419,9 @@ const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
                     imgContainer.remove();
                   }) 
 
-                 galleryIcon.addEventListener('click', function () {
-                    // Store the first child image
-                    const firstChild = imageContainer.firstChild;
-                    // Replace the first child image with the clicked image
-                    imageContainer.insertBefore(imgContainer, firstChild);
-                    // Move the first child image to the location of the clicked image
+                 galleryIcon.addEventListener('click', function () { 
+                    const firstChild = imageContainer.firstChild; 
+                    imageContainer.insertBefore(imgContainer, firstChild); 
                     imgContainer.parentNode.insertBefore(firstChild, imgContainer.nextSibling);
                   }); 
 
@@ -1448,5 +1444,14 @@ const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
       }
     }
  })
+}
+function limitToCurrentYear(inputElement) { 
+  const currentYear = new Date().getFullYear(); 
+  $(inputElement).on('input', function() { 
+    const inputValue = parseInt($(this).val()); 
+    if (inputValue > currentYear) { 
+      $(this).val(currentYear);
+    }
+  });
 }
 </script>
