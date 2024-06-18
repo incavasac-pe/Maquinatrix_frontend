@@ -533,6 +533,7 @@ function updateComunaSelect(regionId,regionName) {
  
   const comunasDeRegion = comunas.filter(c => c.region_id == regionId);
   const $comunaSelectize = $comunaSelect[0].selectize;
+  $comunaSelectize.setValue(null);
   $comunaSelectize.clearOptions();
   comunasDeRegion.forEach(comuna => { 
     $comunaSelectize.addOption({ id: comuna.id, nombre: comuna.nombre });
@@ -748,6 +749,7 @@ const $maquinasSelect = $('.maquina-select').selectize({
 function updateMaquinaSelect(industriaId,industriaName) {  
   const maquinassDeRegion = maquinas.filter(c => c.region_id == industriaId);
   const $maqSelectize = $maquinasSelect[0].selectize;
+  $maqSelectize.setValue(null);
   $maqSelectize.clearOptions();
   maquinassDeRegion.forEach(maq => { 
     $maqSelectize.addOption({ id: maq.id, nombre: maq.nombre });

@@ -37,6 +37,13 @@ $url_publi = $protocol . '://' . $host;
         <p class="sm-title">Describe tu publicación</p>
         <textarea id="descrip" name="descrip"  class="form-control text-container"  rows="3"></textarea>
         <div id="charCount" class="char-count">Caracteres (0/10000)</div>
+        <div class="warning-wrapper" id="error-container-titulo">
+        <i class="fa-solid fa-circle-exclamation"></i>
+            <div>
+                <p class="error-heading">Campos faltan completar</p>
+                <p class="sm-text">Campos requeridos faltan completar: TÍTULO Y DESCRIPCIÓN.</p>
+            </div>
+        </div>
     </div>
 
     <div class="category-product">
@@ -327,7 +334,7 @@ $url_publi = $protocol . '://' . $host;
                     <i class="fa-solid fa-circle-xmark"></i>
                     <div>
                         <p class="error-heading">Campos faltan completar</p>
-                        <p class="sm-text text-msg-error">Campos requeridos faltan completar .</p>
+                        <p class="sm-text text-msg-error">Campos requeridos faltan completar.</p>
                     </div>
                 </div>
     <div class="category-product2">

@@ -181,6 +181,13 @@ $url_publi = $protocol . '://' . $host;
         <p class="sm-title">Describe tu publicación</p>
         <textarea class="form-control text-container"  id="descrip5" name="descrip5"  rows="3"></textarea>
         <div id="charCount" class="char-count">Caracteres (0/10000)</div>
+        <div class="warning-wrapper" id="error-container-titulo5">
+         <i class="fa-solid fa-circle-exclamation"></i>
+            <div>
+                <p class="error-heading">Campos faltan completar</p>
+                <p class="sm-text">Campos requeridos faltan completar: TÍTULO Y DESCRIPCIÓN.</p>
+            </div>
+        </div>
     </div>
 
     <div class="category-product">

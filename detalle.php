@@ -388,7 +388,7 @@ function formatearPrecio($precio) {
                 </div>
                 <div class="caracteristicas">
                    
-                   <?php if (!empty($detalle['product_dimension']['id_product_dimension'])): ?>
+                <?php if (!empty($detalle['product_dimension']['id_product_dimension']) && $detalle['product_dimension']['section_width']!=''): ?>
                     <h2 class="font-family-Roboto-Medium mb-3">
                        Dimensiones
                    </h2>
@@ -405,13 +405,11 @@ function formatearPrecio($precio) {
                            <tr>
                            <td>Diámetro de la llanta</td>
                                <td><?= $detalle['product_dimension']['rim_diameter']; ?></td>
-                           </tr>
-                       
+                           </tr>                       
                            <tr>
                                <td>Diámetro externo</td>
                                <td><?= $detalle['product_dimension']['extern_diameter']; ?></td>
-                           </tr>
-                       
+                           </tr>                       
                                <?php if (!empty($detalle['product_dimension']['load_index'])): ?>
                                <tr>
                                <td>Índice de carga</td>
@@ -419,70 +417,16 @@ function formatearPrecio($precio) {
                                </tr>
                              <?php else: ?>
                                <?php endif; ?>
-
                                <?php if (!empty($detalle['product_dimension']['speed_index'])): ?>
                                <tr>
                                <td>Índice de velocidad</td>
                                     <td><?= $detalle['product_dimension']['speed_index']; ?> </td>
                                </tr>
                            <?php else: ?>     
-                           <?php endif; ?> 
-                           
+                           <?php endif; ?>                            
                        </tbody>
                    </table>
-
-                   <table class="table table-striped font-family-Roboto-Medium table-bordered">
-                       <tbody> 
-                           <?php if (!empty($detalle['product_technical_characteristics']['weight']) &&  $detalle['product_technical_characteristics']['weight']!=' Tonelada'): ?>
-                               <tr>
-                           <td>Peso Neto</td>
-                               <td><?= $detalle['product_technical_characteristics']['weight']; ?></td>
-                               </tr>
-                           <?php else: ?>
-                               <?php endif; ?>
-                               <?php if (!empty($detalle['product_technical_characteristics']['power']) && $detalle['product_technical_characteristics']['power'] !=' HP') : ?>
-                               <tr>
-                               <td>Potencia</td>
-                               <td><?= $detalle['product_technical_characteristics']['power']; ?> </td>
-                               </tr>
-                             <?php else: ?>
-                               <?php endif; ?>
-
-                               <?php if (!empty($detalle['product_technical_characteristics']['displacement']) && $detalle['product_technical_characteristics']['displacement'] !=' CC') : ?>
-                               <tr>
-                               <td>Cilindrada</td>
-                                    <td><?= $detalle['product_technical_characteristics']['displacement']; ?> </td>
-                               </tr>
-                           <?php else: ?>     
-                           <?php endif; ?>
-                               <?php if (!empty($detalle['product_technical_characteristics']['torque'])  && $detalle['product_technical_characteristics']['torque'] !=' NM') : ?>
-                               <tr>
-                               <td>Torque</td>
-                                    <td><?= $detalle['product_technical_characteristics']['torque']; ?></td>
-                               </tr>
-                           <?php else: ?>     
-                           <?php endif; ?>
-
-                           <?php if (!empty($detalle['product_technical_characteristics']['mixed_consumption']) && $detalle['product_technical_characteristics']['mixed_consumption'] !=' l/h') : ?>
-                               <tr>
-                               <td>Consumo Mixto</td>
-                                    <td><?= $detalle['product_technical_characteristics']['mixed_consumption']; ?></td>
-                               </tr>
-                           <?php else: ?>     
-                           <?php endif; ?> 
-
-                           
-                           <?php if (!empty($detalle['product_technical_characteristics']['traction'])): ?>
-                               <tr>
-                               <td>Traccion</td>
-                                    <td><?= $detalle['product_technical_characteristics']['traction']; ?></td>
-                               </tr>
-                           <?php else: ?>     
-                           <?php endif; ?> 
-                             
-                      
-                       </tbody>
-                   </table>
+ 
                    <?php else: ?>
                        <?php endif; ?>
                </div>

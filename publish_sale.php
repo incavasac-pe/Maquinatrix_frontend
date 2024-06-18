@@ -33,12 +33,14 @@
 
 <script>
   var save_public = false;
+  var isFormValidateSeccion0 = false;
   var isFormValidateSeccion1 = false;
   var isFormValidateSeccion2 = false;
   var isFormValidateSeccion3 = false;//precio
   var isFormValidateSeccion4 = false;//ubicacion
   var isFormValidateSeccion5 = false;
  
+  var isFormValidateSeccion05 = false;
   var isFormValidateSeccion25 = false;
   var isFormValidateSeccion35 = false;
   var isFormValidateSeccion45 = false;
@@ -92,120 +94,134 @@
   document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
     formNavigationBtn.addEventListener("click", () => {
       const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
-      console.log("*****stepNumber***",stepNumber) 
-      if (stepNumber === 2) { 
-        
-        const $errorContainerTipo = $("#error-container-tipo");        
-        if (!isFormValidateSeccion1) {
-          $errorContainerTipo.show();
-          return
-        } else {
-         $errorContainerTipo.hide();
-        }
-
-        if(id_categoria !== 3){
-
-        console.log("categorua es",id_categoria)
-        console.log("validando el paso  ",stepNumber)
-        console.log("validando el paso 1",isFormValidateSeccion1)
-        console.log("validando el paso 1",isFormValidateSeccion2)
-        console.log("validando el paso 1",isFormValidateSeccion3)
-        console.log("validando el paso 1",isFormValidateSeccion4)
-        console.log("validando el paso 1",isFormValidateSeccion5)
-        
-        const $errorContainerTitle = $("#error-container-title");
-        const $errorContainerPrice = $("#error-container-price");
-        const $errorContainerUbicacion = $("#error-container-ubicacion"); 
-        const $errorContainerCondicion = $("#error-container-condicion");  
-        
-        
-
-          if (!isFormValidateSeccion2) {
-            $errorContainerTitle.show();
-            return
-          } else {
-            $errorContainerTitle.hide();
-          }
-
-          if (!isFormValidateSeccion3) {
-            $errorContainerPrice.show();
-            return
-          } else {
-            $errorContainerPrice.hide();
-          }
-
-          if (!isFormValidateSeccion4) {
-            $errorContainerUbicacion.show();
-            return
-          } else {
-            $errorContainerUbicacion.hide();
-          }
-
-          if (!isFormValidateSeccion5) {
-            $errorContainerCondicion.show();
-            return
-          } else {
-            $errorContainerCondicion.hide();
-          }
-        
-        }else{
-          console.log("categorua es xxxxxxxxxxxxxxxxxxxx",id_categoria)
-        const $errorContainerTitle5 = $("#error-container-title5");
-        const $errorContainerPrice5 = $("#error-container-price5");
-        const $errorContainerUbicacion5 = $("#error-container-ubicacion5");
-        const $errorContainerCondicion5 = $("#error-container-condicion5");  
-
-         
-
-          if (!isFormValidateSeccion25) {
-            $errorContainerTitle5.show();
-            return
-          } else {
-            $errorContainerTitle5.hide();
-          }
-
-          if (!isFormValidateSeccion35) {
-            $errorContainerPrice5.show();
-            return
-          } else {
-            $errorContainerPrice5.hide();
-          }
-
-          if (!isFormValidateSeccion45) {
-            $errorContainerUbicacion5.show();
-            return
-          } else {
-            $errorContainerUbicacion5.hide();
-          }
-
-          if (!isFormValidateSeccion55) {
-            $errorContainerCondicion5.show();
-            return
-          } else {
-            $errorContainerCondicion5.hide();
-          }
-        
-        }
-
-          console.log("se envia el paso 444444444444")
-          resumePublication(stepNumber,true);      
+      console.log("*****stepNumber***",stepNumber)  
+       
+        var isValid =  validateFormSteps(stepNumber,true);
+      console.log("isValid*-*-",isValid);
+     
+        if(isValid){               
+          console.log("se envia el paso 5555555555");
+          resumePublication(stepNumber, true);
           navigateToFormStep(stepNumber);
-      
-        }else{
-          $("#error-container").hide();
         }
-   
-        if (stepNumber === 3 && idImg > 0) {
-          resumePublication(stepNumber,true);      
-          navigateToFormStep(stepNumber);
-      }
-    });
+      });  
   });
 
   const backBtn = document.querySelector('.btn-navigate-form-step-back');
   if (backBtn) {
     backBtn.addEventListener('click', navigateBackward);
   }
+ 
+
+  function validateFormSteps(stepNumber,savePub) { 
+  if (stepNumber === 1 || stepNumber === 2 ) {
+    const $errorContainerTipo = $("#error-container-tipo");
+    if (!isFormValidateSeccion1) {
+      $errorContainerTipo.show();
+      return false;
+    } else {
+      $errorContainerTipo.hide();
+    }
+
+    if (id_categoria !== 3) {
+      const $errorContainerTitle = $("#error-container-title");
+      const $errorContainerPrice = $("#error-container-price");
+      const $errorContainerUbicacion = $("#error-container-ubicacion");
+      const $errorContainerCondicion = $("#error-container-condicion");
+      const $errorContainerTitulo = $("#error-container-titulo");
+
+      if (!isFormValidateSeccion0) {
+        $errorContainerTitulo.show();
+        return false;
+      } else {
+        $errorContainerTitulo.hide();
+      }
+
+      if (!isFormValidateSeccion2) {
+        $errorContainerTitle.show();
+        return false;
+      } else {
+        $errorContainerTitle.hide();
+      }
+
+      if (!isFormValidateSeccion3) {
+        $errorContainerPrice.show();
+        return false;
+      } else {
+        $errorContainerPrice.hide();
+      }
+
+      if (!isFormValidateSeccion4) {
+        $errorContainerUbicacion.show();
+        return false;
+      } else {
+        $errorContainerUbicacion.hide();
+      }
+
+      if (!isFormValidateSeccion5) {
+        $errorContainerCondicion.show();
+        return false;
+      } else {
+        $errorContainerCondicion.hide();
+      }
+    } else {
+      const $errorContainerTitle5 = $("#error-container-title5");
+      const $errorContainerPrice5 = $("#error-container-price5");
+      const $errorContainerUbicacion5 = $("#error-container-ubicacion5");
+      const $errorContainerCondicion5 = $("#error-container-condicion5");
+      const $errorContainerTitulo5 = $("#error-container-titulo5");
+
+      if (!isFormValidateSeccion05) {
+        $errorContainerTitulo5.show();
+        return false;
+      } else {
+        $errorContainerTitulo5.hide();
+      }
+
+      if (!isFormValidateSeccion25) {
+        $errorContainerTitle5.show();
+        return false;
+      } else {
+        $errorContainerTitle5.hide();
+      }
+
+      if (!isFormValidateSeccion35) {
+        $errorContainerPrice5.show();
+        return false;
+      } else {
+        $errorContainerPrice5.hide();
+      }
+
+      if (!isFormValidateSeccion45) {
+        $errorContainerUbicacion5.show();
+        return false;
+      } else {
+        $errorContainerUbicacion5.hide();
+      }
+
+      if (!isFormValidateSeccion55) {
+        $errorContainerCondicion5.show();
+        return false;
+      } else {
+        $errorContainerCondicion5.hide();
+      }
+    }
+    console.log("jijijiji")
+    return true;
+  } else {
+    $("#error-container").hide();
+  }
+
+  if (stepNumber === 3 && idImg > 0) {
+    $("#error-container-photo").hide();
+    resumePublication(stepNumber, savePub);
+    navigateToFormStep(stepNumber);
+    return true;
+  } else {
+    $("#error-container-photo").show();
+    return false;
+  }
+}
 </script>
 
 
@@ -234,6 +250,7 @@
     for (const file of files) {
      
       imgArray.push(file);
+       $("#error-container-photo").hide();
       const reader = new FileReader();
 
       reader.onload = function (e) {
@@ -325,11 +342,27 @@ $(document).ready(function() {
     
       //guardar en borrador
       $('.save_public_sale').on('click', function(event) {
+        var $errorContainer = $("#error-container");
+        $errorContainer.hide();
       let publicationId = $(this).data('publication-id');
-      $(this).prop('disabled', true)
+      var isValid =  validateFormSteps(publicationId,false);
+      console.log("isValid*-*-",isValid);
+     
+        if(isValid){
+        
+          $(this).prop('disabled', true)
         .html('<i class="fa fa-spinner fa-spin"></i> Guardando...')
         .addClass('disabled');
-      resumePublication(publicationId, false);
+              
+          console.log("se envia el paso 444444444444");
+          resumePublication(publicationId, false);
+          navigateToFormStep(publicationId);
+        }else{
+          var $errorContainer = $("#error-container");
+          $errorContainer.show()
+        }
+  
+      //resumePublication(publicationId, false);
     }); 
    
     //valida maquina y industria
@@ -350,16 +383,48 @@ $(document).ready(function() {
     $idMachine.on('change', validateFieldsMaquine);
     $industria.on('change', validateFieldsMaquine);
 
-    
+     
     //valida title y marca,modelo,anios
-    var $title = $("#title");
+    var $title = $("#title");  
+    var $errorContainerTitulo = $("#error-container-titulo");
+
+    function validateFieldsTitle() {  
+      if ($title.val() !== '') {
+        $errorContainerTitulo.hide();
+        isFormValidateSeccion0 = true;
+      } else {
+        $errorContainerTitulo.show();
+        isFormValidateSeccion0 = false;
+      }
+    }
+
+    $title.on('blur', validateFieldsTitle);
+
+ 
+    //valida title  
+    var $title5 = $("#title5");  
+    var $errorContainerTitulo5 = $("#error-container-titulo5");
+
+    function validateFieldsTitle5() {  
+      if ($title5.val() !== '') {
+        $errorContainerTitulo5.hide();
+        isFormValidateSeccion05 = true;
+      } else {
+        $errorContainerTitulo5.show();
+        isFormValidateSeccion05 = false;
+      }
+    }
+
+    $title5.on('blur', validateFieldsTitle5);
+  
+
     var $marca = $("#marca");
     var $modelo = $("#modelo");
     var $anios = $("#anios");
     var $errorContainerTitle = $("#error-container-title");
 
     function validateFields() {  
-      if ($title.val() !== '' && $marca.val() !== '' && $modelo.val() !== '' && $anios.val() !== '') {
+      if ($marca.val() !== '' && $modelo.val() !== '' && $anios.val() !== '') {
         $errorContainerTitle.hide();
         isFormValidateSeccion2 = true;
       } else {
@@ -368,19 +433,17 @@ $(document).ready(function() {
       }
     }
 
-    $title.add($marca).add($modelo).add($anios).on('blur', validateFields);
+    $marca.add($modelo).add($anios).on('blur', validateFields);
   // fin valida title y marca,modelo,anios
   
-
-    //valida title y marca,modelo,anios
-    var $title5 = $("#title5");
+ 
     var $marca5 = $("#marca55");
     var $modelo5 = $("#modelo5");
     var $anios5 = $("#anios5");
     var $errorContainerTitle5 = $("#error-container-title5");
 
     function validateFields5() {  
-      if ($title5.val() !== '' && $marca5.val() !== '' && $modelo5.val() !== '' && $anios5.val() !== '') {
+      if ($marca5.val() !== '' && $modelo5.val() !== '' && $anios5.val() !== '') {
         $errorContainerTitle5.hide();
         isFormValidateSeccion25 = true;
       } else {
@@ -388,10 +451,8 @@ $(document).ready(function() {
         isFormValidateSeccion25 = false;
       }
     }
-
-    $title5.add($marca5).add($modelo5).add($anios5).on('blur', validateFields5);
-  // fin valida title y marca,modelo,anios
-   
+    $marca5.add($modelo5).add($anios5).on('blur', validateFields5); 
+  // fin valida title y marca,modelo,anios 
 
   
     //valida condicion 
@@ -457,7 +518,7 @@ $(document).ready(function() {
 //fin valida precio
  
 
-    $("#price5").on('keyup', function(event) { 
+    $("#price5").on('blur', function(event) { 
     if( $("#price5").val()!=''){
         $("#error-container-price5").hide();
         isFormValidateSeccion35 = true;
@@ -473,9 +534,7 @@ $(document).ready(function() {
 
     function validateLocationFields() {   
       city = $selectedComunaId.val();
-
-      console.log("*-*-*-*-region*-*-* ",region); 
-      console.log("*-*-*-*-city*-*-* ",city); 
+ 
       if ($selectedComunaId.val() !== '0' && $selectedComunaId.val() !== '' && region !== '0'  && region !== '') {
         $errorContainerUbi.hide();
         isFormValidateSeccion4 = true;
@@ -494,10 +553,7 @@ $(document).ready(function() {
     var $errorContainerUbi5 = $("#error-container-ubicacion5");
 
     function validateLocationFields5() {   
-      city5 = $selectedComunaId5.val();
-
-      console.log("*-*-*-*-region5*-*-* ",region5); 
-      console.log("*-*-*-*-city5*-*-* ",city5); 
+      city5 = $selectedComunaId5.val(); 
       if ($selectedComunaId5.val() !== '0' && $selectedComunaId5.val() !== '' && region5 !== '0'  && region5 !== '') {
         $errorContainerUbi5.hide();
         isFormValidateSeccion45 = true;
@@ -578,8 +634,7 @@ function setTipoT(valor){
 }
 
 function setTraccion(valor){
-    traxion = valor;  
-    console.log("aaaaaaaaaaaaaaaaa",valor)
+    traxion = valor;   
     if(valor!=''){
       $(".traction-text").removeClass("active_tracc"); 
       $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
@@ -591,9 +646,9 @@ function setTraccion(valor){
       $('#traction_index1').prop('disabled', true);
     }
  }
+
  function setTraccion5(valor){
-    traxion = valor;  
-    console.log("bbbbbbbbbbb",valor)
+    traxion = valor;   
     if(valor!=''){
       $(".traction-text").removeClass("active_tracc"); 
       $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
@@ -1316,6 +1371,7 @@ $.ajax({
 const insertIndex = imageContainer.children.length > 1 ? 1 : 0; 
   for (var i = 0; i < element.product_images.length; i++) {
 
+          $("#error-container-photo").hide();
           var imageUrlEdit = element.product_images[i].image_name; 
           
           const imgContainer = document.createElement('div');

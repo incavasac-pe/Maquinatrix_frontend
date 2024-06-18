@@ -39,17 +39,19 @@
     </form>
   </div>
 </div>
-<?php include 'footer.php' ?>
- 
+<?php include 'footer.php' ?> 
 
 <script>
-  var save_public = false;
+ var save_public = false;
+ var isFormValidateSeccion0 = false;
  var isFormValidateSeccion1 = false;
  var isFormValidateSeccion2 = false;
  var isFormValidateSeccion3 = false;
  var isFormValidateSeccion4 = false;
  var isFormValidateSeccion5 = false;
+
  var selectedCurrency = 'CLP';
+
   const navigateBackward = () => {
     const currentStep = getCurrentStep();
     if (currentStep > 1) {
@@ -95,81 +97,100 @@
   document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
     formNavigationBtn.addEventListener("click", () => {
       const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
-
-      if (stepNumber === 2) { 
-        console.log("validando el paso  ",stepNumber)
-        console.log("validando el paso 1",isFormValidateSeccion1)
-        console.log("validando el paso 1",isFormValidateSeccion2)
-        console.log("validando el paso 1",isFormValidateSeccion3)
-        console.log("validando el paso 1",isFormValidateSeccion4)
-        console.log("validando el paso 1",isFormValidateSeccion5)
+      console.log("*****stepNumber***",stepNumber)  
+       
+        var isValid =  validateFormSteps(stepNumber,true);
+      console.log("isValid*-*-",isValid);
+     
+        if(isValid){               
+          console.log("se envia el paso 5555555555");
+          resumePublication(stepNumber, true);
+          navigateToFormStep(stepNumber);
+        }
+      });  
+  }); 
  
-          const $errorContainerTipo = $("#error-container-tipo");
-          const $errorContainerTitle = $("#error-container-title");
-          const $errorContainerPrice = $("#error-container-price");
-          const $errorContainerUbicacion = $("#error-container-ubicacion");          
-          const $errorContainerCondicion = $("#error-container-condicion");  
+
+  const backBtn = document.querySelector('.btn-navigate-form-step-back');
+  if (backBtn) {
+    backBtn.addEventListener('click', navigateBackward);
+  }
+
+  
+  function validateFormSteps(stepNumber,savePub) { 
+   if (stepNumber === 1 || stepNumber === 2 ) {
+   
+      const $errorContainerTipo = $("#error-container-tipo"); 
+      const $errorContainerTitle = $("#error-container-title");
+      const $errorContainerPrice = $("#error-container-price");
+      const $errorContainerUbicacion = $("#error-container-ubicacion");
+      const $errorContainerCondicion = $("#error-container-condicion");
+      const $errorContainerTitulo = $("#error-container-titulo");
+
+      if (!isFormValidateSeccion1) {
+          $errorContainerTipo.show();
+          return false;
+        } else {
+          $errorContainerTipo.hide();
+        }
+      if (!isFormValidateSeccion0) {
+            $errorContainerTitulo.show();
+            return false;
+          } else {
+            $errorContainerTitulo.hide();
+          }
 
           if (!isFormValidateSeccion1) {
             $errorContainerTipo.show();
-            return
+            return false;
           } else {
             $errorContainerTipo.hide();
           }
 
           if (!isFormValidateSeccion2) {
             $errorContainerTitle.show();
-            return
+            return false;
           } else {
             $errorContainerTitle.hide();
           }
 
           if (!isFormValidateSeccion3) {
             $errorContainerPrice.show();
-            return
+            return false;
           } else {
             $errorContainerPrice.hide();
           }
 
           if (!isFormValidateSeccion4) {
             $errorContainerUbicacion.show();
-            return
+            return false;
           } else {
             $errorContainerUbicacion.hide();
           }
 
           if (!isFormValidateSeccion5) {
             $errorContainerCondicion.show();
-            return
+            return false;
           } else {
             $errorContainerCondicion.hide();
           }
-      
-      
-          var info = id_categoria == 1 ? 'Información de maquinaria y vehículos.' : 'Información de equipos.'
-  
-          $('.text-msg-error').text('Campos requeridos faltan completar: '+info);
-          $("#error-container").show();
-          console.log("se envia el paso 22222222222")
-          resumePublication(stepNumber,true);      
-         navigateToFormStep(stepNumber);
     
-      }else{
-        $("#error-container").hide();
-      }
-      
-      if (stepNumber === 3 && idImg > 0) {
-        resumePublication(stepNumber,true);      
-        navigateToFormStep(stepNumber);
-      }
-     
-    });
-  });
+    console.log("jijijiji")
+    return true;
+    } else {
+      $("#error-container").hide();
+    }
 
-  const backBtn = document.querySelector('.btn-navigate-form-step-back');
-  if (backBtn) {
-    backBtn.addEventListener('click', navigateBackward);
+  if (stepNumber === 3 && idImg > 0) {
+    $("#error-container-photo").hide();
+    resumePublication(stepNumber, savePub);
+    navigateToFormStep(stepNumber);
+    return true;
+  } else {
+    $("#error-container-photo").show();
+    return false;
   }
+}
 </script>
 
 
@@ -204,12 +225,27 @@ $(document).ready(function() {
     });  
     //guardar en borrador
     $('.save_public').on('click', function(event) {
+      var $errorContainer = $("#error-container");
+      $errorContainer.hide();
       let publicationId = $(this).data('publication-id');
-      $(this).prop('disabled', true)
+      var isValid =  validateFormSteps(publicationId,false);
+      console.log("isValid*-*-",isValid);
+     
+        if(isValid){
+        
+          $(this).prop('disabled', true)
         .html('<i class="fa fa-spinner fa-spin"></i> Guardando...')
         .addClass('disabled');
-      resumePublication(publicationId, false);
-    }); 
+              
+          console.log("se envia el paso 444444444444");
+          resumePublication(publicationId, false);
+          navigateToFormStep(publicationId);
+        }else{
+          var $errorContainer = $("#error-container");
+          $errorContainer.show()
+        } 
+      }); 
+
 
     $(".traction-text").click(function() {
       $(".traction-text").removeClass("active_tracc");
@@ -236,14 +272,30 @@ $(document).ready(function() {
    // fin valida maquina y industria 
 
     //valida title y marca,modelo,anios
-    var $title = $("#title");
+    var $title = $("#title"); 
+    
+    var $errorContainerTitulo = $("#error-container-titulo");
+
+    function validateFieldsTitle() {  
+      if ($title.val() !== '') {
+        $errorContainerTitulo.hide();
+        isFormValidateSeccion0 = true;
+      } else {
+        $errorContainerTitulo.show();
+        isFormValidateSeccion0 = false;
+      }
+    }
+
+    $title.on('blur', validateFieldsTitle);
+
+ //valida  marca,modelo,anios
     var $marca = $("#marca");
     var $modelo = $("#modelo");
     var $anios = $("#anios");
     var $errorContainerTitle = $("#error-container-title");
 
     function validateFields() {  
-      if ($title.val() !== '' && $marca.val() !== '' && $modelo.val() !== '' && $anios.val() !== '') {
+      if ($marca.val() !== '' && $modelo.val() !== '' && $anios.val() !== '') {
         $errorContainerTitle.hide();
         isFormValidateSeccion2 = true;
       } else {
@@ -252,7 +304,7 @@ $(document).ready(function() {
       }
     }
 
-    $title.add($marca).add($modelo).add($anios).on('blur', validateFields);
+    $marca.add($modelo).add($anios).on('blur', validateFields);
   // fin valida title y marca,modelo,anios
   
  //valida el precio
@@ -590,16 +642,16 @@ fileInput.addEventListener('change', handleImageUpload);
     if($("#Torque").val()==''){   
       $("#r_torque").hide();
     }
-    if($("#mixed_consumption").val()==''){   
-      $("#r_consumo").hide();
-    }
-    if(publicacion3.traction==''){   
+    if(publicacion3.traction=='' || publicacion3.traction==undefined){   
       $("#r_traction").hide();
     }
-    if(publicacion3.transmission==''){   
+    if(publicacion3.mixed_consumption==' l/h' || publicacion3.mixed_consumption==' km/L'){    
+      $("#r_consumo").hide();
+    }
+    if(publicacion3.transmission=='' || publicacion3.transmission==undefined){   
       $("#r_transmission").hide();
     }
-    if(publicacion3.fuel==''){   
+    if(publicacion3.fuel==''  || publicacion3.fuel==undefined){   
       $("#r_fuel").hide();
     }
 
@@ -955,7 +1007,11 @@ function edit_publi(){
             var selectize = $('#id_machine')[0].selectize;
             selectize.setValue(element.id_machine);
  
-            $("#title").val(element.title);
+            $("#title").val(element.title); 
+            var $errorContainerTitulo = $("#error-container-titulo");
+            $errorContainerTitulo.hide();
+            isFormValidateSeccion0  = true;
+
             $("#descrip").val(element.description);
             $("#marca").val(element.product_details.brand);
             $("#anios").val(element.product_details.year); 

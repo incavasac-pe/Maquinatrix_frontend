@@ -63,21 +63,7 @@ $url_publi = $protocol . '://' . $host;
         echo 'Error al realizar la solicitud a la API';
     }    
  
-
-    $count_regiones= 0;
-    $url13 = $baseUrl.'/list_regiones';
-    $response = file_get_contents($url13);
-    if ($response !== false) {
-        // Decodificar la respuesta JSON
-        $dataRegion = json_decode($response, true);
-        if (!$dataRegion['error']) {
-            // Obtener la lista de $categories
-            $regiones = $dataRegion['data'];
-            $count_regiones = $dataRegion['count'];
-        } else {
-            echo 'Error: ' . $dataRegion['msg'];
-        }
-    }  
+  
     ?>
 <div class="container">
           <div class="category-product">
@@ -119,12 +105,12 @@ $url_publi = $protocol . '://' . $host;
               </div>
             </div> 
              <div class="warning-wrapper" id="error-container-tipo">
-             <i class="fa-solid fa-circle-exclamation"></i>
+                <i class="fa-solid fa-circle-exclamation"></i>
                     <div>
                         <p class="error-heading">Campos faltan completar</p>
                         <p class="sm-text">Campos requeridos faltan completar: CATEGORIA O TIPO DE PRODUCTO.</p>
                     </div>
-           </div>
+            </div>
           </div>
         
         </div>
@@ -142,6 +128,13 @@ $url_publi = $protocol . '://' . $host;
                             <p class="sm-title">Describe tu publicación</p>
                             <textarea name="descrip" class="form-control text-container" id="descrip" rows="3"></textarea>
                             <div id="charCount" class="char-count">Caracteres (0/10000)</div>
+                    <div class="warning-wrapper" id="error-container-titulo">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                                <div>
+                                    <p class="error-heading">Campos faltan completar</p>
+                                    <p class="sm-text">Campos requeridos faltan completar: TÍTULO Y DESCRIPCIÓN.</p>
+                                </div>
+                        </div>
                         </div>
 
                         <div class="category-product">
@@ -188,14 +181,12 @@ $url_publi = $protocol . '://' . $host;
                                     <div class="mb-3">
                                         <input type="text" class="form-control" name="engine_number"  id="engine_number"  placeholder="N°. de Motor">
                                         <p class="text-grey">Ej. de N°. de Motor: X123123124123</p>
-
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6 chasis_number" >
                                     <div class="mb-3">
                                         <input type="text" class="form-control"  name="chasis_number" id="chasis_number" placeholder="N°. de Chasis/VIN">
                                         <p class="text-grey">Ej. de VIN: 1G1RC6E42BUXXXXXX</p>
-
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6 patente">
@@ -376,7 +367,7 @@ $url_publi = $protocol . '://' . $host;
                                         </div>
 
                                     </div>
-                                    <p class="text-grey">Ej. Odómetro: 120 hrs.</p>
+                                    <p class="text-grey">Ej. Horómetro: 120 hrs.</p>
                                 </div>
                             </div>
                         </div>
@@ -604,6 +595,13 @@ $url_publi = $protocol . '://' . $host;
                         </div>
                     </div> 
                    </div>
+                </div>
+                <div class="error-container" id="error-container">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                    <div>
+                        <p class="error-heading">Campos faltan completar</p>
+                        <p class="sm-text text-msg-error">Campos requeridos faltan completar.</p>
+                    </div>
                 </div>
 
                 <div class="category-product2">
@@ -1062,6 +1060,7 @@ function updateComunaSelect(regionId,regionName) {
  
   const comunasDeRegion = comunas.filter(c => c.region_id == regionId);
   const $comunaSelectize = $comunaSelect[0].selectize;
+  $comunaSelectize.setValue(null);
   $comunaSelectize.clearOptions();
   comunasDeRegion.forEach(comuna => { 
     $comunaSelectize.addOption({ id: comuna.id, nombre: comuna.nombre });
@@ -1233,9 +1232,11 @@ const $maquinasSelect = $('.maquina-select').selectize({
 function updateMaquinaSelect(industriaId,industriaName) { 
  
   const maquinassDeRegion = maquinas.filter(c => c.region_id == industriaId);
-  const $maqSelectize = $maquinasSelect[0].selectize;
+  const $maqSelectize = $maquinasSelect[0].selectize; 
+  $maqSelectize.setValue(null);
   $maqSelectize.clearOptions();
   maquinassDeRegion.forEach(maq => { 
+  console.log("*-*-las maquinas son *-*-",maq)
     $maqSelectize.addOption({ id: maq.id, nombre: maq.nombre });
   });
   $maqSelectize.refreshOptions();
