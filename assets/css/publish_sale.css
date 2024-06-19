@@ -387,13 +387,13 @@ select:invalid {
 }
 
 .category-product .input-control-price {
-  padding-left: 80px;
+  
 
   width: 278px !important;
   text-align: left;
   font: normal normal normal 14px/22px Roboto;
   letter-spacing: 0px;
-  color: #95979d;
+  color: #000;
   opacity: 1;
 }
 
@@ -718,6 +718,7 @@ color: #1D8EFF;
 .uploaded-image > img {
   width: 178px;
     height: 178px;
+    object-fit: cover;
 }
 .bottom-strip {
   display: none;
