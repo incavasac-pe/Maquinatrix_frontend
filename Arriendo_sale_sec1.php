@@ -143,21 +143,16 @@ $url_publi = $protocol . '://' . $host;
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3"> 
                                     <label for="marca" class="form-label">Marca*</label>
-                                    <select list="datalistOptions" id="marca">
-                                    <option value="" selected >Marca*</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                                    </select>
-                                      <!-- <?php  
+                                    <input class="form-control" autocomplete="off" list="datalistOptions" id="marca" placeholder="">
+                                      <?php  
                                         if ($count_marca > 0) { 
-                                            echo '<select id="datalistOptions">'; 
+                                            echo '<datalist id="datalistOptions">'; 
                                             foreach ($marca as $field) { 
                                                 $marcaName = $field['description'];
                                                 echo '<option value="' . $marcaName . '">';  
                                             }
-                                            echo '</select>'; 
-                                            }  ?>     -->
+                                            echo '</datalist>'; 
+                                            }  ?>    
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
@@ -168,12 +163,9 @@ $url_publi = $protocol . '://' . $host;
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">  
-                                    <!-- <label for="anios" class="form-label">Año*</label> -->
-                                    <select list="datalistOptionsA" id="anios" ><option value="" selected >Año*</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option></select>
-                                      <!-- <?php  
+                                    <label for="anios" class="form-label">Año*</label>
+                                    <input class="form-control" autocomplete="off" list="datalistOptionsA" id="anios" placeholder="">
+                                      <?php  
                                             $anioActual = date("Y");  
                                             echo '<datalist id="datalistOptionsA">'; 
                                             for ($i = $anioActual; $i >= ($anioActual - 100); $i--) {
@@ -181,7 +173,7 @@ $url_publi = $protocol . '://' . $host;
                                                 echo '<option value="' . $i . '">';  
                                             }
                                             echo '</datalist>'; 
-                                            ?>     -->
+                                            ?>    
                                      </div> 
                                   
                                 </div>
@@ -621,14 +613,13 @@ $url_publi = $protocol . '://' . $host;
                 </div>
             </div>
           </div>          
-        </div> 
- 
+        </div>  
  <script>   
  var id_categoria = 0;
  var categoria = '';
 
  // Función para asignar un valor a la variable global
-function setCategory(value,text) {
+ function setCategory(value,text) {
   id_categoria = value;
   categoria = text; 
     if (id_categoria==5) {
@@ -647,34 +638,7 @@ function setCategory(value,text) {
         }
  
 }
-  function searchTypeMachine(industria){   
-   var url = '<?=$baseUrl?>/list_machine?id_product_type=' + industria;  
-   $.ajax({
-      url: url,
-      method: 'GET', 
-      contentType: "application/json",
-    
-      success: function(res) {
-          var selectElement = $('#id_machine');
-
-              // Limpiar las opciones existentes
-              selectElement.empty(); 
-                // Agregar la opción por defecto
-              var defaultOption = $('<option value="0">').prop('selected', true).text('Tipo de Máquina *');
-              selectElement.append(defaultOption);
-              res.data.forEach(function(element) { 
-              var option = $('<option value='+element.id_machine+' >').text(element.description);
-              selectElement.append(option);             
-                });
-        
-      },
-      error: function(error) {
-      console.error('Error al enviar los datos actualizados');
-      }
-  });
-}
- 
-
+   
 </script>
 <script>
 $(document).ready(function() {
@@ -1041,7 +1005,7 @@ const comunas = [
 ];
 
 // Inicializar los selectize
-const $regionSelect = $('.region-select').selectize({
+const $regionSelect = $('#region').selectize({
   options: regiones,
   items: [],
   valueField: 'id',
@@ -1060,14 +1024,16 @@ const $regionSelect = $('.region-select').selectize({
     updateComunaSelect(value, selectedRegionName);
   }
 });
+ 
 
-const $comunaSelect = $('.comuna-select').selectize({
+ const $comunaSelect = $('#city').selectize({
   labelField: 'nombre',
   valueField: 'id',
   hideSelected: true,
   persist: false,
   create: false,
-  placeholder: "Comunas"
+  placeholder: "Comunas",
+    searchField: 'nombre'
 });
 
 // Función para actualizar las comunas cuando se selecciona una región
@@ -1216,6 +1182,8 @@ const maquinas = [
   
 ];
 
+
+
 // Inicializar los selectize
 const $industriaSelect = $('#industria').selectize({
     options: industria,
@@ -1231,7 +1199,6 @@ const $industriaSelect = $('#industria').selectize({
       updateMaquinaSelect(value, selectedIndustrianName);
     }
   });
-
   // Initialize maquina selectize
   const $maquinasSelect = $('#id_machine').selectize({
     labelField: 'nombre',
@@ -1243,9 +1210,8 @@ const $industriaSelect = $('#industria').selectize({
     searchField: 'nombre'
     
   });
-
-  // Disable selectize inputs on page load
-  var industriaSelectize = $('#industria').selectize({ normalize: true })[0].selectize;
+ // Disable selectize inputs on page load
+ var industriaSelectize = $('#industria').selectize({ normalize: true })[0].selectize;
   var idMachineSelectize = $('#id_machine').selectize({ normalize: true })[0].selectize;
 
   industriaSelectize.disable();
@@ -1353,8 +1319,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-
-<script>
-    $('#anios').selectize({ normalize: true });
-    $('#marca').selectize({ normalize: true });
-    </script>

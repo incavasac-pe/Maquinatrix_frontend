@@ -133,7 +133,7 @@ if (isset($_SESSION['loggedIn'])) {
                 <div class="user-detail-box">
                   <div class="table-title-2">
                     <p class="top-title2">Información adicional</p>
-                    <button type="button"  class=" profile-edit-btn profile-edit-btn1">Editar Perfil</button>
+                    <button type="button"  class=" profile-edit-btn profile-edit-btn1">Editar </button>
                   </div>
                   <div class="user-detail-table  user-detail-table1">
                     <table class="additional-table">
@@ -177,7 +177,7 @@ if (isset($_SESSION['loggedIn'])) {
               <div class="user-detail-box">
                   <div class="table-title-2">
                     <p class="top-title2">Dirección</p>
-                    <button type="button" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#direction"  >Editar Perfil</button>
+                    <button type="button" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#direction"  >Editar </button>
                   </div>
                   <div class="user-detail-table"> 
                     <table class="additional-table">
@@ -195,7 +195,7 @@ if (isset($_SESSION['loggedIn'])) {
                 <div class="user-detail-box mt-3">
                   <div class="table-title-2">
                     <p class="top-title2">Contraseña</p>
-                    <button type="button" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#pwd-editar-modal">Editar Perfil</button>
+                    <button type="button" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#pwd-editar-modal">Editar </button>
                   </div>
                   <div class="user-detail-table"> 
                     <table class="additional-table">

@@ -507,7 +507,7 @@ const comunas = [
 
 
 // Inicializar los selectize
-const $regionSelect = $('.region-select').selectize({
+const $regionSelect = $('#region').selectize({
   options: regiones,
   items: [],
   valueField: 'id',
@@ -526,14 +526,14 @@ const $regionSelect = $('.region-select').selectize({
     updateComunaSelect(value, selectedRegionName);
   }
 });
-
-const $comunaSelect = $('.comuna-select').selectize({
+const $comunaSelect = $('#city').selectize({
   labelField: 'nombre',
   valueField: 'id',
   hideSelected: true,
   persist: false,
   create: false,
-  placeholder: "Comunas"
+  placeholder: "Comunas",
+    searchField: 'nombre'
 });
 
 // Función para actualizar las comunas cuando se selecciona una región
@@ -553,7 +553,7 @@ function updateComunaSelect(regionId,regionName) {
 
 
 // Inicializar los selectize
-const $regionSelect5 = $('.region-select5').selectize({
+const $regionSelect5 = $('#region5').selectize({
   options: regiones,
   items: [],
   valueField: 'id',
@@ -572,14 +572,15 @@ const $regionSelect5 = $('.region-select5').selectize({
     updateComunaSelect5(value, selectedRegionName);
   }
 });
-
-const $comunaSelect5 = $('.comuna-select5').selectize({
+ 
+const $comunaSelect5 = $('#city5').selectize({
   labelField: 'nombre',
   valueField: 'id',
   hideSelected: true,
   persist: false,
   create: false,
-  placeholder: "Comunas"
+  placeholder: "Comunas",
+    searchField: 'nombre'
 });
 
 // Función para actualizar las comunas cuando se selecciona una región

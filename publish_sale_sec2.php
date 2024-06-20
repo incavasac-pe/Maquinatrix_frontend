@@ -25,7 +25,7 @@
                 Para que tu publicación tengas más visitas, te recomendamos cargar fotos nítidas y bien iluminadas. Evita incluir bordes, logos, marcas de agua o textos promocionales.
                 </p>
               </div>
-            </div>
+           
             <div class="error-container" id="error-container-photo">
                     <i class="fa-solid fa-circle-xmark"></i>
                     <div> 
