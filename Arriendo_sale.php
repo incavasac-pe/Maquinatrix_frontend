@@ -41,7 +41,7 @@
 </div>
 <?php include 'footer.php' ?> 
 
-<script>
+<!-- <script>
  var save_public = false;
  var isFormValidateSeccion0 = false;
  var isFormValidateSeccion1 = false;
@@ -54,6 +54,7 @@
 
   const navigateBackward = () => {
     const currentStep = getCurrentStep();
+
     if (currentStep > 1) {
       navigateToFormStep(currentStep - 1);
     }
@@ -83,6 +84,15 @@
      
     formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed");
     formStepCircle.classList.add("form-stepper-active");
+    const cancelarStepperArriendo = document.querySelector('.cancelar-stepper-arriendo');
+    if (cancelarStepperArriendo) {
+      console.log("step",stepNumber)
+      if (stepNumber === 1) {
+        cancelarStepperArriendo.style.display = 'none';
+      } else {
+        cancelarStepperArriendo.style.display = '';
+      }
+    }
   
     for (let index = 0; index < stepNumber; index++) {    
       const formStepCircle = document.querySelector('li[step="' + index + '"]');
@@ -191,8 +201,146 @@
     return false;
   }
 }
-</script>
+</script> -->
 
+<script>
+ var save_public = false;
+ var isFormValidateSeccion0 = false;
+ var isFormValidateSeccion1 = false;
+ var isFormValidateSeccion2 = false;
+ var isFormValidateSeccion3 = false;
+ var isFormValidateSeccion4 = false;
+ var isFormValidateSeccion5 = false;
+
+ var selectedCurrency = 'CLP';
+
+ const navigateBackward = () => {
+    const currentStep = getCurrentStep();
+    
+    if (currentStep > 1) {
+      navigateToFormStep(currentStep - 1);
+    }
+  };
+
+  const navigateBackwardCancel = () => { 
+      navigateToFormStep(1); 
+  };
+
+  const getCurrentStep = () => {
+    const visibleStep = document.querySelector('.form-step:not(.d-none)');
+    return parseInt(visibleStep.id.split('-')[1]);
+  };
+
+  const navigateToFormStep = (stepNumber) => {
+   
+    document.querySelectorAll(".form-step").forEach((formStepElement) => {
+      formStepElement.classList.add("d-none");
+    });
+   
+    document.querySelectorAll(".form-stepper-list").forEach((formStepHeader) => {
+      formStepHeader.classList.add("form-stepper-unfinished");
+      formStepHeader.classList.remove("form-stepper-active", "form-stepper-completed");
+    });
+    
+    document.querySelector("#step-" + stepNumber).classList.remove("d-none");
+   
+    const formStepCircle = document.querySelector('li[step="' + stepNumber + '"]');
+     
+    formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed");
+    formStepCircle.classList.add("form-stepper-active");
+
+    const cancelarStepperArriendo = document.querySelector('.cancelar-stepper-arriendo');
+    if (cancelarStepperArriendo) {
+      if (stepNumber === 1) {
+        cancelarStepperArriendo.style.display = 'none';
+      } else {
+        cancelarStepperArriendo.style.display = '';
+      }
+    }
+  
+    for (let index = 0; index < stepNumber; index++) {    
+      const formStepCircle = document.querySelector('li[step="' + index + '"]');
+    
+      if (formStepCircle) {       
+        formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-active");
+        formStepCircle.classList.add("form-stepper-completed");
+      }
+    }
+  };
+
+  document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
+    formNavigationBtn.addEventListener("click", () => {
+      const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
+      console.log("*****stepNumber***", stepNumber);
+
+      var isValid = validateFormSteps(stepNumber, true);
+      console.log("isValid*-*-", isValid);
+
+      if (isValid) {
+        console.log("se envia el paso 5555555555");
+        resumePublication(stepNumber, true);
+        navigateToFormStep(stepNumber);
+      }
+    });
+  });
+
+  const backBtn = document.querySelector('.btn-navigate-form-step-back');
+  if (backBtn) {
+    backBtn.addEventListener('click', navigateBackward);
+  }
+
+  function validateFormSteps(stepNumber, savePub) {
+    if (stepNumber === 1 || stepNumber === 2) {
+      const validationContainers = {
+        seccion0: $("#error-container-titulo"),
+        seccion1: $("#error-container-tipo"),
+        seccion2: $("#error-container-title"),
+        seccion3: $("#error-container-price"),
+        seccion4: $("#error-container-ubicacion"),
+        seccion5: $("#error-container-condicion"),
+      };
+
+      const isFormValid = [isFormValidateSeccion0, isFormValidateSeccion1, isFormValidateSeccion2, isFormValidateSeccion3, isFormValidateSeccion4, isFormValidateSeccion5].every((isValid, index) => {
+        const container = validationContainers[`seccion${index}`];
+        if (!isValid) {
+          container.show();
+          return false;
+        } else {
+          container.hide();
+          return true;
+        }
+      });
+
+      if (isFormValid) {
+        console.log("jijijiji");
+        return true;
+      } else {
+        $("#error-container").show();
+        return false;
+      }
+    }
+
+    if (stepNumber === 3 && idImg > 0) {
+      $("#error-container-photo").hide();
+      resumePublication(stepNumber, savePub);
+      navigateToFormStep(stepNumber);
+      return true;
+    } else {
+      $("#error-container-photo").show();
+      return false;
+    }
+  }
+  console.log("stpppppp",getCurrentStep())
+  if (getCurrentStep() === 1) {
+    const cancelarStepperArriendo = document.querySelector('.cancelar-stepper-arriendo');
+    if (cancelarStepperArriendo) {
+      cancelarStepperArriendo.style.display = 'none';
+    }else{
+      const cancelarStepperArriendo = document.querySelector('.cancelar-stepper-arriendo');
+      cancelarStepperArriendo.style.display = 'none';
+    }
+  }
+</script>
 
 <script>
   document.getElementById('descrip').addEventListener('input', function () {
@@ -470,19 +618,37 @@ fileInput.addEventListener('change', handleImageUpload);
   var publicacion5;
   var traxion;
  
-  function setTraccion(valor){
-    traxion = valor;  
-    if(valor!=''){
-      $(".traction-text").removeClass("active_tracc"); 
-      $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
-    }
-    if(valor == 'Otros'){
-      $('#traction_index1').prop('disabled', false);
-    }else{
-      $('#traction_index1').val("");
-      $('#traction_index1').prop('disabled', true);
-    }
-  }
+ 
+  function setTraccion(valor) {
+
+traxion = valor;
+
+
+const inputField = document.getElementById('traction_index1');
+
+
+if (valor && valor !== "No clasifica") {
+    inputField.disabled = false;
+    inputField.classList.add('enable');
+    inputField.focus();  
+} else {
+    inputField.disabled = true;
+    inputField.classList.remove('enable');
+    inputField.value = ''; 
+}
+
+
+if (valor != '') {
+
+    $(".traction-text").removeClass("active_tracc");
+
+    $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
+}
+
+
+console.log('Selected traction:', valor);
+}
+
  
  var idPreview = '';
  var aaa = 0;

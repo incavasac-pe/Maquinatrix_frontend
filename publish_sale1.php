@@ -226,13 +226,13 @@ $url_publi = $protocol . '://' . $host;
         <p class="sm-title">Condición actual del producto</p>
         <p class="sm-text">Selecciona la condición actual de tu producto</p>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Nuevo">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Nuevo"  onclick="handleRadioChange(this)">
             <label class="form-check-label" for="flexRadioDefault1">
                 Nuevo
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Usado">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Usado"  onclick="handleRadioChange(this)">
             <label class="form-check-label" for="flexRadioDefault2">
                 Usado
             </label>
@@ -248,7 +248,7 @@ $url_publi = $protocol . '://' . $host;
             <div class="kilometer" style="margin-right:20px !important;">
                 <div class="input-group" id="km_input">
                     <input type="text" class="form-control input-control-km" placeholder="Kilometros recorridos"
-                    name="KilometrosRecorridos"   id="KilometrosRecorridos">
+                    name="KilometrosRecorridos"   id="KilometrosRecorridos" disabled />
                     <div class="input-group-addon-km">
                         Km.
                     </div>
@@ -258,7 +258,7 @@ $url_publi = $protocol . '://' . $host;
 
             <div class="hourometer">
                 <div class="input-group" id="km_input">
-                    <input type="text" class="form-control input-control-km" placeholder="Horómetro"  name="Horometro" id="Horometro">
+                    <input type="text" class="form-control input-control-km" placeholder="Horómetro"  name="Horometro" id="Horometro" disabled />
                     <div class="input-group-addon-km">
                         Hrs.
                     </div>
@@ -345,3 +345,40 @@ $url_publi = $protocol . '://' . $host;
         </div>
     </div>
 </div>
+
+
+<script>
+function handleRadioChange(input) {
+    const kilometersInput = document.getElementById('KilometrosRecorridos');
+    const hourometerInput = document.getElementById('Horometro');
+    const isUsadoSelected = input.value === 'Usado';
+    
+    if (isUsadoSelected) {
+        kilometersInput.disabled = false;
+        hourometerInput.disabled = false;
+        kilometersInput.classList.add('enable');
+        hourometerInput.classList.add('enable');
+    } else {
+        kilometersInput.disabled = true;
+        hourometerInput.disabled = true;
+        kilometersInput.classList.remove('enable');
+        hourometerInput.classList.remove('enable');
+    }
+
+    // Log the selected value for debugging (optional)
+    console.log('Selected radio:', input.value);
+}
+
+// Check if any radio button is already selected on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const selectedRadio = document.querySelector('input[name="flexRadioDefault"]:checked');
+    if (selectedRadio) {
+        handleRadioChange(selectedRadio);
+    }
+});
+
+
+
+
+
+</script>

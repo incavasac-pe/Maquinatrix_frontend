@@ -1,7 +1,7 @@
 <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
       <!-- Step 1 -->
 
-      <li class="form-stepper-active text-center form-stepper-list btn-navigate-form-step-back" type="button" >
+      <li class="form-stepper-active text-center form-stepper-list cancelar-stepper-arriendo btn-navigate-form-step-back" type="button" >
         <a class="mx-2">
 
           <span><i class="fa-solid fa-chevron-left"></i></span>

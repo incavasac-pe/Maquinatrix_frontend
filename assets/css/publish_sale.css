@@ -378,7 +378,9 @@ select:invalid {
   color: #95979d;
   opacity: 1;
 }
-
+.enable {
+  background-color: #fff !important;
+}
 .category-product .kilometer-box-wrapper {
   margin-top: 40px;
   display: flex;

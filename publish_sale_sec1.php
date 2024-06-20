@@ -196,12 +196,22 @@
   }else{
     $('#category-product, #t-combustible,#kilometer-box-wrapper').show(); 
   }
+  var industriaSelectize = $('#industria').selectize({ normalize: true })[0].selectize;
+    var idMachineSelectize = $('#id_machine').selectize({ normalize: true })[0].selectize;
+    if (id_categoria == 1 || id_categoria == 2 || id_categoria == 3 || id_categoria == 4 || id_categoria == 5) {
+            industriaSelectize.enable();
+            idMachineSelectize.enable();
+        } else {
+            industriaSelectize.disable();
+            idMachineSelectize.disable();
+        }
 }  
  
 
 </script>
-  
+ 
 <script>
+  
   $(document).ready(function() {
     const regiones = [
   { id: 1, nombre: 'Arica y Parinacota' },
@@ -720,32 +730,40 @@ const maquinas = [
 ];
 
 // Inicializar los selectize
-const $industriaSelect = $('.industria-select').selectize({
-  options: industria,
-  items: [],
-  valueField: 'id',
-  labelField: 'nombre',
-  searchField: 'nombre',
-  create: false,
-  maxItems: 1,  
-  onChange: function(value) { 
-    const industriaRegion = industria.find(r => r.id == value);
-     
-    const selectedIndustrianName = industriaRegion ? industriaRegion.nombre : '';
-     
-    updateMaquinaSelect(value, selectedIndustrianName);
-  }
-});
+const $industriaSelect = $('#industria').selectize({
+    options: industria,
+    items: [],
+    valueField: 'id',
+    labelField: 'nombre',
+    searchField: 'nombre',
+    create: false,
+    maxItems: 1,
+    onChange: function(value) {
+      const industriaRegion = industria.find(r => r.id == value);
+      const selectedIndustrianName = industriaRegion ? industriaRegion.nombre : '';
+      updateMaquinaSelect(value, selectedIndustrianName);
+    }
+  });
 
-const $maquinasSelect = $('.maquina-select').selectize({
-  labelField: 'nombre',
-  valueField: 'id',
-  hideSelected: true,
-  persist: false,
-  create: false,
-  placeholder: "Tipo Maquinas"
-});
- 
+  // Initialize maquina selectize
+  const $maquinasSelect = $('#id_machine').selectize({
+    labelField: 'nombre',
+    valueField: 'id',
+    hideSelected: true,
+    persist: false,
+    create: false,
+    placeholder: "Tipo Maquinas",
+    searchField: 'nombre'
+    
+  });
+
+  // Disable selectize inputs on page load
+  var industriaSelectize = $('#industria').selectize({ normalize: true })[0].selectize;
+  var idMachineSelectize = $('#id_machine').selectize({ normalize: true })[0].selectize;
+
+  industriaSelectize.disable();
+  idMachineSelectize.disable();
+
 function updateMaquinaSelect(industriaId,industriaName) {  
   const maquinassDeRegion = maquinas.filter(c => c.region_id == industriaId);
   const $maqSelectize = $maquinasSelect[0].selectize;

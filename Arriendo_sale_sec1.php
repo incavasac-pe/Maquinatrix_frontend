@@ -143,16 +143,21 @@ $url_publi = $protocol . '://' . $host;
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3"> 
                                     <label for="marca" class="form-label">Marca*</label>
-                                    <input class="form-control" autocomplete="off" list="datalistOptions" id="marca" placeholder="">
-                                      <?php  
+                                    <select list="datalistOptions" id="marca">
+                                    <option value="" selected >Marca*</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                                    </select>
+                                      <!-- <?php  
                                         if ($count_marca > 0) { 
-                                            echo '<datalist id="datalistOptions">'; 
+                                            echo '<select id="datalistOptions">'; 
                                             foreach ($marca as $field) { 
                                                 $marcaName = $field['description'];
                                                 echo '<option value="' . $marcaName . '">';  
                                             }
-                                            echo '</datalist>'; 
-                                            }  ?>    
+                                            echo '</select>'; 
+                                            }  ?>     -->
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
@@ -163,9 +168,12 @@ $url_publi = $protocol . '://' . $host;
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="mb-3">  
-                                    <label for="anios" class="form-label">Año*</label>
-                                    <input class="form-control" autocomplete="off" list="datalistOptionsA" id="anios" placeholder="">
-                                      <?php  
+                                    <!-- <label for="anios" class="form-label">Año*</label> -->
+                                    <select list="datalistOptionsA" id="anios" ><option value="" selected >Año*</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option></select>
+                                      <!-- <?php  
                                             $anioActual = date("Y");  
                                             echo '<datalist id="datalistOptionsA">'; 
                                             for ($i = $anioActual; $i >= ($anioActual - 100); $i--) {
@@ -173,7 +181,7 @@ $url_publi = $protocol . '://' . $host;
                                                 echo '<option value="' . $i . '">';  
                                             }
                                             echo '</datalist>'; 
-                                            ?>    
+                                            ?>     -->
                                      </div> 
                                   
                                 </div>
@@ -330,13 +338,13 @@ $url_publi = $protocol . '://' . $host;
                             <p class="sm-title">Condición actual del producto *</p>
                             <p class="sm-text">Selecciona la condición actual de tu producto</p>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Nuevo">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Nuevo" onclick="handleRadioChange(this)">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Nuevo
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Usado">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Usado" onclick="handleRadioChange(this)">
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     Usado
                                 </label>
@@ -352,7 +360,7 @@ $url_publi = $protocol . '://' . $host;
                                 <div class="kilometer" style="margin-right:20px !important;">
                                     <div class="input-group" id="km_input">
                                         <input type="text" class="form-control input-control-km" placeholder="Kilometros recorridos"
-                                        name="KilometrosRecorridos"   id="KilometrosRecorridos">
+                                        name="KilometrosRecorridos"   id="KilometrosRecorridos" disabled>
                                         <div class="input-group-addon-km">
                                             Km.
                                         </div>
@@ -361,7 +369,7 @@ $url_publi = $protocol . '://' . $host;
                                 </div>
                                 <div class="hourometer">
                                     <div class="input-group" id="km_input">
-                                        <input type="text" class="form-control input-control-km" placeholder="Horómetro" name="Horometro" id="Horometro">
+                                        <input type="text" class="form-control input-control-km" placeholder="Horómetro" name="Horometro" id="Horometro" disabled>
                                         <div class="input-group-addon-km">
                                             Hrs.
                                         </div>
@@ -436,22 +444,22 @@ $url_publi = $protocol . '://' . $host;
                                     <div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="certificadoP" id="inlineRadio1Cert"
-                                                value="Y">
+                                            value="Sí" onclick="handleRadioChangeCertificado(this)">
                                             <label class="form-check-label" for="inlineRadio1Cert">Sí</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="certificadoP" id="inlineRadio2Cert"
-                                                value="N">
+                                                value="No" onclick="handleRadioChangeCertificado(this)">
                                             <label class="form-check-label" for="inlineRadio2Cert">No</label>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                            <div class="grey-box-wrapper">
+                            <div id="enableDisableDiv" class="grey-box-wrapper" disabled>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label dark-grey-text">Fecha de Certificado</label>
-                                    <input type="text" class="form-control"  name="dateCerti"  id="dateCerti" placeholder="DD/MM/AAAA">
+                                    <input type="text" class="form-control"  name="dateCerti"  id="dateCerti" placeholder="DD/MM/AAAA" disabled />
                                 </div>
                                 <div>
                                     <label for="exampleFormControlInput11" class="form-label dark-grey-text">Adjuntar Archivo</label>
@@ -459,7 +467,7 @@ $url_publi = $protocol . '://' . $host;
 
                                     <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" class="form-control input-addon" 
                                         placeholder="Adjuntar certificado" aria-label="Adjuntar certificado"
-                                        aria-describedby="basic-addon2" >
+                                        aria-describedby="basic-addon2" disabled />
                                         <span class="input-group-text input-addon-symbol" id="basic-addon2">@</span>
                                     </div>
                                     <p class="dark-grey-text-sm">Se admiten los formatos PDF. Máx 20 MB</p>
@@ -484,18 +492,18 @@ $url_publi = $protocol . '://' . $host;
                                     </div>
                                     <div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="insurance" id="insurance1" value="Y">
+                                            <input class="form-check-input" type="radio" name="insurance" id="insurance1" value="Sí" onclick="handleRadioChangePóliza(this)">
                                             <label class="form-check-label" for="insurance1">Sí</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="insurance" id="insurance2" value="N">
+                                            <input class="form-check-input" type="radio" name="insurance" id="insurance2" value="No" onclick="handleRadioChangePóliza(this)">
                                             <label class="form-check-label" for="insurance2">No</label>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                            <div class="grey-box-wrapper2">
+                            <div class="grey-box-wrapper2" id="enableDisableDiv2">
 
                                 <p class="dark-grey-text">Adjuntar Archivo</p>
                                 <p class="dark-grey-text-md">Adjunta la Póliza de Seguro de la maquinaria que estás publicando. Descuida, no
@@ -504,9 +512,9 @@ $url_publi = $protocol . '://' . $host;
                                 <p class="dark-grey-text-md">Se admiten los formatos PDF. Máx 20 MB</p>
                                 <div class="input-group mb-3" style="width: 223px;">
 
-                                    <input type="file"  accept=".pdf"  id="pdfFile-other" name="pdfFile-other"  class="form-control input-addon" 
+                                    <input type="file"  accept=".pdf"   id="pdfFile-other" name="pdfFile-other"  class="form-control input-addon" 
                                         placeholder="Adjuntar certificado" aria-label="Adjuntar certificado"
-                                        aria-describedby="basic-addon2">
+                                        aria-describedby="basic-addon2" disabled>
                                     <span class="input-group-text input-addon-symbol" id="basic-addon2">@</span>
                                     <div class="warning-wrapper" style="display: none;" id="error-container-pdf-other">
                                       <i class="fa-solid fa-circle-exclamation"></i>
@@ -628,6 +636,15 @@ function setCategory(value,text) {
     }else{
         $('.engine_number, .chasis_number, .patente').show();
     }
+    var industriaSelectize = $('#industria').selectize({ normalize: true })[0].selectize;
+    var idMachineSelectize = $('#id_machine').selectize({ normalize: true })[0].selectize;
+    if (id_categoria == 1 || id_categoria == 2 || id_categoria == 3 || id_categoria == 4 || id_categoria == 5) {
+            industriaSelectize.enable();
+            idMachineSelectize.enable();
+        } else {
+            industriaSelectize.disable();
+            idMachineSelectize.disable();
+        }
  
 }
   function searchTypeMachine(industria){   
@@ -1200,34 +1217,39 @@ const maquinas = [
 ];
 
 // Inicializar los selectize
-const $industriaSelect = $('.industria-select').selectize({
-  options: industria,
-  items: [],
-  valueField: 'id',
-  labelField: 'nombre',
-  searchField: 'nombre',
-  create: false,
-  maxItems: 1,  
-  onChange: function(value) {
-    // Obtener el objeto de la región seleccionada
-    const industriaRegion = industria.find(r => r.id == value);
-    
-    // Obtener el nombre de la región seleccionada
-    const selectedIndustrianName = industriaRegion ? industriaRegion.nombre : '';
-    
-    // Actualizar el select de comunas
-    updateMaquinaSelect(value, selectedIndustrianName);
-  }
-});
+const $industriaSelect = $('#industria').selectize({
+    options: industria,
+    items: [],
+    valueField: 'id',
+    labelField: 'nombre',
+    searchField: 'nombre',
+    create: false,
+    maxItems: 1,
+    onChange: function(value) {
+      const industriaRegion = industria.find(r => r.id == value);
+      const selectedIndustrianName = industriaRegion ? industriaRegion.nombre : '';
+      updateMaquinaSelect(value, selectedIndustrianName);
+    }
+  });
 
-const $maquinasSelect = $('.maquina-select').selectize({
-  labelField: 'nombre',
-  valueField: 'id',
-  hideSelected: true,
-  persist: false,
-  create: false,
-  placeholder: "Tipo Maquinas"
-});
+  // Initialize maquina selectize
+  const $maquinasSelect = $('#id_machine').selectize({
+    labelField: 'nombre',
+    valueField: 'id',
+    hideSelected: true,
+    persist: false,
+    create: false,
+    placeholder: "Tipo Maquinas",
+    searchField: 'nombre'
+    
+  });
+
+  // Disable selectize inputs on page load
+  var industriaSelectize = $('#industria').selectize({ normalize: true })[0].selectize;
+  var idMachineSelectize = $('#id_machine').selectize({ normalize: true })[0].selectize;
+
+  industriaSelectize.disable();
+  idMachineSelectize.disable();
  
 function updateMaquinaSelect(industriaId,industriaName) { 
  
@@ -1244,3 +1266,95 @@ function updateMaquinaSelect(industriaId,industriaName) {
 }); 
     
 </script>
+
+<script>
+function handleRadioChange(input) {
+    const kilometersInput = document.getElementById('KilometrosRecorridos');
+    const hourometerInput = document.getElementById('Horometro');
+    const isUsadoSelected = input.value === 'Usado';
+    
+    if (isUsadoSelected) {
+        kilometersInput.disabled = false;
+        hourometerInput.disabled = false;
+        kilometersInput.classList.add('enable');
+        hourometerInput.classList.add('enable');
+    } else {
+        kilometersInput.disabled = true;
+        hourometerInput.disabled = true;
+        kilometersInput.classList.remove('enable');
+        hourometerInput.classList.remove('enable');
+    }
+
+
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const selectedRadio = document.querySelector('input[name="flexRadioDefault"]:checked');
+    if (selectedRadio) {
+        handleRadioChange(selectedRadio);
+    
+    }
+});
+function handleRadioChangeCertificado(input) {
+    const dateCerti = document.getElementById('dateCerti');
+    const pdfFile = document.getElementById('pdfFile');
+    const isUsadoSelected = input.value === 'Sí';
+    const div = document.getElementById('enableDisableDiv');
+    if (isUsadoSelected) {
+        dateCerti.disabled = false;
+        pdfFile.disabled = false;
+        div.classList.add('enable');
+        pdfFile.classList.add('enable');
+        dateCerti.classList.add('enable');
+    } else {
+        dateCerti.disabled = true;
+        pdfFile.disabled = true;
+        pdfFile.classList.remove('enable');
+        dateCerti.classList.remove('enable');
+        div.classList.remove('enable');
+    }
+
+
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const selectedRadio = document.querySelector('input[name="inlineRadioC"]:checkedert');
+    if (selectedRadio) {
+       
+        handleRadioChangeCertificado(selectedRadio);
+    }
+});
+function handleRadioChangePóliza(input) {
+   
+    const pdfFile = document.getElementById('pdfFile-other');
+    const isUsadoSelected = input.value === 'Sí';
+    const div = document.getElementById('enableDisableDiv2');
+    if (isUsadoSelected) {
+       
+        pdfFile.disabled = false;
+        div.classList.add('enable');
+        pdfFile.classList.add('enable');
+      
+    } else {
+      
+        pdfFile.disabled = true;
+        pdfFile.classList.remove('enable');
+      
+        div.classList.remove('enable');
+    }
+
+
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const selectedRadio = document.querySelector('input[name="insurance"]:checked');
+    if (selectedRadio) {
+       
+        handleRadioChangePóliza(selectedRadio);
+    }
+});
+</script>
+
+<script>
+    $('#anios').selectize({ normalize: true });
+    $('#marca').selectize({ normalize: true });
+    </script>

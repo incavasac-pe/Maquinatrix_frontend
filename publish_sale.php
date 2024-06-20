@@ -79,6 +79,14 @@
     formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed");
     formStepCircle.classList.add("form-stepper-active");
 
+    const cancelarStepperArriendo = document.querySelector('.cancelar-stepper-arriendo');
+    if (cancelarStepperArriendo) {
+      if (stepNumber === 1) {
+        cancelarStepperArriendo.style.display = 'none';
+      } else {
+        cancelarStepperArriendo.style.display = '';
+      }
+    }
     for (let index = 0; index < stepNumber; index++) {
 
       const formStepCircle = document.querySelector('li[step="' + index + '"]');
@@ -219,6 +227,15 @@
     return false;
   }
 }
+if (getCurrentStep() === 1) {
+    const cancelarStepperArriendo = document.querySelector('.cancelar-stepper-arriendo');
+    if (cancelarStepperArriendo) {
+      cancelarStepperArriendo.style.display = 'none';
+    }else{
+      const cancelarStepperArriendo = document.querySelector('.cancelar-stepper-arriendo');
+      cancelarStepperArriendo.style.display = 'none';
+    }
+  }
 </script>
 
 
@@ -632,19 +649,36 @@ function setTipoT(valor){
     }
 }
 
-function setTraccion(valor){
-    traxion = valor;   
-    if(valor!=''){
-      $(".traction-text").removeClass("active_tracc"); 
-      $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
-    }
-    if(valor == 'Otros'){
-      $('#traction_index1').prop('disabled', false);
-    }else{
-      $('#traction_index1').val("");
-      $('#traction_index1').prop('disabled', true);
-    }
- }
+
+function setTraccion(valor) {
+
+traxion = valor;
+
+
+const inputField = document.getElementById('traction_index1');
+
+
+if (valor && valor !== "No clasifica") {
+    inputField.disabled = false;
+    inputField.classList.add('enable');
+    inputField.focus();  
+} else {
+    inputField.disabled = true;
+    inputField.classList.remove('enable');
+    inputField.value = ''; 
+}
+
+
+if (valor != '') {
+
+    $(".traction-text").removeClass("active_tracc");
+
+    $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
+}
+
+
+console.log('Selected traction:', valor);
+}
 
  function setTraccion5(valor){
     traxion = valor;   
