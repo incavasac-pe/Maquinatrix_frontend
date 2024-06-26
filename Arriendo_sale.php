@@ -40,169 +40,7 @@
   </div>
 </div>
 <?php include 'footer.php' ?> 
-
-<!-- <script>
- var save_public = false;
- var isFormValidateSeccion0 = false;
- var isFormValidateSeccion1 = false;
- var isFormValidateSeccion2 = false;
- var isFormValidateSeccion3 = false;
- var isFormValidateSeccion4 = false;
- var isFormValidateSeccion5 = false;
-
- var selectedCurrency = 'CLP';
-
-  const navigateBackward = () => {
-    const currentStep = getCurrentStep();
-
-    if (currentStep > 1) {
-      navigateToFormStep(currentStep - 1);
-    }
-  };
-  const navigateBackwardCancel = () => { 
-      navigateToFormStep(1); 
-  };
-  const getCurrentStep = () => {
-    const visibleStep = document.querySelector('.form-step:not(.d-none)');
-    return parseInt(visibleStep.id.split('-')[1]);
-  };
-
-  const navigateToFormStep = (stepNumber) => {
-   
-    document.querySelectorAll(".form-step").forEach((formStepElement) => {
-      formStepElement.classList.add("d-none");
-    });
-   
-    document.querySelectorAll(".form-stepper-list").forEach((formStepHeader) => {
-      formStepHeader.classList.add("form-stepper-unfinished");
-      formStepHeader.classList.remove("form-stepper-active", "form-stepper-completed");
-    });
-    
-    document.querySelector("#step-" + stepNumber).classList.remove("d-none");
-   
-    const formStepCircle = document.querySelector('li[step="' + stepNumber + '"]');
-     
-    formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed");
-    formStepCircle.classList.add("form-stepper-active");
-    const cancelarStepperArriendo = document.querySelector('.cancelar-stepper-arriendo');
-    if (cancelarStepperArriendo) {
-      console.log("step",stepNumber)
-      if (stepNumber === 1) {
-        cancelarStepperArriendo.style.display = 'none';
-      } else {
-        cancelarStepperArriendo.style.display = '';
-      }
-    }
   
-    for (let index = 0; index < stepNumber; index++) {    
-      const formStepCircle = document.querySelector('li[step="' + index + '"]');
-    
-      if (formStepCircle) {       
-        formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-active");
-        formStepCircle.classList.add("form-stepper-completed");
-      }
-    }
-  };
-
-  document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
-    formNavigationBtn.addEventListener("click", () => {
-      const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
-      console.log("*****stepNumber***",stepNumber)  
-       
-        var isValid =  validateFormSteps(stepNumber,true);
-      console.log("isValid*-*-",isValid);
-     
-        if(isValid){               
-          console.log("se envia el paso 5555555555");
-          resumePublication(stepNumber, true);
-          navigateToFormStep(stepNumber);
-        }
-      });  
-  }); 
- 
-
-  const backBtn = document.querySelector('.btn-navigate-form-step-back');
-  if (backBtn) {
-    backBtn.addEventListener('click', navigateBackward);
-  }
-
-  
-  function validateFormSteps(stepNumber,savePub) { 
-   if (stepNumber === 1 || stepNumber === 2 ) {
-   
-      const $errorContainerTipo = $("#error-container-tipo"); 
-      const $errorContainerTitle = $("#error-container-title");
-      const $errorContainerPrice = $("#error-container-price");
-      const $errorContainerUbicacion = $("#error-container-ubicacion");
-      const $errorContainerCondicion = $("#error-container-condicion");
-      const $errorContainerTitulo = $("#error-container-titulo");
-
-      if (!isFormValidateSeccion1) {
-          $errorContainerTipo.show();
-          return false;
-        } else {
-          $errorContainerTipo.hide();
-        }
-      if (!isFormValidateSeccion0) {
-            $errorContainerTitulo.show();
-            return false;
-          } else {
-            $errorContainerTitulo.hide();
-          }
-
-          if (!isFormValidateSeccion1) {
-            $errorContainerTipo.show();
-            return false;
-          } else {
-            $errorContainerTipo.hide();
-          }
-
-          if (!isFormValidateSeccion2) {
-            $errorContainerTitle.show();
-            return false;
-          } else {
-            $errorContainerTitle.hide();
-          }
-
-          if (!isFormValidateSeccion3) {
-            $errorContainerPrice.show();
-            return false;
-          } else {
-            $errorContainerPrice.hide();
-          }
-
-          if (!isFormValidateSeccion4) {
-            $errorContainerUbicacion.show();
-            return false;
-          } else {
-            $errorContainerUbicacion.hide();
-          }
-
-          if (!isFormValidateSeccion5) {
-            $errorContainerCondicion.show();
-            return false;
-          } else {
-            $errorContainerCondicion.hide();
-          }
-    
-    console.log("jijijiji")
-    return true;
-    } else {
-      $("#error-container").hide();
-    }
-
-  if (stepNumber === 3 && idImg > 0) {
-    $("#error-container-photo").hide();
-    resumePublication(stepNumber, savePub);
-    navigateToFormStep(stepNumber);
-    return true;
-  } else {
-    $("#error-container-photo").show();
-    return false;
-  }
-}
-</script> -->
-
 <script>
  var save_public = false;
  var isFormValidateSeccion0 = false;
@@ -212,7 +50,19 @@
  var isFormValidateSeccion4 = false;
  var isFormValidateSeccion5 = false;
 
+  var id_product;
+  var publicacion1;
+  var publicacion2;
+  var publicacion3;
+  var publicacion4;
+  var publicacion5;
+
+  var traxion; 
+  var pdfCerti,pdfCertiPoli;
+
  var selectedCurrency = 'CLP';
+ var city='';
+ var region='';
 
  const navigateBackward = () => {
     const currentStep = getCurrentStep();
@@ -274,12 +124,13 @@
       console.log("*****stepNumber***", stepNumber);
 
       var isValid = validateFormSteps(stepNumber, true);
-      console.log("isValid*-*-", isValid);
+      console.log("isValid continuar*-*-", isValid);
 
-      if (isValid) {
-        console.log("se envia el paso 5555555555");
+      if(isValid) {
         resumePublication(stepNumber, true);
-        navigateToFormStep(stepNumber);
+        if(stepNumber === 2 || stepNumber === 3  ){
+          navigateToFormStep(stepNumber);
+        }
       }
     });
   });
@@ -290,7 +141,7 @@
   }
 
   function validateFormSteps(stepNumber, savePub) {
-    if (stepNumber === 1 || stepNumber === 2) {
+    if (stepNumber === 2 || stepNumber === 4 ) {
       const validationContainers = {
         seccion0: $("#error-container-titulo"),
         seccion1: $("#error-container-tipo"),
@@ -301,6 +152,7 @@
       };
 
       const isFormValid = [isFormValidateSeccion0, isFormValidateSeccion1, isFormValidateSeccion2, isFormValidateSeccion3, isFormValidateSeccion4, isFormValidateSeccion5].every((isValid, index) => {
+       console.log("isFormValid",isValid)
         const container = validationContainers[`seccion${index}`];
         if (!isValid) {
           container.show();
@@ -319,18 +171,19 @@
         return false;
       }
     }
-
-    if (stepNumber === 3 && idImg > 0) {
-      $("#error-container-photo").hide();
-      resumePublication(stepNumber, savePub);
-      navigateToFormStep(stepNumber);
+    
+    if ( ( stepNumber === 3 ||  stepNumber === 5)  && idImg > 0) {
+      console.log("el paso 2 para guardar y el 3 para continuar", stepNumber) 
+      console.log("imagen", idImg)
+     
+      $("#error-container-photo").hide();  
       return true;
     } else {
       $("#error-container-photo").show();
       return false;
     }
-  }
-  console.log("stpppppp",getCurrentStep())
+  } 
+
   if (getCurrentStep() === 1) {
     const cancelarStepperArriendo = document.querySelector('.cancelar-stepper-arriendo');
     if (cancelarStepperArriendo) {
@@ -353,10 +206,9 @@
 <script>
 
 var $confirmPublicSaleBtn = $('#confirm_public'); 
-var city='';
-var region='';
+ 
 $(document).ready(function() {
-  limitToCurrentYear('#anios');
+    limitToCurrentYear('#anios');
     console.log( "ready publication!" ); 
     var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
       if(product_old!=''){
@@ -374,11 +226,13 @@ $(document).ready(function() {
     });  
     //guardar en borrador
     $('.save_public').on('click', function(event) {
+  
       var $errorContainer = $("#error-container");
       $errorContainer.hide();
       let publicationId = $(this).data('publication-id');
+      console.log("se manda a guardar",publicationId)
       var isValid =  validateFormSteps(publicationId,false);
-      console.log("isValid*-*-",isValid);
+      console.log("isValid*-*-guadarrrrr",isValid);
      
         if(isValid){
         
@@ -388,7 +242,7 @@ $(document).ready(function() {
               
           console.log("se envia el paso 444444444444");
           resumePublication(publicationId, false);
-          navigateToFormStep(publicationId);
+          
         }else{
           var $errorContainer = $("#error-container");
           $errorContainer.show()
@@ -419,41 +273,34 @@ $(document).ready(function() {
     $idMachine.on('change', validateFieldsMaquine);
     $industria.on('change', validateFieldsMaquine);
    // fin valida maquina y industria 
-
-    //valida title y marca,modelo,anios
-    var $title = $("#title"); 
     
-    var $errorContainerTitulo = $("#error-container-titulo");
+    var $title = $("#title");
+    var $errorContainerTitulo = $("#error-container-titulo"); 
+    function validateTitle() {
+      var isValid = $title.val().trim() !== '';
+      $errorContainerTitulo.toggle(!isValid);
+      return isValid;
+    }  
+    $title.on('keyup', function() {
+      isFormValidateSeccion0 = validateTitle();
+    });
 
-    function validateFieldsTitle() {  
-      if ($title.val() !== '') {
-        $errorContainerTitulo.hide();
-        isFormValidateSeccion0 = true;
-      } else {
-        $errorContainerTitulo.show();
-        isFormValidateSeccion0 = false;
-      }
-    }
-
-    $title.on('blur', validateFieldsTitle);
-
- //valida  marca,modelo,anios
     var $marca = $("#marca");
     var $modelo = $("#modelo");
     var $anios = $("#anios");
     var $errorContainerTitle = $("#error-container-title");
 
-    function validateFields() {  
-      if ($marca.val() !== '' && $modelo.val() !== '' && $anios.val() !== '') {
-        $errorContainerTitle.hide();
-        isFormValidateSeccion2 = true;
-      } else {
-        $errorContainerTitle.show();
-        isFormValidateSeccion2 = false;
-      }
+    function validateFields() {
+      var isValid = $marca.val().trim() !== '' &&
+                    $modelo.val().trim() !== '' &&
+                    $anios.val().trim() !== '';
+      $errorContainerTitle.toggle(!isValid);
+      return isValid;
     }
 
-    $marca.add($modelo).add($anios).on('blur', validateFields);
+    $marca.add($modelo).add($anios).on('keyup', function() {
+      isFormValidateSeccion2 = validateFields();
+    });
   // fin valida title y marca,modelo,anios
   
  //valida el precio
@@ -475,58 +322,72 @@ $(document).ready(function() {
     $price.on('keyup', validatePriceFields);
     $priceType2.on('change', function() {
       if ($priceType2.is(':checked')) {
-        $price.val('0');
+        $price.val('');
         isFormValidateSeccion3 = true;
-      }
+        var $priceInput = $('#price'); 
+         $priceInput.prop('disabled', true);
+      } 
+    });
+
+    $priceType1.on('change', function() {
+      if ($priceType1.is(':checked')) {
+        $price.val('');
+        isFormValidateSeccion3 = true;
+        var $priceInput = $('#price'); 
+         $priceInput.prop('disabled', false);
+         selectedCurrency = 'CLP';
+      } 
     });
     var $priceInput = $("#inputGroupSelect01Price");
-
     $priceInput.on("change", function() {
       selectedCurrency = $(this).val();
-      console.log("Selected currency:", selectedCurrency);
-      // Aquí puedes agregar la lógica que desees ejecutar cuando se selecciona un valor
     });
 //fin valida precio
- 
+
     const $region = $('.region-select');
     const $selectedComunaId = $('.comuna-select');
-    var $errorContainerUbi = $("#error-container-ubicacion");
-
-    function validateLocationFields() {   
-      city = $selectedComunaId.val();
-
-      console.log("*-*-*-*-region*-*-* ",region); 
-      console.log("*-*-*-*-city*-*-* ",city); 
-      if ($selectedComunaId.val() !== '0' && $selectedComunaId.val() !== '' && region !== '0'  && region !== '') {
-        $errorContainerUbi.hide();
-        isFormValidateSeccion4 = true;
-      } else {
-        $errorContainerUbi.show();
-        isFormValidateSeccion4 = false;
-      }
+    const $errorContainerUbi = $("#error-container-ubicacion");
+ 
+    function validateLocation() {
+      const region = $region.val();
+      const city = $selectedComunaId.val();
+      const isValid = city !== '0' && city !== '' && region !== '0' && region !== '';
+      $errorContainerUbi.toggle(!isValid);
+      return isValid;
     }
+ 
+    $selectedComunaId.add($region).on('change', function() {
+      isFormValidateSeccion4 = validateLocation();
+    });
 
-  $selectedComunaId.add($region).on('change', validateLocationFields);
-  // fin valida city y region 
-  });  
-
-  
-    //valida condicion 
-    var $condicion1 = $("#flexRadioDefault1");
-    var $condicion2 = $("#flexRadioDefault2");
-    var $errorContainerCondicion = $("#error-container-condicion");
-
-    function validateFieldsCondicion() {  
-      if (($condicion1.is(':checked') || $condicion2.is(':checked'))) {
-        $errorContainerCondicion.hide();
-        isFormValidateSeccion5 = true;
-      } else {
-        $errorContainerCondicion.show();
-        isFormValidateSeccion5 = false;
+   
+      const $condicion1 = $("#flexRadioDefault1");
+      const $condicion2 = $("#flexRadioDefault2");
+      const $errorContainerCondicion = $("#error-container-condicion");
+ 
+      function validateCondicion() {
+        const isValid = $condicion1.is(':checked') || $condicion2.is(':checked');
+        $errorContainerCondicion.toggle(!isValid);
+        return isValid;
       }
-    }
+ 
+      $condicion1.add($condicion2).on('change', function() {
+        isFormValidateSeccion5 = validateCondicion();
+      });
 
-    $condicion1.add($condicion2).on('change', validateFieldsCondicion);
+    $('#pdfFile').on('change', function() {
+      var fileName = this.files[0].name; 
+      pdfCerti = fileName;
+      $(".operational_certificate").text('Certificado de Operatividad: ' +pdfCerti);
+      
+    }); 
+
+    $('#pdfFile-other').on('change', function() {
+      var fileName = this.files[0].name; 
+      pdfCertiPoli = fileName; 
+      $(".insurance_policy").text('Póliza de seguro: ' +pdfCertiPoli);
+    });
+  });
 </script>
  
 <script>
@@ -579,6 +440,7 @@ fileInput.addEventListener('change', handleImageUpload);
           for (var i = 0; i < imgArray.length; i++) { 
               if (imgArray[i].name === containerId) {  
                   idImg--;
+                  console.log("quedan imagenes ***",idImg)
                   imgArray.splice(i, 1);   
                   break;
               }
@@ -610,49 +472,48 @@ fileInput.addEventListener('change', handleImageUpload);
     }
   }
 
-  var id_product;
-  var publicacion1;
-  var publicacion2;
-  var publicacion3;
-  var publicacion4;
-  var publicacion5;
-  var traxion;
  
- 
-  function setTraccion(valor) {
+  function setTraccion(selectedTraction, edit = false) {
+    traxion = selectedTraction;
+  const inputField = document.getElementById('traction_index1');
+  const trackionOptions = ['No clasifica', '8X4', '6X6', '4X4', '6X4', '2X2', '4X2'];
 
-traxion = valor;
+  // Reset input field
+  inputField.disabled = false;
+  inputField.classList.remove('enable');
+  inputField.value = '';
 
-
-const inputField = document.getElementById('traction_index1');
-
-
-if (valor && valor !== "No clasifica") {
+  // Handle "Otros" selection
+  if (selectedTraction === 'Otros') {
     inputField.disabled = false;
     inputField.classList.add('enable');
-    inputField.focus();  
-} else {
+    inputField.focus();
+  } else {
     inputField.disabled = true;
     inputField.classList.remove('enable');
-    inputField.value = ''; 
+  }
+
+  // Handle predefined traction options
+  if (trackionOptions.includes(selectedTraction)) {
+    inputField.disabled = true;
+    inputField.classList.remove('enable');
+    inputField.value = '';
+    $(".traction-text:contains(" + selectedTraction + ")").addClass("active_tracc");
+  } else {
+    if (edit) {
+      $("#traction_index1").val(selectedTraction);
+    }
+    $(".traction-text:contains('Otros')").addClass("active_tracc");
+  }
+
+  console.log('Selected traction new:', selectedTraction);
 }
-
-
-if (valor != '') {
-
-    $(".traction-text").removeClass("active_tracc");
-
-    $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
-}
-
-
-console.log('Selected traction:', valor);
-}
-
+  
  
  var idPreview = '';
  var aaa = 0;
  function resumePublication(step,save){  
+   city = $("#city").text();
     var id_product_old = '<?= isset($_GET['id']) &&  $_GET['id']!== '' ? $_GET['id'] : null; ?>';
     publicacion1 = {  
       "id_product":id_product_old,
@@ -669,8 +530,8 @@ console.log('Selected traction:', valor);
     publicacion2 = {   
       "id_product":id_product,
       "region": region, 
-      "city":  city, 
-      "price": $('input[name="price_type"]:checked').val()  =='H' ?  selectedCurrency + ' '+  $("#price").val() + '':'0',
+      "city":city,
+      "price": $('input[name="price_type"]:checked').val()  =='H' ?  selectedCurrency + ' '+  $("#price").val() + '':'',
       "brand": $("#marca").val(),
       "model": $("#modelo").val(),
       "year": $("#anios").val(),
@@ -734,9 +595,9 @@ console.log('Selected traction:', valor);
       "Technical_Visit": $('input[name="technical"]:checked').val(),
       "operational_certificate": $('input[name="certificadoP"]:checked').val(),
       "operational_certificate_date": $("#dateCerti").val(),  
-      "operational_certificate_attachment": "certificate.pdf",
+      "operational_certificate_attachment": pdfCerti ?? 'certificate.pdf',
       "Insurance_Policy": $('input[name="insurance"]:checked').val(),
-      "Insurance_Policy_attachment": "certificate.pdf",//PDF
+      "Insurance_Policy_attachment":  pdfCertiPoli ?? 'certificate.pdf',
       "delivery": $('input[name="shipping"]:checked').val(),  
       "operator_included": $('input[name="operator"]:checked').val(),
       "rental_contract":  $('input[name="Machinery"]:checked').val(), 
@@ -1167,8 +1028,7 @@ function edit_publi(){
             }else{
               $("#pills-publish1-tab").click();
             }
-          
-            
+           
              // Establecer el valor seleccionado
             var selectize = $('#industria')[0].selectize;
             selectize.setValue(element.id_product_type);
@@ -1194,48 +1054,71 @@ function edit_publi(){
             isFormValidateSeccion2 = true;
              
            var PesoNeto = element.product_technical_characteristics?.weight.split(" ");   
+           console.log(typeof(PesoNeto));
+           if(PesoNeto){
             $("#PesoNeto").val(PesoNeto[0]);    
             $("#inputGroupSelectPeso option[value='" + PesoNeto[1] + "']").prop("selected", true);
+          }
  
-
-           var Potencia = element.product_technical_characteristics?.power.split(" ");   
+         
+           var Potencia = element.product_technical_characteristics?.power.split(" "); 
+           if(Potencia){  
             $("#Potencia").val(Potencia[0]);    
             $("#inputGroupSelectPotencia option[value='" + Potencia[1] + "']").prop("selected", true);
-
+          }
+         
            var Cilindrada = element.product_technical_characteristics?.displacement.split(" ");   
+           if(Cilindrada){
             $("#Cilindrada").val(Cilindrada[0]);    
             $("#inputGroupSelectCilindrada option[value='" + Cilindrada[1] + "']").prop("selected", true);
+          }
 
-
-           var Torque = element.product_technical_characteristics?.torque.split(" ");   
+           var Torque = element.product_technical_characteristics?.torque.split(" ");  
+           if(Torque){ 
             $("#Torque").val(Torque[0]);    
             $("#inputGroupSelectTorque option[value='" + Torque[1] + "']").prop("selected", true);
-
+           }
 
            var mixed_consumption = element.product_technical_characteristics?.mixed_consumption.split(" ");   
+           if(mixed_consumption){ 
             $("#mixed_consumption").val(mixed_consumption[0]);    
             $("#inputGroupSelectConsumo option[value='" + mixed_consumption[1] + "']").prop("selected", true);
-              
+          }   
+            const kilometersInput = document.getElementById('KilometrosRecorridos');
+            const hourometerInput = document.getElementById('Horometro');
+
+             $("#KilometrosRecorridos").val(element.product_technical_characteristics?.km_traveled ?? '');
+             $("#Horometro").val(element.product_technical_characteristics?.hrs_traveled ?? '');
+
              if(element.product_details.condition == 'Nuevo'){
-               $("#flexRadioDefault1").prop("checked", true);
+                $("#flexRadioDefault1").prop("checked", true);
+                kilometersInput.disabled = true;
+                hourometerInput.disabled = true;
+                kilometersInput.classList.remove('enable');
+                hourometerInput.classList.remove('enable');
              }else{
-              $("#flexRadioDefault2").prop("checked", true);
+                $("#flexRadioDefault2").prop("checked", true);
+                kilometersInput.disabled = false;
+                hourometerInput.disabled = false;
+                kilometersInput.classList.add('enable');
+                hourometerInput.classList.add('enable');
              }
              var $errorContainerCondicion = $("#error-container-condicion");
               $errorContainerCondicion.hide();
               isFormValidateSeccion5 = true;
-
-             $("#KilometrosRecorridos").val(element.product_technical_characteristics.km_traveled);
-             $("#Horometro").val(element.product_technical_characteristics.hrs_traveled);
+ 
              
              if(element.product_details.facipay == 'C'){  
               $("#price_type2").prop("checked", true);
+              var $priceInput = $('#price'); 
+              $priceInput.prop('disabled', true);
              }else{
               $("#price_type1").prop("checked", true);
              }
              
             var parts = element.product_details.price.split(" ")
             $("#price").val(parts[1]); 
+            $("#inputGroupSelect01Price option[value='" + parts[0] + "']").prop("selected", true);
             selectedCurrency = parts[0]; 
 
             var $errorContainerPrice = $("#error-container-price"); 
@@ -1256,14 +1139,12 @@ function edit_publi(){
           { id: 11, nombre: 'Biobío' },
           { id: 12, nombre: 'Araucanía' }
         ];
-           const selectedRegion = regiones.find(r => r.nombre == element.product_details.region); 
-             console.log("****999999999999999selectedRegion",selectedRegion)
+           const selectedRegion = regiones.find(r => r.nombre == element.product_details.region);  
             var selectize = $('#region')[0].selectize;
             selectize.setValue(selectedRegion.id);
              
             var selectize = $('#city')[0].selectize;
-            selectize.setValue(element.product_details.city);
- 
+            selectize.setValue(element.product_details.city); 
 
             var $errorContainerUbi = $("#error-container-ubicacion");
               $errorContainerUbi.hide();
@@ -1285,11 +1166,8 @@ function edit_publi(){
               $("#inlineRadioFuel3").prop("checked", true);
              }
       
-             setTraccion(element.product_technical_characteristics.traction) 
-             if(element.product_technical_characteristics.traction!=""){
-               $(".traction-text").removeClass("active_tracc"); 
-               $(".traction-text:contains(" + element.product_technical_characteristics.traction + ")").addClass("active_tracc");
-             }
+             setTraccion(element.product_technical_characteristics.traction,true) 
+           
              if(element.product_rental.Scheduled_Maintenance == 'Y'){  
               $("#maintenance1").prop("checked", true);
              } else{
@@ -1307,19 +1185,46 @@ function edit_publi(){
               $("#maintenance_suppy2").prop("checked", true);
              }
 
-             if(element.product_rental.operational_certificate == 'Y'){  
+             const dateCerti = document.getElementById('dateCerti');
+             const pdfFile = document.getElementById('pdfFile');
+             const div = document.getElementById('enableDisableDiv');
+
+             if(element.product_rental.operational_certificate == 'Sí'){  
               $("#inlineRadio1Cert").prop("checked", true);
+                dateCerti.disabled = false;
+                pdfFile.disabled = false;
+                div.classList.add('enable');
+                pdfFile.classList.add('enable');
+                dateCerti.classList.add('enable');
+                $("#dateCerti").val(element.product_rental.operational_certificate_date);
+                $(".operational_certificate").text('Certificado de Operatividad: ' +element.product_rental.operational_certificate_attachment);
+                pdfCerti = element.product_rental.operational_certificate_attachment;
              } else{
               $("#inlineRadio2Cert").prop("checked", true);
+                dateCerti.disabled = true;
+                pdfFile.disabled = true;
+                pdfFile.classList.remove('enable');
+                dateCerti.classList.remove('enable');
              }
-             $("#dateCerti").val(element.product_rental.operational_certificate_date);
+              
            
-             if(element.product_rental.Insurance_Policy == 'Y'){  
-              $("#insurance1").prop("checked", true);
+             const pdfFile1 = document.getElementById('pdfFile-other'); 
+             const div1= document.getElementById('enableDisableDiv2');
+             if(element.product_rental.Insurance_Policy == 'Sí'){  
+              $("#insurance1").prop("checked", true);              
+                pdfFile1.disabled = false;
+                div1.classList.add('enable');
+                pdfFile1.classList.add('enable');
+                $(".insurance_policy").text('Póliza de seguro: ' +element.product_rental.Insurance_Policy_attachment);
+                pdfCertiPoli = element.product_rental.Insurance_Policy_attachment;
              } else{
-              $("#insurance2").prop("checked", true);
-             }
-
+                $("#insurance2").prop("checked", true);
+                pdfFile1.disabled = true;
+                pdfFile1.classList.remove('enable');            
+                div1.classList.remove('enable');
+             }           
+            
+          
              if(element.product_rental.delivery == 'Y'){  
               $("#shipping1").prop("checked", true);
              } else{
@@ -1389,6 +1294,7 @@ function edit_publi(){
                     for (var i = 0; i < imgArray.length; i++) { 
                         if (imgArray[i].name === containerId) {  
                             idImg--;
+                            console.log("quedan imagenes",idImg)
                             imgArray.splice(i, 1);   
                             break;
                         }
@@ -1422,7 +1328,7 @@ function edit_publi(){
 }
 
 function limitToCurrentYear(inputElement) { 
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear()+1;
  
   $(inputElement).on('input', function() { 
     const inputValue = parseInt($(this).val()); 

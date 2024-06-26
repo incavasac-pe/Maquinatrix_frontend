@@ -392,11 +392,11 @@ $url_publi = $protocol . '://' . $host;
         <p class="sm-title">Tipo de terreno</p>
         <div class="traction-wrapper" >
             <div class="traction-left-section">
-                <div class="traction-text st" onclick="setTipoT('HT')">HT</div>
-                <div class="traction-text st" onclick="setTipoT('AT')">AT</div>
-                <div class="traction-text st" onclick="setTipoT('MT')">MT</div>
-                <div class="traction-text st" onclick="setTipoT('ST')">ST</div>
-                <div class="traction-text st" onclick="setTipoT('Otros')">Otros</div>
+                <div class="traction-text1 st" onclick="setTipoT('HT')">HT</div>
+                <div class="traction-text1 st" onclick="setTipoT('AT')">AT</div>
+                <div class="traction-text1 st" onclick="setTipoT('MT')">MT</div>
+                <div class="traction-text1 st" onclick="setTipoT('ST')">ST</div>
+                <div class="traction-text1 st" onclick="setTipoT('Otros')">Otros</div>
                
             </div>
             <div class="traction-right-section">
@@ -492,11 +492,17 @@ $url_publi = $protocol . '://' . $host;
              
         </div>
     </div>
- 
+    <div class="error-container" id="error-container5">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                    <div>
+                        <p class="error-heading">Campos faltan completar</p>
+                        <p class="sm-text text-msg-error">Campos requeridos faltan completar.</p>
+                    </div>
+                </div>
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn"  onclick="navigateBackwardCancel()" >Cancelar</button></div>
-            <div><button type="button"  class="grey-btn save_public_sale" data-publication-id="1" >Guardar y salir</button><button type="button"
+            <div><button type="button"  class="grey-btn save_public_sale" data-publication-id="4" >Guardar y salir</button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
         </div>
     </div>

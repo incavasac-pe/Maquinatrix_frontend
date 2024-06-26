@@ -75,7 +75,7 @@ $url_publi = $protocol . '://' . $host;
             <label for="anios" class="form-label">Año*</label>
             <input class="form-control" autocomplete="off" list="datalistOptionsA" id="anios" placeholder="">
                 <?php  
-                    $anioActual = date("Y");  
+                    $anioActual = date("Y")+1;  
                     echo '<datalist id="datalistOptionsA">'; 
                     for ($i = $anioActual; $i >= ($anioActual - 100); $i--) {
                         $marcaName = $field['description'];
@@ -208,19 +208,19 @@ $url_publi = $protocol . '://' . $host;
             <label class="form-check-label" for="inlineRadioFuel3">No Clasifica</label>
         </div>
         <p class="sm-title"  id="t-tranx">Tracción</p>
-        <div class="traction-wrapper"  id="t-tranx">
+        <div class="traction-wrapper">
             <div class="traction-left-section">
-                <div class="traction-text" onclick="setTraccion('4X2')">4X2</div>
-                <div class="traction-text" onclick="setTraccion('4X4')">2X2</div>
-                <div class="traction-text" onclick="setTraccion('6X4')">6X4</div>
-                <div class="traction-text" onclick="setTraccion('4X4')">4X4</div>
-                <div class="traction-text" onclick="setTraccion('6X6')">6X6</div>
-                <div class="traction-text" onclick="setTraccion('8X4')">8X4</div>
-                <div class="traction-text" onclick="setTraccion('Otros')">Otros</div>
-                <div class="traction-text"onclick="setTraccion('No clasifica')">No clasifica</div>
+                <div class="traction-text"  onclick="setTraccion1('4X2')">4X2</div>
+                <div class="traction-text"  onclick="setTraccion1('2X2')">2X2</div>
+                <div class="traction-text"  onclick="setTraccion1('6X4')">6X4</div>
+                <div class="traction-text"  onclick="setTraccion1('4X4')">4X4</div>
+                <div class="traction-text"  onclick="setTraccion1('6X6')">6X6</div>
+                <div class="traction-text"  onclick="setTraccion1('8X4')">8X4</div>
+                <div class="traction-text"  onclick="setTraccion1('Otros')">Otros</div>
+                <div class="traction-text"  onclick="setTraccion1('No clasifica')">No clasifica</div>
             </div>
-            <div class="traction-right-section"  id="t-tranx">
-                <input class="traction-btn" placeholder="Escribir otro" disabled id="traction_index1"  />
+            <div class="traction-right-section">
+                <input class="traction-btn" disabled placeholder="Escribir otro" id="traction_index1"  />
             </div>
         </div>
         <p class="sm-title">Condición actual del producto</p>
@@ -340,7 +340,7 @@ $url_publi = $protocol . '://' . $host;
     <div class="category-product2">
         <div class="category-btns-wrapper">
             <div><button type="button" class="grey-btn" onclick="navigateBackwardCancel()" >Cancelar</button></div>
-            <div><button type="button" class="grey-btn save_public_sale" data-publication-id="1" >Guardar y salir</button><button type="button"
+            <div><button type="button" class="grey-btn save_public_sale" data-publication-id="4" >Guardar y salir</button><button type="button"
                     class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
         </div>
     </div>
@@ -359,6 +359,8 @@ function handleRadioChange(input) {
         kilometersInput.classList.add('enable');
         hourometerInput.classList.add('enable');
     } else {
+        kilometersInput.value = '';
+        hourometerInput.value = '';
         kilometersInput.disabled = true;
         hourometerInput.disabled = true;
         kilometersInput.classList.remove('enable');
@@ -376,9 +378,4 @@ document.addEventListener('DOMContentLoaded', function() {
         handleRadioChange(selectedRadio);
     }
 });
-
-
-
-
-
-</script>
+ </script>

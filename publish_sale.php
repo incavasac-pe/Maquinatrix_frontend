@@ -46,6 +46,13 @@
   var isFormValidateSeccion45 = false;
   var isFormValidateSeccion55 = false;
   var selectedCurrency = 'CLP';
+  var city='';
+  var region='';
+  var city5='';
+  var region5='';
+
+  var id_categoria = 0;
+  var categoria = '';
 
   const navigateBackward = () => {
     const currentStep = getCurrentStep();
@@ -105,11 +112,13 @@
       console.log("*****stepNumber***",stepNumber)  
        
         var isValid =  validateFormSteps(stepNumber,true); 
-     
-        if(isValid){                
-          resumePublication(stepNumber, true);
+      
+        if(isValid) {
+        resumePublication(stepNumber, true);
+        if(stepNumber === 2 || stepNumber === 3  ){
           navigateToFormStep(stepNumber);
         }
+      }
       });  
   });
 
@@ -118,8 +127,82 @@
     backBtn.addEventListener('click', navigateBackward);
   }
  
+  function validateFormSteps(stepNumber, savePub) {
+    if (stepNumber === 2 || stepNumber === 4 ) {
+      if (id_categoria !== 3) {
+        const validationContainers = {
+          seccion0: $("#error-container-titulo"),
+          seccion1: $("#error-container-tipo"),
+          seccion2: $("#error-container-title"),
+          seccion3: $("#error-container-price"),
+          seccion4: $("#error-container-ubicacion"),
+          seccion5: $("#error-container-condicion"),
+        };
 
-  function validateFormSteps(stepNumber,savePub) { 
+        const isFormValid = [isFormValidateSeccion0, isFormValidateSeccion1, isFormValidateSeccion2, isFormValidateSeccion3, isFormValidateSeccion4, isFormValidateSeccion5].every((isValid, index) => {
+        console.log("isFormValid",isValid)
+          const container = validationContainers[`seccion${index}`];
+          if (!isValid) {
+            container.show();
+            return false;
+          } else {
+            container.hide();
+            return true;
+          }
+        });
+
+        if (isFormValid) {
+          console.log("jijijiji");
+          return true;
+        } else {
+          $("#error-container").show();
+          return false;
+        }
+      }else{
+        const validationContainers = {
+          seccion05: $("#error-container-titulo5"),
+          seccion15: $("#error-container-tipo"), 
+          seccion25: $("#error-container-title5"),
+          seccion35: $("#error-container-price5"),
+          seccion45: $("#error-container-ubicacion5"),
+          seccion55: $("#error-container-condicion5"),
+        };
+
+        const isFormValid = [isFormValidateSeccion05, isFormValidateSeccion1,  isFormValidateSeccion25, isFormValidateSeccion35, isFormValidateSeccion45, isFormValidateSeccion55].every((isValid, index) => {
+        console.log("isFormValid",isValid)
+          const container = validationContainers[`seccion${index}5`];
+          if (!isValid) {
+            container.show();
+            return false;
+          } else {
+            container.hide();
+            return true;
+          }
+        });
+
+        if (isFormValid) {
+          console.log("jijijiji"); 
+          return true;
+        } else {
+          $("#error-container5").show();
+          return false;
+        }
+
+      }
+    }
+    if ( ( stepNumber === 3 ||  stepNumber === 5)  && idImg > 0) {
+      console.log("el paso 2 para guardar y el 3 para continuar", stepNumber) 
+      console.log("imagen", idImg)
+     
+      $("#error-container-photo").hide();  
+      return true;
+    } else {
+      $("#error-container-photo").show();
+      return false;
+    }
+  } 
+
+  function validateFormStepsOLD(stepNumber,savePub) { 
   if (stepNumber === 1 || stepNumber === 2 ) {
     const $errorContainerTipo = $("#error-container-tipo");
     if (!isFormValidateSeccion1) {
@@ -332,10 +415,7 @@ if (getCurrentStep() === 1) {
 
 <script>
 var $confirmPublicSaleBtn = $('#confirm_public_sale');
-var city='';
-var region='';
-var city5='';
-var region5='';
+
 $(document).ready(function() { 
   limitToCurrentYear('#anios');
   limitToCurrentYear('#anios5');
@@ -346,6 +426,7 @@ $(document).ready(function() {
     }
     
     $("#error-container").hide();
+    $("#error-container5").hide();
      $("#confirm_public_sale").on('click', function(event) {
     
       $(this).prop('disabled', true);
@@ -358,11 +439,13 @@ $(document).ready(function() {
     
       //guardar en borrador
       $('.save_public_sale').on('click', function(event) {
-        var $errorContainer = $("#error-container");
-        $errorContainer.hide();
+        
+      var $errorContainer = $("#error-container");
+      $errorContainer.hide();
       let publicationId = $(this).data('publication-id');
+      console.log("se manda a guardar",publicationId)
       var isValid =  validateFormSteps(publicationId,false);
-      console.log("isValid*-*-",isValid);
+      console.log("isValid*-*-guadarrrrr",isValid);
      
         if(isValid){
         
@@ -372,15 +455,17 @@ $(document).ready(function() {
               
           console.log("se envia el paso 444444444444");
           resumePublication(publicationId, false);
-          navigateToFormStep(publicationId);
+          
         }else{
           var $errorContainer = $("#error-container");
           $errorContainer.show()
-        }
-  
-      //resumePublication(publicationId, false);
-    }); 
+        } 
+      }); 
    
+      $(".traction-text").click(function() {
+      $(".traction-text").removeClass("active_tracc");
+      $(this).addClass("active_tracc");
+    }); 
     //valida maquina y industria
     var $idMachine = $("#id_machine");
     var $industria = $("#industria");
@@ -400,186 +485,174 @@ $(document).ready(function() {
     $industria.on('change', validateFieldsMaquine);
 
      
-    //valida title y marca,modelo,anios
-    var $title = $("#title");  
-    var $errorContainerTitulo = $("#error-container-titulo");
-
-    function validateFieldsTitle() {  
-      if ($title.val() !== '') {
-        $errorContainerTitulo.hide();
-        isFormValidateSeccion0 = true;
-      } else {
-        $errorContainerTitulo.show();
-        isFormValidateSeccion0 = false;
-      }
-    }
-
-    $title.on('blur', validateFieldsTitle);
+    //valida title   
+    var $title = $("#title");
+    var $errorContainerTitulo = $("#error-container-titulo"); 
+    function validateTitle() {
+      var isValid = $title.val().trim() !== '';
+      $errorContainerTitulo.toggle(!isValid);
+      return isValid;
+    }  
+    $title.on('keyup', function() {
+      isFormValidateSeccion0 = validateTitle();
+    });
 
  
     //valida title  
-    var $title5 = $("#title5");  
-    var $errorContainerTitulo5 = $("#error-container-titulo5");
 
-    function validateFieldsTitle5() {  
-      if ($title5.val() !== '') {
-        $errorContainerTitulo5.hide();
-        isFormValidateSeccion05 = true;
-      } else {
-        $errorContainerTitulo5.show();
-        isFormValidateSeccion05 = false;
-      }
-    }
-
-    $title5.on('blur', validateFieldsTitle5);
-  
-
+    var $title5 = $("#title5");
+    var $errorContainerTitulo5 = $("#error-container-titulo5"); 
+    function validateTitle5() {
+      var isValid = $title5.val().trim() !== '';
+      $errorContainerTitulo5.toggle(!isValid);
+      return isValid;
+    }  
+    $title5.on('keyup', function() {
+      isFormValidateSeccion05 = validateTitle5();
+    }); 
+   ////////
+   
     var $marca = $("#marca");
     var $modelo = $("#modelo");
     var $anios = $("#anios");
     var $errorContainerTitle = $("#error-container-title");
 
-    function validateFields() {  
-      if ($marca.val() !== '' && $modelo.val() !== '' && $anios.val() !== '') {
-        $errorContainerTitle.hide();
-        isFormValidateSeccion2 = true;
-      } else {
-        $errorContainerTitle.show();
-        isFormValidateSeccion2 = false;
-      }
+    function validateFields() {
+      var isValid = $marca.val().trim() !== '' &&
+                    $modelo.val().trim() !== '' &&
+                    $anios.val().trim() !== '';
+      $errorContainerTitle.toggle(!isValid);
+      return isValid;
     }
 
-    $marca.add($modelo).add($anios).on('blur', validateFields);
+    $marca.add($modelo).add($anios).on('keyup', function() {
+      isFormValidateSeccion2 = validateFields();
+    });
+      
   // fin valida title y marca,modelo,anios
+
   
- 
-    var $marca5 = $("#marca55");
+
+  var $marca5 = $("#marca55");
     var $modelo5 = $("#modelo5");
     var $anios5 = $("#anios5");
     var $errorContainerTitle5 = $("#error-container-title5");
 
-    function validateFields5() {  
-      if ($marca5.val() !== '' && $modelo5.val() !== '' && $anios5.val() !== '') {
-        $errorContainerTitle5.hide();
-        isFormValidateSeccion25 = true;
-      } else {
-        $errorContainerTitle5.show();
-        isFormValidateSeccion25 = false;
-      }
-    }
-    $marca5.add($modelo5).add($anios5).on('blur', validateFields5); 
-  // fin valida title y marca,modelo,anios 
-
-  
-    //valida condicion 
-    var $condicion1 = $("#flexRadioDefault1");
-    var $condicion2 = $("#flexRadioDefault2");
-    var $errorContainerCondicion = $("#error-container-condicion");
-
-    function validateFieldsCondicion() {  
-      console.log("valida condicion ")
-      if (($condicion1.is(':checked') || $condicion2.is(':checked'))) {
-        $errorContainerCondicion.hide();
-        isFormValidateSeccion5 = true;
-      } else {
-        $errorContainerCondicion.show();
-        isFormValidateSeccion5 = false;
-      }
+    function validateFields5() {
+      var isValid = $marca5.val().trim() !== '' &&
+                    $modelo5.val().trim() !== '' &&
+                    $anios5.val().trim() !== '';
+      $errorContainerTitle5.toggle(!isValid);
+      return isValid;
     }
 
-    $condicion1.add($condicion2).on('change', validateFieldsCondicion);
+    $marca5.add($modelo5).add($anios5).on('keyup', function() {
+      isFormValidateSeccion25 = validateFields5();
+    });
+   
+      const $condicion1 = $("#flexRadioDefault1");
+      const $condicion2 = $("#flexRadioDefault2");
+      const $errorContainerCondicion = $("#error-container-condicion"); 
+      function validateCondicion() {
+        const isValid = $condicion1.is(':checked') || $condicion2.is(':checked');
+        $errorContainerCondicion.toggle(!isValid);
+        return isValid;
+      } 
+      $condicion1.add($condicion2).on('change', function() {
+        isFormValidateSeccion5 = validateCondicion();
+      });
 
     
     //valida condicion categoria neumatico
-    var $condicion15 = $("#flexRadioDefault15");
-    var $condicion25 = $("#flexRadioDefault25");
-    var $errorContainerCondicion55 = $("#error-container-condicion5");
 
-    function validateFieldsCondicion5() {  
-      if (($condicion15.is(':checked') || $condicion25.is(':checked'))) {
-        $errorContainerCondicion55.hide();
-        isFormValidateSeccion55 = true;
-      } else {
-        $errorContainerCondicion55.show();
-        isFormValidateSeccion55 = false;
-      }
-    }
-
-    $condicion15.add($condicion25).on('change', validateFieldsCondicion5);
+      const $condicion15 = $("#flexRadioDefault15");
+      const $condicion25 = $("#flexRadioDefault2");
+      const $errorContainerCondicion5 = $("#error-container-condicion5");
+ 
+      function validateCondicion5() {
+        const isValid = $condicion15.is(':checked') || $condicion25.is(':checked');
+        $errorContainerCondicion5.toggle(!isValid);
+        return isValid;
+      } 
+      $condicion15.add($condicion25).on('change', function() {
+        isFormValidateSeccion55 = validateCondicion5();
+      }); 
    
-      //valida el precio
-    var $price = $("#price"); 
+    var $price = $("#price");
     var $errorContainerPrice = $("#error-container-price");
 
-    function validatePriceFields() {
-      if ( $price.val() !== '') {
-        $errorContainerPrice.hide();
-        isFormValidateSeccion3 = true;
-      } else {
-        $errorContainerPrice.show();
-        isFormValidateSeccion3 = false;
-      }
+    // Validation function
+    function validatePrice() {
+      var isValid = $price.val().trim() !== '';
+      $errorContainerPrice.toggle(!isValid);
+      return isValid;
     }
-
-    $price.on('keyup', validatePriceFields);
+ 
+    $price.on('keyup', function() {
+      isFormValidateSeccion3 = validatePrice();
+    });
   
-    var $priceInput = $("#inputGroupSelect01Price");
-
+    var $priceInput = $("#inputGroupSelect01Price"); 
     $priceInput.on("change", function() {
-      selectedCurrency = $(this).val();
-      console.log("Selected currency:", selectedCurrency);
-      // Aquí puedes agregar la lógica que desees ejecutar cuando se selecciona un valor
+      selectedCurrency = $(this).val(); 
     });
  
-//fin valida precio
- 
+  //fin valida precio 
 
-    $("#price5").on('blur', function(event) { 
-    if( $("#price5").val()!=''){
-        $("#error-container-price5").hide();
-        isFormValidateSeccion35 = true;
-      }else{
-        $("#error-container-price5").show();
-        isFormValidateSeccion35 = false;
-      }
+    var $price5 = $("#price5");
+    var $errorContainerPrice5 = $("#error-container-price5"); 
+    function validatePrice5() {
+      var isValid = $price5.val().trim() !== '';
+      $errorContainerPrice5.toggle(!isValid);
+      return isValid;
+    }
+ 
+    $price5.on('keyup', function() {
+      isFormValidateSeccion35 = validatePrice5();
     });
-   //  valida city y region 
+    var $priceInput5 = $("#inputGroupSelect01Price5"); 
+    $priceInput5.on("change", function() {
+      selectedCurrency = $(this).val(); 
+    });
+
+    
     const $region = $('.region-select');
     const $selectedComunaId = $('.comuna-select');
-    var $errorContainerUbi = $("#error-container-ubicacion");
-
-    function validateLocationFields() {   
-      city = $selectedComunaId.val();
+    const $errorContainerUbi = $("#error-container-ubicacion");
  
-      if ($selectedComunaId.val() !== '0' && $selectedComunaId.val() !== '' && region !== '0'  && region !== '') {
-        $errorContainerUbi.hide();
-        isFormValidateSeccion4 = true;
-      } else {
-        $errorContainerUbi.show();
-        isFormValidateSeccion4 = false;
-      }
+    function validateLocation() {
+      const region = $region.val();
+      const city = $selectedComunaId.val();
+      const isValid = city !== '0' && city !== '' && region !== '0' && region !== '';
+      $errorContainerUbi.toggle(!isValid);
+      return isValid;
     }
+ 
+    $selectedComunaId.add($region).on('change', function() {
+      isFormValidateSeccion4 = validateLocation();
+    });
 
-  $selectedComunaId.add($region).on('change', validateLocationFields);
+ 
   // fin valida city y region 
  
     //  valida city y region 
-    const $region5 = $('.region-select5');
+
+      
+  const $region5 = $('.region-select5');
     const $selectedComunaId5 = $('.comuna-select5');
-    var $errorContainerUbi5 = $("#error-container-ubicacion5");
-
-    function validateLocationFields5() {   
-      city5 = $selectedComunaId5.val(); 
-      if ($selectedComunaId5.val() !== '0' && $selectedComunaId5.val() !== '' && region5 !== '0'  && region5 !== '') {
-        $errorContainerUbi5.hide();
-        isFormValidateSeccion45 = true;
-      } else {
-        $errorContainerUbi5.show();
-        isFormValidateSeccion45 = false;
-      }
+    const $errorContainerUbi5 = $("#error-container-ubicacion5");
+ 
+    function validateLocation5() {
+      const region5 = $region5.val();
+      const city5 = $selectedComunaId5.val();
+      const isValid = city5 !== '0' && city5 !== '' && region5 !== '0' && region5 !== '';
+      $errorContainerUbi5.toggle(!isValid);
+      return isValid;
     }
-
-  $selectedComunaId5.add($region5).on('change', validateLocationFields5);
+ 
+    $selectedComunaId5.add($region5).on('change', function() {
+      isFormValidateSeccion45 = validateLocation5();
+    }); 
   
 
   var $aspectRatio = $("#aspect_ratio");
@@ -613,13 +686,19 @@ $(document).ready(function() {
   $speedIndex.on('keyup', toggleErrorContainer1);
 
 
-    $('#pdfFile').change(function() {
-      console.log("subir doc", $(this)[0].files[0]); 
-    });
-
-    $('#pdfFile1').change(function() {
-      console.log("subir doc11", $(this)[0].files[0]); 
-    });
+    
+    $('#pdfFile').on('change', function() {
+      var fileName = this.files[0].name; 
+      pdfCerti = fileName;
+      $(".operational_certificate").text('Certificado de Operatividad: ' +pdfCerti);
+      
+    }); 
+    $('#pdfFile1').on('change', function() {
+      var fileName = this.files[0].name; 
+      pdfCerti = fileName;
+      $(".operational_certificate").text('Certificado de Operatividad: ' +pdfCerti);
+      
+    });  
     
   });  
 </script>
@@ -633,9 +712,9 @@ var id_product;
   var publicacion3;
   var publicacion4;
   var publicacion5;
-  var tipoterreno;
-  var traxion;
-function setTipoT(valor){
+  var tipoterreno; 
+
+function setTipoT(valor,edit=false){
   tipoterreno=valor;
   if(valor!=''){
     $(".st").removeClass("active_tracc"); 
@@ -643,6 +722,9 @@ function setTipoT(valor){
   }
   if(valor == 'Otros'){
       $('#land_type').prop('disabled', false);
+      if (edit) {
+        $("#tractiland_typeon_index1").val(valor);
+      }
     }else{
       $('#land_type').val("");
       $('#land_type').prop('disabled', true);
@@ -650,52 +732,85 @@ function setTipoT(valor){
 }
 
 
-function setTraccion(valor) {
+var traxion;
+  function setTraccion1(selectedTraction, edit = false) {
+    traxion = selectedTraction;
+    const inputField = document.getElementById('traction_index1');
+    const trackionOptions = ['No clasifica', '8X4', '6X6', '4X4', '6X4', '2X2', '4X2'];
 
-traxion = valor;
-
-
-const inputField = document.getElementById('traction_index1');
-
-
-if (valor && valor !== "No clasifica") {
+    // Reset input field
     inputField.disabled = false;
-    inputField.classList.add('enable');
-    inputField.focus();  
-} else {
-    inputField.disabled = true;
     inputField.classList.remove('enable');
-    inputField.value = ''; 
-}
+    inputField.value = '';
 
-
-if (valor != '') {
-
-    $(".traction-text").removeClass("active_tracc");
-
-    $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
-}
-
-
-console.log('Selected traction:', valor);
-}
-
- function setTraccion5(valor){
-    traxion = valor;   
-    if(valor!=''){
-      $(".traction-text").removeClass("active_tracc"); 
-      $(".traction-text:contains(" + valor + ")").addClass("active_tracc");
+    // Handle "Otros" selection
+    if (selectedTraction === 'Otros') {
+      inputField.disabled = false;
+      inputField.classList.add('enable');
+      inputField.focus();
+    } else {
+      inputField.disabled = true;
+      inputField.classList.remove('enable');
     }
-    if(valor == 'Otros'){
-      $('#traction_index5').prop('disabled', false);
-    }else{
-      $('#traction_index5').val("");
-      $('#traction_index5').prop('disabled', true);
+
+    // Handle predefined traction options
+    if (trackionOptions.includes(selectedTraction)) {
+      inputField.disabled = true;
+      inputField.classList.remove('enable');
+      inputField.value = '';
+      $(".traction-text:contains(" + selectedTraction + ")").addClass("active_tracc");
+    } else {
+      if (edit) {
+        $("#traction_index1").val(selectedTraction);
+      }
+      $(".traction-text:contains('Otros')").addClass("active_tracc");
     }
- }
+
+  console.log('Selected traction new:', selectedTraction);
+}
+
+ 
+function setTraccion5(selectedTraction, edit = false) {
+    traxion = selectedTraction;
+    const inputField = document.getElementById('traction_index5');
+    const trackionOptions = ['Transicional', 'Mixto','Direccional' ];
+
+    // Reset input field
+    inputField.disabled = false;
+    inputField.classList.remove('enable');
+    inputField.value = '';
+
+    // Handle "Otros" selection
+    if (selectedTraction === 'Otros') {
+      inputField.disabled = false;
+      inputField.classList.add('enable');
+      inputField.focus();
+    } else {
+      inputField.disabled = true;
+      inputField.classList.remove('enable');
+    }
+
+    // Handle predefined traction options
+    if (trackionOptions.includes(selectedTraction)) {
+      inputField.disabled = true;
+      inputField.classList.remove('enable');
+      inputField.value = '';
+      $(".traction-text:contains(" + selectedTraction + ")").addClass("active_tracc");
+    } else {
+      if (edit) {
+        $("#traction_index5").val(selectedTraction);
+      }
+      $(".traction-text:contains('Otros')").addClass("active_tracc");
+    }
+
+  console.log('Selected traction new:', selectedTraction);
+}
+
+  
 var idPreview = '';
  var aaa = 0;
 function resumePublication(step,save){  
+  city = id_categoria!='3'  ? $("#city").text() : $("#city5").text();
   console.log("resumePublication sale",id_categoria);
   var id_product_old = '<?= isset($_GET['id']) &&  $_GET['id']!== '' ? $_GET['id'] :  null; ?>';
 
@@ -713,7 +828,7 @@ function resumePublication(step,save){
     publicacion2 = {   
       "id_product":id_product,
       "region": id_categoria!='3' ? region: region5,
-      "city": id_categoria!='3' ? city: city5,
+      "city": city,
       "price": id_categoria!='3' ?  selectedCurrency + ' '+ $("#price").val(): selectedCurrency + ' '+ $("#price5").val(),  
       "brand": id_categoria!='3' ? $("#marca").val():$("#marca55").val(),
       "model": id_categoria!='3' ? $("#modelo").val():$("#modelo5").val(),
@@ -743,7 +858,7 @@ function resumePublication(step,save){
     "mixed_consumption": $("#mixed_consumption").val() + ' '+ $("#inputGroupSelectConsumo").val() , 
     "transmission": $('input[name="transmission"]:checked').val(),
     "fuel": $('input[name="combustible"]:checked').val(),
-    "traction": traxion ?? $("#traction_index1").val(), 
+    "traction": traxion !=='Otros' ? traxion : id_categoria!='3' ? $("#traction_index1").val() :  $("#traction_index5").val(), 
     "km_traveled": $("#KilometrosRecorridos").val(),   
     "hrs_traveled": $("#Horometro").val(), 
   }; 
@@ -759,15 +874,15 @@ function resumePublication(step,save){
       "maximum_speed": $("#maximum_speed").val(), 
       "utqg": $("#utqg").val(), 
       "wear_rate":  $("#wear_rate").val(), 
-      "traction_index": traxion ? traxion : id_categoria!='3' ? $("#traction_index").val() :  $("#traction_index5").val(), 
+      "traction_index": $("#traction_index").val(),  
       "temperature_index":  $("#temperature_index").val(), 
       "runflat": $('input[name="runflat"]:checked').val(),
       "terrain_type": $("#terrain_type").val(), 
       "tread_design":  $("#tread_design").val(), 
       "type_of_service":  $("#type_of_service").val(), 
       "vehicle_type": $("#vehicle_type").val(), 
-      "season":  $('input[name="season"]:checked').val(),
-      "land_type": tipoterreno,
+      "season":  $('input[name="season"]:checked') .val(),
+      "land_type":   tipoterreno !=='Otros' ? tipoterreno :$("#land_type").val(),
       "others":  $("#others").val(), 
   };
  
@@ -1172,12 +1287,16 @@ $.ajax({
   success: function(res) {      
    if(!res.error){ 
         res.data.forEach(function(element) {  
-          setCategorySale(element.id_category,element.mainCategory?.category); 
-          if(element.id_category==3){
-            $("#pills-publish3-tab").click();
+          setCategorySale(element.id_category,element.mainCategory?.category,true);  
+           
+           if(element.id_category===3){
+            $('#pills-publish3-tab').tab('show'); 
           }else{
-            $("#pills-publish1-tab").click();
-          }
+            $('#pills-publish1-tab').tab('show'); 
+          }  
+          $('.nav-link').removeClass('active');
+          $(`.tab-${element.id_category}`).addClass('active');
+          console.log("qqqqqqqqqqq",id_categoria)
          
            // Establecer el valor seleccionado
           var selectize = $('#industria')[0].selectize;
@@ -1200,6 +1319,15 @@ $.ajax({
 
             $(titleSelector).val(element.title);
             $(descripSelector).val(element.description);
+ 
+            var $errorContainerTitulo = $("#error-container-titulo");
+            $errorContainerTitulo.hide();
+            isFormValidateSeccion0  = true;
+            if (element.id_category == 3) {
+              var $errorContainerTitulo5 = $("#error-container-titulo5");
+              $errorContainerTitulo5.hide();
+              isFormValidateSeccion05  = true;
+           }
 
             if (element.id_category == 3) {       
               $("#marca55").val(element.product_details.brand);         
@@ -1209,26 +1337,25 @@ $.ajax({
               $errorContainerTitle5.hide();
               isFormValidateSeccion25 = true;
  
-
-                var parts = element.product_details.price.split(" "); 
-                $("#price5").val(parts[1]);
-                  selectedCurrency = parts[0] =='CLP' || parts[0] =='USD' ? parts[0] : 'CLP' ;
-              // Seleccionamos el elemento <option> correspondiente
-                  $("#inputGroupSelect01Price5 option[value='" + selectedCurrency + "']").prop("selected", true);
+              var parts = element.product_details.price.split(" "); 
+              $("#price5").val(parts[1]);
+              selectedCurrency = parts[0],  
+              $("#inputGroupSelect01Price5 option[value='" + selectedCurrency + "']").prop("selected", true);
+              var $errorContainerPrice5 = $("#error-container-price5"); 
+              $errorContainerPrice5.hide();
+              isFormValidateSeccion35 = true;
  
             } else {
               $("#marca").val(element.product_details.brand);
               $("#anios").val(element.product_details.year);
               $("#modelo").val(element.product_details.model);
-              var $errorContainerTitle = $("#error-container-title");
+              var $errorContainerTitle = $("#error-container-title"); 
               $errorContainerTitle.hide();
-              isFormValidateSeccion2 = true;
-             
-              var parts = element.product_details.price.split(" "); 
-              
-    
-              $("#price").val(parts[1]); 
-              selectedCurrency = parts[0] =='CLP' || parts[0] =='USD' ? parts[0] : 'CLP' ; 
+              isFormValidateSeccion2 = true; 
+
+              var parts = element.product_details.price.split(" ");  
+              $("#price").val(parts[1]);  
+               selectedCurrency = parts[0];  
  
                $("#inputGroupSelect01Price option[value='" + selectedCurrency + "']").prop("selected", true);
                var $errorContainerPrice = $("#error-container-price"); 
@@ -1242,50 +1369,70 @@ $.ajax({
            $("#patente").val(element.product_details?.patent);
            $("#patent").val(element.product_details?.patent)
            
-           var PesoNeto = element.product_technical_characteristics?.weight.split(" ");   
-            $("#PesoNeto").val(PesoNeto[0]);    
-            $("#inputGroupSelectPeso option[value='" + PesoNeto[1] + "']").prop("selected", true); 
- 
-           var Potencia = element.product_technical_characteristics?.power.split(" ");   
+          var PesoNeto = element.product_technical_characteristics?.weight.split(" ");    
+          if(PesoNeto){
+              $("#PesoNeto").val(PesoNeto[0]);    
+              $("#inputGroupSelectPeso option[value='" + PesoNeto[1] + "']").prop("selected", true);
+            } 
+          
+           var Potencia = element.product_technical_characteristics?.power.split(" "); 
+           if(Potencia){  
             $("#Potencia").val(Potencia[0]);    
             $("#inputGroupSelectPotencia option[value='" + Potencia[1] + "']").prop("selected", true);
- 
+          }
+         
            var Cilindrada = element.product_technical_characteristics?.displacement.split(" ");   
+           if(Cilindrada){
             $("#Cilindrada").val(Cilindrada[0]);    
             $("#inputGroupSelectCilindrada option[value='" + Cilindrada[1] + "']").prop("selected", true);
- 
-           var Torque = element.product_technical_characteristics?.torque.split(" ");   
+          }
+         
+           var Torque = element.product_technical_characteristics?.torque.split(" ");  
+           if(Torque){ 
             $("#Torque").val(Torque[0]);    
             $("#inputGroupSelectTorque option[value='" + Torque[1] + "']").prop("selected", true);
-  
+           }
            var mixed_consumption = element.product_technical_characteristics?.mixed_consumption.split(" ");   
+           if(mixed_consumption){ 
             $("#mixed_consumption").val(mixed_consumption[0]);    
             $("#inputGroupSelectConsumo option[value='" + mixed_consumption[1] + "']").prop("selected", true);
+          }
                 
+            const kilometersInput = document.getElementById('KilometrosRecorridos');
+            const hourometerInput = document.getElementById('Horometro');
+
+             $("#KilometrosRecorridos").val(element.product_technical_characteristics?.km_traveled ?? '');
+             $("#Horometro").val(element.product_technical_characteristics?.hrs_traveled ?? '');
+
+
            if (element.id_category == 3) {  
             var $errorContainerCondicion55 = $("#error-container-condicion5");
             $errorContainerCondicion55.hide();
             isFormValidateSeccion55 = true;
               if(element.product_details.condition == 'Nuevo'){
-                $("#flexRadioDefault15").prop("checked", true);
+                $("#flexRadioDefault15").prop("checked", true); 
               }else{
-                $("#flexRadioDefault25").prop("checked", true);
+                $("#flexRadioDefault25").prop("checked", true);  
               }
             }else{
               var $errorContainerCondicion = $("#error-container-condicion");
               $errorContainerCondicion.hide();
               isFormValidateSeccion5 = true;
               if(element.product_details.condition == 'Nuevo'){
-                $("#flexRadioDefault1").prop("checked", true);
-              }else{
-                $("#flexRadioDefault2").prop("checked", true);
+                $("#flexRadioDefault1").prop("checked", true); 
+                kilometersInput.disabled = true;
+                hourometerInput.disabled = true;
+                kilometersInput.classList.remove('enable');
+                hourometerInput.classList.remove('enable');
+              }else{ 
+                $("#flexRadioDefault2").prop("checked", true); 
+                kilometersInput.disabled = false;
+                hourometerInput.disabled = false;
+                kilometersInput.classList.add('enable');
+                hourometerInput.classList.add('enable');
               }
             }
-           
-       
-           $("#KilometrosRecorridos").val(element.product_technical_characteristics?.km_traveled);
-           $("#Horometro").val(element.product_technical_characteristics?.hrs_traveled);
-           
+             
                
            const regiones = [
           { id: 1, nombre: 'Arica y Parinacota' },
@@ -1354,16 +1501,15 @@ $.ajax({
             $("#inlineRadioFuel3").prop("checked", true);
            }
     
-           setTraccion(element.product_technical_characteristics?.traction) 
-           if(element.product_technical_characteristics?.traction!=""){
-             $(".traction-text").removeClass("active_tracc"); 
-             $(".traction-text:contains(" + element.product_technical_characteristics?.traction + ")").addClass("active_tracc");
-          } 
+          
+           
           if (element.id_category == 3) {   
+            
+            setTraccion5(element.product_technical_characteristics?.traction,true) 
+            setTipoT(element.product_dimension?.land_type,true);
           $("#section_width").val(element.product_dimension?.section_width);
           $("#aspect_ratio").val(element.product_dimension?.aspect_ratio);
-          $("#rim_diameter").val(element.product_dimension?.rim_diameter);
-          $("#land_type").val(element.product_dimension?.land_type);
+          $("#rim_diameter").val(element.product_dimension?.rim_diameter); 
           $("#load_index").val(element.product_dimension?.load_index);
           $("#speed_index").val(element.product_dimension?.speed_index);
           $("#maximum_load").val(element.product_dimension?.maximum_load);
@@ -1378,20 +1524,26 @@ $.ajax({
           $("#traction_index").val(element.product_dimension?.traction_index);   
           $("#wear_rate").val(element.product_dimension?.wear_rate);   
           $("#extern_diameter").val(element.product_dimension?.extern_diameter);   
-
+          var $errorContainerDimension = $("#error-container-dimen"); 
+          $errorContainerDimension.hide();
+          var $errorContainerEsp = $("#error-container-espec"); 
+          $errorContainerEsp.hide();
+          
           if(element.product_dimension?.runflat == 'Y'){  
             $("#inlineRadio11").prop("checked", true);
            }else {
             $("#inlineRadio22").prop("checked", true);
            }
 
-           if(element.product_dimension?.season == 'InviernoY'){  
+           if(element.product_dimension?.season == 'Invierno'){  
             $("#inlineRadio1s").prop("checked", true);
            }else if(element.product_dimension?.season == 'Verano') {
             $("#inlineRadio2s").prop("checked", true);
            }else{
             $("#inlineRadio3s").prop("checked", true);
            }
+          }else{
+            setTraccion1(element.product_technical_characteristics?.traction,true) 
           }
          
 
@@ -1480,7 +1632,7 @@ const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
  })
 }
 function limitToCurrentYear(inputElement) { 
-  const currentYear = new Date().getFullYear(); 
+  const currentYear = new Date().getFullYear()+1; 
   $(inputElement).on('input', function() { 
     const inputValue = parseInt($(this).val()); 
     if (inputValue > currentYear) { 

@@ -166,7 +166,7 @@ $url_publi = $protocol . '://' . $host;
                                     <label for="anios" class="form-label">Año*</label>
                                     <input class="form-control" autocomplete="off" list="datalistOptionsA" id="anios" placeholder="">
                                       <?php  
-                                            $anioActual = date("Y");  
+                                            $anioActual = date("Y")+1;  
                                             echo '<datalist id="datalistOptionsA">'; 
                                             for ($i = $anioActual; $i >= ($anioActual - 100); $i--) {
                                                 $marcaName = $field['description'];
@@ -456,12 +456,11 @@ $url_publi = $protocol . '://' . $host;
                                 <div>
                                     <label for="exampleFormControlInput11" class="form-label dark-grey-text">Adjuntar Archivo</label>
                                     <div class="input-group mb-3">
-
                                     <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" class="form-control input-addon" 
-                                        placeholder="Adjuntar certificado" aria-label="Adjuntar certificado"
-                                        aria-describedby="basic-addon2" disabled />
+                                        placeholder="Adjuntar certificado" aria-label="Adjuntar certificado"  aria-describedby="basic-addon2" disabled />
                                         <span class="input-group-text input-addon-symbol" id="basic-addon2">@</span>
                                     </div>
+                                    <p class="operational_certificate green-status-adj"></p>
                                     <p class="dark-grey-text-sm">Se admiten los formatos PDF. Máx 20 MB</p>
                                     <div class="warning-wrapper" style="display: none;" id="error-container-pdf">
                                       <i class="fa-solid fa-circle-exclamation"></i>
@@ -501,13 +500,15 @@ $url_publi = $protocol . '://' . $host;
                                 <p class="dark-grey-text-md">Adjunta la Póliza de Seguro de la maquinaria que estás publicando. Descuida, no
                                     compartiremos con nadie este documento, lo validaremos para marcar su autenticidad en tu publicación.
                                 </p>
+                                 
                                 <p class="dark-grey-text-md">Se admiten los formatos PDF. Máx 20 MB</p>
-                                <div class="input-group mb-3" style="width: 223px;">
+                                <div class="input-group mb-3" style="width: 423px;">
 
                                     <input type="file"  accept=".pdf"   id="pdfFile-other" name="pdfFile-other"  class="form-control input-addon" 
                                         placeholder="Adjuntar certificado" aria-label="Adjuntar certificado"
                                         aria-describedby="basic-addon2" disabled>
                                     <span class="input-group-text input-addon-symbol" id="basic-addon2">@</span>
+                                    <p class="insurance_policy green-status-adj"></p>
                                     <div class="warning-wrapper" style="display: none;" id="error-container-pdf-other">
                                       <i class="fa-solid fa-circle-exclamation"></i>
                                         <div>                                            
@@ -607,7 +608,8 @@ $url_publi = $protocol . '://' . $host;
                 <div class="category-product2">
                     <div class="category-btns-wrapper">
                         <div><button type="button" class="grey-btn" onclick="navigateBackwardCancel()">Cancelar</button></div>
-                        <div><button type="button" class="grey-btn save_public" data-publication-id="1" >Guardar y salir</button><button type="button"
+                        <div><button type="button" class="grey-btn save_public" data-publication-id="4" >Guardar y salir</button>
+                        <button type="button"
                            class="yellow-btn btn-navigate-form-step" type="button" step_number="2">Continuar</button></div>
                     </div>
                 </div>
@@ -1033,20 +1035,18 @@ const $regionSelect = $('#region').selectize({
   persist: false,
   create: false,
   placeholder: "Comunas",
-    searchField: 'nombre'
+  searchField: 'nombre'
 });
 
 // Función para actualizar las comunas cuando se selecciona una región
-function updateComunaSelect(regionId,regionName) { 
-
-    region = regionName;
- 
+function updateComunaSelect(regionId,regionName) {  
+    region = regionName; 
   const comunasDeRegion = comunas.filter(c => c.region_id == regionId);
   const $comunaSelectize = $comunaSelect[0].selectize;
   $comunaSelectize.setValue(null);
   $comunaSelectize.clearOptions();
   comunasDeRegion.forEach(comuna => { 
-    $comunaSelectize.addOption({ id: comuna.id, nombre: comuna.nombre });
+    $comunaSelectize.addOption({ id: comuna.nombre, nombre: comuna.nombre });
   });
   $comunaSelectize.refreshOptions();
 }
@@ -1211,7 +1211,7 @@ const $industriaSelect = $('#industria').selectize({
     
   });
  // Disable selectize inputs on page load
- var industriaSelectize = $('#industria').selectize({ normalize: true })[0].selectize;
+  var industriaSelectize = $('#industria').selectize({ normalize: true })[0].selectize;
   var idMachineSelectize = $('#id_machine').selectize({ normalize: true })[0].selectize;
 
   industriaSelectize.disable();
@@ -1223,10 +1223,10 @@ function updateMaquinaSelect(industriaId,industriaName) {
   const $maqSelectize = $maquinasSelect[0].selectize; 
   $maqSelectize.setValue(null);
   $maqSelectize.clearOptions();
-  maquinassDeRegion.forEach(maq => { 
-  console.log("*-*-las maquinas son *-*-",maq)
+  maquinassDeRegion.forEach(maq => {  
     $maqSelectize.addOption({ id: maq.id, nombre: maq.nombre });
   });
+
   $maqSelectize.refreshOptions();
 }
 }); 
@@ -1245,6 +1245,8 @@ function handleRadioChange(input) {
         kilometersInput.classList.add('enable');
         hourometerInput.classList.add('enable');
     } else {
+        kilometersInput.value = '';
+        hourometerInput.value = '';
         kilometersInput.disabled = true;
         hourometerInput.disabled = true;
         kilometersInput.classList.remove('enable');
@@ -1256,10 +1258,10 @@ function handleRadioChange(input) {
 document.addEventListener('DOMContentLoaded', function() {
     const selectedRadio = document.querySelector('input[name="flexRadioDefault"]:checked');
     if (selectedRadio) {
-        handleRadioChange(selectedRadio);
-    
+        handleRadioChange(selectedRadio);    
     }
 });
+
 function handleRadioChangeCertificado(input) {
     const dateCerti = document.getElementById('dateCerti');
     const pdfFile = document.getElementById('pdfFile');
@@ -1283,9 +1285,8 @@ function handleRadioChangeCertificado(input) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const selectedRadio = document.querySelector('input[name="inlineRadioC"]:checkedert');
-    if (selectedRadio) {
-       
+    const selectedRadio = document.querySelector('input[name="certificadoP"]:checked');
+    if (selectedRadio) {       
         handleRadioChangeCertificado(selectedRadio);
     }
 });

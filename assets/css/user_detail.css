@@ -475,6 +475,13 @@
 .pub-container:nth-child(2) {
   margin-left: 20px;
 }
+.green-status-adj{
+  font: normal normal normal 14px / 20px Roboto;
+  letter-spacing: 0px;
+  color: #23be6b;
+  display: flex;
+  align-items: center;
+}
 .bold-pub-text {
   text-align: left;
   font: normal normal 500 15px/22px Roboto;
