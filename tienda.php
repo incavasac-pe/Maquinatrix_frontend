@@ -278,9 +278,14 @@ $url_publi = $protocol . '://' . $host;
                     
        
                     <div class="formulario-busqueda">
-                        <div class="form-group">
-                            <input onblur type="text" name="buscar" id="buscar" value="<?=$search?>" placeholder="¿Qué buscas?">
+                    <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" name="buscar" id="buscar" value="<?=$search?>" placeholder="¿Qué buscas?" class="form-control">
+                        <div class="input-group-append">
+                        <div class="spinner-border spinner-border-sm text-primary d-none" id="loading-indicator" style="margin-top: 15px;"></div>
                         </div>
+                    </div>
+                    </div>
                        
                         
                      <div class="form-group group">
@@ -482,17 +487,20 @@ $url_publi = $protocol . '://' . $host;
 
 <script>
 $(document).ready(function() {   
-    searchPublication(1)    
-    
-    //filtros search
-    $('#buscar').on('blur', function() { 
-        var value =  $('#buscar').val();
-        if(value!='')  {
-        var params1 = { 'search': value };
-        var newUrl = addQueryParams(url_final, params1); 
-        searchPublication(2);
-    }
-    }); 
+    searchPublication(1); //busca las publicaciones cuando carga la pagina   
+
+
+    $('#buscar').on('keyup', function() {
+        var value = $('#buscar').val().trim();
+        if (value.length > 3 || value== '') {
+            $('#loading-indicator').removeClass('d-none');
+            var params1 = { 'search': value };
+            var newUrl = addQueryParams(url_final, params1);
+            searchPublication(2);
+        } else {
+            $('#loading-indicator').addClass('d-none');
+        }
+    });
     $('#marca').on('change', function() { 
         var value =  $('#marca').text();  
         var params1 = { 'brand': value };
@@ -506,9 +514,10 @@ $(document).ready(function() {
         searchPublication(2);
     });
     
-        $('#condition, #condition1').on('click', function() {
+    $('#condition, #condition1').on('click', function() {
         updateCondition();
-        });
+    });
+
     $('#price-min-filter').on('click', function() {      
         var params1 = { 'price_min': 1 };
         var newUrl = addQueryParams(url_final, params1);
@@ -521,7 +530,7 @@ $(document).ready(function() {
         searchPublication(2);
     });
   
-    $('#hasta').on('blur', function() {     
+    $('#hasta').on('keyup', function() {     
         var hasta =  $('#desde').val() +'-'+$('#hasta').val();
         var params1 = { 'yearstart': hasta };
         var newUrl = addQueryParams(url_final, params1);
@@ -548,7 +557,7 @@ $(document).ready(function() {
         searchPublication(2);
     });
   
-    $('#khasta').on('blur', function() {     
+    $('#khasta').on('keyup', function() {     
         updatePublication();
     }); 
     $('#horometro, #kilometraje').on('click', function() {
@@ -556,18 +565,15 @@ $(document).ready(function() {
     });
  });
 
-    $('#all').click(function () {
-     //   $('.all').css('display', 'block');
+    $('#all').click(function () { 
         $('.recent').css('display', 'none');
         $('.price-min').css('display', 'none');
     });
-    $('#recent').click(function () {
-      //  $('.all').css('display', 'none');
+    $('#recent').click(function () { 
         $('.recent').css('display', 'block');
         $('.price-min').css('display', 'none');
     });
-    $('#price-min').click(function () {
-      //  $('.all').css('display', 'none');
+    $('#price-min').click(function () { 
         $('.recent').css('display', 'none');
         $('.price-min').css('display', 'block');
     })
@@ -592,12 +598,12 @@ $(document).ready(function() {
                 searchPublication(2);
             }
         }
-        function updateCondition() {
-            var selectedValue = $('input[name="condition"]:checked').val();
-            var params1 = { 'condition': selectedValue };
-            var newUrl = addQueryParams(url_final, params1);
-            searchPublication(2);
-            }
+    function updateCondition() {
+        var selectedValue = $('input[name="condition"]:checked').val();
+        var params1 = { 'condition': selectedValue };
+        var newUrl = addQueryParams(url_final, params1);
+        searchPublication(2);
+     }
 
 
 </script>
@@ -654,8 +660,11 @@ function addQueryParams(url, params) {
   
   return url_final;
 }
-
+var searchTimeout; // Variable to store the timeout ID  
 function searchPublication(type,page=false) { 
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(function() {
+    $('#loading-indicator').removeClass('d-none');
     var offset = page && currentStep > 0  ? currentStep * recordsPerPage : 0;
  
     var params1 = { 'limit': '10', 'offset': offset,'status_id':6 };
@@ -666,12 +675,12 @@ function searchPublication(type,page=false) {
     url: url,
     method: 'GET',  
     success: function(res) {
+      $('#loading-indicator').addClass('d-none');
       $('.list_publi_owner').empty();
       $('.pagination-links').empty(); 
    
       $('.titulo-principal-adorno').text(res.count + ' resultados de búsqueda');  
-      if(!res.error){ 
-      
+      if(!res.error){  
           res.data.forEach(function(element) {
            var nuevoValor = res.count;  
             
@@ -770,20 +779,20 @@ function searchPublication(type,page=false) {
         totalPages =  Math.ceil(totalRecords / recordsPerPage);
         
         // Generar los enlaces de paginación
-    for (var c = 0; c < totalPages; c++) {
-        const pageNum = c ;
-        const isActive = currentStep === c ? 'active' : '';
+            for (var c = 0; c < totalPages; c++) {
+                const pageNum = c ;
+                const isActive = currentStep === c ? 'active' : '';
 
-        var link = $('<a href="#" onclick="updatePrevNextButtons('+c+')" class="pagination-link '+isActive+'" data-index="' + (c) + '">' + (c+1) + '</a>');
-        $('.pagination-links').append(link);
-     }
-  
-      } else {
-        $('.list_publi_owner').text(res?.msg);
-      }
-    }
-  });  
-    
+                var link = $('<a href="#" onclick="updatePrevNextButtons('+c+')" class="pagination-link '+isActive+'" data-index="' + (c) + '">' + (c+1) + '</a>');
+                $('.pagination-links').append(link);
+            }
+        
+            } else {
+                $('.list_publi_owner').text(res?.msg);
+            }
+        }
+    });  
+}, 500); // Delay of 500 milliseconds before invoking the function
 }
 $(document).ready(function() { 
 
