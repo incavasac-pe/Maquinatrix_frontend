@@ -376,9 +376,10 @@ if (getCurrentStep() === 1) {
         pTag.textContent = 'Imagen de portada';
         bottomStrip.appendChild(pTag);
 
-        heartIcon.addEventListener('click', function () {  
+        heartIcon.addEventListener('click', function   () {  
           for (var i = 0; i < imgArray.length; i++) { 
-              if (imgArray[i].name === file.name) {  
+              if (imgArray[i].name === file.name) {   
+                 deleteImagenOne(file.name);
                   idImg--;
                   imgArray.splice(i, 1);   
                   break;
@@ -410,8 +411,7 @@ if (getCurrentStep() === 1) {
       reader.readAsDataURL(file);
     }
   }
-</script>
-
+</script> 
 
 <script>
 var $confirmPublicSaleBtn = $('#confirm_public_sale');
@@ -442,18 +442,14 @@ $(document).ready(function() {
         
       var $errorContainer = $("#error-container");
       $errorContainer.hide();
-      let publicationId = $(this).data('publication-id');
-      console.log("se manda a guardar",publicationId)
-      var isValid =  validateFormSteps(publicationId,false);
-      console.log("isValid*-*-guadarrrrr",isValid);
+      let publicationId = $(this).data('publication-id'); 
+      var isValid =  validateFormSteps(publicationId,false); 
      
-        if(isValid){
-        
+        if(isValid){ 
           $(this).prop('disabled', true)
         .html('<i class="fa fa-spinner fa-spin"></i> Guardando...')
         .addClass('disabled');
-              
-          console.log("se envia el paso 444444444444");
+               
           resumePublication(publicationId, false);
           
         }else{
@@ -1183,11 +1179,30 @@ function deleteImagenAll() {
           }
       });
  }         
-        
+     
+function deleteImagenOne(nameImagen) {   
+  var token = '<?= $_SESSION["token"]; ?>';   
+  var id_product_img = id_product ? id_product : '<?= isset($_GET['id']) &&  $_GET['id']!== '' ? $_GET['id'] :  null; ?>';    
+    $.ajax({
+      type: "DELETE", 
+      url: '<?= $baseUrl ?>/delete_imagen?id_product='+id_product_img+'&name='+nameImagen,
+      headers: {
+          'Authorization': 'Bearer ' + token
+      },
+      success: function (response, textStatus, xhr)
+          {
+            
+          },
+      error: function (response) {  
+          if (response.status === 401 || response.status === 403) {
+              window.location.href = 'create_session_portal.php?logout=true';
+              }
+          }
+      });
+ }     
         
  function uploadImagen() {  
-  var input = document.getElementById('file-input');
- // var archivos = input.files;
+  var input = document.getElementById('file-input'); 
       if(imgArray.length > 0){
       deleteImagenAll();
        var token = '<?= $_SESSION["token"]  ?? ''?>';    
@@ -1295,8 +1310,7 @@ $.ajax({
             $('#pills-publish1-tab').tab('show'); 
           }  
           $('.nav-link').removeClass('active');
-          $(`.tab-${element.id_category}`).addClass('active');
-          console.log("qqqqqqqqqqq",id_categoria)
+          $(`.tab-${element.id_category}`).addClass('active'); 
          
            // Establecer el valor seleccionado
           var selectize = $('#industria')[0].selectize;
@@ -1596,7 +1610,8 @@ const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
                  heartIcon.addEventListener('click', function () {                 
                   var containerId = $(this).closest('.uploaded-image').attr('id');
                   for (var i = 0; i < imgArray.length; i++) { 
-                      if (imgArray[i].name === containerId) {  
+                      if (imgArray[i].name === containerId) {   
+                        deleteImagenOne(containerId);
                           idImg--;
                           imgArray.splice(i, 1);   
                           break;

@@ -438,9 +438,9 @@ fileInput.addEventListener('change', handleImageUpload);
         heartIcon.addEventListener('click', function () {                 
           var containerId = $(this).closest('.uploaded-image').attr('id');
           for (var i = 0; i < imgArray.length; i++) { 
-              if (imgArray[i].name === containerId) {  
-                  idImg--;
-                  console.log("quedan imagenes ***",idImg)
+              if (imgArray[i].name === containerId) {   
+                deleteImagenOne(containerId);
+                  idImg--; 
                   imgArray.splice(i, 1);   
                   break;
               }
@@ -853,7 +853,26 @@ function registerPublication5(){
     } 
   });
 }
- 
+function deleteImagenOne(nameImagen) {   
+  var token = '<?= $_SESSION["token"]; ?>';   
+  var id_product_img = id_product ? id_product : '<?= isset($_GET['id']) &&  $_GET['id']!== '' ? $_GET['id'] :  null; ?>';    
+    $.ajax({
+      type: "DELETE", 
+      url: '<?= $baseUrl ?>/delete_imagen?id_product='+id_product_img+'&name='+nameImagen,
+      headers: {
+          'Authorization': 'Bearer ' + token
+      },
+      success: function (response, textStatus, xhr)
+          {
+            
+          },
+      error: function (response) {  
+          if (response.status === 401 || response.status === 403) {
+              window.location.href = 'create_session_portal.php?logout=true';
+              }
+          }
+      });
+ }  
 function deleteImagenAll() {   
   var token = '<?= $_SESSION["token"]  ?? ''?>';
     $.ajax({
@@ -1292,7 +1311,8 @@ function edit_publi(){
                   heartIcon.addEventListener('click', function () {                 
                   var containerId = $(this).closest('.uploaded-image').attr('id');
                     for (var i = 0; i < imgArray.length; i++) { 
-                        if (imgArray[i].name === containerId) {  
+                        if (imgArray[i].name === containerId) {   
+                          deleteImagenOne(containerId);
                             idImg--;
                             console.log("quedan imagenes",idImg)
                             imgArray.splice(i, 1);   

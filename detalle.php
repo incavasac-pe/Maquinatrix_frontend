@@ -211,7 +211,7 @@ function formatearPrecio($precio) {
                                     <img src="./assets/img/profile.png" alt="verificar">
                                 </div-->
                             </div>
-                        </div>
+                        </div>  
                     </div>
                     <div class="linea"></div>
                     <div class="row verificado">
