@@ -220,8 +220,13 @@
                     <div class="row verificado">
                         <div class="col-md-6 mb-3 d-flex align-items-start justify-content-start">
                             <div class="mr-3">
-                                <img src="./assets/img/office-building.png" alt="office-building">
+                            <?php if ($detalle['User']['id_type_user']==1): ?>
+                                  <img src="./assets/img/Particular.png" alt="office-building">
+                                <?php else: ?>
+                                 <img src="./assets/img/office-building.png" alt="office-building">
+                                <?php endif; ?>
                             </div>
+                            
                             <div>
                                 <h5 class="font-family-Roboto-Medium">Cuenta de   <?= $detalle['User']['id_type_user']==1 ? 'Particular ':'Empresa'  ?> </h5>
                                 <p class="font-family-Roboto-Regular">
