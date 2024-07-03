@@ -373,12 +373,14 @@
                                                 $status_descpricion = "Estado de publicación desconocido";
                                                 break;
                                         }
-
+                                        $date = new DateTime($pub['create_at']);
+                                        $date->setTimezone(new DateTimeZone(date_default_timezone_get()));
+                                        $formatted_date = $date->format('d F Y');
                                         echo '<tr>';
                                         echo '<td>Publicación#' . $id . '</td>';
                                         echo '<td>#' . ($pub['User']['Profile']['id_user_ext'] ?? '-') . '</td>';
                                         echo '<td>' . $pub['title'] . '</td>';
-                                        echo '<td>' . $pub['create_at_formatted'] . '</td>';
+                                        echo '<td>' . $formatted_date . '</td>';
                                         echo '<td><span class="category"> ' . $pub['Category']['category'] . '</span></td>';
                                         echo '<td> ' . $pub['PublicationType']['type_pub'] . '</td>';
                                         echo '<td> ' . $status_descpricion. '</td>';

@@ -727,7 +727,8 @@ function construirEstructuraHTML(value) {
 
                 var idDetail = $('<div>').addClass('id-detail');
                 var greyMdText3 = $('<p>').addClass('grey-md-text').text('ID Publicación #' + element.id_product);
-                var greyMdText4 = $('<p>').addClass('grey-md-text').text('Creado ' + element.create_at_formatted);
+                const formattedDate = formatDate(element.create_at);
+                var greyMdText4 = $('<p>').addClass('grey-md-text').text('Creado ' + formattedDate);
 
                 idDetail.append(greyMdText3);
                 idDetail.append(greyMdText4);
@@ -744,7 +745,28 @@ function construirEstructuraHTML(value) {
     }
   });
 }
- 
+function formatDate(dateString) {
+  // Convertir la cadena de fecha a objeto Date
+  const date = new Date(dateString);
+
+  // Obtener la zona horaria del navegador
+  const timeZoneOffset = date.getTimezoneOffset();
+  const timeZoneHours = Math.floor(Math.abs(timeZoneOffset) / 60);
+  const timeZoneMinutes = Math.abs(timeZoneOffset) % 60;
+  const timeZoneSign = timeZoneOffset < 0 ? '+' : '-';
+
+  // Formatear la fecha
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = date.toLocaleString('default', { month: 'long' });
+  const year = date.getFullYear();
+  const hours = date.getHours() % 12 || 12;
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
+
+  const formattedDate = `${day} ${month} ${year}, ${hours}:${minutes} ${ampm} `;
+  return formattedDate;
+}
+
 function toggleDropdownMenu(id) {
   var dropdownMenuAlt = $(".item-product "+id);
   dropdownMenuAlt.removeClass("show");      
