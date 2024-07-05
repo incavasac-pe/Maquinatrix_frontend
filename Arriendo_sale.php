@@ -120,11 +120,9 @@
 
   document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
     formNavigationBtn.addEventListener("click", () => {
-      const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
-      console.log("*****stepNumber***", stepNumber);
+      const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number")); 
 
-      var isValid = validateFormSteps(stepNumber, true);
-      console.log("isValid continuar*-*-", isValid);
+      var isValid = validateFormSteps(stepNumber, true); 
 
       if(isValid) {
         resumePublication(stepNumber, true);
@@ -209,6 +207,7 @@ var $confirmPublicSaleBtn = $('#confirm_public');
  
 $(document).ready(function() {
     limitToCurrentYear('#anios');
+    $("#error-container-photoKB").hide();
     console.log( "ready publication!" ); 
     var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
       if(product_old!=''){
@@ -229,18 +228,16 @@ $(document).ready(function() {
   
       var $errorContainer = $("#error-container");
       $errorContainer.hide();
-      let publicationId = $(this).data('publication-id');
-      console.log("se manda a guardar",publicationId)
+      let publicationId = $(this).data('publication-id'); 
       var isValid =  validateFormSteps(publicationId,false);
-      console.log("isValid*-*-guadarrrrr",isValid);
+      console.log("isValid",isValid);
      
         if(isValid){
         
           $(this).prop('disabled', true)
         .html('<i class="fa fa-spinner fa-spin"></i> Guardando...')
         .addClass('disabled');
-              
-          console.log("se envia el paso 444444444444");
+               
           resumePublication(publicationId, false);
           
         }else{
@@ -310,7 +307,7 @@ $(document).ready(function() {
     var $errorContainerPrice = $("#error-container-price");
 
     function validatePriceFields() {
-      if (($priceType1.is(':checked') || $priceType2.is(':checked')) && $price.val() !== '') {
+      if ($priceType1.is(':checked')) {
         $errorContainerPrice.hide();
         isFormValidateSeccion3 = true;
       } else {
@@ -323,6 +320,7 @@ $(document).ready(function() {
     $priceType2.on('change', function() {
       if ($priceType2.is(':checked')) {
         $price.val('');
+        $errorContainerPrice.hide();
         isFormValidateSeccion3 = true;
         var $priceInput = $('#price'); 
          $priceInput.prop('disabled', true);
@@ -399,11 +397,20 @@ var idImg= 0;
 fileInput.addEventListener('change', handleImageUpload);
   
   function handleImageUpload() {
-    const files = fileInput.files;
-
-    // Calculate the index to insert the new image container
-    const insertIndex = imageContainer.children.length > 1 ? 1 : 0;   
+    $("#error-container-photoKB").hide();
+    const files = fileInput.files; 
+ 
+    // Calculate the index to insert the new image container 
+    //const insertIndex = imageContainer.children.length > 1 ? 1 : 0; 
+    const insertIndex = imageContainer.children.length > 1 ? imageContainer.children.length : 0;  
     for (const file of files) {
+      var fileSize = file.size / 1024 / 1024; // tamaño en MB
+
+      if (fileSize > 0.5) { // 0.5 MB = 500 KB
+        $("#error-container-photoKB").show(); 
+        $(this).val(''); // Limpiar el campo de entrada
+        return
+      } 
      
       imgArray.push(file);
         $("#error-container-photo").hide();
@@ -449,6 +456,8 @@ fileInput.addEventListener('change', handleImageUpload);
           })
 
         galleryIcon.addEventListener('click', function () {
+          var containerId = $(this).closest('.uploaded-image').attr('id'); 
+          idPreview = containerId;
           // Store the first child image
           const firstChild = imageContainer.firstChild;
           // Replace the first child image with the clicked image
@@ -505,8 +514,7 @@ fileInput.addEventListener('change', handleImageUpload);
     }
     $(".traction-text:contains('Otros')").addClass("active_tracc");
   }
-
-  console.log('Selected traction new:', selectedTraction);
+ 
 }
   
  
@@ -524,8 +532,7 @@ fileInput.addEventListener('change', handleImageUpload);
       "status_id":10,
       "title":$("#title").val(),
       "description":$("#descrip").val()
-     };
-     console.log("publicacion1",publicacion1)
+     }; 
 
     publicacion2 = {   
       "id_product":id_product,
@@ -549,8 +556,7 @@ fileInput.addEventListener('change', handleImageUpload);
       "contact_me":"Contact Me" ,
       "id_marca": '1',
       "id_model": '1',
-    };
-    console.log("publicacion12",publicacion2)
+    }; 
     publicacion3 = {   
     "id_product": id_product, 
     "weight": $("#PesoNeto").val() + ' '+ $("#inputGroupSelectPeso").val() , 
@@ -563,8 +569,7 @@ fileInput.addEventListener('change', handleImageUpload);
     "traction": traxion !=='Otros' ? traxion : $("#traction_index1").val(), 
     "km_traveled": $("#KilometrosRecorridos").val(),   
     "hrs_traveled": $("#Horometro").val(), 
-  };
-  console.log("publicacion3",publicacion3)
+  }; 
     publicacion4 = {  
     "id_product": id_product,
       "section_width": "",
@@ -602,8 +607,7 @@ fileInput.addEventListener('change', handleImageUpload);
       "operator_included": $('input[name="operator"]:checked').val(),
       "rental_contract":  $('input[name="Machinery"]:checked').val(), 
       "rental_guarantee": $('input[name="rental"]:checked').val(), 
-    }
-    console.log("publicacion5",publicacion5)
+    }  
   //agrega los valores en el resumen paso 3 
     if(save){
       publicacion1.status_id = 9;
@@ -685,10 +689,10 @@ fileInput.addEventListener('change', handleImageUpload);
     }
 
 
-    if(step==3){
+    if(step==3 || step==2 ){
       var imgPreview = document.getElementById('image-preview'); 
       $('.upload-container .uploaded-image').each(function() {
-        if(aaa==0){
+        if(aaa==0 && idPreview== ''){
           idPreview = $(this).attr('id');
         } 
         aaa++;
@@ -945,8 +949,7 @@ function uploadPDF() {
 }  
   
  function uploadImagen() {  
-  var input = document.getElementById('file-input');
- // var archivos = input.files;
+  var input = document.getElementById('file-input'); 
       if(imgArray.length > 0){
       deleteImagenAll();
        var token = '<?= $_SESSION["token"]  ?? ''?>';    
@@ -957,10 +960,14 @@ function uploadPDF() {
       
           var formData = new FormData();
               formData.append('file', imgArray[i]); 
-              cover = false;
+              cover = false; 
               if (imgArray[i].name === idPreview) { 
                 bbb = i; 
-                cover = true;
+                cover = true;  
+               }
+               if(idPreview=='' && i==0){
+                cover = true;  
+                bbb = i; 
                }
             var orden = i +1;   
             $.ajax({
@@ -1047,8 +1054,7 @@ function edit_publi(){
             }else{
               $("#pills-publish1-tab").click();
             }
-           
-             // Establecer el valor seleccionado
+            
             var selectize = $('#industria')[0].selectize;
             selectize.setValue(element.id_product_type);
             var selectize = $('#id_machine')[0].selectize;
@@ -1072,13 +1078,11 @@ function edit_publi(){
             $errorContainerTitle.hide();
             isFormValidateSeccion2 = true;
              
-           var PesoNeto = element.product_technical_characteristics?.weight.split(" ");   
-           console.log(typeof(PesoNeto));
+           var PesoNeto = element.product_technical_characteristics?.weight.split(" ");    
            if(PesoNeto){
             $("#PesoNeto").val(PesoNeto[0]);    
             $("#inputGroupSelectPeso option[value='" + PesoNeto[1] + "']").prop("selected", true);
-          }
- 
+          } 
          
            var Potencia = element.product_technical_characteristics?.power.split(" "); 
            if(Potencia){  
@@ -1268,12 +1272,12 @@ function edit_publi(){
   //step 2 imagen edit
   const imageContainer = document.getElementById('image-container');
   const uploadInputContainer = document.getElementById('upload-input-container'); 
-  
-  const insertIndex = imageContainer.children.length > 1 ? 1 : 0; 
+   
+ 
+  const insertIndex = imageContainer.children.length > 1 ? 1 : 0;  
      for (var i = 0; i < element.product_images.length; i++) { 
           $("#error-container-photo").hide();
-          var imageUrlEdit = element.product_images[i].image_name; 
-          
+          var imageUrlEdit = element.product_images[i].image_name;  
           const imgContainer = document.createElement('div');
           imgContainer.classList.add('uploaded-image');
           imgContainer.id = imageUrlEdit;
@@ -1313,8 +1317,7 @@ function edit_publi(){
                     for (var i = 0; i < imgArray.length; i++) { 
                         if (imgArray[i].name === containerId) {   
                           deleteImagenOne(containerId);
-                            idImg--;
-                            console.log("quedan imagenes",idImg)
+                            idImg--; 
                             imgArray.splice(i, 1);   
                             break;
                         }
@@ -1323,6 +1326,8 @@ function edit_publi(){
                   }) 
 
                   galleryIcon.addEventListener('click', function () { 
+                    var containerId = $(this).closest('.uploaded-image').attr('id'); 
+                    idPreview = containerId;
                     const firstChild = imageContainer.firstChild; 
                     imageContainer.insertBefore(imgContainer, firstChild); 
                     imgContainer.parentNode.insertBefore(firstChild, imgContainer.nextSibling);
@@ -1335,6 +1340,7 @@ function edit_publi(){
  
                   imageContainer.insertBefore(imgContainer, imageContainer.children[insertIndex]); 
                   imageContainer.parentNode.insertBefore(uploadInputContainer, null);
+       
                 })
                 .catch(function(error) {
                   console.log('Error al descargar la imagen:', error);

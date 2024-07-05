@@ -2,7 +2,7 @@
       <div class="category-product">
         <h1>Sube fotos del producto</h1>
         <p class="sm-title">Carga entre 1 y 14 fotos. Una vez cargadas, arrastra y suelta para cambiarlas de orden. Se
-          admiten los formatos jpg, jpeg y png desde 500 x 500px para adelante..</p>
+          admiten los formatos jpg, jpeg y png desde 500 x 500px para adelante. Peso máximo de las imágenes 500 (Kb).</p>
           <div class="row">
             <div class="col-sm-12 col-md-8 col-lg-8">
             <div class="upload-container">
@@ -15,8 +15,13 @@
                   </label>
                 </div>
             </div>
-          </div>
-           
+          </div> 
+          <div class="col-md-6  error-container" id="error-container-photoKBSale">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                    <div> 
+                        <p class="sm-text text-msg-error">La imagen no debe superar los 500 (KB) de tamaño.</p>
+                    </div>
+                </div> 
           </div>
           <div class="col-sm-12 col-md-4 col-lg-4">
               <div class="ideation">

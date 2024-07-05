@@ -140,7 +140,7 @@
         };
 
         const isFormValid = [isFormValidateSeccion0, isFormValidateSeccion1, isFormValidateSeccion2, isFormValidateSeccion3, isFormValidateSeccion4, isFormValidateSeccion5].every((isValid, index) => {
-        console.log("isFormValid",isValid)
+     
           const container = validationContainers[`seccion${index}`];
           if (!isValid) {
             container.show();
@@ -151,8 +151,7 @@
           }
         });
 
-        if (isFormValid) {
-          console.log("jijijiji");
+        if (isFormValid) { 
           return true;
         } else {
           $("#error-container").show();
@@ -169,7 +168,7 @@
         };
 
         const isFormValid = [isFormValidateSeccion05, isFormValidateSeccion1,  isFormValidateSeccion25, isFormValidateSeccion35, isFormValidateSeccion45, isFormValidateSeccion55].every((isValid, index) => {
-        console.log("isFormValid",isValid)
+        
           const container = validationContainers[`seccion${index}5`];
           if (!isValid) {
             container.show();
@@ -180,8 +179,7 @@
           }
         });
 
-        if (isFormValid) {
-          console.log("jijijiji"); 
+        if (isFormValid) { 
           return true;
         } else {
           $("#error-container5").show();
@@ -190,10 +188,7 @@
 
       }
     }
-    if ( ( stepNumber === 3 ||  stepNumber === 5)  && idImg > 0) {
-      console.log("el paso 2 para guardar y el 3 para continuar", stepNumber) 
-      console.log("imagen", idImg)
-     
+    if ( ( stepNumber === 3 ||  stepNumber === 5)  && idImg > 0) {  
       $("#error-container-photo").hide();  
       return true;
     } else {
@@ -339,15 +334,23 @@ if (getCurrentStep() === 1) {
   fileInput.addEventListener('change', handleImageUpload);
   var idImg= 0;
   function handleImageUpload() {
+    $("#error-container-photoKBSale").hide();
     const files = fileInput.files;
 
     // Calculate the index to insert the new image container
-    const insertIndex = imageContainer.children.length > 1 ? 1 : 0;   
-   
+    //const insertIndex = imageContainer.children.length > 1 ? 1 : 0;   
+    const insertIndex = imageContainer.children.length > 1 ? imageContainer.children.length : 0;  
     for (const file of files) {
+      var fileSize = file.size / 1024 / 1024; // tamaño en MB
+
+        if (fileSize > 0.5) { // 0.5 MB = 500 KB
+          $("#error-container-photoKBSale").show(); 
+          $(this).val(''); // Limpiar el campo de entrada
+          return
+        } 
      
       imgArray.push(file);
-       $("#error-container-photo").hide();
+      $("#error-container-photo").hide();
       const reader = new FileReader();
 
       reader.onload = function (e) {
@@ -389,6 +392,8 @@ if (getCurrentStep() === 1) {
           });
 
         galleryIcon.addEventListener('click', function () {
+          var containerId = $(this).closest('.uploaded-image').attr('id'); 
+              idPreview = containerId;
           // Store the first child image
           const firstChild = imageContainer.firstChild;
           // Replace the first child image with the clicked image
@@ -419,6 +424,7 @@ var $confirmPublicSaleBtn = $('#confirm_public_sale');
 $(document).ready(function() { 
   limitToCurrentYear('#anios');
   limitToCurrentYear('#anios5');
+  $("#error-container-photoKBSale").hide();
     console.log( "ready publication sale!" );  
     var product_old = '<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
       if(product_old!=''){
@@ -761,8 +767,7 @@ var traxion;
       }
       $(".traction-text:contains('Otros')").addClass("active_tracc");
     }
-
-  console.log('Selected traction new:', selectedTraction);
+ 
 }
 
  
@@ -798,16 +803,14 @@ function setTraccion5(selectedTraction, edit = false) {
       }
       $(".traction-text:contains('Otros')").addClass("active_tracc");
     }
-
-  console.log('Selected traction new:', selectedTraction);
+ 
 }
 
   
 var idPreview = '';
  var aaa = 0;
 function resumePublication(step,save){  
-  city = id_categoria!='3'  ? $("#city").text() : $("#city5").text();
-  console.log("resumePublication sale",id_categoria);
+  city = id_categoria!='3'  ? $("#city").text() : $("#city5").text(); 
   var id_product_old = '<?= isset($_GET['id']) &&  $_GET['id']!== '' ? $_GET['id'] :  null; ?>';
 
     publicacion1 = {  
@@ -946,8 +949,7 @@ function resumePublication(step,save){
     $('.r_rim_diameter').text(publicacion4.rim_diameter);  
     $('.r_extern_diameter').text(publicacion4.extern_diameter);
     $('.r_load_index').text(publicacion4.load_index);  
-    $('.r_speed_index').text(publicacion4.speed_index);
-    console.log("publicacion4publicacion4",publicacion4)  
+    $('.r_speed_index').text(publicacion4.speed_index); 
 
     if(id_categoria == 3) {
       $("#r_peso,#r_potencia,#r_cilindrada,#r_torque,#r_consumo,#r_transmission,#r_fuel,#r_traction,#r_patente,#r_chasis,#r_motor,#r_factory_code,#r_km").hide();    
@@ -997,11 +999,11 @@ function resumePublication(step,save){
     if(publicacion4.speed_index==''){   
       $("#r_speed_index").hide();
     }
-  if(step==3){ 
+    if(step==3 || step==2 ){
       var imgPreview = document.getElementById('image-preview');
     
       $('.upload-container .uploaded-image').each(function() {
-        if(aaa==0){
+        if(aaa==0 && idPreview== ''){
           idPreview = $(this).attr('id');
         } 
         aaa++;
@@ -1103,8 +1105,7 @@ function registerPublication3(){
       xhr.setRequestHeader('Authorization', 'Bearer ' + token);
     },
     success: function(response) {
-      // Manejar la respuesta del servidor en 'response'
-      console.log(response);
+      // Manejar la respuesta del servidor en 'response' 
       registerPublication4()
     },
     error: function(response,xhr, textStatus, errorThrown) {
@@ -1124,8 +1125,7 @@ function registerPublication3(){
 }
 
 function registerPublication4(){ 
- var url = '<?=$baseUrl?>/register_product_dimensions';  
- console.log("PUBLICACION 4 DIMENSIONES",publicacion4)
+ var url = '<?=$baseUrl?>/register_product_dimensions';   
   var token = '<?= $_SESSION["token"]; ?>';
   $.ajax({
     url: url,
@@ -1218,6 +1218,10 @@ function deleteImagenOne(nameImagen) {
                 bbb = i; 
                 cover = true;
                }
+               if(idPreview=='' && i==0){
+                bbb = i; 
+                cover = true;  
+               }
             var orden = i +1;   
             $.ajax({
                 type: "POST",
@@ -1235,9 +1239,9 @@ function deleteImagenOne(nameImagen) {
                 
                     if(save_public){   
                       $confirmPublicSaleBtn
-                  .prop('disabled', false)
-                  .html('Confirmar y publicar')
-                  .removeClass('disabled');                   
+                      .prop('disabled', false)
+                      .html('Confirmar y publicar')
+                      .removeClass('disabled');                   
                         sendDataResume(imgArray[bbb]);  
                       
                     }else{
@@ -1291,7 +1295,7 @@ function deleteImagenOne(nameImagen) {
 
 var imgArray = [];
 function edit_publi_sale(){ 
-  console.log("edicion de publicacion salee...")
+  console.log("edicion de publicacion sale..")
    
   var id_='<?= isset($_GET['id']) &&  $_GET['id']!= '' ? $_GET['id'] : ''; ?>';
   var url= '<?=$baseUrl?>/list_publications_panel_details?id=' + id_;
@@ -1621,6 +1625,8 @@ const insertIndex = imageContainer.children.length > 1 ? 1 : 0;
                   }) 
 
                  galleryIcon.addEventListener('click', function () { 
+                  var containerId = $(this).closest('.uploaded-image').attr('id'); 
+                    idPreview = containerId;
                     const firstChild = imageContainer.firstChild; 
                     imageContainer.insertBefore(imgContainer, firstChild); 
                     imgContainer.parentNode.insertBefore(firstChild, imgContainer.nextSibling);
